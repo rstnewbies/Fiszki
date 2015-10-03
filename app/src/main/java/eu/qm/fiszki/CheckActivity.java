@@ -2,11 +2,11 @@ package eu.qm.fiszki;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+//// TODO: 2015-10-03 Dodanie akceptacji słowa Enterem 
 public class CheckActivity extends AppCompatActivity {
 
     @Override
@@ -20,16 +20,14 @@ public class CheckActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_check, menu);
         return true;
     }
-
+    //Do "WordFromData" wprowadzi sie dane z bazy danych.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         String WordFromData = "Gall";
         EditText EnteredWord = (EditText)findViewById(R.id.EnteredWord);
-        CheckerClass investigator;
-        investigator = new CheckerClass();
-        AlertClass message;
-        message = new AlertClass();
+        CheckerClass investigator = new CheckerClass();
+        AlertClass message = new AlertClass();
 
         if (id == R.id.action_OK) {
            if(investigator.Check(WordFromData,EnteredWord)){
