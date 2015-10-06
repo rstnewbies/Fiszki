@@ -12,9 +12,11 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="eu.qm.fiszki.intent.action.Add_Word"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".Add_Word" >
         </activity>
     </application>
 
