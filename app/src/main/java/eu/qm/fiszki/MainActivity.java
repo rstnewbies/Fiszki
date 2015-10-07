@@ -4,13 +4,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
+
+    /*
+    EditText slowo, tlumaczenie;
+    DBAdapter myDb;
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*
+        slowo = (EditText) findViewById(R.id.addWord);
+        tlumaczenie = (EditText) findViewById(R.id.addTranslation);
+        openDB();
+        populateListView();
+        */
+
     }
 
     @Override
@@ -34,4 +48,40 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    /*
+    private void openDB()
+    {
+        myDb = new DBAdapter(this);
+        myDb.open();
+    }
+
+    private void closeDB()
+    {
+        myDb = new DBAdapter(this);
+        myDb.close();
+    }
+
+    public void onClick_Add(View v)
+    {
+        if(!TextUtils.isEmpty(slowo.getText()) || !TextUtils.isEmpty(tlumaczenie.getText()))
+        {
+            myDb.insertRow(slowo.getText().toString(), tlumaczenie.getText().toString());
+        }
+        slowo.setText(null);
+        tlumaczenie.setText(null);
+        populateListView();
+    }
+
+    private void populateListView()
+    {
+        Cursor cursor = myDb.getAllRows();
+        String[] fromFieldNames = new String[] {DBAdapter.KEY_ROWID,DBAdapter.KEY_WORD, DBAdapter.KEY_TRANSLATION};
+        int[] toViewIDs = new int[] {R.id.number, R.id.word, R.id.translation};
+        SimpleCursorAdapter myCursorAdapter;
+        myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout, cursor, fromFieldNames, toViewIDs, 0);
+        ListView myList = (ListView) findViewById(R.id.listView);
+        myList.setAdapter(myCursorAdapter);
+    }
+     */
 }
