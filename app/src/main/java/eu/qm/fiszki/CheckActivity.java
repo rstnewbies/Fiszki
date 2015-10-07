@@ -24,17 +24,17 @@ public class CheckActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        String WordFromData = "Gall";
-        EditText EnteredWord = (EditText)findViewById(R.id.EnteredWord);
+        String wordFromData = "Gall";
+        EditText enteredWord = (EditText)findViewById(R.id.EnteredWord);
         CheckerClass investigator = new CheckerClass();
         AlertClass message = new AlertClass();
 
         if (id == R.id.action_OK) {
-           if(investigator.Check(WordFromData,EnteredWord)){
-                message.Pass(this,getString(R.string.alert_pass));
+           if(investigator.Check(wordFromData,enteredWord.getText().toString())){
+                message.Pass(this,getString(R.string.alert_message_pass),getString(R.string.alert_title_pass),getString(R.string.alert_nameButton_OK));
            }
            else{
-                message.Fail(this,WordFromData,getString(R.string.alert_fail));
+                message.Fail(this,wordFromData,getString(R.string.alert_message_fail),getString(R.string.alert_title_fail),getString(R.string.alert_nameButton_OK));
            }
         }
         return super.onOptionsItemSelected(item);

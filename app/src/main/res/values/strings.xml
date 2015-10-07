@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">Fiszki</string>
-
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_check">Sprawdzanie</string>
     <string name="action_OK">✔</string>
-    <string name="alert_pass">Udało Ci się przetłumaczyć.</string>
-    <string name="alert_fail">Podałeś nie poprawny wyraz. Poprawnie to </string>
+    <string name="alert_message_pass">Udało Ci się przetłumaczyć.</string>
+    <string name="alert_message_fail">Podałeś nie poprawny wyraz. Poprawnie to </string>
+    <string name="alert_title_fail">Niestety.</string>
+    <string name="alert_title_pass">Gratulacje.</string>
+    <string name="alert_nameButton_OK">OK.</string>
+    <string name="PL_translateName">Przetłumacz to: </string>
 </resources>

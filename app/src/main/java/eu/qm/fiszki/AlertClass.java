@@ -7,18 +7,13 @@ import android.content.DialogInterface;
 //// TODO: 2015-10-03 Dadanie cofnięcia do MainActivity po zamknięciu allertDialog. 
 public class AlertClass {
 
-    String OriginalWord;
-    Context Window;
-    String Message;
-
-    public void Pass(Context activActivity, String message) {
-        Message = message;
-        Window = activActivity;
+    public void Pass(Context activActivity, String message, String title,
+                     String nameButton) {
         final AlertDialog alertDialog;
-        alertDialog = new AlertDialog.Builder(Window).create();
-        alertDialog.setTitle("Gratulacje");
-        alertDialog.setMessage(Message);
-        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+        alertDialog = new AlertDialog.Builder(activActivity).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 
@@ -27,23 +22,18 @@ public class AlertClass {
         alertDialog.show();
     }
 
-    public void Fail(Context activActivity,String OrginalWord,String message) {
-        Message = message;
-        OriginalWord = OrginalWord;
-        Window = activActivity;
+    public void Fail(Context activActivity,String orginalWord,String message, String title,
+                     String nameButton) {
         AlertDialog alertDialog;
-        alertDialog = new AlertDialog.Builder(Window).create();
-        alertDialog.setTitle("Niestety");
-        alertDialog.setMessage(Message + " " + OriginalWord);
-        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+        alertDialog = new AlertDialog.Builder(activActivity).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message + " " + orginalWord);
+        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
             }
         });
         alertDialog.show();
-
     }
-
-
 }
