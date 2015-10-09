@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,7 +11,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:id="@+id/frameLayout">
-
 
         <ImageButton
             android:layout_margin="15dp"
@@ -24,8 +22,6 @@
             android:layout_gravity="right|bottom"
             android:onClick="dodajNoweSlowko"
             />
-
-
     </FrameLayout>
 </RelativeLayout>
 
