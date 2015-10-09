@@ -1,9 +1,12 @@
 package eu.qm.fiszki;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,4 +31,19 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void dodajNoweSlowko(View view){
+
+        {Toast.makeText(getBaseContext(),
+                "Dodaj nowe słówko",
+                Toast.LENGTH_SHORT).show();}
+        {
+
+            // Start NewActivity.class
+            Intent myIntent = new Intent(MainActivity.this,
+                    Add_Word.class);
+            startActivity(myIntent);
+        }
+    }
+
 }
