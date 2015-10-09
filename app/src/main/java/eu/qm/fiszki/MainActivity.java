@@ -72,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
         String[] fromFieldNames = new String[] {DBAdapter.KEY_WORD, DBAdapter.KEY_TRANSLATION};
         int[] toViewIDs = new int[] {R.id.word, R.id.translation};
         SimpleCursorAdapter myCursorAdapter;
-        myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout, cursor, fromFieldNames, toViewIDs, 0);
+        myCursorAdapter = new SimpleCursorAdapter(getBaseContext(),
+                R.layout.item_layout, cursor, fromFieldNames, toViewIDs, 0);
         ListView myList = (ListView) findViewById(R.id.listView);
         myList.setAdapter(myCursorAdapter);
     }
