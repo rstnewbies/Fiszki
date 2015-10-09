@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
     private void populateListView()
     {
         Cursor cursor = myDb.getAllRows();
-        String[] fromFieldNames = new String[] {DBAdapter.KEY_ROWID,DBAdapter.KEY_WORD, DBAdapter.KEY_TRANSLATION};
-        int[] toViewIDs = new int[] {R.id.number, R.id.word, R.id.translation};
+        String[] fromFieldNames = new String[] {DBAdapter.KEY_WORD, DBAdapter.KEY_TRANSLATION};
+        int[] toViewIDs = new int[] {R.id.word, R.id.translation};
         SimpleCursorAdapter myCursorAdapter;
         myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout, cursor, fromFieldNames, toViewIDs, 0);
         ListView myList = (ListView) findViewById(R.id.listView);
