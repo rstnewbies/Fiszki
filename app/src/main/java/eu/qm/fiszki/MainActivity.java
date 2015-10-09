@@ -2,22 +2,41 @@ package eu.qm.fiszki;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 
 
 public class MainActivity extends AppCompatActivity {
 
+    DBAdapter myDb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        openDB();
+        populateListView();
     }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        populateListView();
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -41,4 +60,29 @@ public class MainActivity extends AppCompatActivity {
                     Add_Word.class);
             startActivity(myIntent);
     }
+
+    private void openDB()
+    {
+        myDb = new DBAdapter(this);
+        myDb.open();
+    }
+
+    private void closeDB()
+    {
+        myDb = new DBAdapter(this);
+        myDb.close();
+    }
+
+    private void populateListView()
+    {
+        Cursor cursor = myDb.getAllRows();
+        String[] fromFieldNames = new String[] {DBAdapter.KEY_ROWID,DBAdapter.KEY_WORD, DBAdapter.KEY_TRANSLATION};
+        int[] toViewIDs = new int[] {R.id.number, R.id.word, R.id.translation};
+        SimpleCursorAdapter myCursorAdapter;
+        myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout, cursor, fromFieldNames, toViewIDs, 0);
+        ListView myList = (ListView) findViewById(R.id.listView);
+        myList.setAdapter(myCursorAdapter);
+    }
+
+
 }
