@@ -16,7 +16,7 @@
                 <action android:name="eu.qm.fiszki.intent.action.Add_Word"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Add_Word"
+        <activity android:name=".AddWordActivity"
             android:label="@string/add_new_word_title">
         </activity>
         <activity

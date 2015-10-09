@@ -11,4 +11,5 @@
     <string name="alert_nameButton_OK">OK.</string>
     <string name="PL_translateName">Przetłumacz to: </string>
     <string name="add_new_word_title">Dodaj nowe słowo: </string>
+    <string name="add_new_word_button">+</string>
 </resources>

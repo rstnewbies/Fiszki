@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.Random;
+
 public class DBAdapter {
 
     private static final String TAG = "DBAdapter";
