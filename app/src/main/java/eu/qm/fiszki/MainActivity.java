@@ -1,6 +1,5 @@
 package eu.qm.fiszki;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,11 +11,14 @@ import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
+    TimerClass timer = new TimerClass();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        timer.start(this,5000);
+
     }
 
     @Override
@@ -37,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void dodajNoweSlowko(View view) {
-            Intent myIntent = new Intent(MainActivity.this,
-                    Add_Word.class);
+            Intent myIntent = new Intent(MainActivity.this, Add_Word.class);
             startActivity(myIntent);
+
     }
 }
