@@ -13,14 +13,14 @@ import android.widget.SimpleCursorAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    DBAdapter myDb;
+    DBAdapter myDb = new DBAdapter(this);
+    OpenDataBaseClass openDataBase = new OpenDataBaseClass();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        openDB();
+        openDataBase.openDB(myDb);
         populateListView();
     }
 
@@ -52,18 +52,6 @@ public class MainActivity extends AppCompatActivity {
             Intent myIntent = new Intent(MainActivity.this,
                     AddWordActivity.class);
             startActivity(myIntent);
-    }
-
-    private void openDB()
-    {
-        myDb = new DBAdapter(this);
-        myDb.open();
-    }
-
-    private void closeDB()
-    {
-        myDb = new DBAdapter(this);
-        myDb.close();
     }
 
     private void populateListView()
