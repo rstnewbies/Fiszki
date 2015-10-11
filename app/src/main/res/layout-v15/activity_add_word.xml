@@ -4,7 +4,7 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context="eu.qm.fiszki.Add_Word">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context="eu.qm.fiszki.AddWordActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,7 +19,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/inputWord"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -30,7 +30,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Tłumaczenie"
         android:id="@+id/textView2"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/inputWord"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="28dp" />
@@ -38,8 +38,9 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2"
+        android:id="@+id/inputTranslation"
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
 </RelativeLayout>
