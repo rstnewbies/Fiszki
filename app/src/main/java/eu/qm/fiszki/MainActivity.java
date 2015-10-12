@@ -33,23 +33,6 @@ public class MainActivity extends AppCompatActivity {
         populateListView();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(MainActivity.this, CheckActivity.class);
-            startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     public void dodajNoweSlowko(View view) {
 
             Intent myIntent = new Intent(MainActivity.this, AddWordActivity.class);
