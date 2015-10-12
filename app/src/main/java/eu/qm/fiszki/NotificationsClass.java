@@ -8,23 +8,22 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v7.app.NotificationCompat;
-
-/**
- * Created by Siusiacz on 2015-10-10.
- */
 public class NotificationsClass {
-    public void CreateNotification(Context window,String notificationMessage,String notificationTitle) {
-        Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        PendingIntent intent = PendingIntent.getActivity(window, 100, new Intent(window, CheckActivity.class), 0);
+    public void CreateNotification(Context window,String notificationMessage,
+                                   String notificationTitle) {
+        Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+        PendingIntent intent = PendingIntent.getActivity(window, 100, new Intent(window,
+                                                         CheckActivity.class), 0);
+
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(window);
         mBuilder.setSmallIcon(R.drawable.ic_add_black_18dp);
         mBuilder.setSound(sound);
         mBuilder.setContentTitle(notificationTitle);
         mBuilder.setContentText(notificationMessage);
         mBuilder.setContentIntent(intent);
-        NotificationManager nm = (NotificationManager) window.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        NotificationManager nm =
+                (NotificationManager) window.getSystemService(Context.NOTIFICATION_SERVICE);
         nm.notify(100,mBuilder.build());
-
     }
-
 }
