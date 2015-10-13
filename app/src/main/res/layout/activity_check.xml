@@ -20,22 +20,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Angielski"
-        android:id="@+id/textView2"
-        android:layout_marginTop="24dp"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="ŻÓŁĆ"
+        android:text=""
         android:id="@+id/textView3"
         android:layout_marginTop="39dp"
         android:textSize="50dp"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView" />
 
     <EditText
         android:layout_width="wrap_content"

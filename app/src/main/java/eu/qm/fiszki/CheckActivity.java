@@ -1,40 +1,66 @@
 package eu.qm.fiszki;
 
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 //// TODO: 2015-10-03 Dodanie akceptacji słowa Enterem 
 public class CheckActivity extends AppCompatActivity {
 
+    DBAdapter myDb;
+    TextView word;
+    EditText enteredWord;
+    String wordFromData;
+    String expectedWord;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check);
+
+        openDB();
+        Cursor c = myDb.getRandomRow();
+            wordFromData = c.getString(c.getColumnIndex(myDb.KEY_WORD));
+            expectedWord = c.getString(c.getColumnIndex(myDb.KEY_TRANSLATION));
+            enteredWord = (EditText) findViewById(R.id.EnteredWord);
+            word = (TextView) findViewById(R.id.textView3);
+            word.append(wordFromData);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.menu_check, menu);
         return true;
     }
-    //Do "WordFromData" wprowadzi sie dane z bazy danych.
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        String wordFromData = "Gall";
-        EditText enteredWord = (EditText)findViewById(R.id.EnteredWord);
-        CheckerClass investigator = new CheckerClass();
-        AlertClass message = new AlertClass();
 
-        if (id == R.id.action_OK) {
-           if(investigator.Check(wordFromData,enteredWord.getText().toString())){
+    private void openDB()
+    {
+        myDb = new DBAdapter(this);
+        myDb.open();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+        AlertClass message = new AlertClass();
+        CheckerClass check = new CheckerClass();
+        if (id == R.id.action_OK)
+        {
+           if(check.Check(expectedWord, enteredWord.getText().toString()))
+           {
                 message.Pass(this,getString(R.string.alert_message_pass),getString(R.string.alert_title_pass),getString(R.string.alert_nameButton_OK));
            }
-           else{
-                message.Fail(this,wordFromData,getString(R.string.alert_message_fail),getString(R.string.alert_title_fail),getString(R.string.alert_nameButton_OK));
+           else
+           {
+                message.Fail(this,expectedWord,getString(R.string.alert_message_fail),getString(R.string.alert_title_fail),getString(R.string.alert_nameButton_OK));
            }
         }
         return super.onOptionsItemSelected(item);

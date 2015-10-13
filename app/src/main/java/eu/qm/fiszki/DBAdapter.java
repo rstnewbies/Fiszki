@@ -72,6 +72,30 @@ public class DBAdapter {
     {
         String where = null;
         Cursor c = db.query(true, DATABASE_TABLE, ALL_KEYS, where, null, null, null, null, null);
+        if (c != null)
+        {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+    //TODO: to sie sypnie jak usune jakis wiersz
+    public int rowCount()
+    {
+        String countQuery = "SELECT  * FROM " + DATABASE_TABLE;
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int cnt = cursor.getCount();
+        cursor.close();
+        return cnt;
+    }
+
+    public Cursor getRandomRow()
+    {
+        Random rand = new Random();
+        int rowId = rand.nextInt(rowCount())+1;
+        String where = KEY_ROWID + "=" + rowId;
+        Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS,
+                where, null, null, null, null, null);
         if (c != null) {
             c.moveToFirst();
         }
