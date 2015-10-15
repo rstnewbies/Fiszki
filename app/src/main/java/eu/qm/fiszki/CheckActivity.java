@@ -57,6 +57,7 @@ public class CheckActivity extends AppCompatActivity {
            if(check.Check(expectedWord, enteredWord.getText().toString()))
            {
                 message.Pass(this,getString(R.string.alert_message_pass),getString(R.string.alert_title_pass),getString(R.string.alert_nameButton_OK));
+               finish();
            }
            else
            {

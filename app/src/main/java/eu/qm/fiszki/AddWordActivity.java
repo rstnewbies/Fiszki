@@ -11,7 +11,8 @@ import android.widget.EditText;
 public class AddWordActivity extends AppCompatActivity {
 
     EditText inputWord, inputTranslation;
-    DBAdapter myDb;
+    DBAdapter myDb = new DBAdapter(this);
+    OpenDataBaseClass OpenDataBase= new OpenDataBaseClass();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,7 @@ public class AddWordActivity extends AppCompatActivity {
 
         inputWord = (EditText) findViewById(R.id.inputWord);
         inputTranslation = (EditText) findViewById(R.id.inputTranslation);
-        openDB();
+        OpenDataBase.openDB(myDb);
     }
 
     @Override
@@ -44,12 +45,6 @@ public class AddWordActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void openDB()
-    {
-        myDb = new DBAdapter(this);
-        myDb.open();
     }
 
     private void closeDB()

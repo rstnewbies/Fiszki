@@ -12,4 +12,8 @@
     <string name="PL_translateName">Przetłumacz to: </string>
     <string name="add_new_word_title">Dodaj nowe słowo: </string>
     <string name="add_new_word_button">+</string>
+    <string name="notification_title">Czas na naukę.</string>
+    <string name="notification_message">Przyszedł czas na przetłumaczenie słowa. To pozwoli Ci
+                                        szybciej się nauczyć danego języka</string>
+
 </resources>

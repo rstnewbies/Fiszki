@@ -2,4 +2,5 @@
 <resources>
     <color name="ColorPrimary">#FFC400</color>
     <color name="ColorPrimaryDark">#FFAB00</color>
+    <color name="TheBlackestBlack">#0000CC</color>
 </resources>
