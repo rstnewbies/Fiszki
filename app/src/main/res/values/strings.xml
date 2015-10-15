@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Fiszki</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name" translatable="false">Fiszki</string>
+    <string name="hello_world">Witaj świecie!</string>
+    <string name="action_settings">Ustawienia</string>
     <string name="title_activity_check">Sprawdzanie</string>
     <string name="action_OK">✔</string>
     <string name="alert_message_pass">Udało Ci się przetłumaczyć.</string>
@@ -15,5 +15,8 @@
     <string name="notification_title">Czas na naukę.</string>
     <string name="notification_message">Przyszedł czas na przetłumaczenie słowa. To pozwoli Ci
                                         szybciej się nauczyć danego języka</string>
+    <string name="translation_word">Słówko</string>
+    <string name="translation_info">Tłumaczenie</string>
+    <string name="translation_language">Angielski</string>
 
 </resources>
