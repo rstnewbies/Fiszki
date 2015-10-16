@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        timer.start(this,60000,getString(R.string.notification_message),getString(R.string.notification_title));
+        timer.start(this,30000,getString(R.string.notification_message),getString(R.string.notification_title));
         openDataBase.openDB(myDb);
         populateListView();
     }

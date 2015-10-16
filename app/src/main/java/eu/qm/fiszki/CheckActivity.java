@@ -56,12 +56,13 @@ public class CheckActivity extends AppCompatActivity {
         {
            if(check.Check(expectedWord, enteredWord.getText().toString()))
            {
-                message.Pass(this,getString(R.string.alert_message_pass),getString(R.string.alert_title_pass),getString(R.string.alert_nameButton_OK));
-               finish();
+                message.Pass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.alert_nameButton_OK));
+               this.finish();
            }
            else
            {
-                message.Fail(this,expectedWord,getString(R.string.alert_message_fail),getString(R.string.alert_title_fail),getString(R.string.alert_nameButton_OK));
+                message.Fail(this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+               this.finish();
            }
         }
         return super.onOptionsItemSelected(item);
