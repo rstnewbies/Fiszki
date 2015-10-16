@@ -1,4 +1,4 @@
-package eu.qm.fiszki;
+package eu.qm.fiszki.ActivityContainer;
 
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
@@ -7,14 +7,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import eu.qm.fiszki.AlertClass;
+import eu.qm.fiszki.CheckerClass;
+import eu.qm.fiszki.DataBaseContainer.DBAdapter;
+import eu.qm.fiszki.DataBaseContainer.DBModel;
+import eu.qm.fiszki.DataBaseContainer.DBOperations;
+import eu.qm.fiszki.DataBaseContainer.DBStatus;
+import eu.qm.fiszki.R;
 
 //// TODO: 2015-10-03 Dodanie akceptacji słowa Enterem 
 public class CheckActivity extends AppCompatActivity {
 
-    DBAdapter myDb;
     TextView word;
     EditText enteredWord;
+    DBAdapter myDb = new DBAdapter(this);
+    DBOperations myDbo;
+    DBStatus OpenDataBase = new DBStatus();
+
     String wordFromData;
     String expectedWord;
 
@@ -24,10 +34,10 @@ public class CheckActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check);
 
-        openDB();
-        Cursor c = myDb.getRandomRow();
-            wordFromData = c.getString(c.getColumnIndex(myDb.KEY_WORD));
-            expectedWord = c.getString(c.getColumnIndex(myDb.KEY_TRANSLATION));
+        OpenDataBase.openDB(myDb);
+        Cursor c = myDbo.getRandomRow();
+            wordFromData = c.getString(c.getColumnIndex(DBModel.KEY_WORD));
+            expectedWord = c.getString(c.getColumnIndex(DBModel.KEY_TRANSLATION));
             enteredWord = (EditText) findViewById(R.id.EnteredWord);
             word = (TextView) findViewById(R.id.textView3);
             word.append(wordFromData);
@@ -40,12 +50,6 @@ public class CheckActivity extends AppCompatActivity {
         return true;
     }
 
-    private void openDB()
-    {
-        myDb = new DBAdapter(this);
-        myDb.open();
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -56,8 +60,7 @@ public class CheckActivity extends AppCompatActivity {
         {
            if(check.Check(expectedWord, enteredWord.getText().toString()))
            {
-                message.Pass(this,getString(R.string.alert_message_pass),getString(R.string.alert_title_pass),getString(R.string.alert_nameButton_OK));
-               finish();
+                message.Pass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.alert_nameButton_OK));
            }
            else
            {
