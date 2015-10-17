@@ -1,11 +1,14 @@
 package eu.qm.fiszki;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 public class AddWordActivity extends AppCompatActivity {
@@ -20,6 +23,8 @@ public class AddWordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_word);
 
         inputWord = (EditText) findViewById(R.id.inputWord);
+        inputWord.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         inputTranslation = (EditText) findViewById(R.id.inputTranslation);
         OpenDataBase.openDB(myDb);
     }

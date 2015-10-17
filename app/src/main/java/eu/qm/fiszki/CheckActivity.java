@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,8 @@ public class CheckActivity extends AppCompatActivity {
             enteredWord = (EditText) findViewById(R.id.EnteredWord);
             word = (TextView) findViewById(R.id.textView3);
             word.append(wordFromData);
+        enteredWord.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     @Override

@@ -23,6 +23,7 @@
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+    <requestFocus />
 
     <TextView
         android:layout_width="wrap_content"
