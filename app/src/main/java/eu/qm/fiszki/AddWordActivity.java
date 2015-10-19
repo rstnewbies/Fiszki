@@ -2,6 +2,7 @@ package eu.qm.fiszki;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +21,9 @@ public class AddWordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_word);
 
         inputWord = (EditText) findViewById(R.id.inputWord);
+        inputWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         inputTranslation = (EditText) findViewById(R.id.inputTranslation);
+        inputTranslation.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         OpenDataBase.openDB(myDb);
     }
 
