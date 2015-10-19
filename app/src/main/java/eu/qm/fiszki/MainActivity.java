@@ -12,7 +12,7 @@ import android.widget.SimpleCursorAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
-    TimerClass timer = new TimerClass();
+    TimerClass Timer = new TimerClass();
 
     DBAdapter myDb = new DBAdapter(this);
     OpenDataBaseClass openDataBase = new OpenDataBaseClass();
@@ -21,9 +21,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        timer.start(this,60000,getString(R.string.notification_message),getString(R.string.notification_title));
         openDataBase.openDB(myDb);
         populateListView();
+        Timer.start(this, 30000, getString(R.string.notification_message),
+                    getString(R.string.notification_title),myDb);
     }
 
     @Override
