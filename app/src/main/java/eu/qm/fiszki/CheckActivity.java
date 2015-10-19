@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,8 @@ public class CheckActivity extends AppCompatActivity {
             enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
             word = (TextView) findViewById(R.id.textView3);
             word.append(wordFromData);
+        enteredWord.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     @Override
