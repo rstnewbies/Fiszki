@@ -3,6 +3,7 @@ package eu.qm.fiszki;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -29,6 +30,7 @@ public class CheckActivity extends AppCompatActivity {
             wordFromData = c.getString(c.getColumnIndex(myDb.KEY_WORD));
             expectedWord = c.getString(c.getColumnIndex(myDb.KEY_TRANSLATION));
             enteredWord = (EditText) findViewById(R.id.EnteredWord);
+            enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
             word = (TextView) findViewById(R.id.textView3);
             word.append(wordFromData);
     }
