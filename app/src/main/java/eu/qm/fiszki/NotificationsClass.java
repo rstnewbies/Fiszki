@@ -14,7 +14,7 @@ public class NotificationsClass {
         long[] vibrate = {0,200,100,200};
         PendingIntent intent = PendingIntent.getActivity(window, 100, new Intent(window,
                                                          CheckActivity.class), 0);
-        Uri sound = Uri.parse("android.resource://" + window.getPackageName() + "/" + R.raw.abel);
+        Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(window);
         mBuilder.setSmallIcon(R.drawable.ic_add_black_18dp);
         mBuilder.setSound(sound);
