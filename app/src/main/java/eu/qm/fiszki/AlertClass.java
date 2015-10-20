@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import eu.qm.fiszki.ActivityContainer.CheckActivity;
+
 //// TODO: 2015-10-03 Dadanie cofnięcia do MainActivity po zamknięciu allertDialog. 
 public class AlertClass {
 
@@ -15,8 +17,9 @@ public class AlertClass {
         alertDialog.setMessage(message);
         alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                
+            public void onClick(DialogInterface dialog, int which)
+            {
+                CheckActivity.getInstance().finish();
             }
         });
         alertDialog.show();

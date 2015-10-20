@@ -12,7 +12,6 @@ import eu.qm.fiszki.AlertClass;
 import eu.qm.fiszki.CheckerClass;
 import eu.qm.fiszki.DataBaseContainer.DBAdapter;
 import eu.qm.fiszki.DataBaseContainer.DBModel;
-import eu.qm.fiszki.DataBaseContainer.DBOperations;
 import eu.qm.fiszki.DataBaseContainer.DBStatus;
 import eu.qm.fiszki.R;
 
@@ -22,11 +21,12 @@ public class CheckActivity extends AppCompatActivity {
     TextView word;
     EditText enteredWord;
     DBAdapter myDb = new DBAdapter(this);
-    DBOperations myDbo;
     DBStatus OpenDataBase = new DBStatus();
 
     String wordFromData;
     String expectedWord;
+
+    static CheckActivity checkerActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,8 +34,10 @@ public class CheckActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check);
 
+        checkerActivity = this;
+
         OpenDataBase.openDB(myDb);
-        Cursor c = myDbo.getRandomRow();
+        Cursor c = myDb.getRandomRow();
             wordFromData = c.getString(c.getColumnIndex(DBModel.KEY_WORD));
             expectedWord = c.getString(c.getColumnIndex(DBModel.KEY_TRANSLATION));
             enteredWord = (EditText) findViewById(R.id.EnteredWord);
@@ -68,5 +70,10 @@ public class CheckActivity extends AppCompatActivity {
            }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static CheckActivity getInstance()
+    {
+        return checkerActivity;
     }
 }

@@ -9,7 +9,7 @@ public class DBStatus {
         dataAdapter.open();
     }
 
-    private void closeDB(DBAdapter dataAdapter)
+    public void closeDB(DBAdapter dataAdapter)
     {
         dataAdapter.close();
     }

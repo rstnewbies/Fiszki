@@ -10,7 +10,6 @@ import android.widget.SimpleCursorAdapter;
 
 import eu.qm.fiszki.DataBaseContainer.DBAdapter;
 import eu.qm.fiszki.DataBaseContainer.DBModel;
-import eu.qm.fiszki.DataBaseContainer.DBOperations;
 import eu.qm.fiszki.DataBaseContainer.DBStatus;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.TimerClass;
@@ -19,7 +18,6 @@ import eu.qm.fiszki.TimerClass;
 public class MainActivity extends AppCompatActivity {
 
     TimerClass timer = new TimerClass();
-    DBOperations myDbo;
     DBAdapter myDb = new DBAdapter(this);
     DBStatus openDataBase = new DBStatus();
 
@@ -39,15 +37,22 @@ public class MainActivity extends AppCompatActivity {
         populateListView();
     }
 
-    public void dodajNoweSlowko(View view) {
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        openDataBase.closeDB(myDb);
+    }
 
-            Intent myIntent = new Intent(MainActivity.this, AddWordActivity.class);
-            startActivity(myIntent);
+    public void dodajNoweSlowko(View view)
+    {
+        Intent myIntent = new Intent(MainActivity.this, AddWordActivity.class);
+        startActivity(myIntent);
     }
 
     private void populateListView()
     {
-        Cursor cursor = myDbo.getAllRows();
+        Cursor cursor = myDb.getAllRows();
         String[] fromFieldNames = new String[] {DBModel.KEY_WORD, DBModel.KEY_TRANSLATION};
         int[] toViewIDs = new int[] {R.id.word, R.id.translation};
         SimpleCursorAdapter myCursorAdapter;
