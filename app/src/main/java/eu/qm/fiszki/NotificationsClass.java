@@ -9,6 +9,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v7.app.NotificationCompat;
 public class NotificationsClass {
+
     public void CreateNotification(Context window,String notificationMessage,
                                    String notificationTitle) {
         long[] vibrate = {0,200,100,200};
