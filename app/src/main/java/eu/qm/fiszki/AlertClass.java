@@ -15,11 +15,12 @@ public class AlertClass {
         alertDialog = new AlertDialog.Builder(activActivity).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
-        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
+        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener()
+        {
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                CheckActivity.getInstance().finish();
+               
             }
         });
         alertDialog.show();
@@ -31,9 +32,11 @@ public class AlertClass {
         alertDialog = new AlertDialog.Builder(activActivity).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(message + " " + orginalWord);
-        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
+        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener()
+        {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialog, int which)
+            {
 
             }
         });

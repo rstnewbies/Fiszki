@@ -28,4 +28,9 @@ public class NotificationsClass {
                 (NotificationManager) window.getSystemService(Context.NOTIFICATION_SERVICE);
         nm.notify(100,mBuilder.build());
     }
+    public static void cancelNotification(Context ctx, int notifyId) {
+        String ns = Context.NOTIFICATION_SERVICE;
+        NotificationManager nMgr = (NotificationManager) ctx.getSystemService(ns);
+        nMgr.cancel(100);
+    }
 }

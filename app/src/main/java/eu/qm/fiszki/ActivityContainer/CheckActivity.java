@@ -26,15 +26,11 @@ public class CheckActivity extends AppCompatActivity {
     String wordFromData;
     String expectedWord;
 
-    static CheckActivity checkerActivity;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check);
-
-        checkerActivity = this;
 
         OpenDataBase.openDB(myDb);
         Cursor c = myDb.getRandomRow();
@@ -70,10 +66,5 @@ public class CheckActivity extends AppCompatActivity {
            }
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public static CheckActivity getInstance()
-    {
-        return checkerActivity;
     }
 }

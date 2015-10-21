@@ -9,11 +9,19 @@ import android.util.Log;
 
 import java.util.Random;
 
+import eu.qm.fiszki.ActivityContainer.ItemAdapter;
+
 public class DBAdapter {
 
     private final Context context;
     private DatabaseHelper myDBHelper;
     private SQLiteDatabase db;
+
+    public DBAdapter(Context ctx)
+    {
+        this.context = ctx;
+        myDBHelper = new DatabaseHelper(context);
+    }
 
     public DBAdapter open()
     {
@@ -26,18 +34,17 @@ public class DBAdapter {
         myDBHelper.close();
     }
 
-    public DBAdapter(Context ctx)
-    {
-        this.context = ctx;
-        myDBHelper = new DatabaseHelper(context);
-    }
-
     public long insertRow(String word, String translate)
     {
         ContentValues initialValues = new ContentValues();
         initialValues.put(DBModel.KEY_WORD, word);
         initialValues.put(DBModel.KEY_TRANSLATION, translate);
         return db.insert(DBModel.DATABASE_TABLE, null, initialValues);
+    }
+
+    public long deleteRow(String id)
+    {
+        return db.delete(DBModel.DATABASE_TABLE, DBModel.KEY_ROWID +"="+ id ,null);
     }
 
     public Cursor getAllRows()
@@ -52,22 +59,22 @@ public class DBAdapter {
     }
 
     //TODO: to sie sypnie jak usune jakis wiersz
-    public int rowCount()
+    /*public int rowCount()
     {
         String countQuery = "SELECT  * FROM " + DBModel.DATABASE_TABLE;
         Cursor cursor = db.rawQuery(countQuery, null);
         int cnt = cursor.getCount();
         cursor.close();
         return cnt;
-    }
+    }*/
 
     public Cursor getRandomRow()
     {
-        Random rand = new Random();
-        int rowId = rand.nextInt(rowCount()) + 1;
-        String where = DBModel.KEY_ROWID + "=" + rowId;
+        //Random rand = new Random();
+        //int rowId = rand.nextInt(rowCount()) + 1;
+        //String where = DBModel.KEY_ROWID + "=" + rowId;
         Cursor c = db.query(true, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS,
-                where, null, null, null, null, null);
+                null, null,null, null, "RANDOM()", "1");
         if (c != null)
         {
             c.moveToFirst();
