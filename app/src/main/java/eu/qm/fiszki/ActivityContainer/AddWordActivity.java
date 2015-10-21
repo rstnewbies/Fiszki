@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import eu.qm.fiszki.DataBaseContainer.DBAdapter;
 import eu.qm.fiszki.DataBaseContainer.DBStatus;
@@ -38,8 +39,13 @@ public class AddWordActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_add_new_word) {
-            if (!TextUtils.isEmpty(inputWord.getText()) || !TextUtils.isEmpty(inputTranslation.getText())) {
+            if (!TextUtils.isEmpty(inputWord.getText().toString()) && !TextUtils.isEmpty(inputTranslation.getText().toString())) {
                 myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString());
+                Toast.makeText(getApplicationContext(), "Dodano rekord.", Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(), "Pola nie mogą być puste.", Toast.LENGTH_LONG).show();
             }
             inputWord.setText(null);
             inputTranslation.setText(null);
