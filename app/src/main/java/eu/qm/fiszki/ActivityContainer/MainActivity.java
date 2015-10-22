@@ -14,8 +14,8 @@ import eu.qm.fiszki.TimerClass;
 
 public class MainActivity extends AppCompatActivity {
 
-    TimerClass timer = new TimerClass();
     DBAdapter myDb = new DBAdapter(this);
+    TimerClass timer = new TimerClass(myDb);
     DBStatus openDataBase = new DBStatus();
 
     @Override
