@@ -5,21 +5,28 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Parcelable;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import java.util.Objects;
+import java.util.StringTokenizer;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    DBAdapter myDb = new DBAdapter(this);
+    public DBAdapter myDb = new DBAdapter(this);
     OpenDataBaseClass openDataBase = new OpenDataBaseClass();
-    NotificationsClass notifications;
+    NotificationsClass notifications = new NotificationsClass();
     PendingIntent pendingIntent;
     AlarmReceiverClass alarm;
     AlarmManager manager;
+    Intent alarmIntent;
+    public String notificationMassage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +36,13 @@ public class MainActivity extends AppCompatActivity {
         openDataBase.openDB(myDb);
         populateListView();
 
-        Intent alarmIntent = new Intent(MainActivity.this, AlarmReceiverClass.class);
+        alarmIntent = new Intent(MainActivity.this, AlarmReceiverClass.class);
+        alarmIntent.setAction(android.content.Intent.ACTION_VIEW);
         alarm = new AlarmReceiverClass();
         pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
         manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        notifications = new NotificationsClass();
-       // alarm.bridge(this,myDb,notifications,pendingIntent,getString(R.string.notification_message),
-       //         getString(R.string.notification_title));
-        alarm.start(manager, this, 30);
+
+        alarm.start(manager,this,pendingIntent,10);
     }
 
     @Override
@@ -64,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void notificationOff(View view) {
-        alarm.close(manager,pendingIntent,this);
+        alarm.close(manager,this,pendingIntent);
     }
 
 
