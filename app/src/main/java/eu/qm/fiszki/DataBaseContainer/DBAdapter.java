@@ -44,7 +44,20 @@ public class DBAdapter {
 
     public long deleteRow(String id)
     {
-        return db.delete(DBModel.DATABASE_TABLE, DBModel.KEY_ROWID +"="+ id ,null);
+        return db.delete(DBModel.DATABASE_TABLE, DBModel.KEY_ROWID + "=" + id, null);
+    }
+
+    public boolean getRowValue(String column, String text)
+    {
+        Cursor c = db.query(false, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS, column +"="+ "'"+text+"'", null, null, null, null, null);
+        if (c.getCount()>0)
+        {
+           return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public Cursor getAllRows()

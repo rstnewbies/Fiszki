@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import eu.qm.fiszki.DataBaseContainer.DBAdapter;
+import eu.qm.fiszki.DataBaseContainer.DBModel;
 import eu.qm.fiszki.DataBaseContainer.DBStatus;
 import eu.qm.fiszki.R;
 
@@ -39,7 +40,10 @@ public class AddWordActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_add_new_word) {
-            if (!TextUtils.isEmpty(inputWord.getText().toString()) && !TextUtils.isEmpty(inputTranslation.getText().toString())) {
+            if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString()) == true){
+                Toast.makeText(getApplicationContext(), "dana fiszka już istnieje", Toast.LENGTH_LONG).show();
+            }
+            else if (!TextUtils.isEmpty(inputWord.getText().toString()) && !TextUtils.isEmpty(inputTranslation.getText().toString())) {
                 myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString());
                 Toast.makeText(getApplicationContext(), "Dodano rekord.", Toast.LENGTH_LONG).show();
             }

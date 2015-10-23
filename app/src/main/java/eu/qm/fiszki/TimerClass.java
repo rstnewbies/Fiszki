@@ -27,7 +27,6 @@ public class TimerClass {
                     start();
                 }
             }
-
         };
         Count.start();
     }

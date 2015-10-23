@@ -5,8 +5,10 @@ import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CursorAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import eu.qm.fiszki.DataBaseContainer.DBAdapter;
@@ -38,10 +40,12 @@ public class ItemAdapter extends CursorAdapter
         TextView word = (TextView) view.findViewById(R.id.word);
         TextView translation = (TextView) view.findViewById(R.id.translation);
         Button deleteRowButton = (Button) view.findViewById(R.id.deleteRowButton);
+        //ListView listView = (ListView) view.findViewById(R.id.listView);
 
         final String idString = cursor.getString(cursor.getColumnIndexOrThrow(DBModel.KEY_ROWID));
         String wordString = cursor.getString(cursor.getColumnIndexOrThrow(DBModel.KEY_WORD));
         String translationString = cursor.getString(cursor.getColumnIndexOrThrow(DBModel.KEY_TRANSLATION));
+
 
         deleteRowButton.setOnClickListener(new View.OnClickListener()
         {
@@ -51,8 +55,18 @@ public class ItemAdapter extends CursorAdapter
                 refreshList();
             }
         });
+
         word.setText(wordString);
         translation.setText(translationString);
+    /*
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                newAdapter.deleteRow(idString);
+                refreshList();
+            }
+        });
+     */
     }
 
     public void refreshList()
