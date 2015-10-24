@@ -1,17 +1,17 @@
 package eu.qm.fiszki;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-//// TODO: 2015-10-03 Dadanie cofnięcia do MainActivity po zamknięciu allertDialog. 
 public class AlertClass {
 
-    public void Pass(final Context window, String message, String title,
+    public void Pass(final Context context, String message, String title,
                      String nameButton) {
         final AlertDialog alertDialog;
-        alertDialog = new AlertDialog.Builder(window).create();
+        alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
         alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
@@ -20,16 +20,18 @@ public class AlertClass {
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                window.startActivity(intent);
+                context.startActivity(intent);
+                ((Activity) context).finish();
+
             }
         });
         alertDialog.show();
     }
 
-    public void Fail(final Context window,String orginalWord,String message, String title,
+    public void Fail(final Context context,String orginalWord,String message, String title,
                      String nameButton) {
         AlertDialog alertDialog;
-        alertDialog = new AlertDialog.Builder(window).create();
+        alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(message + " " + orginalWord);
         alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
@@ -38,7 +40,8 @@ public class AlertClass {
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                window.startActivity(intent);
+                context.startActivity(intent);
+                ((Activity) context).finish();
             }
         });
         alertDialog.show();
