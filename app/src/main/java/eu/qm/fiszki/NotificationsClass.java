@@ -18,6 +18,7 @@ public class NotificationsClass {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(window);
         mBuilder.setSmallIcon(R.drawable.ic_add_black_18dp);
         mBuilder.setSound(sound);
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(notificationMessage));
         mBuilder.setContentTitle(notificationTitle);
         mBuilder.setContentText(notificationMessage);
         mBuilder.setContentIntent(intent);
@@ -25,6 +26,6 @@ public class NotificationsClass {
         mBuilder.setVibrate(vibrate);
         NotificationManager nm =
                 (NotificationManager) window.getSystemService(Context.NOTIFICATION_SERVICE);
-        nm.notify(100,mBuilder.build());
+        nm.notify(100, mBuilder.build());
     }
 }
