@@ -9,11 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
     TimerClass Timer = new TimerClass();
-
+    TextView small;
     DBAdapter myDb = new DBAdapter(this);
     OpenDataBaseClass openDataBase = new OpenDataBaseClass();
 
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         openDataBase.openDB(myDb);
         populateListView();
         Timer.start(this, 30000, getString(R.string.notification_message),
-                    getString(R.string.notification_title),myDb);
+                getString(R.string.notification_title), myDb);
     }
 
     @Override
@@ -32,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onResume();
         populateListView();
+        if(myDb.rowCount()>0) {
+            small = (TextView) findViewById(R.id.textView4);
+            small.setTextColor(getResources().getColor(android.R.color.transparent));
+        }
     }
 
     public void dodajNoweSlowko(View view) {
