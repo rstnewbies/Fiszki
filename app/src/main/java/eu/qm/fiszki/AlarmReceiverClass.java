@@ -13,26 +13,18 @@ import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 
 public class AlarmReceiverClass extends BroadcastReceiver{
-
+    DBAdapter newMyDb;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Bundle bundle = intent.getBundleExtra("bundle");
+        newMyDb = (DBAdapter) bundle.getSerializable("db");
 
-            long[] vibrate = {0, 200, 100, 200};
-            PendingIntent it = PendingIntent.getActivity(context, 100, new Intent(context,
-                    CheckActivity.class), 0);
-            Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
-            mBuilder.setSmallIcon(R.drawable.ic_add_black_18dp);
-            mBuilder.setSound(sound);
-            mBuilder.setContentTitle(context.getString(R.string.notification_title));
-            mBuilder.setContentText(context.getString(R.string.notification_message));
-            mBuilder.setContentIntent(it);
-            mBuilder.setAutoCancel(true);
-            mBuilder.setVibrate(vibrate);
-            NotificationManager nm =
-                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            nm.notify(100, mBuilder.build());
+        if(newMyDb.rowCount()>0){
+
+            Toast.makeText(context, "Wypierdol tosta", Toast.LENGTH_SHORT).show();
+        }
+
 
 
     }
