@@ -39,14 +39,14 @@ public class ItemAdapter extends CursorAdapter
     {
         TextView word = (TextView) view.findViewById(R.id.word);
         TextView translation = (TextView) view.findViewById(R.id.translation);
-        Button deleteRowButton = (Button) view.findViewById(R.id.deleteRowButton);
+       // Button deleteRowButton = (Button) view.findViewById(R.id.deleteRowButton);
         //ListView listView = (ListView) view.findViewById(R.id.listView);
 
         final String idString = cursor.getString(cursor.getColumnIndexOrThrow(DBModel.KEY_ROWID));
         String wordString = cursor.getString(cursor.getColumnIndexOrThrow(DBModel.KEY_WORD));
         String translationString = cursor.getString(cursor.getColumnIndexOrThrow(DBModel.KEY_TRANSLATION));
 
-
+/*
         deleteRowButton.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -55,7 +55,7 @@ public class ItemAdapter extends CursorAdapter
                 refreshList();
             }
         });
-
+*/
         word.setText(wordString);
         translation.setText(translationString);
     /*
