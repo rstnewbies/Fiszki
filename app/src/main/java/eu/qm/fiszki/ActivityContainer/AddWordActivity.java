@@ -42,18 +42,20 @@ public class AddWordActivity extends AppCompatActivity {
         if (id == R.id.action_add_new_word) {
             if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString()) == true){
                 Toast.makeText(getApplicationContext(), "dana fiszka już istnieje", Toast.LENGTH_LONG).show();
+                inputWord.setText(null);
+                inputTranslation.setText(null);
             }
             else if (!TextUtils.isEmpty(inputWord.getText().toString()) && !TextUtils.isEmpty(inputTranslation.getText().toString())) {
                 myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString());
                 Toast.makeText(getApplicationContext(), "Dodano rekord.", Toast.LENGTH_LONG).show();
+                inputWord.setText(null);
+                inputTranslation.setText(null);
+                finish();
             }
             else
             {
                 Toast.makeText(getApplicationContext(), "Pola nie mogą być puste.", Toast.LENGTH_LONG).show();
             }
-            inputWord.setText(null);
-            inputTranslation.setText(null);
-            finish();
         }
         return super.onOptionsItemSelected(item);
     }

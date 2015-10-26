@@ -35,38 +35,15 @@ public class ItemAdapter extends CursorAdapter
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor)
-    {
+    public void bindView(View view, Context context, Cursor cursor) {
         TextView word = (TextView) view.findViewById(R.id.word);
         TextView translation = (TextView) view.findViewById(R.id.translation);
-       // Button deleteRowButton = (Button) view.findViewById(R.id.deleteRowButton);
-        //ListView listView = (ListView) view.findViewById(R.id.listView);
 
-        final String idString = cursor.getString(cursor.getColumnIndexOrThrow(DBModel.KEY_ROWID));
         String wordString = cursor.getString(cursor.getColumnIndexOrThrow(DBModel.KEY_WORD));
         String translationString = cursor.getString(cursor.getColumnIndexOrThrow(DBModel.KEY_TRANSLATION));
 
-/*
-        deleteRowButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                newAdapter.deleteRow(idString);
-                refreshList();
-            }
-        });
-*/
         word.setText(wordString);
         translation.setText(translationString);
-    /*
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                newAdapter.deleteRow(idString);
-                refreshList();
-            }
-        });
-     */
     }
 
     public void refreshList()
