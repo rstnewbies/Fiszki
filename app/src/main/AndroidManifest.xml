@@ -12,7 +12,7 @@
         android:screenOrientation="portrait">
         <activity
             android:screenOrientation="portrait"
-            android:name=".MainActivity"
+            android:name=".ActivityContainer.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,12 +22,12 @@
                 <action android:name="eu.qm.fiszki.intent.action.Add_Word" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddWordActivity"
+        <activity android:name=".ActivityContainer.AddWordActivity"
             android:label="@string/add_new_word_title"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".CheckActivity"
+            android:name=".ActivityContainer.CheckActivity"
             android:label="@string/title_activity_check"
             android:screenOrientation="portrait">
         </activity>

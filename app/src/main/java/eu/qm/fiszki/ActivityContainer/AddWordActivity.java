@@ -1,22 +1,25 @@
-package eu.qm.fiszki;
+package eu.qm.fiszki.ActivityContainer;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import eu.qm.fiszki.DataBaseContainer.DBAdapter;
+import eu.qm.fiszki.DataBaseContainer.DBModel;
+import eu.qm.fiszki.DataBaseContainer.DBStatus;
+import eu.qm.fiszki.R;
 
 public class AddWordActivity extends AppCompatActivity {
 
     EditText inputWord, inputTranslation;
     DBAdapter myDb = new DBAdapter(this);
-    OpenDataBaseClass OpenDataBase= new OpenDataBaseClass();
+    DBStatus OpenDataBase = new DBStatus();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,21 +46,23 @@ public class AddWordActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_add_new_word) {
-            if(!TextUtils.isEmpty(inputWord.getText()) || !TextUtils.isEmpty(inputTranslation.getText()))
-            {
-                myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString());
+            if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString()) == true){
+                Toast.makeText(getApplicationContext(), "dana fiszka już istnieje", Toast.LENGTH_LONG).show();
+                inputWord.setText(null);
+                inputTranslation.setText(null);
             }
-            inputWord.setText(null);
-            inputTranslation.setText(null);
-            //populateListView();
-            finish();
+            else if (!TextUtils.isEmpty(inputWord.getText().toString()) && !TextUtils.isEmpty(inputTranslation.getText().toString())) {
+                myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString());
+                Toast.makeText(getApplicationContext(), "Dodano rekord.", Toast.LENGTH_LONG).show();
+                inputWord.setText(null);
+                inputTranslation.setText(null);
+                finish();
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(), "Pola nie mogą być puste.", Toast.LENGTH_LONG).show();
+            }
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void closeDB()
-    {
-        myDb = new DBAdapter(this);
-        myDb.close();
     }
 }
