@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">Fiszki</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name" translatable="false">Fiszki</string>
+    <string name="hello_world">Witaj świecie!</string>
+    <string name="action_settings">Ustawienia</string>
     <string name="title_activity_check">Sprawdzanie</string>
     <string name="action_OK">✔</string>
     <string name="alert_message_pass">Udało Ci się przetłumaczyć.</string>
-    <string name="alert_message_fail">Podałeś nie poprawny wyraz. Poprawnie to </string>
+    <string name="alert_message_fail">Podałeś nie poprawny wyraz. Poprawnie to:</string>
     <string name="alert_title_fail">Niestety.</string>
     <string name="alert_title_pass">Gratulacje.</string>
     <string name="alert_nameButton_OK">OK.</string>
@@ -17,5 +17,8 @@
                                         szybciej się nauczyć danego języka</string>
     <string name="empty_base_main_layout">Nie dodałeś jeszcze żadnego słówka. Aby dodaj kliknij plusa
                                         w prawym dolnym rogu.</string>
+    <string name="translation_word">Słówko</string>
+    <string name="translation_info">Tłumaczenie</string>
+    <string name="translation_language">Angielski</string>
 
 </resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_world">Hallo Welt!</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="title_activity_check">Nachprüfung</string>
+    <string name="action_OK">✔</string>
+    <string name="alert_message_pass">Du hast es geschafft zu übersetzen.</string>
+    <string name="alert_message_fail">Du hast nicht. Das richtige Wort eingefügt:</string>
+    <string name="alert_title_fail">Leider.</string>
+    <string name="alert_title_pass">Gratulation!</string>
+    <string name="alert_nameButton_OK">OK.</string>
+    <string name="PL_translateName">Übersetze!</string>
+    <string name="add_new_word_title">Füge ein neues Wort hinzu:</string>
+    <string name="add_new_word_button">+</string>
+    <string name="notification_title">Zeit zum lernen.</string>
+    <string name="notification_message">Es ist die Zeit gekommen, das Wort zu übersetzen.
+        Das erlaubt schneller die Sprache zu lernen.</string>
+    <string name="translation_word">Wort</string>
+    <string name="translation_info">Übersetzung</string>
+    <string name="translation_language">Englisch</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="PL_translateName">Translate it:</string>
+    <string name="action_OK">✔</string>
+    <string name="action_settings">Settings</string>
+    <string name="add_new_word_button">+</string>
+    <string name="add_new_word_title">Add new word:</string>
+    <string name="alert_message_fail">Incorrect word, correctly </string>
+    <string name="alert_message_pass">You were able to translate.</string>
+    <string name="alert_nameButton_OK">OK.</string>
+    <string name="alert_title_fail">Unfortunately</string>
+    <string name="alert_title_pass">Congratulations!</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="notification_message">The time has come to translate word.
+         This will allow you to faster study specific language.</string>
+    <string name="notification_title">It is time to study!</string>
+    <string name="title_activity_check">Verification</string>
+    <string name="translation_info">Translation</string>
+    <string name="translation_word">Word</string>
+    <string name="translation_language">English</string>
+</resources>

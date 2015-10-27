@@ -13,6 +13,16 @@
         android:text="@string/PL_translateName"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_alignWithParentIfMissing="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/translation_language"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -21,20 +31,22 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text=""
         android:id="@+id/textView3"
-        android:layout_marginTop="20dp"
-        android:textSize="40dp"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
+        android:textSize="40sp"
         android:minWidth="500dp"
-        android:maxWidth="500dp" />
+        android:maxWidth="500dp"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/EnteredWord"
-        android:textSize="30dp"
+        android:textSize="30sp"
+        android:minWidth="400dp"
         android:layout_below="@+id/textView3"
-        android:layout_marginTop="24dp"
-        android:minWidth="400dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
