@@ -28,6 +28,7 @@ public class AlarmReceiverClass extends BroadcastReceiver implements Serializabl
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
         mBuilder.setSmallIcon(R.drawable.ic_add_black_18dp);
         mBuilder.setSound(sound);
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.notification_message)));
         mBuilder.setContentTitle(context.getString(R.string.notification_title));
         mBuilder.setContentText(context.getString(R.string.notification_message));
         mBuilder.setContentIntent(pi);

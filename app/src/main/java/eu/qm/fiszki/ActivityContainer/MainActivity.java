@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy()
     {
         super.onDestroy();
-        //openDataBase.closeDB(myDb);
     }
 
     public void addNewWord(View view)
