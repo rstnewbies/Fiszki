@@ -11,9 +11,6 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import java.io.Serializable;
-
-
 public class MainActivity extends AppCompatActivity  {
 
     public  DBAdapter myDb;
@@ -32,11 +29,7 @@ public class MainActivity extends AppCompatActivity  {
         openDataBase.openDB(myDb);
         populateListView();
 
-
         alarmIntent = new Intent(MainActivity.this, AlarmReceiverClass.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("db",myDb);
-        alarmIntent.putExtra("bundle", bundle);
         pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarm = new AlarmReceiverClass();
