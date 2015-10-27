@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import eu.qm.fiszki.AlarmReceiverClass;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     AlarmReceiverClass alarm;
     AlarmManager manager;
     Intent alarmIntent;
+    TextView backgroundLayoutText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onResume();
         checkListComponents();
+        if(myDb.getAllRows().getCount()>0) {
+            backgroundLayoutText = (TextView) findViewById(R.id.textView4);
+            backgroundLayoutText.setTextColor(getResources().getColor(android.R.color.transparent));
+        }
     }
 
     @Override

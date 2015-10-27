@@ -15,6 +15,7 @@ import eu.qm.fiszki.DataBaseContainer.DBModel;
 import eu.qm.fiszki.DataBaseContainer.DBStatus;
 import eu.qm.fiszki.R;
 
+
 public class AddWordActivity extends AppCompatActivity {
 
     EditText inputWord, inputTranslation;
@@ -32,6 +33,7 @@ public class AddWordActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         inputTranslation = (EditText) findViewById(R.id.inputTranslation);
         inputTranslation.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+
         OpenDataBase.openDB(myDb);
     }
 

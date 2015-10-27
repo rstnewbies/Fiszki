@@ -15,5 +15,7 @@
     <string name="notification_title">Czas na naukę.</string>
     <string name="notification_message">Przyszedł czas na przetłumaczenie słowa. To pozwoli Ci
                                         szybciej się nauczyć danego języka</string>
+    <string name="empty_base_main_layout">Nie dodałeś jeszcze żadnego słówka. Aby dodaj kliknij plusa
+                                        w prawym dolnym rogu.</string>
 
 </resources>

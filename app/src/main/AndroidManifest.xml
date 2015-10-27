@@ -30,7 +30,8 @@
         <activity
             android:name=".ActivityContainer.CheckActivity"
             android:label="@string/title_activity_check"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance">
         </activity>
 
 

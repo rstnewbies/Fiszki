@@ -12,6 +12,14 @@
         android:layout_alignParentTop="true"
         android:id="@+id/frameLayout">
 
+        <TextView
+            android:layout_width="262dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/empty_base_main_layout"
+            android:id="@+id/textView4"
+            android:layout_gravity="center" />
+
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

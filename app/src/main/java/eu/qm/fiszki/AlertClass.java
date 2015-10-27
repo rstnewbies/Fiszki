@@ -1,5 +1,6 @@
 package eu.qm.fiszki;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,6 +22,8 @@ public class AlertClass {
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
+                ((Activity) context).finish();
+
             }
         });
         alertDialog.show();
@@ -40,8 +43,9 @@ public class AlertClass {
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
-                }
-            });
-            alertDialog.show();
-        }
+                ((Activity) context).finish();
+            }
+        });
+        alertDialog.show();
+    }
 }
