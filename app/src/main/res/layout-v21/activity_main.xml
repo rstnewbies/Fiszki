@@ -29,6 +29,17 @@
             android:onClick="addNewWord"
             />
 
+        <ImageButton
+            android:layout_margin="15dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_add_black_18dp"
+            android:background="@drawable/oval_button"
+            android:id="@+id/buttonNotificatio"
+            android:layout_gravity="right|top"
+            android:onClick="notificationOff"
+            />
+
     </FrameLayout>
 </RelativeLayout>
 

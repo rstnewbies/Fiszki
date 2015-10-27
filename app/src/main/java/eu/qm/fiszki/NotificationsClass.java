@@ -11,6 +11,7 @@ import android.support.v7.app.NotificationCompat;
 import eu.qm.fiszki.ActivityContainer.CheckActivity;
 
 public class NotificationsClass {
+
     public void CreateNotification(Context window,String notificationMessage,
                                    String notificationTitle) {
         long[] vibrate = {0,200,100,200};
