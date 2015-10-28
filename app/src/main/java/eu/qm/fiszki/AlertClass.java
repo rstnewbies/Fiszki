@@ -48,4 +48,15 @@ public class AlertClass {
         });
         alertDialog.show();
     }
+
+    public void buildAlert(String title, String message, String buttonText, Activity activity){
+        new AlertDialog.Builder(activity)
+                .setTitle(title)
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton(buttonText, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {}
+                }).create().show();
+    }
 }
