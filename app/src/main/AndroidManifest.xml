@@ -3,18 +3,18 @@
     package="eu.qm.fiszki" >
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme" >
         <activity
-            android:screenOrientation="portrait"
             android:name=".ActivityContainer.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,30 +23,33 @@
                 <action android:name="eu.qm.fiszki.intent.action.Add_Word" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityContainer.AddWordActivity"
+        <activity
+            android:name=".ActivityContainer.AddWordActivity"
             android:label="@string/add_new_word_title"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ActivityContainer.CheckActivity"
             android:label="@string/title_activity_check"
-            android:screenOrientation="portrait"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" >
         </activity>
 
+        <receiver android:name=".AlarmReceiverClass" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".DeviceBootReceiverClass"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
-    <receiver android:name=".AlarmReceiverClass">
-        <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED"/>
-        </intent-filter>
-    </receiver>
-
-    <receiver android:name=".DeviceBootReceiverClass"
-        android:enabled="true">
-        <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED"/>
-        </intent-filter>
-    </receiver>
-
+        <activity android:name=".SettingsActivity" >
+        </activity>
     </application>
+
 </manifest>
