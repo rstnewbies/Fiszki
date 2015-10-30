@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import eu.qm.fiszki.AlarmReceiverClass;
 import eu.qm.fiszki.DataBaseContainer.DBAdapter;
+import eu.qm.fiszki.DataBaseContainer.DBModel;
 import eu.qm.fiszki.DataBaseContainer.DBStatus;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.SettingsActivity;
@@ -32,6 +34,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         openDataBase.openDB(myDb);
         checkListComponents();
+
+        //TEST START
+        myDb.updateRow("notification", 1);
+        int notificationStatus = myDb.intRowValue(DBModel.SETTINGS_NAME, "notification");
+        if (notificationStatus == 1)
+        {
+            Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_LONG).show();
+        }
+        else if (notificationStatus == 0)
+        {
+            Toast.makeText(getApplicationContext(), "0", Toast.LENGTH_LONG).show();
+        }
+        //TEST END.
     }
 
     @Override
