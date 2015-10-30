@@ -87,8 +87,5 @@ public class MainActivity extends AppCompatActivity {
         if(myDb.getAllRows().getCount()>0){
             populateListView();
         }
-        else {
-            Toast.makeText(getApplicationContext(), "Lista jest pusta", Toast.LENGTH_LONG).show();
-        }
     }
 }

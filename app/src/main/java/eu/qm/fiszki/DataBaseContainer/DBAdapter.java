@@ -80,14 +80,14 @@ public class DBAdapter {
         }
 
         @Override
-        public void onCreate(SQLiteDatabase _db)
-        {
+        public void onCreate(SQLiteDatabase _db) {
             _db.execSQL(DBModel.DATABASE_CREATE_SQL);
+            _db.execSQL(DBModel.SETTINGS_CREATE_SQL);
+            _db.execSQL(DBModel.FILL_SETTINGS_SQL);
         }
 
         @Override
-        public void onUpgrade(SQLiteDatabase _db, int oldVersion, int newVersion)
-        {
+        public void onUpgrade(SQLiteDatabase _db, int oldVersion, int newVersion) {
             Log.w(DBModel.TAG, "Upgrading application's database from version " + oldVersion
                     + " to " + newVersion + ", which will destroy all old data!");
 
