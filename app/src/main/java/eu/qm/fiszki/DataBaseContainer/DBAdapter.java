@@ -53,8 +53,7 @@ public class DBAdapter {
 
     public Cursor getAllRows()
     {
-        String where = null;
-        Cursor c = db.query(true, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS, where, null, null, null, null, null);
+        Cursor c = db.query(true, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS, null, null, null, null, null, null);
         if (c != null)
         {
             c.moveToFirst();

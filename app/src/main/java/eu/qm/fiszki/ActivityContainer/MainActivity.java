@@ -22,12 +22,8 @@ import eu.qm.fiszki.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    DBAdapter myDb = new DBAdapter(this);
+    public DBAdapter myDb = new DBAdapter(this);
     DBStatus openDataBase = new DBStatus();
-    PendingIntent pendingIntent;
-    public AlarmReceiverClass alarm;
-    AlarmManager manager;
-    Intent alarmIntent;
     TextView backgroundLayoutText;
 
     @Override
@@ -36,12 +32,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         openDataBase.openDB(myDb);
         checkListComponents();
-
-        alarmIntent = new Intent(MainActivity.this, AlarmReceiverClass.class);
-        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarm = new AlarmReceiverClass();
-        alarm.start(manager, this, pendingIntent, 10);
     }
 
     @Override
@@ -101,9 +91,4 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Lista jest pusta", Toast.LENGTH_LONG).show();
         }
     }
-
-    public void notOff(){
-        alarm.close(manager, this, pendingIntent);
-    }
-
 }

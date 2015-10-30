@@ -1,5 +1,6 @@
 package eu.qm.fiszki.ActivityContainer;
 
+import android.app.AlarmManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -8,12 +9,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import eu.qm.fiszki.DataBaseContainer.DBAdapter;
 import eu.qm.fiszki.DataBaseContainer.DBModel;
 import eu.qm.fiszki.DataBaseContainer.DBStatus;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.SettingsActivity;
 
 
 public class AddWordActivity extends AppCompatActivity {
@@ -33,7 +36,6 @@ public class AddWordActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         inputTranslation = (EditText) findViewById(R.id.inputTranslation);
         inputTranslation.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-
         OpenDataBase.openDB(myDb);
     }
 
@@ -48,20 +50,18 @@ public class AddWordActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_add_new_word) {
-            if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString()) == true){
+            if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString())) {
                 Toast.makeText(getApplicationContext(), "dana fiszka już istnieje", Toast.LENGTH_LONG).show();
                 inputWord.setText(null);
                 inputTranslation.setText(null);
-            }
-            else if (!TextUtils.isEmpty(inputWord.getText().toString()) && !TextUtils.isEmpty(inputTranslation.getText().toString())) {
+
+            } else if (!TextUtils.isEmpty(inputWord.getText().toString()) && !TextUtils.isEmpty(inputTranslation.getText().toString())) {
                 myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString());
                 Toast.makeText(getApplicationContext(), "Dodano rekord.", Toast.LENGTH_LONG).show();
                 inputWord.setText(null);
                 inputTranslation.setText(null);
                 finish();
-            }
-            else
-            {
+            } else {
                 Toast.makeText(getApplicationContext(), "Pola nie mogą być puste.", Toast.LENGTH_LONG).show();
             }
         }

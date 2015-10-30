@@ -22,4 +22,6 @@
     <string name="translation_language">Angielski</string>
     <string name="switch_notification">Powiadomienia</string>
     <string name="notification_time">Czas odświeżania</string>
+    <string name="alarm_on">Notyfikacje włączone</string>
+    <string name="alarm_off">Notyfikacje wyłączone</string>
 </resources>
