@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,11 +27,14 @@ public class MainActivity extends AppCompatActivity {
     AlarmManager manager;
     Intent alarmIntent;
     TextView backgroundLayoutText;
+    ImageView emptyDBImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        emptyDBImage = (ImageView) findViewById(R.id.emptyDBImage);
+        emptyDBImage.setImageResource(R.drawable.emptydb);
         openDataBase.openDB(myDb);
         checkListComponents();
 
@@ -47,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         checkListComponents();
         if(myDb.getAllRows().getCount()>0) {
-            backgroundLayoutText = (TextView) findViewById(R.id.textView4);
-            backgroundLayoutText.setTextColor(getResources().getColor(android.R.color.transparent));
+            emptyDBImage.setAlpha(0);
         }
     }
 

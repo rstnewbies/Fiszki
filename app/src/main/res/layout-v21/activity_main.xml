@@ -12,14 +12,6 @@
         android:layout_alignParentTop="true"
         android:id="@+id/frameLayout">
 
-        <TextView
-            android:layout_width="271dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/empty_base_main_layout"
-            android:id="@+id/textView4"
-            android:layout_gravity="center" />
-
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,6 +39,13 @@
             android:layout_gravity="right|top"
             android:onClick="notificationOff"
             />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/emptyDBImage"
+            android:layout_gravity="center"
+            android:src="@drawable/emptydb" />
 
     </FrameLayout>
 </RelativeLayout>
