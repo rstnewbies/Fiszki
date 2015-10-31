@@ -34,19 +34,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         openDataBase.openDB(myDb);
         checkListComponents();
-
-        //TEST START
-        myDb.updateRow("notification", 1);
-        int notificationStatus = myDb.intRowValue(DBModel.SETTINGS_NAME, "notification");
-        if (notificationStatus == 1)
-        {
-            Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_LONG).show();
-        }
-        else if (notificationStatus == 0)
-        {
-            Toast.makeText(getApplicationContext(), "0", Toast.LENGTH_LONG).show();
-        }
-        //TEST END.
     }
 
     @Override
