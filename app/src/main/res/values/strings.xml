@@ -22,4 +22,5 @@
     <string name="translation_language">Angielski</string>
     <string name="switch_notification">Powiadomienia</string>
     <string name="notification_time">Czas odświeżania</string>
+    <string name="title_settings">Ustawienia</string>
 </resources>
