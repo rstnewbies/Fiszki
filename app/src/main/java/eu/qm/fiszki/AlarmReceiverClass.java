@@ -27,7 +27,7 @@ public class AlarmReceiverClass extends BroadcastReceiver implements Serializabl
                 CheckActivity.class), 0);
         Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
-        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        mBuilder.setSmallIcon(R.drawable.ic_notification);
         mBuilder.setSound(sound);
         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.notification_message)));
         mBuilder.setContentTitle(context.getString(R.string.notification_title));

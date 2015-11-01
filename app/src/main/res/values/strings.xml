@@ -1,20 +1,20 @@
 <resources>
     <string name="app_name" translatable="false">Fiszki</string>
-    <string name="hello_world">Witaj świecie!</string>
+    <string name="hello_world">Witaj świecie!</string> //Andrzeju, to jest core naszej apki
     <string name="action_settings">Ustawienia</string>
     <string name="title_activity_check">Sprawdzanie</string>
     <string name="action_OK">✔</string>
     <string name="alert_message_pass">Udało Ci się przetłumaczyć.</string>
-    <string name="alert_message_fail">Podałeś nie poprawny wyraz. Poprawnie to:</string>
-    <string name="alert_title_fail">Niestety.</string>
-    <string name="alert_title_pass">Gratulacje.</string>
-    <string name="alert_nameButton_OK">OK.</string>
+    <string name="alert_message_fail">Podałeś niepoprawny wyraz. Poprawnie to:</string>
+    <string name="alert_title_fail">Niestety</string>
+    <string name="alert_title_pass">Gratulacje</string>
+    <string name="alert_nameButton_OK">OK</string>
     <string name="PL_translateName">Przetłumacz to: </string>
     <string name="add_new_word_title">Dodaj nowe słowo: </string>
     <string name="add_new_word_button">+</string>
-    <string name="notification_title">Czas na naukę.</string>
-    <string name="notification_message">Przyszedł czas na przetłumaczenie słowa. To pozwoli Ci
-                                        szybciej się nauczyć danego języka</string>
+    <string name="notification_title">Tłumaczenia czas nastał</string>
+    <string name="notification_message">Odkryj efekt szybkiego nauczania,
+                                        zdenerwował tym wszystkich nauczycieli</string>
     <string name="empty_base_main_layout">Nie dodałeś jeszcze żadnego słówka. Aby dodać kliknij plusa
                                         w prawym dolnym rogu.</string>
     <string name="translation_word">Słówko</string>
@@ -25,4 +25,9 @@
     <string name="alarm_on">Notyfikacje włączone</string>
     <string name="alarm_off">Notyfikacje wyłączone</string>
     <string name="title_settings">Ustawienia</string>
+    <string name="alert_title">Uwaga!</string>
+    <string name="alert_message_onRecordExist">Pozycja znajduje się już na liście</string>
+    <string name="alert_message_onEmptyFields">Pola nie mogą być puste</string>
+    <string name="onNewPositionAdd">Nowa pozycja została dodana</string>
+    <string name="OK">Ok</string>
 </resources>

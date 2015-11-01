@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.Html;
 
 public class AlertClass {
 
@@ -14,8 +15,7 @@ public class AlertClass {
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
-        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener()
-        {
+        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -34,9 +34,8 @@ public class AlertClass {
         AlertDialog alertDialog;
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
-        alertDialog.setMessage(message + " " + orginalWord);
-        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener()
-        {
+        alertDialog.setMessage(Html.fromHtml(message + " " + "<b>" + orginalWord + "</b>"));
+        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Intent.ACTION_MAIN);

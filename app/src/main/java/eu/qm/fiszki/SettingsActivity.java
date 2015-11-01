@@ -25,7 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
     public Context context;
     public DBAdapter myDb = new DBAdapter(this);
     public DBStatus openDataBase = new DBStatus();
-    public int time = 30;
+    public int time = 900;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
