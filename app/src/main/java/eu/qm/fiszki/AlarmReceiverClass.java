@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,11 +25,13 @@ public class AlarmReceiverClass extends BroadcastReceiver implements Serializabl
     public void onReceive(Context context, Intent intent) {
 
         long[] vibrate = {0,200,100,200};
+        Bitmap icon =  BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
         PendingIntent pi = PendingIntent.getActivity(context, 100, new Intent(context,
                 CheckActivity.class), 0);
         Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
-        mBuilder.setSmallIcon(R.drawable.ic_notification);
+        mBuilder.setLargeIcon(icon);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
         mBuilder.setSound(sound);
         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.notification_message)));
         mBuilder.setContentTitle(context.getString(R.string.notification_title));
