@@ -6,9 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import eu.qm.fiszki.ActivityContainer.MainActivity;
 import eu.qm.fiszki.DataBaseContainer.DBAdapter;
 import eu.qm.fiszki.DataBaseContainer.DBModel;
 import eu.qm.fiszki.DataBaseContainer.DBStatus;
@@ -45,15 +48,31 @@ public class SettingsActivity extends AppCompatActivity {
         notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        myDb.updateRow("notification", 1);
-                        alarm.start(manager, context, pendingIntent, time);
-                    } else {
-                        myDb.updateRow("notification", 0);
-                        alarm.close(manager, context, pendingIntent);
-                    }
+                if (isChecked) {
+                    myDb.updateRow("notification", 1);
+                    alarm.start(manager, context, pendingIntent, time);
+                } else {
+                    myDb.updateRow("notification", 0);
+                    alarm.close(manager, context, pendingIntent);
+                }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            Intent goHome = new Intent(SettingsActivity.this, MainActivity.class);
+            startActivity(goHome);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

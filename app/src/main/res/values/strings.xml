@@ -24,4 +24,5 @@
     <string name="notification_time">Czas odświeżania</string>
     <string name="alarm_on">Notyfikacje włączone</string>
     <string name="alarm_off">Notyfikacje wyłączone</string>
+    <string name="title_settings">Ustawienia</string>
 </resources>
