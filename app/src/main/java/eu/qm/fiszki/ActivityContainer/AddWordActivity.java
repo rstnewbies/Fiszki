@@ -1,7 +1,11 @@
 package eu.qm.fiszki.ActivityContainer;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -10,10 +14,12 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import eu.qm.fiszki.AlarmReceiverClass;
 import eu.qm.fiszki.DataBaseContainer.DBAdapter;
 import eu.qm.fiszki.DataBaseContainer.DBModel;
 import eu.qm.fiszki.DataBaseContainer.DBStatus;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.SettingsActivity;
 
 
 public class AddWordActivity extends AppCompatActivity {
@@ -21,6 +27,7 @@ public class AddWordActivity extends AppCompatActivity {
     EditText inputWord, inputTranslation;
     DBAdapter myDb = new DBAdapter(this);
     DBStatus OpenDataBase = new DBStatus();
+    SettingsActivity settings = new SettingsActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +40,11 @@ public class AddWordActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         inputTranslation = (EditText) findViewById(R.id.inputTranslation);
         inputTranslation.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-
         OpenDataBase.openDB(myDb);
+        settings.alarmIntent = new Intent(this, AlarmReceiverClass.class);
+        settings.pendingIntent = PendingIntent.getBroadcast(this, 0, settings.alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        settings.manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        settings.alarm = new AlarmReceiverClass();
     }
 
     @Override
@@ -48,20 +58,22 @@ public class AddWordActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_add_new_word) {
-            if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString()) == true){
+            if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString())) {
                 Toast.makeText(getApplicationContext(), "dana fiszka już istnieje", Toast.LENGTH_LONG).show();
                 inputWord.setText(null);
                 inputTranslation.setText(null);
-            }
-            else if (!TextUtils.isEmpty(inputWord.getText().toString()) && !TextUtils.isEmpty(inputTranslation.getText().toString())) {
+
+            } else if (!TextUtils.isEmpty(inputWord.getText().toString()) && !TextUtils.isEmpty(inputTranslation.getText().toString())) {
                 myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString());
                 Toast.makeText(getApplicationContext(), "Dodano rekord.", Toast.LENGTH_LONG).show();
                 inputWord.setText(null);
                 inputTranslation.setText(null);
+                if (myDb.getAllRows().getCount() == 1) {
+                    myDb.updateRow("notification", 1);
+                    settings.alarm.start(settings.manager, this, settings.pendingIntent, settings.time);
+                }
                 finish();
-            }
-            else
-            {
+            } else {
                 Toast.makeText(getApplicationContext(), "Pola nie mogą być puste.", Toast.LENGTH_LONG).show();
             }
         }

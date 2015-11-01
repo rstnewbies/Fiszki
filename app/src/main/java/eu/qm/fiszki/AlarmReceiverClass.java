@@ -10,6 +10,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import java.io.Serializable;
@@ -26,7 +27,7 @@ public class AlarmReceiverClass extends BroadcastReceiver implements Serializabl
                 CheckActivity.class), 0);
         Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
-        mBuilder.setSmallIcon(R.drawable.ic_add_black_18dp);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
         mBuilder.setSound(sound);
         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.notification_message)));
         mBuilder.setContentTitle(context.getString(R.string.notification_title));
@@ -41,18 +42,13 @@ public class AlarmReceiverClass extends BroadcastReceiver implements Serializabl
     }
 
     public void start(AlarmManager manager,Context context,PendingIntent pendingIntent, int sec) {
-        int interval = 8000;
-
-        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval,pendingIntent);
-        Toast.makeText(context, "Alarm Set", Toast.LENGTH_SHORT).show();
-
-        manager.setRepeating( AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
-                1000 * sec, pendingIntent);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * sec, pendingIntent);
+        Toast.makeText(context, context.getString(R.string.alarm_on), Toast.LENGTH_SHORT).show();
     }
 
     public void close(AlarmManager manager,Context context, PendingIntent pendingIntent){
         manager.cancel(pendingIntent);
-        Toast.makeText(context, "Alarm Canceled", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getString(R.string.alarm_off), Toast.LENGTH_SHORT).show();
     }
 
 }
