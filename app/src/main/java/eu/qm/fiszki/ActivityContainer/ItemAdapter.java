@@ -14,14 +14,15 @@ import android.widget.TextView;
 import eu.qm.fiszki.DataBaseContainer.DBAdapter;
 import eu.qm.fiszki.DataBaseContainer.DBModel;
 
+import eu.qm.fiszki.Main2Activity;
 import eu.qm.fiszki.R;
 
 public class ItemAdapter extends CursorAdapter
 {
     DBAdapter newAdapter;
-    MainActivity newActivity;
+    Main2Activity newActivity;
 
-    public ItemAdapter(Context context ,Cursor c, DBAdapter myDB, MainActivity mainActivity)
+    public ItemAdapter(Context context ,Cursor c, DBAdapter myDB, Main2Activity mainActivity)
     {
         super(context, c);
         this.newAdapter = myDB;
