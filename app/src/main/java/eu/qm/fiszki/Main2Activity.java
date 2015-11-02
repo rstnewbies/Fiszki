@@ -33,6 +33,7 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
         emptyDBImage = (ImageView) findViewById(R.id.emptyDBImage);
         emptyDBImage.setImageResource(R.drawable.emptydb);
