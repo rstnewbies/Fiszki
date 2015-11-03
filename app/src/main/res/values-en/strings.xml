@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="PL_translateName">Translate it:</string>
-    <string name="action_OK">✔</string>
+    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="add_new_word_button">+</string>
-    <string name="add_new_word_title">Add new word:</string>
-    <string name="alert_message_fail">Incorrect word, correctly </string>
+    <string name="title_activity_check">Verification</string>
+    <string name="action_OK">✔</string>
     <string name="alert_message_pass">You were able to translate.</string>
-    <string name="alert_nameButton_OK">OK.</string>
+    <string name="alert_message_fail">Incorrect word, correctly </string>
     <string name="alert_title_fail">Unfortunately</string>
     <string name="alert_title_pass">Congratulations!</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="alert_nameButton_OK">OK.</string>
+    <string name="PL_translateName">Translate it:</string>
+    <string name="add_new_word_title">Add new word:</string>
+    <string name="add_new_word_button">+</string>
+    <string name="notification_title">It is time to study!</string>
     <string name="notification_message">The time has come to translate word.
          This will allow you to faster study specific language.</string>
-    <string name="notification_title">It is time to study!</string>
-    <string name="title_activity_check">Verification</string>
-    <string name="translation_info">Translation</string>
+    <string name="empty_base_main_layout">You have not added any words yet.
+       If you want to add, click the plus sign in the bottom right corner.</string>
     <string name="translation_word">Word</string>
+    <string name="translation_info">Translation</string>
     <string name="translation_language">English</string>
+    <string name="switch_notification">Notifications</string>
+    <string name="notification_time">Refresh Time</string>
+    <string name="alarm_on">Notifications enabled</string>
+    <string name="alarm_off">Notifications disabled</string>
+    <string name="title_settings">Settings</string>
     <string name="alert_title">Alert!</string>
     <string name="alert_message_onRecordExist">This position is already in the list.</string>
-    <string name="alert_message_onEmptyFields">Fields cant be empty.</string>
+    <string name="alert_message_onEmptyFields">Fields can not be empty.</string>
     <string name="onNewPositionAdd">New position has been added.</string>
+    <string name="OK">Ok</string>
 </resources>

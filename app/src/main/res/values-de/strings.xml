@@ -15,7 +15,19 @@
     <string name="notification_title">Zeit zum lernen.</string>
     <string name="notification_message">Es ist die Zeit gekommen, das Wort zu übersetzen.
         Das erlaubt schneller die Sprache zu lernen.</string>
+    <string name="empty_base_main_layout">Sie haben noch keine Wörter hinzugefügt.
+        Wenn Sie hinzufügen möchten, klicken Sie auf das Plus-Zeichen in der rechten unteren Ecke.</string>
     <string name="translation_word">Wort</string>
     <string name="translation_info">Übersetzung</string>
     <string name="translation_language">Englisch</string>
+    <string name="switch_notification">Benachrichtigung</string>
+    <string name="notification_time">Zeit zu aktualisieren</string>
+    <string name="alarm_on">Benachrichtigungen aktiviert</string>
+    <string name="alarm_off">Benachrichtigungen deaktiviert</string>
+    <string name="title_settings">Einstellungen</string>
+    <string name="alert_title">Achtung!</string>
+    <string name="alert_message_onRecordExist">Item ist bereits in der Liste</string>
+    <string name="alert_message_onEmptyFields">Die Felder dürfen nicht leer sein</string>
+    <string name="onNewPositionAdd">Ein neues Element wurde hinzugefügt</string>
+    <string name="OK">Ok</string>
 </resources>
