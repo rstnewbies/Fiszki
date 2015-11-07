@@ -30,4 +30,8 @@
     <string name="alert_message_onEmptyFields">Pola nie mogą być puste</string>
     <string name="onNewPositionAdd">Nowa pozycja została dodana</string>
     <string name="OK">Ok</string>
+    <string name="notification_frequency_set">Czas został zmieniony</string>
+    <string name="notification_frequency_text">Częstotliwość notifikacji ustawiono na: </string>
+    <string name="notification_frequency_min">minute</string>
+    <string name="notification_frequency_mins">minut</string>
 </resources>

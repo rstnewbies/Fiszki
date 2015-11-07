@@ -46,7 +46,7 @@ public class AlarmReceiverClass extends BroadcastReceiver implements Serializabl
     }
 
     public void start(AlarmManager manager,Context context,PendingIntent pendingIntent, int sec) {
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * sec, pendingIntent);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 *60* sec, pendingIntent);
         Toast.makeText(context, context.getString(R.string.alarm_on), Toast.LENGTH_SHORT).show();
     }
 
