@@ -46,6 +46,7 @@ public class AddWordActivity extends AppCompatActivity {
         settings.pendingIntent = PendingIntent.getBroadcast(this, 0, settings.alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         settings.manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         settings.alarm = new AlarmReceiverClass();
+        settings.context = this;
     }
 
     @Override
@@ -73,7 +74,7 @@ public class AddWordActivity extends AppCompatActivity {
                 inputTranslation.setText(null);
                 if (myDb.getAllRows().getCount() == 1) {
                     myDb.updateRow("notification", 1);
-                    settings.alarm.start(settings.manager, this, settings.pendingIntent, settings.time);
+                    settings.alarm.start(settings.manager, settings.context, settings.pendingIntent, settings.time);
                 }
                 finish();
             }

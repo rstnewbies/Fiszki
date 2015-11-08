@@ -13,13 +13,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.Serializable;
 
 import eu.qm.fiszki.ActivityContainer.CheckActivity;
 
-public class AlarmReceiverClass extends BroadcastReceiver implements Serializable {
+public class AlarmReceiverClass extends BroadcastReceiver {
+    SettingsActivity settings = new SettingsActivity();
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -46,7 +48,7 @@ public class AlarmReceiverClass extends BroadcastReceiver implements Serializabl
     }
 
     public void start(AlarmManager manager,Context context,PendingIntent pendingIntent, int sec) {
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 *60* sec, pendingIntent);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * sec, pendingIntent);
         Toast.makeText(context, context.getString(R.string.alarm_on), Toast.LENGTH_SHORT).show();
     }
 

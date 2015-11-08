@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +22,7 @@ import eu.qm.fiszki.DataBaseContainer.DBAdapter;
 import eu.qm.fiszki.DataBaseContainer.DBModel;
 import eu.qm.fiszki.DataBaseContainer.DBStatus;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public Switch notificationSwitch;
     public PendingIntent pendingIntent;
     public AlarmReceiverClass alarm;
@@ -28,10 +31,9 @@ public class SettingsActivity extends AppCompatActivity {
     public Context context;
     public DBAdapter myDb = new DBAdapter(this);
     public DBStatus openDataBase = new DBStatus();
-    public int time;
-    public TextView sbt;
-    SeekBar sb;
-    int progress;
+    public int time = 15 ;
+    public Spinner spinnerFrequency;
+    String spinnerPosition = "notification_time";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,52 +45,26 @@ public class SettingsActivity extends AppCompatActivity {
         pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarm = new AlarmReceiverClass();
-        sb = (SeekBar) findViewById(R.id.seekBar);
-        sbt = (TextView) findViewById(R.id.SeekBarText);
-
-
+        spinnerFrequency = (Spinner) findViewById(R.id.spinner);
+        spinnerFrequency.setOnItemSelectedListener(this);
         notificationSwitch = (Switch) findViewById(R.id.notificationSwitch);
-        if (myDb.intRowValue(DBModel.SETTINGS_NAME, "notification") == 1) {
-            notificationSwitch.setChecked(true);
-        }
-        if (myDb.intRowValue(DBModel.SETTINGS_NAME, "notification") == 0) {
-            notificationSwitch.setChecked(false);
-        }
+        sync(myDb.intRowValue(DBModel.SETTINGS_NAME,spinnerPosition),
+                myDb.intRowValue(DBModel.SETTINGS_NAME, "notification"));
         notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     myDb.updateRow("notification", 1);
                     alarm.start(manager, context, pendingIntent, time);
-                    sb.setEnabled(false);
+                    spinnerFrequency.setClickable(false);
                 } else {
                     myDb.updateRow("notification", 0);
                     alarm.close(manager, context, pendingIntent);
-                    sb.setEnabled(true);
+                    spinnerFrequency.setClickable(true);
                 }
             }
         });
 
-        progress = myDb.intRowValue(DBModel.SETTINGS_NAME, "notification_time");
-        sb.setProgress(progress);
-        SeekBarTextSegregation(progress);
-        sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
-                progress = progresValue;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                SeekBarTextSegregation(progress);
-                Toast.makeText(getApplicationContext(),R.string.notification_frequency_set, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
@@ -107,29 +83,59 @@ public class SettingsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void SeekBarTextSegregation(int progres){
-        switch (progres) {
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        switch (position){
             case 0:
-                sbt.setText(getString(R.string.notification_frequency_text) + " 1 " + getString(R.string.notification_frequency_min));
                 time = 1;
-                myDb.updateRow("notification_time", 0);
+                myDb.updateRow(spinnerPosition, 0);
                 break;
             case 1:
-                sbt.setText(getString(R.string.notification_frequency_text) + " 5 " + getString(R.string.notification_frequency_mins));
                 time = 5;
-                myDb.updateRow("notification_time", 1);
+                myDb.updateRow(spinnerPosition, 1);
                 break;
             case 2:
-                sbt.setText(getString(R.string.notification_frequency_text) + " 15 " + getString(R.string.notification_frequency_mins));
                 time = 15;
-                myDb.updateRow("notification_time", 2);
+                myDb.updateRow(spinnerPosition, 2);
                 break;
             case 3:
-                sbt.setText(getString(R.string.notification_frequency_text) + " 30 " + getString(R.string.notification_frequency_mins));
                 time = 30;
-                myDb.updateRow("notification_time", 3);
+                myDb.updateRow(spinnerPosition, 3);
                 break;
-
-            }
         }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    public void sync(int poss,int notifiStatus){
+        switch (poss){
+            case 0:
+                spinnerFrequency.setSelection(0);
+                break;
+            case 1:
+                spinnerFrequency.setSelection(1);
+                break;
+            case 2:
+                spinnerFrequency.setSelection(2);
+                break;
+            case 3:
+                spinnerFrequency.setSelection(3);
+                break;
+        }
+        switch (notifiStatus){
+            case 0:
+                notificationSwitch.setChecked(false);
+                spinnerFrequency.setClickable(true);
+                break;
+            case 1:
+                notificationSwitch.setChecked(true);
+                spinnerFrequency.setClickable(false);
+                break;
+        }
+    }
 }
