@@ -13,7 +13,6 @@
         android:id="@+id/spinner"
         android:entries="@array/spinner_frequency"
         android:prompt="@string/spinner_text"
-        android:layout_below="@+id/notificationSwitch"
         android:layout_alignParentRight="false"
         android:layout_alignParentEnd="false"
         android:layout_marginTop="10dp"
@@ -23,18 +22,6 @@
         android:layout_toRightOf="@+id/textView4"
         android:clickable="true"
         android:spinnerMode="dialog" />
-
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/notificationSwitch"
-        android:checked="false"
-        android:text="@string/switch_notification"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/view"
-        android:layout_alignEnd="@+id/view"/>
 
     <View
         android:layout_width="match_parent"

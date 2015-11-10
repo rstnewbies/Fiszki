@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Html;
 
+import eu.qm.fiszki.ActivityContainer.MainActivity;
+
 public class AlertClass {
 
     public void Pass(final Context context, String message, String title,
@@ -29,7 +31,7 @@ public class AlertClass {
         alertDialog.show();
     }
 
-    public void Fail(final Context context,String orginalWord,String message, String title,
+    public void Fail(final Context context, String orginalWord, String message, String title,
                      String nameButton) {
         AlertDialog alertDialog;
         alertDialog = new AlertDialog.Builder(context).create();
@@ -48,14 +50,30 @@ public class AlertClass {
         alertDialog.show();
     }
 
-    public void buildAlert(String title, String message, String buttonText, Activity activity){
+    public void buildAlert(String title, String message, String buttonText, Activity activity) {
         new AlertDialog.Builder(activity)
                 .setTitle(title)
                 .setMessage(message)
                 .setCancelable(false)
                 .setPositiveButton(buttonText, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {}
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
                 }).create().show();
+    }
+
+    public void addFirstWord(String title,String message,String nameButton,final Context context ) {
+            AlertDialog alertDialog;
+            alertDialog = new AlertDialog.Builder(context).create();
+            alertDialog.setTitle(title);
+            alertDialog.setMessage(message);
+            alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ((Activity) context).finish();
+                }
+            });
+            alertDialog.show();
+
     }
 }

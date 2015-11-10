@@ -49,12 +49,10 @@ public class AlarmReceiverClass extends BroadcastReceiver {
 
     public void start(AlarmManager manager,Context context,PendingIntent pendingIntent, int sec) {
         manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * sec, pendingIntent);
-        Toast.makeText(context, context.getString(R.string.alarm_on), Toast.LENGTH_SHORT).show();
     }
 
     public void close(AlarmManager manager,Context context, PendingIntent pendingIntent){
         manager.cancel(pendingIntent);
-        Toast.makeText(context, context.getString(R.string.alarm_off), Toast.LENGTH_SHORT).show();
     }
 
 }

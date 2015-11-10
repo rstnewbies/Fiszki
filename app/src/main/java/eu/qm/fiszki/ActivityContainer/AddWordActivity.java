@@ -1,5 +1,6 @@
 package eu.qm.fiszki.ActivityContainer;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import eu.qm.fiszki.AlarmReceiverClass;
 import eu.qm.fiszki.AlertClass;
 import eu.qm.fiszki.DataBaseContainer.DBAdapter;
@@ -47,6 +49,7 @@ public class AddWordActivity extends AppCompatActivity {
         settings.manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         settings.alarm = new AlarmReceiverClass();
         settings.context = this;
+
     }
 
     @Override
@@ -59,11 +62,10 @@ public class AddWordActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_add_new_word) {
-            if (inputWord.getText().toString().isEmpty() || inputTranslation.getText().toString().isEmpty()){
+            if (inputWord.getText().toString().isEmpty() || inputTranslation.getText().toString().isEmpty()) {
                 alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onEmptyFields), getString(R.string.action_OK), AddWordActivity.this);
-            }
-            else if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString()) == true){
-                alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.action_OK), AddWordActivity.this);
+            } else if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString()) == true) {
+                alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.alert_nameButton_OK), AddWordActivity.this);
                 inputWord.setText(null);
                 inputTranslation.setText(null);
 
@@ -73,10 +75,15 @@ public class AddWordActivity extends AppCompatActivity {
                 inputWord.setText(null);
                 inputTranslation.setText(null);
                 if (myDb.getAllRows().getCount() == 1) {
-                    myDb.updateRow("notification", 1);
                     settings.alarm.start(settings.manager, settings.context, settings.pendingIntent, settings.time);
+                    myDb.updateRow(settings.spinnerPosition, 1);
+                    myDb.updateRow(settings.notificationStatus, 1);
+                    alert.addFirstWord(
+                            this.getString(R.string.alert_title_pass),
+                            this.getString(R.string.add_first_word_message),
+                            this.getString(R.string.alert_nameButton_OK),
+                            this);
                 }
-                finish();
             }
         }
         return super.onOptionsItemSelected(item);
