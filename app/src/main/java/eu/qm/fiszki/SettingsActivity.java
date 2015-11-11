@@ -73,6 +73,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                             myDb.intRowValue(DBModel.SETTINGS_NAME, spinnerPosition) != 0) {
                         alarm.close(manager, context, pendingIntent);
                         myDb.updateRow(notificationStatus, 0);
+                        myDb.updateRow(spinnerPosition, 0);
                         time=0;}
                 break;
             case 1:
