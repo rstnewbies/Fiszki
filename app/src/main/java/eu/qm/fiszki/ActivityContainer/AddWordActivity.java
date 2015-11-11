@@ -76,7 +76,7 @@ public class AddWordActivity extends AppCompatActivity {
                 inputTranslation.setText(null);
                 if (myDb.getAllRows().getCount() == 1) {
                     settings.alarm.start(settings.manager, settings.context, settings.pendingIntent, settings.time);
-                    myDb.updateRow(settings.spinnerPosition, 1);
+                    myDb.updateRow(settings.spinnerPosition, 3);
                     myDb.updateRow(settings.notificationStatus, 1);
                     alert.addFirstWord(
                             this.getString(R.string.alert_title_pass),

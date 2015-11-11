@@ -39,7 +39,7 @@
     <string name="notification_change_title">UWAGA</string>
     <string name="notification_change_message">Jeszcze nie dodałeś żadnego słówka.
         Notyfikacje włączą się automatycznie po dodaniu pierwszego słowka</string>
-    <string name="add_first_word_message">Dodałeś pierwsze słówko. Powiadomienie przyjdzie za 15min.
-        Czas możesz zmienić w ustawieniach.</string>
+    <string name="add_first_word_message">Dodałeś pierwsze słówko. Notyfikacje włączyły się
+        automatycznie, domyślny czas powtórzeń to 15min. Czas możesz zmienić w ustawieniach.</string>
 </resources>
 

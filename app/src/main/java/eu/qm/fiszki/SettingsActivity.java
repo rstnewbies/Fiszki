@@ -69,15 +69,11 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
         switch (position) {
             case 0:
-                if (myDb.getAllRows().getCount() > 0) {
                     if (myDb.intRowValue(DBModel.SETTINGS_NAME, notificationStatus) == 1 ||
                             myDb.intRowValue(DBModel.SETTINGS_NAME, spinnerPosition) != 0) {
                         alarm.close(manager, context, pendingIntent);
                         myDb.updateRow(notificationStatus, 0);
-                    }
-                } else {
-
-                }
+                        time=0;}
                 break;
             case 1:
                 if (myDb.getAllRows().getCount() > 0) {
