@@ -5,24 +5,20 @@ import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CursorAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import eu.qm.fiszki.DataBaseContainer.DBAdapter;
 import eu.qm.fiszki.DataBaseContainer.DBModel;
 
-import eu.qm.fiszki.Main2Activity;
 import eu.qm.fiszki.R;
 
 public class ItemAdapter extends CursorAdapter
 {
     DBAdapter newAdapter;
-    Main2Activity newActivity;
+    MainActivity newActivity;
 
-    public ItemAdapter(Context context ,Cursor c, DBAdapter myDB, Main2Activity mainActivity)
+    public ItemAdapter(Context context ,Cursor c, DBAdapter myDB, MainActivity mainActivity)
     {
         super(context, c);
         this.newAdapter = myDB;

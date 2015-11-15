@@ -11,18 +11,6 @@
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".ActivityContainer.MainActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-              <!--  <category android:name="android.intent.category.LAUNCHER" /> -->
-
-                <action android:name="eu.qm.fiszki.intent.action.Add_Word" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".ActivityContainer.AddWordActivity"
             android:label="@string/add_new_word_title"
             android:screenOrientation="portrait" >
@@ -47,7 +35,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Main2Activity"
+            android:name=".ActivityContainer.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
