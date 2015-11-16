@@ -1,4 +1,4 @@
-package eu.qm.fiszki.ActivityContainer;
+package eu.qm.fiszki.activity;
 
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
@@ -10,11 +10,11 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import eu.qm.fiszki.AlertClass;
-import eu.qm.fiszki.CheckerClass;
-import eu.qm.fiszki.DataBaseContainer.DBAdapter;
-import eu.qm.fiszki.DataBaseContainer.DBModel;
-import eu.qm.fiszki.DataBaseContainer.DBStatus;
+import eu.qm.fiszki.Alert;
+import eu.qm.fiszki.Checker;
+import eu.qm.fiszki.database.DBAdapter;
+import eu.qm.fiszki.database.DBModel;
+import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.R;
 
 //// TODO: 2015-10-03 Dodanie akceptacji słowa Enterem 
@@ -57,8 +57,8 @@ public class CheckActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item)
     {
         int id = item.getItemId();
-        AlertClass message = new AlertClass();
-        CheckerClass check = new CheckerClass();
+        Alert message = new Alert();
+        Checker check = new Checker();
         if (id == R.id.action_OK)
         {
            if(check.Check(expectedWord, enteredWord.getText().toString()))

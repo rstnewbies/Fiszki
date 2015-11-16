@@ -1,10 +1,6 @@
-package eu.qm.fiszki.ActivityContainer;
+package eu.qm.fiszki.activity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,12 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import eu.qm.fiszki.AlarmReceiverClass;
-import eu.qm.fiszki.DataBaseContainer.DBAdapter;
-import eu.qm.fiszki.DataBaseContainer.DBModel;
-import eu.qm.fiszki.DataBaseContainer.DBStatus;
+import eu.qm.fiszki.database.DBAdapter;
+import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.SettingsActivity;
 

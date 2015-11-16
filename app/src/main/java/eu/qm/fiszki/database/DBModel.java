@@ -1,4 +1,4 @@
-package eu.qm.fiszki.DataBaseContainer;
+package eu.qm.fiszki.database;
 
 /**
  * Created by Mateusz on 2015-10-15.

@@ -7,7 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Html;
 
-public class AlertClass {
+public class Alert {
 
     public void Pass(final Context context, String message, String title,
                      String nameButton) {

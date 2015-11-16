@@ -11,7 +11,7 @@
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".ActivityContainer.MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -23,18 +23,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ActivityContainer.AddWordActivity"
+            android:name=".activity.AddWordActivity"
             android:label="@string/add_new_word_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ActivityContainer.CheckActivity"
+            android:name=".activity.CheckActivity"
             android:label="@string/title_activity_check"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait" >
         </activity>
 
-        <receiver android:name=".AlarmReceiverClass" >
+        <receiver android:name=".AlarmReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -43,7 +43,7 @@
         <activity android:name=".SettingsActivity"
             android:label="@string/title_settings"
             android:screenOrientation="portrait"
-            android:parentActivityName=".ActivityContainer.MainActivity">
+            android:parentActivityName=".activity.MainActivity">
         </activity>
     </application>
 

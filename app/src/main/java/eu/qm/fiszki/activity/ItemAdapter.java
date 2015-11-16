@@ -1,18 +1,15 @@
-package eu.qm.fiszki.ActivityContainer;
+package eu.qm.fiszki.activity;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CursorAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import eu.qm.fiszki.DataBaseContainer.DBAdapter;
-import eu.qm.fiszki.DataBaseContainer.DBModel;
+import eu.qm.fiszki.database.DBAdapter;
+import eu.qm.fiszki.database.DBModel;
 
 import eu.qm.fiszki.R;
 

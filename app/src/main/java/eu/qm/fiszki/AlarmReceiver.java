@@ -10,16 +10,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import java.io.Serializable;
 
-import eu.qm.fiszki.ActivityContainer.CheckActivity;
+import eu.qm.fiszki.activity.CheckActivity;
 
-public class AlarmReceiverClass extends BroadcastReceiver implements Serializable {
+public class AlarmReceiver extends BroadcastReceiver implements Serializable {
 
     @Override
     public void onReceive(Context context, Intent intent) {

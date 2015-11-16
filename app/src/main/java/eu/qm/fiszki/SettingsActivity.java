@@ -11,15 +11,15 @@ import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-import eu.qm.fiszki.ActivityContainer.MainActivity;
-import eu.qm.fiszki.DataBaseContainer.DBAdapter;
-import eu.qm.fiszki.DataBaseContainer.DBModel;
-import eu.qm.fiszki.DataBaseContainer.DBStatus;
+import eu.qm.fiszki.activity.MainActivity;
+import eu.qm.fiszki.database.DBAdapter;
+import eu.qm.fiszki.database.DBModel;
+import eu.qm.fiszki.database.DBStatus;
 
 public class SettingsActivity extends AppCompatActivity {
     public Switch notificationSwitch;
     public PendingIntent pendingIntent;
-    public AlarmReceiverClass alarm;
+    public AlarmReceiver alarm;
     public AlarmManager manager;
     public Intent alarmIntent;
     public Context context;
@@ -33,10 +33,10 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         openDataBase.openDB(myDb);
         context = this;
-        alarmIntent = new Intent(this, AlarmReceiverClass.class);
+        alarmIntent = new Intent(this, AlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarm = new AlarmReceiverClass();
+        alarm = new AlarmReceiver();
 
         notificationSwitch = (Switch) findViewById(R.id.notificationSwitch);
         if (myDb.intRowValue(DBModel.SETTINGS_NAME, "notification") == 1) {

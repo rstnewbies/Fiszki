@@ -1,4 +1,4 @@
-package eu.qm.fiszki.DataBaseContainer;
+package eu.qm.fiszki.database;
 
 import android.content.ContentValues;
 import android.content.Context;

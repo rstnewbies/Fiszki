@@ -1,4 +1,4 @@
-package eu.qm.fiszki.ActivityContainer;
+package eu.qm.fiszki.activity;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -13,11 +13,11 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
-import eu.qm.fiszki.AlarmReceiverClass;
-import eu.qm.fiszki.AlertClass;
-import eu.qm.fiszki.DataBaseContainer.DBAdapter;
-import eu.qm.fiszki.DataBaseContainer.DBModel;
-import eu.qm.fiszki.DataBaseContainer.DBStatus;
+import eu.qm.fiszki.AlarmReceiver;
+import eu.qm.fiszki.Alert;
+import eu.qm.fiszki.database.DBAdapter;
+import eu.qm.fiszki.database.DBModel;
+import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.SettingsActivity;
 
@@ -28,7 +28,7 @@ public class AddWordActivity extends AppCompatActivity {
     DBAdapter myDb = new DBAdapter(this);
     DBStatus OpenDataBase = new DBStatus();
     SettingsActivity settings = new SettingsActivity();
-    AlertClass alert = new AlertClass();
+    Alert alert = new Alert();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +42,10 @@ public class AddWordActivity extends AppCompatActivity {
         inputTranslation = (EditText) findViewById(R.id.inputTranslation);
         inputTranslation.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         OpenDataBase.openDB(myDb);
-        settings.alarmIntent = new Intent(this, AlarmReceiverClass.class);
+        settings.alarmIntent = new Intent(this, AlarmReceiver.class);
         settings.pendingIntent = PendingIntent.getBroadcast(this, 0, settings.alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         settings.manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        settings.alarm = new AlarmReceiverClass();
+        settings.alarm = new AlarmReceiver();
     }
 
     @Override
