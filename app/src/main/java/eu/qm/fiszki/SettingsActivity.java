@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
-import eu.qm.fiszki.ActivityContainer.MainActivity;
 import eu.qm.fiszki.DataBaseContainer.DBAdapter;
 import eu.qm.fiszki.DataBaseContainer.DBModel;
 import eu.qm.fiszki.DataBaseContainer.DBStatus;
@@ -58,8 +57,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            Intent goHome = new Intent(SettingsActivity.this, MainActivity.class);
-            startActivity(goHome);
+            this.finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -69,12 +67,13 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
         switch (position) {
             case 0:
-                    if (myDb.intRowValue(DBModel.SETTINGS_NAME, notificationStatus) == 1 ||
-                            myDb.intRowValue(DBModel.SETTINGS_NAME, spinnerPosition) != 0) {
-                        alarm.close(manager, context, pendingIntent);
-                        myDb.updateRow(notificationStatus, 0);
-                        myDb.updateRow(spinnerPosition, 0);
-                        time=0;}
+                if (myDb.intRowValue(DBModel.SETTINGS_NAME, notificationStatus) == 1 ||
+                        myDb.intRowValue(DBModel.SETTINGS_NAME, spinnerPosition) != 0) {
+                    alarm.close(manager, context, pendingIntent);
+                    myDb.updateRow(notificationStatus, 0);
+                    myDb.updateRow(spinnerPosition, 0);
+                    time = 0;
+                }
                 break;
             case 1:
                 if (myDb.getAllRows().getCount() > 0) {
