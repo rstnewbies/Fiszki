@@ -68,12 +68,14 @@ public class AddWordActivity extends AppCompatActivity {
                 alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.alert_nameButton_OK), AddWordActivity.this);
                 inputWord.setText(null);
                 inputTranslation.setText(null);
+                inputWord.requestFocus();
 
             } else if (!TextUtils.isEmpty(inputWord.getText().toString()) && !TextUtils.isEmpty(inputTranslation.getText().toString())) {
                 myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString());
                 Toast.makeText(getApplicationContext(), getString(R.string.onNewPositionAdd), Toast.LENGTH_LONG).show();
                 inputWord.setText(null);
                 inputTranslation.setText(null);
+                inputWord.requestFocus();
                 if (myDb.getAllRows().getCount() == 1) {
                     settings.alarm.start(settings.manager, settings.context, settings.pendingIntent, settings.time);
                     myDb.updateRow(settings.spinnerPosition, 3);
