@@ -22,8 +22,8 @@
     <string name="translation_language">Angielski</string>
     <string name="switch_notification">Powiadomienia</string>
     <string name="notification_time">Czas odświeżania</string>
-    <string name="alarm_on">Notyfikacje włączone</string>
-    <string name="alarm_off">Notyfikacje wyłączone</string>
+    <string name="alarm_on">Powiadomienia włączone</string>
+    <string name="alarm_off">Powiadomienia wyłączone</string>
     <string name="title_settings">Ustawienia</string>
     <string name="alert_title">Uwaga!</string>
     <string name="alert_message_onRecordExist">Pozycja znajduje się już na liście</string>
