@@ -14,9 +14,9 @@
     <string name="add_new_word_button">+</string>
     <string name="notification_title">Tłumaczenia czas nastał</string>
     <string name="notification_message">Odkryj efekt szybkiego nauczania,
-                                        zdenerwował tym wszystkich nauczycieli</string>
-    <string name="empty_base_main_layout">Nie dodałeś jeszcze żadnego słówka. Aby dodać kliknij plusa
-                                        w prawym dolnym rogu.</string>
+        zdenerwował tym wszystkich nauczycieli</string>
+    <string name="empty_base_main_layout">Nie dodałeś jeszcze żadnego słówka. Aby dodać kliknij
+        plusa w prawym dolnym rogu.</string>
     <string name="translation_word">Słówko</string>
     <string name="translation_info">Tłumaczenie</string>
     <string name="translation_language">Angielski</string>
@@ -30,4 +30,18 @@
     <string name="alert_message_onEmptyFields">Pola nie mogą być puste</string>
     <string name="onNewPositionAdd">Nowa pozycja została dodana</string>
     <string name="OK">Ok</string>
+    <string name="spinner_text">Częstotliwość powiadomień: </string>
+    <string-array name="spinner_frequency">
+        <item>Nigdy</item>
+        <item>1 min</item>
+        <item>5 min</item>
+        <item>15 min</item>
+        <item>30 min</item>
+    </string-array>
+    <string name="notification_change_title">UWAGA</string>
+    <string name="notification_change_message">Jeszcze nie dodałeś żadnego słówka.
+        Powiadomienia włączą się automatycznie po dodaniu pierwszego słowka</string>
+    <string name="add_first_word_message">Dodałeś pierwsze słówko. Powiadomienia włączyły się
+        automatycznie, domyślny czas powtórzeń to 15min. Czas możesz zmienić w ustawieniach.</string>
 </resources>
+

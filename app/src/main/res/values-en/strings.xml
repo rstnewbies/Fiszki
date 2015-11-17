@@ -30,4 +30,18 @@
     <string name="alert_message_onEmptyFields">Fields can not be empty.</string>
     <string name="onNewPositionAdd">New position has been added.</string>
     <string name="OK">Ok</string>
+    <string name="spinner_text">Frequency of notification:</string>
+    <string-array name="spinner_frequency">
+        <item>Never</item>
+        <item>1 min</item>
+        <item>5 min</item>
+        <item>15 min</item>
+        <item>30 min</item>
+    </string-array>
+    <string name="notification_change_title">Attention!</string>
+    <string name="notification_change_message">You haven\'t added word yet.
+        Notifications will turn on automaticly after you add first word.</string>
+    <string name="add_first_word_message">You\'ve added your first word. Notifications turned on
+         automaticly and default time after they show up is 15 minutes. You can change it in settings.
+    </string>
 </resources>

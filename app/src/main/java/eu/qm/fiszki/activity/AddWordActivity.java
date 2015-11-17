@@ -13,13 +13,14 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
+import eu.qm.fiszki.R;
+import eu.qm.fiszki.SettingsActivity;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBModel;
 import eu.qm.fiszki.database.DBStatus;
-import eu.qm.fiszki.R;
-import eu.qm.fiszki.SettingsActivity;
 
 
 public class AddWordActivity extends AppCompatActivity {
@@ -46,6 +47,7 @@ public class AddWordActivity extends AppCompatActivity {
         settings.pendingIntent = PendingIntent.getBroadcast(this, 0, settings.alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         settings.manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         settings.alarm = new AlarmReceiver();
+        settings.context = this;
     }
 
     @Override
@@ -58,24 +60,30 @@ public class AddWordActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_add_new_word) {
-            if (inputWord.getText().toString().isEmpty() || inputTranslation.getText().toString().isEmpty()){
+            if (inputWord.getText().toString().isEmpty() || inputTranslation.getText().toString().isEmpty()) {
                 alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onEmptyFields), getString(R.string.action_OK), AddWordActivity.this);
-            }
-            else if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString()) == true){
-                alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.action_OK), AddWordActivity.this);
+            } else if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString()) == true) {
+                alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.alert_nameButton_OK), AddWordActivity.this);
                 inputWord.setText(null);
                 inputTranslation.setText(null);
+                inputWord.requestFocus();
 
             } else if (!TextUtils.isEmpty(inputWord.getText().toString()) && !TextUtils.isEmpty(inputTranslation.getText().toString())) {
                 myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString());
                 Toast.makeText(getApplicationContext(), getString(R.string.onNewPositionAdd), Toast.LENGTH_LONG).show();
                 inputWord.setText(null);
                 inputTranslation.setText(null);
+                inputWord.requestFocus();
                 if (myDb.getAllRows().getCount() == 1) {
-                    myDb.updateRow("notification", 1);
-                    settings.alarm.start(settings.manager, this, settings.pendingIntent, settings.time);
+                    settings.alarm.start(settings.manager, settings.context, settings.pendingIntent, settings.time);
+                    myDb.updateRow(settings.spinnerPosition, 3);
+                    myDb.updateRow(settings.notificationStatus, 1);
+                    alert.addFirstWord(
+                            this.getString(R.string.alert_title_pass),
+                            this.getString(R.string.add_first_word_message),
+                            this.getString(R.string.alert_nameButton_OK),
+                            this);
                 }
-                finish();
             }
         }
         return super.onOptionsItemSelected(item);

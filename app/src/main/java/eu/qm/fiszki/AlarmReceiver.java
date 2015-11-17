@@ -11,19 +11,17 @@ import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v7.app.NotificationCompat;
-import android.widget.Toast;
-
-import java.io.Serializable;
 
 import eu.qm.fiszki.activity.CheckActivity;
 
-public class AlarmReceiver extends BroadcastReceiver implements Serializable {
+public class AlarmReceiver extends BroadcastReceiver {
+    SettingsActivity settings = new SettingsActivity();
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        long[] vibrate = {0,200,100,200};
-        Bitmap icon =  BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
+        long[] vibrate = {0, 200, 100, 200};
+        Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
         PendingIntent pi = PendingIntent.getActivity(context, 100, new Intent(context,
                 CheckActivity.class), 0);
         Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -39,18 +37,16 @@ public class AlarmReceiver extends BroadcastReceiver implements Serializable {
         mBuilder.setVibrate(vibrate);
         NotificationManager nm =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        nm.notify(100,mBuilder.build());
+        nm.notify(100, mBuilder.build());
 
     }
 
-    public void start(AlarmManager manager,Context context,PendingIntent pendingIntent, int sec) {
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * sec, pendingIntent);
-        Toast.makeText(context, context.getString(R.string.alarm_on), Toast.LENGTH_SHORT).show();
+    public void start(AlarmManager manager, Context context, PendingIntent pendingIntent, int sec) {
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * sec, pendingIntent);
     }
 
-    public void close(AlarmManager manager,Context context, PendingIntent pendingIntent){
+    public void close(AlarmManager manager, Context context, PendingIntent pendingIntent) {
         manager.cancel(pendingIntent);
-        Toast.makeText(context, context.getString(R.string.alarm_off), Toast.LENGTH_SHORT).show();
     }
 
 }
