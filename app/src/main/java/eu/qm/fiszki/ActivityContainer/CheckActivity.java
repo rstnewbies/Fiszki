@@ -35,7 +35,19 @@ public class CheckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_check);
 
         OpenDataBase.openDB(myDb);
-        Cursor c = myDb.getRandomRow();
+        Cursor c = myDb.getAllRows();
+        
+        int cCount = c.getCount();
+        int cPosition = myDb.intRowValue(DBModel.SETTINGS_NAME, "cursorPosition");
+        if(cPosition < cCount) {
+            c.move(cPosition);
+            cPosition++;
+            myDb.updateRow("cursorPosition", cPosition);
+        } else {
+            cPosition = 1;
+            myDb.updateRow("cursorPosition", cPosition);
+        }
+
             wordFromData = c.getString(c.getColumnIndex(DBModel.KEY_WORD));
             expectedWord = c.getString(c.getColumnIndex(DBModel.KEY_TRANSLATION));
             enteredWord = (EditText) findViewById(R.id.EnteredWord);

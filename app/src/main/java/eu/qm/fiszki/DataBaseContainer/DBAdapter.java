@@ -37,11 +37,13 @@ public class DBAdapter {
     public long updateRow(String settingName , int status) {
         ContentValues values = new ContentValues();
         values.put(DBModel.SETTINGS_STATUS, status);
-        return db.update(DBModel.SETTINGS_TABLE, values, DBModel.SETTINGS_NAME + "= " + "'" + settingName + "'", null);
+        return db.update(DBModel.SETTINGS_TABLE, values,
+                DBModel.SETTINGS_NAME + "= " + "'" + settingName + "'", null);
     }
 
     public boolean getRowValue(String column, String text) {
-        Cursor c = db.query(false, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS, column +"="+ "'"+text+"'", null, null, null, null, null);
+        Cursor c = db.query(false, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS,
+                column +"="+ "'"+text+"'", null, null, null, null, null);
         if (c.getCount()>0) {
             return true;
         }
@@ -52,7 +54,8 @@ public class DBAdapter {
 
     public int intRowValue(String column, String text){
         String where = column + "=" + "'" + text + "'";
-        Cursor c = db.query(true, DBModel.SETTINGS_TABLE, DBModel.ALL_KEYS_SETTINGS, where, null, null, null, null, null);
+        Cursor c = db.query(true, DBModel.SETTINGS_TABLE, DBModel.ALL_KEYS_SETTINGS,
+                where, null, null, null, null, null);
         if (c != null) {
             c.moveToFirst();
         }
@@ -61,7 +64,8 @@ public class DBAdapter {
     }
 
     public Cursor getAllRows() {
-        Cursor c = db.query(true, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS, null, null, null, null, null, null);
+        Cursor c = db.query(true, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS,
+                null, null, null, null, null, null);
         if (c != null) {
             c.moveToFirst();
         }
@@ -71,6 +75,15 @@ public class DBAdapter {
     public Cursor getRandomRow() {
         Cursor c = db.query(true, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS,
                 null, null, null, null, "RANDOM()", "1");
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+    public Cursor getRow() {
+        Cursor c = db.query(true, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS,
+                null, null, null, null, null, "1");
         if (c != null) {
             c.moveToFirst();
         }
@@ -87,6 +100,7 @@ public class DBAdapter {
             _db.execSQL(DBModel.DATABASE_CREATE_SQL);
             _db.execSQL(DBModel.SETTINGS_CREATE_SQL);
             _db.execSQL(DBModel.FILL_SETTINGS_SQL);
+            _db.execSQL(DBModel.Fill_SETTINGS_SQL2);
         }
 
         @Override

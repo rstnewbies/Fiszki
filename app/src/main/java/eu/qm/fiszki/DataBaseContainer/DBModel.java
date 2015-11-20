@@ -19,7 +19,8 @@ public class DBModel {
     public static final String SETTINGS_STATUS = "status";
 
     public static final String[] ALL_KEYS = new String[]{KEY_ROWID, KEY_WORD, KEY_TRANSLATION};
-    public static final String[] ALL_KEYS_SETTINGS = new String[]{SETTINGS_ROWID, SETTINGS_NAME, SETTINGS_STATUS};
+    public static final String[] ALL_KEYS_SETTINGS = new String[]{
+            SETTINGS_ROWID, SETTINGS_NAME, SETTINGS_STATUS};
 
     // Column numbers:
     public static final int COL_ROWID = 0;
@@ -44,7 +45,9 @@ public class DBModel {
                     + " (" + SETTINGS_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + SETTINGS_NAME + " TEXT NOT NULL, "
                     + SETTINGS_STATUS + " INTEGER NOT NULL"
-                    + ");";
+                    +");";
     public static final String FILL_SETTINGS_SQL =
             "INSERT INTO "+ SETTINGS_TABLE +" VALUES(1, 'notification', 0)";
+    public static final String Fill_SETTINGS_SQL2 =
+            "INSERT INTO "+SETTINGS_TABLE +" VALUES(2, 'cursorPosition', 1)";
 }
