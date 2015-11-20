@@ -7,8 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Html;
 
+import eu.qm.fiszki.activity.LearningModeActivity;
+import eu.qm.fiszki.activity.MainActivity;
+
 public class Alert {
-    public void Pass(final Context context, String message, String title,
+    public void pass(final Context context, String message, String title,
                      String nameButton) {
         final AlertDialog alertDialog;
         alertDialog = new AlertDialog.Builder(context).create();
@@ -28,7 +31,7 @@ public class Alert {
         alertDialog.show();
     }
 
-    public void Fail(final Context context, String orginalWord, String message, String title,
+    public void fail(final Context context, String orginalWord, String message, String title,
                      String nameButton) {
         AlertDialog alertDialog;
         alertDialog = new AlertDialog.Builder(context).create();
@@ -73,4 +76,38 @@ public class Alert {
         alertDialog.show();
 
     }
+    public void learningModePass(final Context context, String message, String title,
+                     String nameButton) {
+        final AlertDialog alertDialog;
+        alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(context, LearningModeActivity.class);
+                context.startActivity(intent);
+                ((Activity) context).finish();
+
+            }
+        });
+        alertDialog.show();
+    }
+    public void learningModeFail(final Context context, String orginalWord, String message, String title,
+                     String nameButton) {
+        AlertDialog alertDialog;
+        alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(Html.fromHtml(message + " " + "<b>" + orginalWord + "</b>"));
+        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(context, LearningModeActivity.class);
+                context.startActivity(intent);
+                ((Activity) context).finish();
+            }
+        });
+        alertDialog.show();
+    }
+
 }
