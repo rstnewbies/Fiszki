@@ -3,7 +3,7 @@
     <string name="hello_world">Hallo Welt!</string>
     <string name="action_settings">Einstellungen</string>
     <string name="title_activity_check">Nachprüfung</string>
-    <string name="action_OK">✔</string>
+    <string name="action_OK">OK</string>
     <string name="alert_message_pass">Du hast es geschafft zu übersetzen.</string>
     <string name="alert_message_fail">Du hast nicht. Das richtige Wort eingefügt:</string>
     <string name="alert_title_fail">Leider.</string>

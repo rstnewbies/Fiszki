@@ -3,7 +3,7 @@
     <string name="hello_world">Witaj świecie!</string> //Andrzeju, to jest core naszej apki
     <string name="action_settings">Ustawienia</string>
     <string name="title_activity_check">Sprawdzanie</string>
-    <string name="action_OK">✔</string>
+    <string name="action_OK">OK</string>
     <string name="alert_message_pass">Udało Ci się przetłumaczyć.</string>
     <string name="alert_message_fail">Podałeś niepoprawny wyraz. Poprawnie to:</string>
     <string name="alert_title_fail">Niestety</string>
