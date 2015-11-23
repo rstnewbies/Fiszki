@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 import eu.qm.fiszki.DataBaseContainer.DBAdapter;
 import eu.qm.fiszki.DataBaseContainer.DBStatus;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.SettingsActivity;
 
 import android.content.Intent;
 
@@ -26,7 +28,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.app_name));
-        setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.menu_settings);
+        toolbar.setOnMenuItemClickListener(
+                new Toolbar.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent goSettings = new Intent(MainActivity.this, SettingsActivity.class);
+                        startActivity(goSettings);
+                        return true;
+                    }
+                });
         emptyDBImage = (ImageView) findViewById(R.id.emptyDBImage);
         emptyDBImage.setImageResource(R.drawable.emptydb);
         openDataBase.openDB(myDb);
