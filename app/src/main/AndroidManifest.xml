@@ -41,7 +41,7 @@
         </receiver>
 
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activity.SettingsActivity"
             android:label="@string/title_settings"
             android:parentActivityName=".activity.MainActivity"
             android:screenOrientation="portrait" >

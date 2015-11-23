@@ -1,4 +1,4 @@
-package eu.qm.fiszki;
+package eu.qm.fiszki.activity;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
+import eu.qm.fiszki.AlarmReceiver;
+import eu.qm.fiszki.Alert;
+import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBModel;
 import eu.qm.fiszki.database.DBStatus;

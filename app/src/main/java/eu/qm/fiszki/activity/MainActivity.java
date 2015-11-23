@@ -13,7 +13,6 @@ import android.widget.TextView;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.SettingsActivity;
 
 
 public class MainActivity extends AppCompatActivity {

@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.support.v7.app.NotificationCompat;
 
 import eu.qm.fiszki.activity.CheckActivity;
+import eu.qm.fiszki.activity.SettingsActivity;
 
 public class AlarmReceiver extends BroadcastReceiver {
     SettingsActivity settings = new SettingsActivity();

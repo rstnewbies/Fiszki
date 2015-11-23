@@ -32,5 +32,5 @@
     <string name="OK">Ok</string>
     <string name="title_activity_learning_mode">Lernmodus</string>
     <string name="learning_mode">Lernmodus</string>
-
+    <string name="alert_message_tryagain">Schreiben Sie es erneut.</string>
 </resources>

@@ -46,5 +46,6 @@
     <string name="learning_mode">Tryb Nauki</string>
     <string name="title_activity_learning_mode">Tryb Nauki</string>
     <string name="learning_mede_stop">X</string>
+    <string name="alert_message_tryagain">Napisz go ponownie.</string>
 </resources>
 

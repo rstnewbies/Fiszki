@@ -47,5 +47,5 @@
     <string name="title_activity_learning_mode">Learning mode</string>
     <string name="learning_mode">Learning mode</string>
 
-
+    <string name="alert_message_tryagain">Write it again.</string>
 </resources>
