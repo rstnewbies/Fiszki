@@ -69,7 +69,6 @@ public class AddWordActivity extends AppCompatActivity {
 
             } else if (!TextUtils.isEmpty(inputWord.getText().toString()) && !TextUtils.isEmpty(inputTranslation.getText().toString())) {
                 myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString());
-                Toast.makeText(getApplicationContext(), getString(R.string.onNewPositionAdd), Toast.LENGTH_LONG).show();
                 inputWord.setText(null);
                 inputTranslation.setText(null);
                 inputWord.requestFocus();

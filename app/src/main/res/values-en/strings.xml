@@ -38,7 +38,7 @@
         <item>15 min</item>
         <item>30 min</item>
     </string-array>
-    <string name="notification_change_title">Attention!</string>
+0    <string name="notification_change_title">Attention!</string>
     <string name="notification_change_message">You haven\'t added word yet.
         Notifications will turn on automaticly after you add first word.</string>
     <string name="add_first_word_message">You\'ve added your first word. Notifications turned on
