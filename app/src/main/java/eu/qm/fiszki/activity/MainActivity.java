@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.settings) {
             Intent goSettings = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(goSettings);
+        } else if(id == R.id.learningMode){
+            Intent goLearningMode = new Intent(MainActivity.this, LearningModeActivity.class);
+            startActivity(goLearningMode);
         }
         return super.onOptionsItemSelected(item);
     }
