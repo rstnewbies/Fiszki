@@ -30,4 +30,7 @@
     <string name="alert_message_onEmptyFields">Die Felder dürfen nicht leer sein</string>
     <string name="onNewPositionAdd">Ein neues Element wurde hinzugefügt</string>
     <string name="OK">Ok</string>
+    <string name="title_activity_learning_mode">Lernmodus</string>
+    <string name="learning_mode">Lernmodus</string>
+
 </resources>

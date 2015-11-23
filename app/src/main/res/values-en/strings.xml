@@ -44,4 +44,8 @@
     <string name="add_first_word_message">You\'ve added your first word. Notifications turned on
          automaticly and default time after they show up is 15 minutes. You can change it in settings.
     </string>
+    <string name="title_activity_learning_mode">Learning mode</string>
+    <string name="learning_mode">Learning mode</string>
+
+
 </resources>

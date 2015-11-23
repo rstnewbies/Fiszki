@@ -44,7 +44,7 @@
     <string name="add_first_word_message">Dodałeś pierwsze słówko. Powiadomienia włączyły się
         automatycznie, domyślny czas powtórzeń to 15min. Czas możesz zmienić w ustawieniach.</string>
     <string name="learning_mode">Tryb Nauki</string>
-    <string name="title_activity_learning_mode">Tryb Nauki </string>
+    <string name="title_activity_learning_mode">Tryb Nauki</string>
     <string name="learning_mede_stop">X</string>
 </resources>
 
