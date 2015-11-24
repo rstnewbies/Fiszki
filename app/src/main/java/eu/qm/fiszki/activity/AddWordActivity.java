@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
@@ -83,6 +82,9 @@ public class AddWordActivity extends AppCompatActivity {
                             this);
                 }
             }
+        }
+        if (id == android.R.id.home) {
+            this.finish();
         }
         return super.onOptionsItemSelected(item);
     }

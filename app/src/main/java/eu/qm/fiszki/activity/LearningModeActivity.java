@@ -1,9 +1,8 @@
 package eu.qm.fiszki.activity;
 
-import android.app.Activity;
 import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,8 +28,7 @@ public class LearningModeActivity extends AppCompatActivity {
     String expectedWord;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check);
 
@@ -47,32 +45,28 @@ public class LearningModeActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_learning_mode, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         Alert message = new Alert();
         Checker check = new Checker();
-        if (id == R.id.action_OK)
-        {
-            if(check.Check(expectedWord, enteredWord.getText().toString()))
-            {
+        if (id == R.id.action_OK) {
+            if (check.Check(expectedWord, enteredWord.getText().toString())) {
                 message.learningModePass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.alert_nameButton_OK));
-            }
-            else
-            {
+            } else {
                 message.learningModeFail(this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
             }
-        } else if (id == R.id.learningMode_stop)
-        {
+        } else if (id == R.id.learningMode_stop) {
+            this.finish();
+        } else if (id == android.R.id.home) {
             this.finish();
         }
+
         return super.onOptionsItemSelected(item);
     }
 }
