@@ -52,7 +52,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_settings, menu);
         return true;
     }
 
