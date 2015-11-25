@@ -30,5 +30,19 @@
             android:layout_gravity="center"
             android:src="@drawable/emptydb" />
 
+        <TextView
+            android:layout_width="291dp"
+            android:layout_height="350dp"
+            android:textSize="35dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/empty_base_main_layout"
+            android:id="@+id/textView5"
+            android:layout_gravity="center"
+            android:allowUndo="false"
+            android:autoText="false"
+            android:linksClickable="false"
+            android:textStyle="bold|italic"
+            android:typeface="serif" />
+
     </FrameLayout>
 </RelativeLayout>
