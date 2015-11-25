@@ -1,5 +1,6 @@
 package eu.qm.fiszki.activity;
 
+import android.content.Context;
 import android.content.Intent;
 
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBStatus;
@@ -25,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     public DBAdapter myDb = new DBAdapter(this);
     DBStatus openDataBase = new DBStatus();
     ImageView emptyDBImage;
+    TextView emptyDBText;
+    Alert alert = new Alert();
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +49,18 @@ public class MainActivity extends AppCompatActivity {
                             Intent goSettings = new Intent(MainActivity.this, SettingsActivity.class);
                             startActivity(goSettings);
                         } else if (id == R.id.learningMode) {
-                            Intent goLearningMode = new Intent(MainActivity.this, LearningModeActivity.class);
-                            startActivity(goLearningMode);
+                            if (myDb.getAllRows().getCount() > 0) {
+                                Intent goLearningMode = new Intent(MainActivity.this, LearningModeActivity.class);
+                                startActivity(goLearningMode);
+                            } else {
+                                alert.buildAlert(getString(R.string.alert_title_fail), getString(R.string.learningmode_emptybase), getString(R.string.alert_nameButton_OK), MainActivity.this);
+                            }
                         }
                         return true;
                     }
                 });
         emptyDBImage = (ImageView) findViewById(R.id.emptyDBImage);
+        emptyDBText = (TextView) findViewById(R.id.emptyDBText);
         emptyDBImage.setImageResource(R.drawable.emptydb);
         openDataBase.openDB(myDb);
         checkListComponents();
@@ -68,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         checkListComponents();
         if (myDb.getAllRows().getCount() > 0) {
             emptyDBImage.setAlpha(0);
+            emptyDBText.setAlpha(0);
         }
     }
 

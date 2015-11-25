@@ -16,7 +16,7 @@
     <string name="notification_message">Es ist die Zeit gekommen, das Wort zu übersetzen.
         Das erlaubt schneller die Sprache zu lernen.</string>
     <string name="empty_base_main_layout">Sie haben noch keine Wörter hinzugefügt.
-        Wenn Sie hinzufügen möchten, klicken Sie auf das Plus-Zeichen in der rechten unteren Ecke.</string>
+        Wenn Sie hinzufügen möchten, klicken Sie auf das Plus-Zeichen in der rechten unteren Ecke</string>
     <string name="translation_word">Wort</string>
     <string name="translation_info">Übersetzung</string>
     <string name="translation_language">Englisch</string>
