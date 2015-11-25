@@ -31,12 +31,12 @@
             android:src="@drawable/emptydb" />
 
         <TextView
-            android:layout_width="291dp"
-            android:layout_height="350dp"
-            android:textSize="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="433dp"
+            android:textSize="55dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/empty_base_main_layout"
-            android:id="@+id/textView5"
+            android:id="@+id/emptyDBText"
             android:layout_gravity="center"
             android:allowUndo="false"
             android:autoText="false"
