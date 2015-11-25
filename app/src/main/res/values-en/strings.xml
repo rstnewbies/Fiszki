@@ -15,8 +15,8 @@
     <string name="notification_title">It is time to study!</string>
     <string name="notification_message">The time has come to translate word.
          This will allow you to faster study specific language.</string>
-    <string name="empty_base_main_layout">You have not added any words yet.
-       If you want to add, click the plus sign in the bottom right corner.</string>
+    <string name="empty_base_main_layout">You haven\'t added any words yet.
+       Please add by clicking the plus sign in the corner</string>
     <string name="translation_word">Word</string>
     <string name="translation_info">Translation</string>
     <string name="translation_language">English</string>

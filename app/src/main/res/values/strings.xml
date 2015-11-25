@@ -15,7 +15,8 @@
     <string name="notification_title">Tłumaczenia czas nastał</string>
     <string name="notification_message">Odkryj efekt szybkiego nauczania,
         zdenerwował tym wszystkich nauczycieli</string>
-    <string name="empty_base_main_layout">Nie dodałeś jeszcze żadnego słówka. Aby dodać kliknij.</string>
+    <string name="empty_base_main_layout">Nie dodałeś jeszcze żadnego słówka. Aby dodać kliknij
+    przycisk z plusem</string>
     <string name="translation_word">Słówko</string>
     <string name="translation_info">Tłumaczenie</string>
     <string name="translation_language">Angielski</string>
