@@ -10,7 +10,6 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.Random;
 
 import eu.qm.fiszki.Alert;
@@ -42,17 +41,6 @@ public class CheckActivity extends AppCompatActivity {
         OpenDataBase.openDB(myDb);
 
         Cursor c = drawCardAlgorithm();
-        
-        int cCount = c.getCount();
-        int cPosition = myDb.intRowValue(DBModel.SETTINGS_NAME, "cursorPosition");
-        if(cPosition < cCount) {
-            c.move(cPosition);
-            cPosition++;
-            myDb.updateRow("cursorPosition", cPosition);
-        } else {
-            cPosition = 1;
-            myDb.updateRow("cursorPosition", cPosition);
-        }
 
             wordFromData = c.getString(c.getColumnIndex(DBModel.KEY_WORD));
             expectedWord = c.getString(c.getColumnIndex(DBModel.KEY_TRANSLATION));
@@ -118,7 +106,7 @@ public class CheckActivity extends AppCompatActivity {
                 section[i] = totalPoints[i] + section[i-1];
             }
         }
-        Random rand = new Random(section[4]+1);
+        Random rand = new Random(section[4]);
         int drawn = rand.nextInt();
 
         if(drawn <= section[0]) {

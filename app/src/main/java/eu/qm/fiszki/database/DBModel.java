@@ -48,5 +48,5 @@ public class DBModel {
     public static final String SECOND_FILL_SETTINGS_SQL =
             "INSERT INTO "+ SETTINGS_TABLE +" VALUES(2, 'notification_time', 0)";
     public static final String Fill_SETTINGS_SQL2 =
-            "INSERT INTO "+SETTINGS_TABLE +" VALUES(3, 'cursorPosition', 1)";
+            "INSERT INTO "+SETTINGS_TABLE +" VALUES(3, 'cursorPosition', 0)";
 }
