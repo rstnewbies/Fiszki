@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
@@ -66,8 +67,11 @@ public class AddWordActivity extends AppCompatActivity {
                 inputTranslation.setText(null);
                 inputWord.requestFocus();
 
-            } else if (!TextUtils.isEmpty(inputWord.getText().toString()) && !TextUtils.isEmpty(inputTranslation.getText().toString())) {
+            } else if (!TextUtils.isEmpty(inputWord.getText().toString()) &&
+                    !TextUtils.isEmpty(inputTranslation.getText().toString())) {
                 myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString());
+                Toast.makeText(AddWordActivity.this,
+                        getString(R.string.onNewPositionAdd), Toast.LENGTH_SHORT).show();
                 inputWord.setText(null);
                 inputTranslation.setText(null);
                 inputWord.requestFocus();
