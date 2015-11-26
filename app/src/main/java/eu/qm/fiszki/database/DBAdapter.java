@@ -27,10 +27,11 @@ public class DBAdapter {
         myDBHelper.close();
     }
 
-    public long insertRow(String word, String translate) {
+    public long insertRow(String word, String translate, int priority) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(DBModel.KEY_WORD, word);
         initialValues.put(DBModel.KEY_TRANSLATION, translate);
+        initialValues.put(DBModel.KEY_PRIORITY, priority);
         return db.insert(DBModel.DATABASE_TABLE, null, initialValues);
     }
 
@@ -39,6 +40,12 @@ public class DBAdapter {
         values.put(DBModel.SETTINGS_STATUS, status);
         return db.update(DBModel.SETTINGS_TABLE, values,
                 DBModel.SETTINGS_NAME + "= " + "'" + settingName + "'", null);
+    }
+
+    public long updateFlashcardPriority(int id, int ptiotity){
+        ContentValues values = new ContentValues();
+        values.put(DBModel.KEY_PRIORITY, ptiotity);
+        return db.update(DBModel.DATABASE_TABLE, values, DBModel.KEY_ROWID + "=" + id, null);
     }
 
     public boolean getRowValue(String column, String text) {
@@ -66,6 +73,24 @@ public class DBAdapter {
     public Cursor getAllRows() {
         Cursor c = db.query(true, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS,
                 null, null, null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+    public Cursor getAllRowsPriority(int priority){
+        Cursor c = db.query(true, DBModel.DATABASE_TABLE,DBModel.ALL_KEYS,
+                DBModel.KEY_PRIORITY + "=" + priority, null, null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+    public Cursor getRandomRowWithpriority(int priority) {
+        Cursor c = db.query(true, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS,
+                DBModel.KEY_PRIORITY + "=" + priority, null, null, null, "RANDOM()", "1");
         if (c != null) {
             c.moveToFirst();
         }
