@@ -1,9 +1,11 @@
 package eu.qm.fiszki.activity;
 
+import android.app.ActionBar;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -33,6 +35,9 @@ public class CheckActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         OpenDataBase.openDB(myDb);
         Cursor c = myDb.getAllRows();
@@ -64,7 +69,6 @@ public class CheckActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_check, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -82,6 +86,9 @@ public class CheckActivity extends AppCompatActivity {
             message.fail(this, expectedWord, getString(R.string.alert_message_fail),
                     getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
         }
+        }
+        else if (id == android.R.id.home) {
+            this.finish();
         }
         return super.onOptionsItemSelected(item);
     }

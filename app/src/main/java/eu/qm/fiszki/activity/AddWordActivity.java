@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
@@ -47,6 +48,8 @@ public class AddWordActivity extends AppCompatActivity {
         settings.manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         settings.alarm = new AlarmReceiver();
         settings.context = this;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override

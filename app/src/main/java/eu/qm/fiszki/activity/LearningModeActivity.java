@@ -42,6 +42,8 @@ public class LearningModeActivity extends AppCompatActivity {
         word.append(wordFromData);
         enteredWord.requestFocus();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override
