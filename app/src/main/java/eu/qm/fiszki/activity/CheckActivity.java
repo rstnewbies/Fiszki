@@ -106,8 +106,8 @@ public class CheckActivity extends AppCompatActivity {
                 section[i] = totalPoints[i] + section[i-1];
             }
         }
-        Random rand = new Random(section[4]);
-        int drawn = rand.nextInt();
+        Random rand = new Random();
+        int drawn = rand.nextInt(section[4]);
 
         if(drawn <= section[0]) {
             cursorPriority = myDb.getRandomRowWithpriority(1);
