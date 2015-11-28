@@ -4,4 +4,5 @@
     <color name="ColorPrimaryDark">#FFAB00</color>
     <color name="TheBlackestBlack">#FFF</color>
     <color name="White">#ffffff</color>
+    <color name="SettingSector">#EEEEEE</color>
 </resources>

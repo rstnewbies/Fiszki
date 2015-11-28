@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
@@ -32,6 +34,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     public Alert alert;
     public String spinnerPosition = "notification_time";
     public String notificationStatus = "notification";
+    TextView version;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarm = new AlarmReceiver();
         alert = new Alert();
+        version = (TextView) findViewById(R.id.version);
         spinnerFrequency = (Spinner) findViewById(R.id.spinner);
         spinnerFrequency.setOnItemSelectedListener(this);
         sync(myDb.intRowValue(DBModel.SETTINGS_NAME, spinnerPosition));
@@ -162,6 +166,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     }
 
     public void sync(int poss) {
+        version.setText(getString(R.string.version));
         switch (poss) {
             case 0:
                 spinnerFrequency.setSelection(0);
