@@ -55,6 +55,12 @@ public class CheckActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OpenDataBase.closeDB(myDb);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         getMenuInflater().inflate(R.menu.menu_check, menu);
@@ -93,6 +99,7 @@ public class CheckActivity extends AppCompatActivity {
         final int[] points = {25, 20, 15, 10, 5};
         int[] totalPoints = new int[5];
         int[] section = new int[5];
+        int drawn = 0;
 
         Cursor cursorPriority = null;
 
@@ -107,7 +114,8 @@ public class CheckActivity extends AppCompatActivity {
             }
         }
         Random rand = new Random();
-        int drawn = rand.nextInt(section[4]);
+        drawn = rand.nextInt(section[4]);
+        drawn += 1;
 
         if(drawn <= section[0]) {
             cursorPriority = myDb.getRandomRowWithpriority(1);
@@ -117,7 +125,7 @@ public class CheckActivity extends AppCompatActivity {
             cursorPriority = myDb.getRandomRowWithpriority(3);
         } else if(drawn <= section[3]) {
             cursorPriority = myDb.getRandomRowWithpriority(4);
-        } else if(drawn <= section[4]) {
+        } else if(drawn <= section[4]+1) {
             cursorPriority = myDb.getRandomRowWithpriority(5);
         }
 
