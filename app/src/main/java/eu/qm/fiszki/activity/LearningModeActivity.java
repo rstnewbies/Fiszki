@@ -59,7 +59,9 @@ public class LearningModeActivity extends AppCompatActivity {
             if (check.Check(expectedWord, enteredWord.getText().toString())) {
                 message.learningModePass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.alert_nameButton_OK));
             } else {
+                enteredWord.setText("");
                 message.learningModeFail(this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+
             }
         } else if (id == R.id.learningMode_stop) {
             this.finish();

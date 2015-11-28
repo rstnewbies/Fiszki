@@ -79,7 +79,8 @@ public class CheckActivity extends AppCompatActivity {
            }
            else
            {
-            message.fail(this, expectedWord, getString(R.string.alert_message_fail),
+               enteredWord.setText("");
+                 message.fail(this, expectedWord, getString(R.string.alert_message_fail),
                     getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
         }
         }
