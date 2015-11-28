@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.text.Html;
 
 import eu.qm.fiszki.activity.LearningModeActivity;
-import eu.qm.fiszki.activity.MainActivity;
 
 public class Alert {
     public void pass(final Context context, String message, String title,
@@ -17,6 +16,7 @@ public class Alert {
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
+        alertDialog.setCancelable(false);
         alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -38,7 +38,8 @@ public class Alert {
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(Html.fromHtml(message + " " + "<b>" + orginalWord + "</b>" + ". " +
-                                                                        "\n" + messeageAgain));
+                "\n" + messeageAgain));
+        alertDialog.setCancelable(false);
         alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -65,6 +66,7 @@ public class Alert {
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
+        alertDialog.setCancelable(false);
         alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -75,11 +77,12 @@ public class Alert {
 
     }
     public void learningModePass(final Context context, String message, String title,
-                     String nameButton) {
+                                 String nameButton) {
         final AlertDialog alertDialog;
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
+        alertDialog.setCancelable(false);
         alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -92,7 +95,7 @@ public class Alert {
         alertDialog.show();
     }
     public void learningModeFail(final Context context, String orginalWord, String message, String title,
-                     String nameButton) {
+                                 String nameButton) {
         AlertDialog alertDialog;
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
