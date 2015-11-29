@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -91,5 +92,36 @@ public class AddWordActivity extends AppCompatActivity {
             this.finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
+             if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString()) == true) {
+                alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.alert_nameButton_OK), AddWordActivity.this);
+                inputWord.setText(null);
+                inputTranslation.setText(null);
+                inputWord.requestFocus();
+
+            } else if (!TextUtils.isEmpty(inputWord.getText().toString()) &&
+                    !TextUtils.isEmpty(inputTranslation.getText().toString())) {
+                myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString());
+                Toast.makeText(AddWordActivity.this,
+                        getString(R.string.onNewPositionAdd), Toast.LENGTH_SHORT).show();
+                inputWord.setText(null);
+                inputTranslation.setText(null);
+                inputWord.requestFocus();
+                if (myDb.getAllRows().getCount() == 1) {
+                    settings.alarm.start(settings.manager, settings.context, settings.pendingIntent, settings.time);
+                    myDb.updateRow(settings.spinnerPosition, 3);
+                    myDb.updateRow(settings.notificationStatus, 1);
+                    alert.addFirstWord(
+                            this.getString(R.string.alert_title_pass),
+                            this.getString(R.string.add_first_word_message),
+                            this.getString(R.string.alert_nameButton_OK),
+                            this);
+                }
+            }
+        }
+        return super.dispatchKeyEvent(event);
     }
 }

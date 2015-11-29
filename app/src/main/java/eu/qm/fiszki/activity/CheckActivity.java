@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -93,5 +94,23 @@ public class CheckActivity extends AppCompatActivity {
         }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event)
+    {
+        Alert message = new Alert();
+        final Checker check = new Checker();
+        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+            if (check.Check(expectedWord, enteredWord.getText().toString())) {
+                message.pass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.alert_nameButton_OK));
+            } else {
+                enteredWord.setText("");
+                message.fail(this, expectedWord, getString(R.string.alert_message_fail),
+                        getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+            }
+        }
+        return super.dispatchKeyEvent(event);
+
     }
 }
