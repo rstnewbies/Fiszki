@@ -63,8 +63,6 @@ public class LearningModeActivity extends AppCompatActivity {
             } else {
                 message.learningModeFail(this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
             }
-        } else if (id == R.id.learningMode_stop) {
-            this.finish();
         } else if (id == android.R.id.home) {
             this.finish();
         }
