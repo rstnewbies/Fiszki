@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -82,14 +83,27 @@ public class LearningModeActivity extends AppCompatActivity {
             } else {
                 enteredWord.setText("");
                 message.learningModeFail(this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
-
             }
         } else if (id == R.id.learningMode_stop) {
             this.finish();
         } else if (id == android.R.id.home) {
             this.finish();
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        final Alert message = new Alert();
+        Checker check = new Checker();
+        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+            if (check.Check(expectedWord, enteredWord.getText().toString())) {
+                message.learningModePass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.alert_nameButton_OK));
+            } else {
+                enteredWord.setText("");
+                message.learningModeFail(this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+            }
+        }
+        return super.dispatchKeyEvent(event);
     }
 }
