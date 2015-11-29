@@ -34,6 +34,7 @@ public class CheckActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check);
 
+
         OpenDataBase.openDB(myDb);
         Cursor c = myDb.getAllRows();
         
@@ -52,11 +53,18 @@ public class CheckActivity extends AppCompatActivity {
             expectedWord = c.getString(c.getColumnIndex(DBModel.KEY_TRANSLATION));
             enteredWord = (EditText) findViewById(R.id.EnteredWord);
             enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+            enteredWord.setText("");
             word = (TextView) findViewById(R.id.textView3);
             word.append(wordFromData);
         enteredWord.requestFocus();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        enteredWord.setText("");
+        }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
