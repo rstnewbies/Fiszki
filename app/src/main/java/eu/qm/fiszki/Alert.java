@@ -83,6 +83,7 @@ public class Alert {
         AlertDialog alertDialog;
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
+        alertDialog.setCancelable(false);
         alertDialog.setMessage(Html.fromHtml(message + " " + "<b>" + orginalWord + "</b>"));
         alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
             @Override

@@ -34,7 +34,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     public Alert alert;
     public String spinnerPosition = "notification_time";
     public String notificationStatus = "notification";
-    TextView version;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarm = new AlarmReceiver();
         alert = new Alert();
-        version = (TextView) findViewById(R.id.version);
         spinnerFrequency = (Spinner) findViewById(R.id.spinner);
         spinnerFrequency.setOnItemSelectedListener(this);
         sync(myDb.intRowValue(DBModel.SETTINGS_NAME, spinnerPosition));
@@ -166,7 +164,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     }
 
     public void sync(int poss) {
-        version.setText(getString(R.string.version));
         switch (poss) {
             case 0:
                 spinnerFrequency.setSelection(0);
