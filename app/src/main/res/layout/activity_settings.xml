@@ -9,55 +9,30 @@
     tools:context="eu.qm.fiszki.activity.SettingsActivity"
     android:background="@color/TheBlackestBlack">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/frameLayout2"
-        android:layout_alignBottom="@+id/underscore2"
-        android:layout_alignTop="@+id/underscore1">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text=""
-            android:id="@+id/version"
-            android:layout_gravity="left|center_vertical" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="0dp"
-        android:layout_above="@+id/frameLayout2"
-        android:contextClickable="false"
-        android:focusable="false"
-        android:textAlignment="center">
+        android:layout_alignBottom="@+id/underscore1">
 
         <Spinner
-            android:layout_width="346dp"
+            android:layout_width="334dp"
             android:layout_height="75dp"
             android:id="@+id/spinner"
             android:entries="@array/spinner_frequency"
             android:prompt="@string/spinner_text"
             android:focusable="false"
-            android:layout_gravity="right|center_vertical"
+            android:layout_gravity="center"
             android:clickable="true"
             android:spinnerMode="dialog"
             android:background="@color/White"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="0dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_margin="0dp" />
+            android:layout_alignParentBottom="true" />
 
         <TextView
             android:layout_width="345dp"
@@ -67,15 +42,49 @@
             android:id="@+id/textView4"
             android:textStyle="bold"
             android:textSize="18dp"
+            android:layout_gravity="right|top"
+            android:autoText="false"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="right|top"
-            android:autoText="false" />
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 
-    </FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/underscore1"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/underscore2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text=""
+            android:id="@+id/version"
+            android:layout_gravity="left|center"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignWithParentIfMissing="false"
+            android:gravity="fill_vertical" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray"
+        android:id="@+id/underscore2"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="160dp" />
 
     <View
         android:layout_width="wrap_content"
@@ -87,16 +96,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="80dp" />
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="2dp"
-        android:background="@android:color/darker_gray"
-        android:id="@+id/underscore2"
-        android:layout_row="0"
-        android:layout_column="0"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="160dp" />
 
 
 </RelativeLayout>

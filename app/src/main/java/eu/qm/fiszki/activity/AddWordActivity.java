@@ -79,7 +79,7 @@ public class AddWordActivity extends AppCompatActivity {
                     settings.alarm.start(settings.manager, settings.context, settings.pendingIntent, settings.time);
                     myDb.updateRow(settings.spinnerPosition, 3);
                     myDb.updateRow(settings.notificationStatus, 1);
-                    alert.addFirstWord(
+                    alert.buildAlert(
                             this.getString(R.string.alert_title_pass),
                             this.getString(R.string.add_first_word_message),
                             this.getString(R.string.alert_nameButton_OK),

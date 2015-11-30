@@ -60,21 +60,6 @@ public class Alert {
                     }
                 }).create().show();
     }
-
-    public void addFirstWord(String title, String message, String nameButton, final Context context) {
-        AlertDialog alertDialog;
-        alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle(title);
-        alertDialog.setMessage(message);
-        alertDialog.setCancelable(false);
-        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        alertDialog.show();
-
-    }
     public void learningModePass(final Context context, String message, String title,
                                  String nameButton) {
         final AlertDialog alertDialog;
