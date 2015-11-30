@@ -56,6 +56,8 @@ public class LearningModeActivity extends AppCompatActivity {
         word.append(wordFromData);
         enteredWord.requestFocus();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
 
@@ -84,8 +86,6 @@ public class LearningModeActivity extends AppCompatActivity {
                 message.learningModeFail(this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
 
             }
-        } else if (id == R.id.learningMode_stop) {
-            this.finish();
         } else if (id == android.R.id.home) {
             this.finish();
         }
