@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,11 +33,15 @@ public class MainActivity extends AppCompatActivity {
     TextView emptyDBText;
     Alert alert = new Alert();
     Context context;
+    ListView listViewItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        listViewItems = (ListView) findViewById(R.id.listView);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.app_name));
         toolbar.inflateMenu(R.menu.menu_settings);
@@ -90,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void populateListView() {
-        ListView listViewItems = (ListView) findViewById(R.id.listView);
         ItemAdapter flashCardList = new ItemAdapter(this, myDb.getAllRows(), myDb, this);
         listViewItems.setAdapter(flashCardList);
     }
