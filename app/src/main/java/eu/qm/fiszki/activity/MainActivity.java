@@ -3,6 +3,8 @@ package eu.qm.fiszki.activity;
 import android.content.Context;
 import android.content.Intent;
 
+import android.database.Cursor;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -11,17 +13,20 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBStatus;
-
-
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
     TextView emptyDBText;
     Alert alert = new Alert();
     Context context;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +83,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -93,6 +107,13 @@ public class MainActivity extends AppCompatActivity {
         ListView listViewItems = (ListView) findViewById(R.id.listView);
         ItemAdapter flashCardList = new ItemAdapter(this, myDb.getAllRows(), myDb, this);
         listViewItems.setAdapter(flashCardList);
+        listViewItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Cursor c = (Cursor) parent.getAdapter().getItem(position);
+                Toast.makeText(MainActivity.this,c.getString(2),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void checkListComponents() {
@@ -100,4 +121,5 @@ public class MainActivity extends AppCompatActivity {
             populateListView();
         }
     }
+
 }
