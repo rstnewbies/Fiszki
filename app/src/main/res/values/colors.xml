@@ -5,4 +5,6 @@
     <color name="TheBlackestBlack">#FFF</color>
     <color name="White">#ffffff</color>
     <color name="SettingSector">#EEEEEE</color>
+    <color name="pressed_color">#4d90fe</color>
+    <color name="default_color">#ffffff</color>
 </resources>

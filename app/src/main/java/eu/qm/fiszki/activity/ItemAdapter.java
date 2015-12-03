@@ -42,9 +42,4 @@ public class ItemAdapter extends CursorAdapter
         word.setText(wordString);
         translation.setText(translationString);
     }
-
-    public void refreshList()
-    {
-        newActivity.populateListView();
-    }
 }
