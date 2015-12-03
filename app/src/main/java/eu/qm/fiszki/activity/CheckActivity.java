@@ -101,7 +101,7 @@ public class CheckActivity extends AppCompatActivity {
     {
         Alert message = new Alert();
         final Checker check = new Checker();
-        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction()==0) {
             if (check.Check(expectedWord, enteredWord.getText().toString())) {
                 message.pass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.alert_nameButton_OK));
             } else {

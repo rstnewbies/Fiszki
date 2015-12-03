@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -11,6 +12,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -95,13 +97,14 @@ public class AddWordActivity extends AppCompatActivity {
     }
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
-             if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString()) == true) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction()==0){
+            if (inputWord.getText().toString().isEmpty() && inputTranslation.getText().toString().isEmpty()) {
+                alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onEmptyFields), getString(R.string.action_OK), AddWordActivity.this);
+            } else if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString()) == true) {
                 alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.alert_nameButton_OK), AddWordActivity.this);
                 inputWord.setText(null);
                 inputTranslation.setText(null);
                 inputWord.requestFocus();
-
             } else if (!TextUtils.isEmpty(inputWord.getText().toString()) &&
                     !TextUtils.isEmpty(inputTranslation.getText().toString())) {
                 myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString());
