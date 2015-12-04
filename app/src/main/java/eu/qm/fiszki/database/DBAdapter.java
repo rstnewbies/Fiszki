@@ -131,12 +131,11 @@ public class DBAdapter {
 
         @Override
         public void onUpgrade(SQLiteDatabase _db, int oldVersion, int newVersion) {
-            Log.w(DBModel.TAG, "Upgrading application's database from version " + oldVersion
-                    + " to " + newVersion + ", which will destroy all old data!");
-
-            _db.execSQL("DROP TABLE IF EXISTS " + DBModel.DATABASE_TABLE);
-
-            onCreate(_db);
+           _db.execSQL("ALTER TABLE" + DBModel.DATABASE_TABLE +
+                       "ADD COLUMN" + DBModel.KEY_PRIORITY + "INTEGER NOT NULL");
+           _db.execSQL("UPDATE" + DBModel.DATABASE_TABLE +
+                       "SET" + DBModel.KEY_PRIORITY + "= 1 " +
+                       "WHERE" + DBModel.KEY_PRIORITY + "IS NULL");
         }
     }
 }

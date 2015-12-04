@@ -27,7 +27,7 @@ public class DBModel {
     public static final String DATABASE_NAME = "dbQM";
     public static final String DATABASE_TABLE = "mainFiszki";
     public static final String SETTINGS_TABLE = "applicationSettings";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     //SQL statement to create database (private)
     public static final String DATABASE_CREATE_SQL =
