@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name" translatable="false">Fiszki</string>
-    <string name="hello_world">Witaj świecie!</string> //Andrzeju, to jest core naszej apki
-    <string name="version">Wersja aplikacji: 1.1.1</string> //WERSJA
+    <string name="hello_world">Witaj świecie!</string>
+    //Andrzeju, to jest core naszej apki
+    <string name="version">Wersja aplikacji: 1.1.1</string>
+    //WERSJA
     <string name="action_settings">Ustawienia</string>
     <string name="title_activity_check">Sprawdzanie</string>
     <string name="action_OK">OK</string>
@@ -49,6 +51,9 @@
     <string name="learning_mede_stop">X</string>
     <string name="alert_message_tryagain">Napisz go ponownie.</string>
     <string name="learningmode_emptybase">Zanim zaczniesz naukę, dodaj słówka do listy.</string>
+    <string name="button_edit">Edytuj</string>
+    <string name="button_delete">Usuń</string>
+    <string name="dialog_edit_item">Edycja Fiszki</string>
 
 </resources>
 

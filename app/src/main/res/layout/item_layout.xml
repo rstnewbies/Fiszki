@@ -9,8 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.03"
-        android:background="@drawable/select_item_list_view">
+        android:layout_weight="0.03">
 
         <TextView
             android:layout_width="403dp"
@@ -19,8 +18,7 @@
             android:id="@+id/translation"
             android:layout_below="@+id/word"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:background="@drawable/select_item_list_view"/>
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:layout_width="match_parent"
@@ -31,7 +29,6 @@
         android:textStyle="bold"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:background="@drawable/select_item_list_view"/>
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
 </LinearLayout>

@@ -1,28 +1,27 @@
 package eu.qm.fiszki.activity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.support.design.widget.Snackbar;
-import android.widget.Toast;
 
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
+import java.util.Arrays;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
@@ -40,12 +39,19 @@ public class MainActivity extends AppCompatActivity {
     public TextView emptyDBText;
     public Context context;
     public ListView listView;
+    public FloatingActionButton fab;
+    public LinearLayout footer;
+    public View[] selectedItem;
+    public boolean[] clickedItem;
+    public int earlierPosition;
+    public Cursor editedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        earlierPosition = -1;
         alert = new Alert();
         openDataBase = new DBStatus();
         myDb = new DBAdapter(this);
@@ -55,10 +61,12 @@ public class MainActivity extends AppCompatActivity {
         emptyDBText = (TextView) findViewById(R.id.emptyDBText);
         emptyDBImage.setImageResource(R.drawable.emptydb);
         openDataBase.openDB(myDb);
+
+        sync();
         listViewPopulate();
         listViewSelect();
         toolbarSettings();
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,12 +99,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void listViewSelect() {
-        final LinearLayout footer = (LinearLayout) findViewById(R.id.footer);
+        footer = (LinearLayout) findViewById(R.id.footer);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                view.setSelected(true);
-                footer.setVisibility(View.VISIBLE);
+
+                editedItem = null;
+                editedItem = (Cursor) parent.getAdapter().getItem(position);
+
+                if (!clickedItem[position] && earlierPosition == -1) {
+                    selectedItem[position] = view;
+                    clickedItem[position] = true;
+                    selectedItem[position].setBackgroundColor(getResources().getColor(R.color.pressed_color));
+                    fab.setVisibility(View.INVISIBLE);
+                    footer.setVisibility(View.VISIBLE);
+                    earlierPosition = position;
+                } else if (!clickedItem[position]) {
+                    selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
+                    clickedItem[earlierPosition] = false;
+                    selectedItem[position] = view;
+                    clickedItem[position] = true;
+                    selectedItem[position].setBackgroundColor(getResources().getColor(R.color.pressed_color));
+                    fab.setVisibility(View.INVISIBLE);
+                    footer.setVisibility(View.VISIBLE);
+                    earlierPosition = position;
+                } else {
+                    selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
+                    view.setSelected(false);
+                    fab.setVisibility(View.VISIBLE);
+                    footer.setVisibility(View.INVISIBLE);
+                    clickedItem[position] = false;
+                }
+
 
             }
         });
@@ -125,6 +159,39 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+
+    }
+
+
+    public void listViewEdit(View view) {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.layout_dialog_edit);
+        dialog.setTitle("Title...");
+        EditText editOrginal = (EditText) dialog.findViewById(R.id.editOrginal);
+        editOrginal.setText(editedItem.getString(1));
+        EditText editTranslate = (EditText) dialog.findViewById(R.id.editTranslate);
+        editTranslate.setText(editedItem.getString(2));
+        Button dialogButton = (Button) dialog.findViewById(R.id.editButton);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+
+    public void listViewDelete(View view) {
+    }
+
+    public void sync() {
+        int x = myDb.getAllRows().getCount();
+        selectedItem = new View[x + 1];
+        clickedItem = new boolean[x + 1];
+        Arrays.fill(clickedItem, Boolean.FALSE);
 
     }
 }
