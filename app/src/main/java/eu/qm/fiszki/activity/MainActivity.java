@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 
@@ -31,20 +33,24 @@ import eu.qm.fiszki.database.DBStatus;
 
 public class MainActivity extends AppCompatActivity {
 
-    public DBAdapter myDb;
-    public DBStatus openDataBase;
-    public Alert alert;
-    public ItemAdapter flashCardList;
-    public ImageView emptyDBImage;
-    public TextView emptyDBText;
-    public Context context;
-    public ListView listView;
-    public FloatingActionButton fab;
-    public LinearLayout footer;
-    public View[] selectedItem;
+    static public DBAdapter myDb;
+    static public DBStatus openDataBase;
+    static public Alert alert;
+    static public ItemAdapter flashCardList;
+    static public ImageView emptyDBImage;
+    static public TextView emptyDBText;
+    static public Context context;
+    static public ListView listView;
+    static public FloatingActionButton fab;
+    static public LinearLayout footer;
+    static public View[] selectedItem;
     public boolean[] clickedItem;
-    public int earlierPosition;
-    public Cursor editedItem;
+    static public int earlierPosition, selectPosition;
+    static public ItemAdapter editedItem;
+    static public Dialog dialog;
+    static public EditText editOriginal;
+    static public EditText editTranslate;
+    static public Button dialogButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,36 +105,49 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void listViewSelect() {
+        dialog = new Dialog(context);
+        dialog.setContentView(R.layout.layout_dialog_edit);
+        dialog.setTitle(R.string.dialog_edit_item);
+        editOriginal = (EditText) dialog.findViewById(R.id.editOrginal);
+        editTranslate = (EditText) dialog.findViewById(R.id.editTranslate);
+        dialogButton = (Button) dialog.findViewById(R.id.editButton);
+
         footer = (LinearLayout) findViewById(R.id.footer);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                editedItem = null;
-                editedItem = (Cursor) parent.getAdapter().getItem(position);
+                selectPosition = position;
+                editedItem = (ItemAdapter) parent.getAdapter();
+                editOriginal.setText(editedItem.getCursor().getString(1));
+                editTranslate.setText(editedItem.getCursor().getString(2));
+
 
                 if (!clickedItem[position] && earlierPosition == -1) {
                     selectedItem[position] = view;
                     clickedItem[position] = true;
                     selectedItem[position].setBackgroundColor(getResources().getColor(R.color.pressed_color));
+                    selectedItem[position].setSelected(true);
                     fab.setVisibility(View.INVISIBLE);
                     footer.setVisibility(View.VISIBLE);
                     earlierPosition = position;
                 } else if (!clickedItem[position]) {
                     selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
                     clickedItem[earlierPosition] = false;
+                    selectedItem[earlierPosition].setSelected(false);
                     selectedItem[position] = view;
                     clickedItem[position] = true;
                     selectedItem[position].setBackgroundColor(getResources().getColor(R.color.pressed_color));
+                    selectedItem[position].setSelected(true);
                     fab.setVisibility(View.INVISIBLE);
                     footer.setVisibility(View.VISIBLE);
                     earlierPosition = position;
                 } else {
                     selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
-                    view.setSelected(false);
                     fab.setVisibility(View.VISIBLE);
                     footer.setVisibility(View.INVISIBLE);
                     clickedItem[position] = false;
+                    selectedItem[position].setSelected(false);
                 }
 
 
@@ -163,18 +182,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void listViewEdit(View view) {
-        final Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.layout_dialog_edit);
-        dialog.setTitle("Title...");
-        EditText editOrginal = (EditText) dialog.findViewById(R.id.editOrginal);
-        editOrginal.setText(editedItem.getString(1));
-        EditText editTranslate = (EditText) dialog.findViewById(R.id.editTranslate);
-        editTranslate.setText(editedItem.getString(2));
-        Button dialogButton = (Button) dialog.findViewById(R.id.editButton);
+    public void listViewEdit(View v) {
+
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                myDb.updateAdapter(selectPosition+1,editOriginal.getText().toString(),
+                        editTranslate.getText().toString());
+                listViewPopulate();
                 dialog.dismiss();
             }
         });

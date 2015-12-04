@@ -41,6 +41,14 @@ public class DBAdapter {
                 DBModel.SETTINGS_NAME + "= " + "'" + settingName + "'", null);
     }
 
+    public long updateAdapter(int id , String word, String translate) {
+        ContentValues values = new ContentValues();
+        values.put(DBModel.KEY_WORD, word);
+        values.put(DBModel.KEY_TRANSLATION, translate);
+        return db.update(DBModel.DATABASE_TABLE, values, DBModel.KEY_ROWID + "= " + "'" + id + "'", null);
+    }
+
+
     public boolean getRowValue(String column, String text) {
         Cursor c = db.query(false, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS,
                 column +"="+ "'"+text+"'", null, null, null, null, null);
