@@ -41,7 +41,7 @@ public class DBModel {
             "CREATE TABLE " + SETTINGS_TABLE
                     + " (" + SETTINGS_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + SETTINGS_NAME + " TEXT NOT NULL, "
-                    + SETTINGS_STATUS + " INTEGER NOT NULL "
+                    + SETTINGS_STATUS + " INTEGER "
                     +");";
     public static final String FILL_SETTINGS_SQL =
             "INSERT INTO "+ SETTINGS_TABLE +" VALUES(1, 'notification', 0)";

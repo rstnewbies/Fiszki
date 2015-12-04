@@ -131,11 +131,11 @@ public class DBAdapter {
 
         @Override
         public void onUpgrade(SQLiteDatabase _db, int oldVersion, int newVersion) {
-           _db.execSQL("ALTER TABLE" + DBModel.DATABASE_TABLE +
-                       "ADD COLUMN" + DBModel.KEY_PRIORITY + "INTEGER NOT NULL");
-           _db.execSQL("UPDATE" + DBModel.DATABASE_TABLE +
-                       "SET" + DBModel.KEY_PRIORITY + "= 1 " +
-                       "WHERE" + DBModel.KEY_PRIORITY + "IS NULL");
+           _db.execSQL("ALTER TABLE " + DBModel.DATABASE_TABLE +
+                       " ADD COLUMN " + DBModel.KEY_PRIORITY + " INTEGER");
+           _db.execSQL("UPDATE " + DBModel.DATABASE_TABLE +
+                       " SET " + DBModel.KEY_PRIORITY + " = 1 " +
+                       " WHERE " + DBModel.KEY_PRIORITY + " IS NULL");
         }
     }
 }
