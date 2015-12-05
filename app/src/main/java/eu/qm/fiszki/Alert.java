@@ -57,6 +57,7 @@ public class Alert {
                 .setPositiveButton(buttonText, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                     }
                 }).create().show();
     }

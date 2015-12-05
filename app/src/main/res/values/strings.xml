@@ -34,13 +34,6 @@
     <string name="onNewPositionAdd">Nowa pozycja została dodana</string>
     <string name="OK">Ok</string>
     <string name="spinner_text">Częstotliwość powiadomień: </string>
-    <string-array name="spinner_frequency">
-        <item>Nigdy</item>
-        <item>1 min</item>
-        <item>5 min</item>
-        <item>15 min</item>
-        <item>30 min</item>
-    </string-array>
     <string name="notification_change_title">UWAGA</string>
     <string name="notification_change_message">Jeszcze nie dodałeś żadnego słówka.
         Powiadomienia włączą się automatycznie po dodaniu pierwszego słowka</string>
@@ -51,14 +44,9 @@
     <string name="learning_mede_stop">X</string>
     <string name="alert_message_tryagain">Napisz go ponownie.</string>
     <string name="learningmode_emptybase">Zanim zaczniesz naukę, dodaj słówka do listy.</string>
-    <string name="pref_user_profile" />
-    <string name="pref_user_name" />
-    <string name="pref_user_name_summary" />
-    <string name="pref_update_setting" />
-    <string name="pref_send_report_summary" />
-    <string name="pref_send_report" />
-    <string name="pref_sync_frequency_summary" />
-    <string name="pref_sync_frequency" />
+    <string name="title_activity_sett">Settings</string>
+
+
 
 </resources>
 
