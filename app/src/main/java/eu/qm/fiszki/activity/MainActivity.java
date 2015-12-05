@@ -3,6 +3,8 @@ package eu.qm.fiszki.activity;
 import android.content.Context;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.UserSettingActivity;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBStatus;
 
@@ -32,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     ImageView emptyDBImage;
     TextView emptyDBText;
     Alert alert = new Alert();
-    Context context;
     ListView listViewItems;
 
     @Override
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem item) {
                         int id = item.getItemId();
                         if (id == R.id.settings) {
-                            Intent goSettings = new Intent(MainActivity.this, SettingsActivity.class);
+                            Intent goSettings = new Intent(MainActivity.this, UserSettingActivity.class);
                             startActivity(goSettings);
                         } else if (id == R.id.learningMode) {
                             if (myDb.getAllRows().getCount() > 0) {
@@ -104,4 +106,5 @@ public class MainActivity extends AppCompatActivity {
             populateListView();
         }
     }
+
 }
