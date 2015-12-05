@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         emptyDBImage.setImageResource(R.drawable.emptydb);
         openDataBase.openDB(myDb);
 
-        sync();
         listViewPopulate();
         listViewSelect();
         toolbarSettings();
@@ -86,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         listViewPopulate();
+        listViewSelect();
         if (myDb.getAllRows().getCount() > 0) {
             emptyDBImage.setAlpha(0);
             emptyDBText.setAlpha(0);
@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void listViewSelect() {
+        sync();
         dialog = new Dialog(context);
         dialog.setContentView(R.layout.layout_dialog_edit);
         dialog.setTitle(R.string.dialog_edit_item);
@@ -189,6 +190,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 myDb.updateAdapter(selectPosition+1,editOriginal.getText().toString(),
                         editTranslate.getText().toString());
+                selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
+                fab.setVisibility(View.VISIBLE);
+                footer.setVisibility(View.INVISIBLE);
+                clickedItem[selectPosition] = false;
+                selectedItem[selectPosition].setSelected(false);
                 listViewPopulate();
                 dialog.dismiss();
             }
