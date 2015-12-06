@@ -84,7 +84,7 @@ public class LearningModeActivity extends AppCompatActivity {
                 startActivity(getIntent());
             } else {
                 enteredWord.setText("");
-                message.learningModeFail(this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+                message.fail(this, expectedWord, getString(R.string.alert_message_fail),getString(R.string.alert_message_tryagain) ,getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
 
             }
         } else if (id == android.R.id.home) {
