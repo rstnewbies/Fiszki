@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        earlierPosition = -1;
         alert = new Alert();
         openDataBase = new DBStatus();
         myDb = new DBAdapter(this);
@@ -209,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sync() {
+        earlierPosition = -1;
         int x = myDb.getAllRows().getCount();
         selectedItem = new View[x + 1];
         clickedItem = new boolean[x + 1];
