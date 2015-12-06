@@ -159,17 +159,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 }
             }
 
-        //FOR Vibration
-        if (pref instanceof SwitchPreference) {
-            SwitchPreference switchPreference = (SwitchPreference) pref;
-            if(switchPreference.isChecked()){
-                alarm.vibrate = new long[]{0,400,0,400};
-            }
-            if(!switchPreference.isChecked()){
-                alarm.vibrate = new long[]{0,0,0,0};
-            }
 
-        }
     }
 
     public void sync() {
@@ -204,11 +194,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         }
         String version = info.versionName;
         pref.setSummary(version);
-
-        //Vibration
-        pref = findPreference(getResources().getString(R.string.settings_key_vibration));
-        SwitchPreference switchPreference = (SwitchPreference) pref;
-        ((SwitchPreference) pref).setChecked(switchPreference.isChecked());
+        
     }
 
     public void clearDataBase() {

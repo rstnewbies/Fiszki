@@ -10,11 +10,6 @@
         android:key="@string/settings_key_notification"
         android:entries="@array/notification_frequency"
         android:entryValues="@array/notification_frequency" />
-    <SwitchPreference
-        android:title="@string/settings_title_vibration"
-        android:key="@string/settings_key_vibration"
-        android:defaultValue=""
-        />
  <PreferenceCategory
         android:title="@string/settings_category_date_base"
         />
