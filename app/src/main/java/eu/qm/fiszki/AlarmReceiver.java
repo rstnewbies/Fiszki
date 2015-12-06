@@ -25,7 +25,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
-        PendingIntent pi = PendingIntent.getBroadcast(context, 69, new Intent(context,
+        PendingIntent pi = PendingIntent.getActivity(context, 69, new Intent(context,
                 CheckActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
         Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
