@@ -80,10 +80,11 @@ public class LearningModeActivity extends AppCompatActivity {
         Checker check = new Checker();
         if (id == R.id.action_OK) {
             if (check.Check(expectedWord, enteredWord.getText().toString())) {
-                message.learningModePass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.alert_nameButton_OK));
+                finish();
+                startActivity(getIntent());
             } else {
                 enteredWord.setText("");
-                message.learningModeFail(this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+                message.fail(this, expectedWord, getString(R.string.alert_message_fail),getString(R.string.alert_message_tryagain) ,getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
 
             }
         } else if (id == android.R.id.home) {
