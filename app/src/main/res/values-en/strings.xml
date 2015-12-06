@@ -49,4 +49,6 @@
 
     <string name="alert_message_tryagain">Write it again.</string>
     <string name="learningmode_emptybase">Before you start learning, add some new words to the list.</string>
+    <string name="repeat_number">The number of repetitions:</string>
+    <string name="back">Back</string>
 </resources>

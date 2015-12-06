@@ -1,6 +1,8 @@
 package eu.qm.fiszki.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.DecimalFormatSymbols;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
@@ -54,12 +58,29 @@ public class MainActivity extends AppCompatActivity {
                             Intent goSettings = new Intent(MainActivity.this, SettingsActivity.class);
                             startActivity(goSettings);
                         } else if (id == R.id.learningMode) {
-                            if (myDb.getAllRows().getCount() > 0) {
-                                Intent goLearningMode = new Intent(MainActivity.this, LearningModeActivity.class);
-                                startActivity(goLearningMode);
-                            } else {
-                                alert.buildAlert(getString(R.string.alert_title_fail), getString(R.string.learningmode_emptybase), getString(R.string.alert_nameButton_OK), MainActivity.this);
-                            }
+                            CharSequence[] items = {"10", "20", "30", "50", "100", DecimalFormatSymbols.getInstance().getInfinity()};
+                            new AlertDialog.Builder(MainActivity.this)
+                                    .setSingleChoiceItems(items, 0, null)
+                                    .setTitle(R.string.repeat_number)
+                                    .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+                                            dialog.dismiss();
+                                            int selected = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
+                                            // SHARED PREFERENCES
+                                            if (myDb.getAllRows().getCount() > 0) {
+                                                Intent goLearningMode = new Intent(MainActivity.this, LearningModeActivity.class);
+                                                startActivity(goLearningMode);
+                                            } else {
+                                                alert.buildAlert(getString(R.string.alert_title_fail), getString(R.string.learningmode_emptybase), getString(R.string.alert_nameButton_OK), MainActivity.this);
+                                            }
+                                        }
+                                    })
+                                    .setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .show();
                         }
                         return true;
                     }
