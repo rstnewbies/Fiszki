@@ -1,6 +1,7 @@
 package eu.qm.fiszki.activity;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,7 +9,10 @@ import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,7 +23,6 @@ import eu.qm.fiszki.database.DBModel;
 import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.R;
 
-//// TODO: 2015-10-03 Dodanie akceptacji słowa Enterem 
 public class CheckActivity extends AppCompatActivity {
 
     TextView word;
@@ -29,6 +32,9 @@ public class CheckActivity extends AppCompatActivity {
 
     String wordFromData;
     String expectedWord;
+
+    MenuItem mi;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,6 +66,7 @@ public class CheckActivity extends AppCompatActivity {
             word.append(wordFromData);
         enteredWord.requestFocus();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        keyboardAction();
     }
 
     @Override
@@ -77,7 +84,8 @@ public class CheckActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        int id = item.getItemId();
+        mi = item;
+        id = R.id.action_OK;
         Alert message = new Alert();
         Checker check = new Checker();
         if (id == R.id.action_OK)
@@ -89,8 +97,10 @@ public class CheckActivity extends AppCompatActivity {
            else
            {
                enteredWord.setText("");
-                 message.fail(this, expectedWord, getString(R.string.alert_message_fail),
-                    getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+               enteredWord.requestFocus();
+               message.fail(this, expectedWord, getString(R.string.alert_message_fail),
+                       getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+
         }
         }
         else if (id == android.R.id.home) {
@@ -98,4 +108,28 @@ public class CheckActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-}
+
+    public void keyboardAction(){
+        enteredWord.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId== EditorInfo.IME_ACTION_DONE){
+                   id = R.id.action_OK;
+                    onOptionsItemSelected(mi);
+
+                    enteredWord.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                            keyboard.showSoftInput(enteredWord, 0);
+                        }
+                    },50);
+
+                }
+
+                return false;
+            }
+        });
+    }
+
+    }

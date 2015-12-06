@@ -24,7 +24,10 @@
         android:id="@+id/inputWord"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:focusable="true"
+        android:inputType="text"
+        android:imeOptions="actionNext" />
     <requestFocus />
 
     <TextView
@@ -44,6 +47,8 @@
         android:id="@+id/inputTranslation"
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="false"
+        android:inputType="textMultiLine"
+        android:imeOptions="actionDone" />
 
 </RelativeLayout>
