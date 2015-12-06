@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
@@ -80,8 +79,8 @@ public class AddWordActivity extends AppCompatActivity {
                 inputWord.requestFocus();
                 if (myDb.getAllRows().getCount() == 1) {
                     settings.alarm.start(settings.manager, settings.context, settings.pendingIntent, settings.time);
-                    myDb.updateRow(settings.spinnerPosition, 3);
-                    myDb.updateRow(settings.notificationStatus, 1);
+                    myDb.updateRow(settings.Position, 3);
+                    myDb.updateRow(settings.notificationStatus,1);
                     alert.buildAlert(
                             this.getString(R.string.alert_title_pass),
                             this.getString(R.string.add_first_word_message),

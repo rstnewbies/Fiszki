@@ -1,6 +1,5 @@
 package eu.qm.fiszki.activity;
 
-import android.content.Context;
 import android.content.Intent;
 
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +10,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
@@ -32,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     ImageView emptyDBImage;
     TextView emptyDBText;
     Alert alert = new Alert();
-    Context context;
     ListView listViewItems;
 
     @Override
@@ -104,4 +100,5 @@ public class MainActivity extends AppCompatActivity {
             populateListView();
         }
     }
+
 }

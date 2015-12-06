@@ -1,27 +1,35 @@
 package eu.qm.fiszki.activity;
 
+
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
+import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.SwitchPreference;
+import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
+import eu.qm.fiszki.AppCompatPreferenceActivity;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBModel;
 import eu.qm.fiszki.database.DBStatus;
 
-public class SettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class SettingsActivity extends AppCompatPreferenceActivity
+        implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+    public Preference cleanerDataBase;
+    public Preference pref;
     public PendingIntent pendingIntent;
     public AlarmReceiver alarm;
     public AlarmManager manager;
@@ -30,15 +38,16 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     public DBAdapter myDb = new DBAdapter(this);
     public DBStatus openDataBase = new DBStatus();
     public int time = 15;
-    public Spinner spinnerFrequency;
     public Alert alert;
-    public String spinnerPosition = "notification_time";
+    public String Position = "notification_time";
     public String notificationStatus = "notification";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setupActionBar();
+        addPreferencesFromResource(R.xml.pref_settings);
+
         openDataBase.openDB(myDb);
         context = this;
         alarmIntent = new Intent(this, AlarmReceiver.class);
@@ -46,140 +55,156 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarm = new AlarmReceiver();
         alert = new Alert();
-        spinnerFrequency = (Spinner) findViewById(R.id.spinner);
-        spinnerFrequency.setOnItemSelectedListener(this);
-        sync(myDb.intRowValue(DBModel.SETTINGS_NAME, spinnerPosition));
 
+        sync();
+        clearDataBase();
+        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
+    public void onResume() {
+        super.onResume();
+        sync();
+        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        sync();
+        getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            this.finish();
+            ((Activity) this).finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    private void setupActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
 
-        switch (position) {
-            case 0:
-                if (myDb.intRowValue(DBModel.SETTINGS_NAME, notificationStatus) == 1 ||
-                        myDb.intRowValue(DBModel.SETTINGS_NAME, spinnerPosition) != 0) {
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        pref = findPreference(key);
+
+
+            //FOR ListPreference
+            if (pref instanceof ListPreference) {
+                ListPreference listPref = (ListPreference) pref;
+
+                //FOR NEVER
+                if (listPref.getValue().equals(getResources().getString(R.string.frequency_0))) {
                     alarm.close(manager, context, pendingIntent);
-                    myDb.updateRow(notificationStatus, 0);
-                    myDb.updateRow(spinnerPosition, 0);
                     time = 0;
-                }
-                break;
-            case 1:
-                if (myDb.getAllRows().getCount() > 0) {
-                    if (myDb.intRowValue(DBModel.SETTINGS_NAME, notificationStatus) == 0 ||
-                            myDb.intRowValue(DBModel.SETTINGS_NAME, spinnerPosition) != 1) {
-                        alarm.close(manager, context, pendingIntent);
-                        time = 1;
-                        myDb.updateRow(spinnerPosition, 1);
-                        alarm.start(manager, context, pendingIntent, time);
-                        myDb.updateRow(notificationStatus, 1);
-                    }
+                    pref.setSummary(listPref.getEntry());
+                    myDb.updateRow(Position, 0);
+                    myDb.updateRow(notificationStatus, 0);
+                }else
+                //FOR 1 min
+                if (listPref.getValue().equals(getResources().getString(R.string.frequency_1)) &&
+                        myDb.getAllRows().getCount()>0) {
+                    alarm.close(manager, context, pendingIntent);
+                    time = 1;
+                    pref.setSummary(listPref.getEntry());
+                    myDb.updateRow(Position, 1);
+                    myDb.updateRow(notificationStatus, 1);
+                    alarm.start(manager, context, pendingIntent, time);
+                } else
+                //FOR 5 min
+                if (listPref.getValue().equals(getResources().getString(R.string.frequency_5)) &&
+                        myDb.getAllRows().getCount()>0) {
+                    alarm.close(manager, context, pendingIntent);
+                    time = 5;
+                    pref.setSummary(listPref.getEntry());
+                    myDb.updateRow(Position, 2);
+                    myDb.updateRow(notificationStatus, 1);
+                    alarm.start(manager, context, pendingIntent, time);
+                } else
+                //FOR 15min
+                if (listPref.getValue().equals(getResources().getString(R.string.frequency_15)) &&
+                        myDb.getAllRows().getCount()>0) {
+                    alarm.close(manager, context, pendingIntent);
+                    time = 15;
+                    pref.setSummary(listPref.getEntry());
+                    myDb.updateRow(Position, 3);
+                    myDb.updateRow(notificationStatus, 1);
+                    alarm.start(manager, context, pendingIntent, time);
+                } else
+                //FOR 30
+                if (listPref.getValue().equals(getResources().getString(R.string.frequency_30)) &&
+                        myDb.getAllRows().getCount()>0)  {
+                    alarm.close(manager, context, pendingIntent);
+                    time = 15;
+                    pref.setSummary(listPref.getEntry());
+                    myDb.updateRow(Position, 4);
+                    myDb.updateRow(notificationStatus, 1);
+                    alarm.start(manager, context, pendingIntent, time);
                 } else {
                     alert.buildAlert(
                             context.getString(R.string.notification_change_title),
                             context.getString(R.string.notification_change_message),
                             context.getString(R.string.action_OK),
                             SettingsActivity.this);
-                    spinnerFrequency.setSelection(0);
+                    listPref.setValue(getResources().getString(R.string.frequency_0));
                 }
-                break;
-            case 2:
-                if (myDb.getAllRows().getCount() > 0) {
-                    if (myDb.intRowValue(DBModel.SETTINGS_NAME, notificationStatus) == 0 ||
-                            myDb.intRowValue(DBModel.SETTINGS_NAME, spinnerPosition) != 2) {
-                        alarm.close(manager, context, pendingIntent);
-                        time = 5;
-                        myDb.updateRow(spinnerPosition, 2);
-                        alarm.start(manager, context, pendingIntent, time);
-                        myDb.updateRow(notificationStatus, 1);
-                    }
-                } else {
-                    alert.buildAlert(
-                            context.getString(R.string.notification_change_title),
-                            context.getString(R.string.notification_change_message),
-                            context.getString(R.string.action_OK),
-                            SettingsActivity.this);
-                    spinnerFrequency.setSelection(0);
-                }
-                break;
-            case 3:
-                if (myDb.getAllRows().getCount() > 0) {
-                    if (myDb.intRowValue(DBModel.SETTINGS_NAME, notificationStatus) == 0 ||
-                            myDb.intRowValue(DBModel.SETTINGS_NAME, spinnerPosition) != 3) {
-                        alarm.close(manager, context, pendingIntent);
-                        time = 15;
-                        myDb.updateRow(spinnerPosition, 3);
-                        alarm.start(manager, context, pendingIntent, time);
-                        myDb.updateRow(notificationStatus, 1);
-                    }
-                } else {
-                    alert.buildAlert(
-                            context.getString(R.string.notification_change_title),
-                            context.getString(R.string.notification_change_message),
-                            context.getString(R.string.action_OK),
-                            SettingsActivity.this);
-                    spinnerFrequency.setSelection(0);
-                }
-                break;
-            case 4:
-                if (myDb.getAllRows().getCount() > 0) {
-                    if (myDb.intRowValue(DBModel.SETTINGS_NAME, notificationStatus) == 0
-                            || myDb.intRowValue(DBModel.SETTINGS_NAME, spinnerPosition) != 4) {
-                        alarm.close(manager, context, pendingIntent);
-                        time = 30;
-                        myDb.updateRow(spinnerPosition, 4);
-                        alarm.start(manager, context, pendingIntent, time);
-                        myDb.updateRow(notificationStatus, 1);
-                    }
-                } else {
-                    alert.buildAlert(
-                            context.getString(R.string.notification_change_title),
-                            context.getString(R.string.notification_change_message),
-                            context.getString(R.string.action_OK),
-                            SettingsActivity.this);
-                    spinnerFrequency.setSelection(0);
-                }
-                break;
-        }
+            }
+
 
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void sync() {
+        //Notification
+        pref = findPreference(getResources().getString(R.string.settings_key_notification));
+        ListPreference listPref = (ListPreference) pref;
+        if (myDb.intRowValue(DBModel.SETTINGS_NAME, Position) == 0) {
+            listPref.setValueIndex(0);
+            pref.setSummary(listPref.getEntry());
+        }
+        if (myDb.intRowValue(DBModel.SETTINGS_NAME, Position) == 1) {
+            listPref.setValueIndex(1);
+            pref.setSummary(listPref.getEntry());
+        }
+        if (myDb.intRowValue(DBModel.SETTINGS_NAME, Position) == 2) {
+            listPref.setValueIndex(2);
+            pref.setSummary(listPref.getEntry());
+        }
+        if (myDb.intRowValue(DBModel.SETTINGS_NAME, Position) == 3) {
+            listPref.setValueIndex(3);
+            pref.setSummary(listPref.getEntry());
+        }
+
+        //Version
+        pref = findPreference(getResources().getString(R.string.settings_key_version));
+        PackageManager manager = this.getPackageManager();
+        PackageInfo info = null;
+        try {
+            info = manager.getPackageInfo(this.getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        String version = info.versionName;
+        pref.setSummary(version);
+        
     }
 
-    public void sync(int poss) {
-        switch (poss) {
-            case 0:
-                spinnerFrequency.setSelection(0);
-                break;
-            case 1:
-                spinnerFrequency.setSelection(1);
-                break;
-            case 2:
-                spinnerFrequency.setSelection(2);
-                break;
-            case 3:
-                spinnerFrequency.setSelection(3);
-                break;
-            case 4:
-                spinnerFrequency.setSelection(4);
-                break;
-        }
+    public void clearDataBase() {
+        cleanerDataBase = findPreference(getResources().getString(R.string.settings_key_data_base));
+        cleanerDataBase.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+
+                return true;
+            }
+        });
     }
 }

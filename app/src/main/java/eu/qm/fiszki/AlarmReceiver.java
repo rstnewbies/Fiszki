@@ -15,16 +15,18 @@ import android.support.v7.app.NotificationCompat;
 import eu.qm.fiszki.activity.CheckActivity;
 import eu.qm.fiszki.activity.SettingsActivity;
 
+import static android.app.AlarmManager.RTC_WAKEUP;
+
 public class AlarmReceiver extends BroadcastReceiver {
-    SettingsActivity settings = new SettingsActivity();
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        long[] vibrate = {0, 200, 100, 200};
+        long[] vibrate = new long[] {0,100,0,100};
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
-        PendingIntent pi = PendingIntent.getActivity(context, 100, new Intent(context,
-                CheckActivity.class), 0);
+        PendingIntent pi = PendingIntent.getActivity(context, 69, new Intent(context,
+                CheckActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
         Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
         mBuilder.setLargeIcon(icon);
@@ -43,7 +45,8 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     public void start(AlarmManager manager, Context context, PendingIntent pendingIntent, int sec) {
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * sec, pendingIntent);
+        long time = (1000*60*sec);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+time, time , pendingIntent);
     }
 
     public void close(AlarmManager manager, Context context, PendingIntent pendingIntent) {
