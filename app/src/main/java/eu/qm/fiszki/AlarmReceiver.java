@@ -19,11 +19,11 @@ import static android.app.AlarmManager.RTC_WAKEUP;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
-    public long[] vibrate = new long[] {0,800,0,800};
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        long[] vibrate = new long[] {0,100,0,100};
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
         PendingIntent pi = PendingIntent.getActivity(context, 69, new Intent(context,
                 CheckActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
