@@ -38,6 +38,8 @@
         android:minWidth="400dp"
         android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:inputType="textMultiLine"
+        android:imeOptions="actionDone"/>
 
 </RelativeLayout>

@@ -4,7 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.input.InputManager;
+import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -12,9 +12,10 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import eu.qm.fiszki.AlarmReceiver;
@@ -32,6 +33,8 @@ public class AddWordActivity extends AppCompatActivity {
     DBStatus OpenDataBase = new DBStatus();
     SettingsActivity settings = new SettingsActivity();
     Alert alert = new Alert();
+    int id;
+    MenuItem mi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class AddWordActivity extends AppCompatActivity {
         settings.manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         settings.alarm = new AlarmReceiver();
         settings.context = this;
+        clickDone();
     }
 
     @Override
@@ -60,7 +64,8 @@ public class AddWordActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        mi = item;
+        id = R.id.action_add_new_word;
         if (id == R.id.action_add_new_word) {
             if (inputWord.getText().toString().isEmpty() || inputTranslation.getText().toString().isEmpty()) {
                 alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onEmptyFields), getString(R.string.action_OK), AddWordActivity.this);
@@ -95,36 +100,19 @@ public class AddWordActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction()==0){
-            if (inputWord.getText().toString().isEmpty() && inputTranslation.getText().toString().isEmpty()) {
-                alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onEmptyFields), getString(R.string.action_OK), AddWordActivity.this);
-            } else if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString()) == true) {
-                alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.alert_nameButton_OK), AddWordActivity.this);
-                inputWord.setText(null);
-                inputTranslation.setText(null);
-                inputWord.requestFocus();
-            } else if (!TextUtils.isEmpty(inputWord.getText().toString()) &&
-                    !TextUtils.isEmpty(inputTranslation.getText().toString())) {
-                myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString());
-                Toast.makeText(AddWordActivity.this,
-                        getString(R.string.onNewPositionAdd), Toast.LENGTH_SHORT).show();
-                inputWord.setText(null);
-                inputTranslation.setText(null);
-                inputWord.requestFocus();
-                if (myDb.getAllRows().getCount() == 1) {
-                    settings.alarm.start(settings.manager, settings.context, settings.pendingIntent, settings.time);
-                    myDb.updateRow(settings.spinnerPosition, 3);
-                    myDb.updateRow(settings.notificationStatus, 1);
-                    alert.addFirstWord(
-                            this.getString(R.string.alert_title_pass),
-                            this.getString(R.string.add_first_word_message),
-                            this.getString(R.string.alert_nameButton_OK),
-                            this);
-                }
+
+    public void clickDone(){
+    inputTranslation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            if(actionId == EditorInfo.IME_ACTION_DONE){
+                id = R.id.action_add_new_word;
+                onOptionsItemSelected(mi);
             }
+
+            return true;
         }
-        return super.dispatchKeyEvent(event);
-    }
+    });
+}
+
 }
