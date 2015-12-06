@@ -31,6 +31,7 @@ public class CheckActivity extends AppCompatActivity {
     String expectedWord;
     int rowId;
     int rowPriority;
+    boolean firstTry = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -79,7 +80,7 @@ public class CheckActivity extends AppCompatActivity {
            {
                message.pass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.alert_nameButton_OK));
 
-               if(rowPriority<5) {
+               if(rowPriority<5 && firstTry == true) {
                    myDb.updateFlashcardPriority(rowId, rowPriority + 1);
                }
            }
@@ -87,9 +88,9 @@ public class CheckActivity extends AppCompatActivity {
            {
             message.fail(this, expectedWord, getString(R.string.alert_message_fail),
                     getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+               firstTry = false;
 
              myDb.updateFlashcardPriority(rowId, 1);
-
            }
         }
         return super.onOptionsItemSelected(item);
