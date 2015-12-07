@@ -93,12 +93,12 @@ public class LearningModeActivity extends AppCompatActivity {
 
         if (id == R.id.action_OK) {
             if (check.Check(expectedWord, enteredWord.getText().toString())) {
-                Intent intent = new Intent(context, LearningModeActivity.class);
-                context.startActivity(intent);
-                ((Activity) context).finish();
+                finish();
+                startActivity(getIntent());
             } else {
                 enteredWord.setText("");
-                message.fail(this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+                message.fail(this, expectedWord, getString(R.string.alert_message_fail),getString(R.string.alert_message_tryagain) ,getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+
             }
         } else if (id == android.R.id.home) {
             this.finish();
