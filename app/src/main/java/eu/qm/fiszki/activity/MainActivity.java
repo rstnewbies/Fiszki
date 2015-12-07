@@ -1,19 +1,14 @@
 package eu.qm.fiszki.activity;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Arrays;
 
@@ -51,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     static public EditText editOriginal;
     static public EditText editTranslate;
     static public Button dialogButton;
+    public int rowId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,11 +112,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                rowId = (int) id;
                 selectPosition = position;
                 editedItem = (ItemAdapter) parent.getAdapter();
                 editOriginal.setText(editedItem.getCursor().getString(1));
                 editTranslate.setText(editedItem.getCursor().getString(2));
-
 
                 if (!clickedItem[position] && earlierPosition == -1) {
                     selectedItem[position] = view;
@@ -149,8 +144,6 @@ public class MainActivity extends AppCompatActivity {
                     clickedItem[position] = false;
                     selectedItem[position].setSelected(false);
                 }
-
-
             }
         });
     }
@@ -178,16 +171,14 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 });
-
     }
-
 
     public void listViewEdit(View v) {
 
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myDb.updateAdapter(selectPosition+1,editOriginal.getText().toString(),
+                myDb.updateAdapter(rowId,editOriginal.getText().toString(),
                         editTranslate.getText().toString());
                 selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
                 fab.setVisibility(View.VISIBLE);
@@ -198,13 +189,17 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
         dialog.show();
-
     }
 
-
     public void listViewDelete(View view) {
+        myDb.deleteRecord(rowId);
+        if (myDb.getAllRows().getCount() > 0) {
+            listViewPopulate();
+        } else {
+            finish();
+            startActivity(getIntent());
+        }
     }
 
     public void sync() {
@@ -213,6 +208,5 @@ public class MainActivity extends AppCompatActivity {
         selectedItem = new View[x + 1];
         clickedItem = new boolean[x + 1];
         Arrays.fill(clickedItem, Boolean.FALSE);
-
     }
 }

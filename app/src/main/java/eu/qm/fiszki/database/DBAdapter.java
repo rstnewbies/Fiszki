@@ -48,6 +48,10 @@ public class DBAdapter {
         return db.update(DBModel.DATABASE_TABLE, values, DBModel.KEY_ROWID + "= " + "'" + id + "'", null);
     }
 
+    public long deleteRecord(int id) {
+        String where = DBModel.KEY_ROWID+" = "+id;
+        return db.delete(DBModel.DATABASE_TABLE, where, null);
+    }
 
     public boolean getRowValue(String column, String text) {
         Cursor c = db.query(false, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS,
