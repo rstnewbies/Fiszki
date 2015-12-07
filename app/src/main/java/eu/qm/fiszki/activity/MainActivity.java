@@ -25,6 +25,7 @@ import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
+import eu.qm.fiszki.database.DBModel;
 import eu.qm.fiszki.database.DBStatus;
 
 
@@ -190,15 +191,34 @@ public class MainActivity extends AppCompatActivity {
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myDb.updateAdapter(rowId,editOriginal.getText().toString(),
-                        editTranslate.getText().toString());
-                selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
-                fab.setVisibility(View.VISIBLE);
-                footer.setVisibility(View.INVISIBLE);
-                clickedItem[selectPosition] = false;
-                selectedItem[selectPosition].setSelected(false);
-                listViewPopulate();
-                dialog.dismiss();
+                if (editOriginal.getText().toString().isEmpty() || editTranslate.getText().toString().isEmpty()) {
+                    alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onEmptyFields), getString(R.string.action_OK), MainActivity.this);
+                } else { if (myDb.getRow(rowId).getString(1).equals(editOriginal.getText().toString())) {
+                    myDb.updateAdapter(rowId, editOriginal.getText().toString(),
+                            editTranslate.getText().toString());
+                    selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
+                    fab.setVisibility(View.VISIBLE);
+                    footer.setVisibility(View.INVISIBLE);
+                    clickedItem[selectPosition] = false;
+                    selectedItem[selectPosition].setSelected(false);
+                    listViewPopulate();
+                    dialog.dismiss();
+                } else {if (myDb.getRowValue(DBModel.KEY_WORD, editOriginal.getText().toString())) {
+                        alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.alert_nameButton_OK), MainActivity.this);
+                        editOriginal.requestFocus();
+                    } else {
+                        myDb.updateAdapter(rowId, editOriginal.getText().toString(),
+                                editTranslate.getText().toString());
+                        selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
+                        fab.setVisibility(View.VISIBLE);
+                        footer.setVisibility(View.INVISIBLE);
+                        clickedItem[selectPosition] = false;
+                        selectedItem[selectPosition].setSelected(false);
+                        listViewPopulate();
+                        dialog.dismiss();
+                    }
+                }
+                }
             }
         });
         dialog.show();

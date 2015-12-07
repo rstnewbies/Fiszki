@@ -93,9 +93,10 @@ public class DBAdapter {
         return c;
     }
 
-    public Cursor getRow() {
+    public Cursor getRow(int id) {
+        String where = DBModel.KEY_ROWID+" = "+id;
         Cursor c = db.query(true, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS,
-                null, null, null, null, null, "1");
+                where, null, null, null, null, "1");
         if (c != null) {
             c.moveToFirst();
         }
