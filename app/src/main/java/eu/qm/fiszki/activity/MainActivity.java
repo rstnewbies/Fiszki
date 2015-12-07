@@ -1,6 +1,8 @@
 package eu.qm.fiszki.activity;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 
+import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
@@ -27,6 +30,7 @@ import eu.qm.fiszki.database.DBStatus;
 
 public class MainActivity extends AppCompatActivity {
 
+    static public SettingsActivity settings;
     static public DBAdapter myDb;
     static public DBStatus openDataBase;
     static public Alert alert;
@@ -46,12 +50,15 @@ public class MainActivity extends AppCompatActivity {
     static public EditText editTranslate;
     static public Button dialogButton;
     public int rowId;
+    public AlarmReceiver alarm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        settings = new SettingsActivity();
+        alarm = new AlarmReceiver();
         alert = new Alert();
         openDataBase = new DBStatus();
         myDb = new DBAdapter(this);
@@ -60,11 +67,16 @@ public class MainActivity extends AppCompatActivity {
         emptyDBImage = (ImageView) findViewById(R.id.emptyDBImage);
         emptyDBText = (TextView) findViewById(R.id.emptyDBText);
         emptyDBImage.setImageResource(R.drawable.emptydb);
-        openDataBase.openDB(myDb);
+        settings.context=this;
+        settings.alarmIntent = new Intent(this, AlarmReceiver.class);
+        settings.pendingIntent = PendingIntent.getBroadcast(this, 0, settings.alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        settings.manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
+        openDataBase.openDB(myDb);
         listViewPopulate();
         listViewSelect();
         toolbarSettings();
+
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,6 +211,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             finish();
             startActivity(getIntent());
+            alarm.close(settings.manager, settings.context, settings.pendingIntent);
+            myDb.updateRow(settings.notificationStatus, 0);
+            myDb.updateRow(settings.spinnerPosition,0);
         }
     }
 

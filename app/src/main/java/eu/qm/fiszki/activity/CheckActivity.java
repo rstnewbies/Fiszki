@@ -1,6 +1,7 @@
 package eu.qm.fiszki.activity;
 
 import android.app.ActionBar;
+import android.app.Dialog;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,13 +20,13 @@ import eu.qm.fiszki.database.DBModel;
 import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.R;
 
-//// TODO: 2015-10-03 Dodanie akceptacji słowa Enterem 
 public class CheckActivity extends AppCompatActivity {
 
     TextView word;
     EditText enteredWord;
     DBAdapter myDb = new DBAdapter(this);
     DBStatus OpenDataBase = new DBStatus();
+    Alert alert;
 
     String wordFromData;
     String expectedWord;
@@ -39,17 +40,23 @@ public class CheckActivity extends AppCompatActivity {
 
         OpenDataBase.openDB(myDb);
         Cursor c = myDb.getAllRows();
-        
-        int cCount = c.getCount();
-        int cPosition = myDb.intRowValue(DBModel.SETTINGS_NAME, "cursorPosition");
-        if(cPosition < cCount) {
-            c.move(cPosition);
-            cPosition++;
-            myDb.updateRow("cursorPosition", cPosition);
-        } else {
-            cPosition = 1;
-            myDb.updateRow("cursorPosition", cPosition);
-        }
+        alert = new Alert();
+
+        if(myDb.getAllRows().getCount()<=0){
+            alert.emptyBase(this,getString(R.string.empty_base_check),getString(R.string.alert_title_fail),getString(R.string.action_OK));
+
+        }else {
+
+            int cCount = c.getCount();
+            int cPosition = myDb.intRowValue(DBModel.SETTINGS_NAME, "cursorPosition");
+            if (cPosition < cCount) {
+                c.move(cPosition);
+                cPosition++;
+                myDb.updateRow("cursorPosition", cPosition);
+            } else {
+                cPosition = 1;
+                myDb.updateRow("cursorPosition", cPosition);
+            }
 
             wordFromData = c.getString(c.getColumnIndex(DBModel.KEY_WORD));
             expectedWord = c.getString(c.getColumnIndex(DBModel.KEY_TRANSLATION));
@@ -58,14 +65,17 @@ public class CheckActivity extends AppCompatActivity {
             enteredWord.setText("");
             word = (TextView) findViewById(R.id.textView3);
             word.append(wordFromData);
-        enteredWord.requestFocus();
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+            enteredWord.requestFocus();
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        enteredWord.setText("");
+        if(myDb.getAllRows().getCount()>0) {
+            enteredWord.setText("");
+        }
         }
 
     @Override

@@ -54,6 +54,7 @@
     <string name="button_edit">Edytuj</string>
     <string name="button_delete">Usuń</string>
     <string name="dialog_edit_item">Edycja Fiszki</string>
+    <string name="empty_base_check">Nie masz żadnego słowka w bazie, najpierw coś dodaj </string>
 
 </resources>
 
