@@ -9,7 +9,6 @@ import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -72,7 +71,6 @@ public class CheckActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        enteredWord.setText("");
         }
 
     @Override
@@ -116,7 +114,6 @@ public class CheckActivity extends AppCompatActivity {
                 if(actionId== EditorInfo.IME_ACTION_DONE){
                    id = R.id.action_OK;
                     onOptionsItemSelected(mi);
-
                     enteredWord.postDelayed(new Runnable() {
                         @Override
                         public void run() {
