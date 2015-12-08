@@ -77,7 +77,7 @@ public class AddWordActivity extends AppCompatActivity {
 
             } else if (!TextUtils.isEmpty(inputWord.getText().toString()) &&
                     !TextUtils.isEmpty(inputTranslation.getText().toString())) {
-                myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString());
+                myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString(),1);
                 Toast.makeText(AddWordActivity.this,
                         getString(R.string.onNewPositionAdd), Toast.LENGTH_SHORT).show();
                 inputWord.setText(null);
@@ -108,7 +108,7 @@ public class AddWordActivity extends AppCompatActivity {
             if(actionId == EditorInfo.IME_ACTION_DONE){
                 if (inputWord.getText().toString().isEmpty() || inputTranslation.getText().toString().isEmpty()) {
                     alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onEmptyFields), getString(R.string.action_OK), AddWordActivity.this);
-                } else if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString()) == true) {
+                } else if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString())) {
                     alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.alert_nameButton_OK), AddWordActivity.this);
                     inputWord.setText(null);
                     inputTranslation.setText(null);
@@ -116,7 +116,7 @@ public class AddWordActivity extends AppCompatActivity {
 
                 } else if (!TextUtils.isEmpty(inputWord.getText().toString()) &&
                         !TextUtils.isEmpty(inputTranslation.getText().toString())) {
-                    myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString());
+                    myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString(),1);
                     Toast.makeText(AddWordActivity.this,
                             getString(R.string.onNewPositionAdd), Toast.LENGTH_SHORT).show();
                     inputWord.setText(null);

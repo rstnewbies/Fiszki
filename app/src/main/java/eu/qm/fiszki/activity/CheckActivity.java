@@ -15,6 +15,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Random;
+
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.database.DBAdapter;
@@ -31,6 +33,9 @@ public class CheckActivity extends AppCompatActivity {
 
     String wordFromData;
     String expectedWord;
+    int rowId;
+    int rowPriority;
+    boolean firstTry = true;
 
     MenuItem mi;
     int id;
@@ -43,21 +48,13 @@ public class CheckActivity extends AppCompatActivity {
         
 
         OpenDataBase.openDB(myDb);
-        Cursor c = myDb.getAllRows();
-        
-        int cCount = c.getCount();
-        int cPosition = myDb.intRowValue(DBModel.SETTINGS_NAME, "cursorPosition");
-        if(cPosition < cCount) {
-            c.move(cPosition);
-            cPosition++;
-            myDb.updateRow("cursorPosition", cPosition);
-        } else {
-            cPosition = 1;
-            myDb.updateRow("cursorPosition", cPosition);
-        }
+
+        Cursor c = drawCardAlgorithm();
 
             wordFromData = c.getString(c.getColumnIndex(DBModel.KEY_WORD));
             expectedWord = c.getString(c.getColumnIndex(DBModel.KEY_TRANSLATION));
+            rowId = c.getInt(c.getColumnIndex(DBModel.KEY_ROWID));
+            rowPriority = c.getInt(c.getColumnIndex(DBModel.KEY_PRIORITY));
             enteredWord = (EditText) findViewById(R.id.EnteredWord);
             enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
             enteredWord.setText("");
@@ -72,6 +69,13 @@ public class CheckActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OpenDataBase.closeDB(myDb);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -90,16 +94,22 @@ public class CheckActivity extends AppCompatActivity {
         {
            if(check.Check(expectedWord, enteredWord.getText().toString()))
            {
-                message.pass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.alert_nameButton_OK));
+               message.pass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.alert_nameButton_OK));
+
+               if(rowPriority<5 && firstTry) {
+                   myDb.updateFlashcardPriority(rowId, rowPriority + 1);
+               }
            }
            else
            {
                enteredWord.setText("");
                enteredWord.requestFocus();
-               message.fail(this, expectedWord, getString(R.string.alert_message_fail),
-                       getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+            message.fail(this, expectedWord, getString(R.string.alert_message_fail),
+                    getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+               firstTry = false;
 
-        }
+             myDb.updateFlashcardPriority(rowId, 1);
+           }
         }
         else if (id == android.R.id.home) {
             this.finish();
@@ -129,4 +139,40 @@ public class CheckActivity extends AppCompatActivity {
         });
     }
 
+    private Cursor drawCardAlgorithm() {
+        final int[] points = {25, 20, 15, 10, 5};
+        int[] totalPoints = new int[5];
+        int[] section = new int[5];
+        int drawn = 0;
+
+        Cursor cursorPriority = null;
+
+        for(int i=0; i<5; i++) {
+            Cursor cardsPriority = myDb.getAllRowsPriority(i+1);
+            int count = cardsPriority.getCount();
+            totalPoints[i] = count * points[i];
+            if(i <= 0) {
+                section[i] = totalPoints[i];
+            }else {
+                section[i] = totalPoints[i] + section[i-1];
+            }
+        }
+        Random rand = new Random();
+        drawn = rand.nextInt(section[4]);
+        drawn += 1;
+
+        if(drawn <= section[0]) {
+            cursorPriority = myDb.getRandomRowWithpriority(1);
+        } else if(drawn <= section[1]) {
+            cursorPriority = myDb.getRandomRowWithpriority(2);
+        } else if(drawn <= section[2]) {
+            cursorPriority = myDb.getRandomRowWithpriority(3);
+        } else if(drawn <= section[3]) {
+            cursorPriority = myDb.getRandomRowWithpriority(4);
+        } else if(drawn <= section[4]+1) {
+            cursorPriority = myDb.getRandomRowWithpriority(5);
+        }
+
+        return cursorPriority;
     }
+}
