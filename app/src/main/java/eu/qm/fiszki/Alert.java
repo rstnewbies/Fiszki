@@ -32,9 +32,8 @@ public class Alert {
         alertDialog.show();
     }
 
-    public void fail(final Context context, String orginalWord, String message, String messeageAgain,
-                     String title,
-                     String nameButton) {
+    public void fail(final Context context, String orginalWord, String message,
+                     String messeageAgain,String title,String nameButton) {
         AlertDialog alertDialog;
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
@@ -79,8 +78,8 @@ public class Alert {
         });
         alertDialog.show();
     }
-    public void learningModeFail(final Context context, String orginalWord, String message, String title,
-                                 String nameButton) {
+    public void learningModeFail(final Context context, String orginalWord, String message,
+                                 String title, String nameButton) {
         AlertDialog alertDialog;
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
@@ -108,6 +107,27 @@ public class Alert {
                 Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);
                 ((Activity) context).finish();
+            }
+        });
+        alertDialog.show();
+    }
+    public void deleteRecord(final Context context,String message, String title,String nameButton,
+                             String nameButton2) {
+        final AlertDialog alertDialog;
+        alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle(title);
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage(Html.fromHtml(message));
+        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alertDialog.setButton2(nameButton2, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
             }
         });
         alertDialog.show();

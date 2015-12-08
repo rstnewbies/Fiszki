@@ -1,14 +1,17 @@
 package eu.qm.fiszki.activity;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -225,16 +228,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void listViewDelete(View view) {
-        myDb.deleteRecord(rowId);
-        if (myDb.getAllRows().getCount() > 0) {
-            listViewPopulate();
-        } else {
-            finish();
-            startActivity(getIntent());
-            alarm.close(settings.manager, settings.context, settings.pendingIntent);
-            myDb.updateRow(settings.notificationStatus, 0);
-            myDb.updateRow(settings.spinnerPosition,0);
-        }
+        final AlertDialog alertDialog;
+        alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle(getString(R.string.alert_title));
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage(Html.fromHtml(getString(R.string.alert_delete_record)));
+        alertDialog.setButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                myDb.deleteRecord(rowId);
+                if (myDb.getAllRows().getCount() > 0) {
+                    listViewPopulate();
+                } else {
+                    finish();
+                    startActivity(getIntent());
+                    alarm.close(settings.manager, settings.context, settings.pendingIntent);
+                    myDb.updateRow(settings.notificationStatus, 0);
+                    myDb.updateRow(settings.spinnerPosition,0);
+                }
+            }
+        });
+        alertDialog.setButton2(getString(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 
     public void sync() {

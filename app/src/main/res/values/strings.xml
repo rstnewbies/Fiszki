@@ -55,6 +55,9 @@
     <string name="button_delete">Usuń</string>
     <string name="dialog_edit_item">Edycja Fiszki</string>
     <string name="empty_base_check">Nie masz żadnego słowka w bazie, najpierw coś dodaj </string>
+    <string name="alert_delete_record">Czy napewno chcesz usunąć ten rekord?</string>
+    <string name="yes">TAK</string>
+    <string name="no">NIE</string>
 
 </resources>
 
