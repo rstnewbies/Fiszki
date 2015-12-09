@@ -58,6 +58,9 @@
     <string name="alert_delete_record">Czy napewno chcesz usunąć ten rekord?</string>
     <string name="yes">TAK</string>
     <string name="no">NIE</string>
-
+    <string name="edit_record">Edytuj</string>
+    <string name="delete_record">Usuń</string>
+    <string name="done_record">Wróć</string>
+    <string name="title_seleced_record">Wybrano</string>
 </resources>
 

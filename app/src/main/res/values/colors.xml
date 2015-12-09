@@ -7,4 +7,5 @@
     <color name="SettingSector">#EEEEEE</color>
     <color name="pressed_color">#4d90fe</color>
     <color name="default_color">#ffffff</color>
+    <color name="seleced_Adapter">#F44336</color>
 </resources>

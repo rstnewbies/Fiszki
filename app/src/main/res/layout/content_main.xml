@@ -49,26 +49,4 @@
             android:textStyle="bold" />
 
     </FrameLayout>
-    <LinearLayout android:id="@+id/footer"
-        android:visibility="invisible"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/White"
-        android:layout_alignParentBottom="true">
-
-        <Button android:id="@+id/btn_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/button_edit"
-            android:onClick="listViewEdit"/>
-
-        <Button android:id="@+id/btn_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/button_delete"
-            android:onClick="listViewDelete"/>
-    </LinearLayout>
 </RelativeLayout>
