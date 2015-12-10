@@ -9,10 +9,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.MailTo;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.SwitchPreference;
+import android.provider.CalendarContract;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -202,7 +204,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         cleanerDataBase.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-
+                myDb.deleteAll(DBModel.DATABASE_TABLE);
+                Intent refresh = new Intent(SettingsActivity.this, MainActivity.class);
+                startActivity(refresh);
+                finish();
                 return true;
             }
         });

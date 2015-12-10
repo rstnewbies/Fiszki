@@ -35,6 +35,10 @@ public class DBAdapter {
         return db.insert(DBModel.DATABASE_TABLE, null, initialValues);
     }
 
+    public void deleteAll(String table){
+        db.execSQL("delete from "+ table);
+    }
+
     public long updateRow(String settingName , int status) {
         ContentValues values = new ContentValues();
         values.put(DBModel.SETTINGS_STATUS, status);

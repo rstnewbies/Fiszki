@@ -1,6 +1,5 @@
 package eu.qm.fiszki.activity;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
