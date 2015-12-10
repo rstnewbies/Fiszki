@@ -102,8 +102,9 @@ public class MainActivity extends AppCompatActivity {
         listViewSelect();
         toolbarMainActivity();
         if (myDb.getAllRows().getCount() > 0) {
-            emptyDBImage.setAlpha(0);
-            emptyDBText.setAlpha(0);
+            emptyDBImage.setVisibility(View.INVISIBLE);
+            emptyDBText.setVisibility(View.INVISIBLE);
+            listView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -138,30 +139,30 @@ public class MainActivity extends AppCompatActivity {
                 editOriginal.setText(editedItem.getCursor().getString(1));
                 editTranslate.setText(editedItem.getCursor().getString(2));
 
-                if (!clickedItem[position] && earlierPosition == -1) {
-                    selectedItem[position] = view;
-                    clickedItem[position] = true;
-                    selectedItem[position].setBackgroundColor(getResources().getColor(R.color.pressed_color));
-                    selectedItem[position].setSelected(true);
+                if (!clickedItem[selectPosition] && earlierPosition == -1) {
+                    selectedItem[selectPosition] = view;
+                    clickedItem[selectPosition] = true;
+                    selectedItem[selectPosition].setBackgroundColor(getResources().getColor(R.color.pressed_color));
+                    selectedItem[selectPosition].setSelected(true);
                     fab.setVisibility(View.INVISIBLE);
-                    earlierPosition = position;
+                    earlierPosition = selectPosition;
                     toolbarSelected();
-                } else if (!clickedItem[position]) {
+                } else if (!clickedItem[selectPosition]) {
                     selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
                     clickedItem[earlierPosition] = false;
                     selectedItem[earlierPosition].setSelected(false);
-                    selectedItem[position] = view;
-                    clickedItem[position] = true;
-                    selectedItem[position].setBackgroundColor(getResources().getColor(R.color.pressed_color));
-                    selectedItem[position].setSelected(true);
+                    selectedItem[selectPosition] = view;
+                    clickedItem[selectPosition] = true;
+                    selectedItem[selectPosition].setBackgroundColor(getResources().getColor(R.color.pressed_color));
+                    selectedItem[selectPosition].setSelected(true);
                     fab.setVisibility(View.INVISIBLE);
-                    earlierPosition = position;
+                    earlierPosition = selectPosition;
                     toolbarSelected();
                 } else {
                     selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
                     fab.setVisibility(View.VISIBLE);
-                    clickedItem[position] = false;
-                    selectedItem[position].setSelected(false);
+                    clickedItem[selectPosition] = false;
+                    selectedItem[selectPosition].setSelected(false);
                     toolbarMainActivity();
                 }
             }
@@ -200,14 +201,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void toolbarSelected() {
         toolbar.getMenu().clear();
-        toolbar.setTitle(getString(R.string.title_seleced_record)+": 1");
+        toolbar.setTitle(getString(R.string.title_seleced_record));
         toolbar.inflateMenu(R.menu.menu_selected_mainactivity);
         toolbar.setBackgroundResource(R.color.seleced_Adapter);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_keyboard_backspace_white_36dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("cek", "home selected");
+                selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
+                fab.setVisibility(View.VISIBLE);
+                clickedItem[selectPosition] = false;
+                selectedItem[selectPosition].setSelected(false);
+                toolbarMainActivity();
             }
         });
         toolbar.setOnMenuItemClickListener(
@@ -215,17 +220,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         int id = item.getItemId();
-                        if (id == R.id.settings) {
-                            Intent goSettings = new Intent(MainActivity.this, SettingsActivity.class);
-                            startActivity(goSettings);
-                        } else if (id == R.id.learningMode) {
-                            if (myDb.getAllRows().getCount() > 0) {
-                                Intent goLearningMode = new Intent(MainActivity.this, LearningModeActivity.class);
-                                startActivity(goLearningMode);
-                            } else {
-                                alert.buildAlert(getString(R.string.alert_title_fail), getString(R.string.learningmode_emptybase), getString(R.string.alert_nameButton_OK), MainActivity.this);
-                            }
-                        } else if (id == android.R.id.home) {
+                        if (id == R.id.editRecord) {
+                            listViewEdit();
+                        } else if (id == R.id.deleteRecord) {
+                            listViewDelete();
                         }
                         return true;
                     }
@@ -233,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.dismissPopupMenus();
     }
 
-    public void listViewEdit(View v) {
+    public void listViewEdit(){
 
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -269,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void listViewDelete(View view) {
+    public void listViewDelete() {
         final AlertDialog alertDialog;
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(getString(R.string.alert_title));
@@ -282,21 +280,24 @@ public class MainActivity extends AppCompatActivity {
                 if (myDb.getAllRows().getCount() > 0) {
                     listViewPopulate();
                 } else {
-                    finish();
-                    startActivity(getIntent());
-                    alarm.close(settings.manager, settings.context, settings.pendingIntent);
+                    emptyDBImage.setVisibility(View.VISIBLE);
+                    emptyDBText.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.INVISIBLE);
                     myDb.updateRow(settings.notificationStatus, 0);
                     myDb.updateRow(settings.spinnerPosition,0);
                 }
+                toolbarMainActivity();
             }
         });
         alertDialog.setButton2(getString(R.string.no), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 alertDialog.dismiss();
+
             }
         });
         alertDialog.show();
+
     }
 
     public void sync() {
