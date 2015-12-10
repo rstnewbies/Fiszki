@@ -283,6 +283,7 @@ public class MainActivity extends AppCompatActivity {
                     emptyDBImage.setVisibility(View.VISIBLE);
                     emptyDBText.setVisibility(View.VISIBLE);
                     listView.setVisibility(View.INVISIBLE);
+                    fab.setVisibility(View.VISIBLE);
                     myDb.updateRow(settings.notificationStatus, 0);
                     myDb.updateRow(settings.spinnerPosition,0);
                 }
