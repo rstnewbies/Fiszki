@@ -39,6 +39,11 @@ public class ItemAdapter extends CursorAdapter
         String wordString = cursor.getString(cursor.getColumnIndexOrThrow(DBModel.KEY_WORD));
         String translationString = cursor.getString(cursor.getColumnIndexOrThrow(DBModel.KEY_TRANSLATION));
 
+        if (cursor.getInt(3) == 5)
+        {
+            view.setBackgroundResource(R.color.LearningGreen);
+        }
+
         word.setText(wordString);
         translation.setText(translationString);
     }
