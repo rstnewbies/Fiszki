@@ -259,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
                 keyboard.showSoftInput(editOriginal, 0);
             }
         }, 50);
-        
+
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -295,6 +295,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        dialog.getWindow().setAttributes(lp);
         dialog.show();
 
     }
