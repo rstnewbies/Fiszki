@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         listViewSelect();
         toolbarMainActivity();
 
+
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +114,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_selected_mainactivity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
+            fab.setVisibility(View.VISIBLE);
+            clickedItem[selectPosition] = false;
+            selectedItem[selectPosition].setSelected(false);
+            toolbarMainActivity();
+        }
+        return true;
     }
 
     public void listViewPopulate() {
@@ -200,21 +222,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void toolbarSelected() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.getMenu().clear();
         toolbar.setTitle(getString(R.string.title_seleced_record));
-        toolbar.inflateMenu(R.menu.menu_selected_mainactivity);
         toolbar.setBackgroundResource(R.color.seleced_Adapter);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_keyboard_backspace_white_36dp));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
-                fab.setVisibility(View.VISIBLE);
-                clickedItem[selectPosition] = false;
-                selectedItem[selectPosition].setSelected(false);
-                toolbarMainActivity();
-            }
-        });
         toolbar.setOnMenuItemClickListener(
                 new Toolbar.OnMenuItemClickListener() {
                     @Override
@@ -224,6 +237,12 @@ public class MainActivity extends AppCompatActivity {
                             listViewEdit();
                         } else if (id == R.id.deleteRecord) {
                             listViewDelete();
+                        } else if (id == android.R.id.home){
+                            selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
+                            fab.setVisibility(View.VISIBLE);
+                            clickedItem[selectPosition] = false;
+                            selectedItem[selectPosition].setSelected(false);
+                            toolbarMainActivity();
                         }
                         return true;
                     }
@@ -233,24 +252,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void listViewEdit(){
 
+        editOriginal.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                keyboard.showSoftInput(editOriginal, 0);
+            }
+        }, 50);
+        
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (editOriginal.getText().toString().isEmpty() || editTranslate.getText().toString().isEmpty()) {
                     alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onEmptyFields), getString(R.string.action_OK), MainActivity.this);
-                } else { if (myDb.getRow(rowId).getString(1).equals(editOriginal.getText().toString())) {
-                    myDb.updateAdapter(rowId, editOriginal.getText().toString(),
-                            editTranslate.getText().toString());
-                    selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
-                    fab.setVisibility(View.VISIBLE);
-                    clickedItem[selectPosition] = false;
-                    selectedItem[selectPosition].setSelected(false);
-                    listViewPopulate();
-                    dialog.dismiss();
-                } else {if (myDb.getRowValue(DBModel.KEY_WORD, editOriginal.getText().toString())) {
-                        alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.alert_nameButton_OK), MainActivity.this);
-                        editOriginal.requestFocus();
-                    } else {
+                } else {
+                    if (myDb.getRow(rowId).getString(1).equals(editOriginal.getText().toString())) {
                         myDb.updateAdapter(rowId, editOriginal.getText().toString(),
                                 editTranslate.getText().toString());
                         selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
@@ -259,12 +275,28 @@ public class MainActivity extends AppCompatActivity {
                         selectedItem[selectPosition].setSelected(false);
                         listViewPopulate();
                         dialog.dismiss();
+                        toolbarMainActivity();
+                    } else {
+                        if (myDb.getRowValue(DBModel.KEY_WORD, editOriginal.getText().toString())) {
+                            alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.alert_nameButton_OK), MainActivity.this);
+                            editOriginal.requestFocus();
+                        } else {
+                            myDb.updateAdapter(rowId, editOriginal.getText().toString(),
+                                    editTranslate.getText().toString());
+                            selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
+                            fab.setVisibility(View.VISIBLE);
+                            clickedItem[selectPosition] = false;
+                            selectedItem[selectPosition].setSelected(false);
+                            listViewPopulate();
+                            dialog.dismiss();
+                            toolbarMainActivity();
+                        }
                     }
-                }
                 }
             }
         });
         dialog.show();
+
     }
 
     public void listViewDelete() {
@@ -279,6 +311,7 @@ public class MainActivity extends AppCompatActivity {
                 myDb.deleteRecord(rowId);
                 if (myDb.getAllRows().getCount() > 0) {
                     listViewPopulate();
+                    toolbarMainActivity();
                 } else {
                     emptyDBImage.setVisibility(View.VISIBLE);
                     emptyDBText.setVisibility(View.VISIBLE);
@@ -286,8 +319,8 @@ public class MainActivity extends AppCompatActivity {
                     fab.setVisibility(View.VISIBLE);
                     myDb.updateRow(settings.notificationStatus, 0);
                     myDb.updateRow(settings.spinnerPosition,0);
+                    toolbarMainActivity();
                 }
-                toolbarMainActivity();
             }
         });
         alertDialog.setButton2(getString(R.string.no), new DialogInterface.OnClickListener() {
