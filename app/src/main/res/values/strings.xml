@@ -7,6 +7,7 @@
     <string name="action_settings">Ustawienia</string>
     <string name="title_activity_check">Sprawdzanie</string>
     <string name="action_OK">OK</string>
+    <string name="action_NO">NIE</string>
     <string name="alert_message_pass">Udało Ci się przetłumaczyć.</string>
     <string name="alert_message_fail">Podałeś niepoprawny wyraz. Poprawnie to:</string>
     <string name="alert_title_fail">Niestety</string>
@@ -45,6 +46,7 @@
     <string name="alert_message_tryagain">Napisz go ponownie.</string>
     <string name="learningmode_emptybase">Zanim zaczniesz naukę, dodaj słówka do listy.</string>
     <string name="title_activity_sett">Settings</string>
+    <string name="delete_db_records">Czy na pewno chcesz wyczyścić tablicę słówek?</string>
 
 
 

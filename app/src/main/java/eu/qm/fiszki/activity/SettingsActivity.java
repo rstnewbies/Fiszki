@@ -3,21 +3,19 @@ package eu.qm.fiszki.activity;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.MailTo;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.SwitchPreference;
-import android.provider.CalendarContract;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
@@ -43,6 +41,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public Alert alert;
     public String Position = "notification_time";
     public String notificationStatus = "notification";
+    private AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +73,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         super.onPause();
         sync();
         getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
-
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -98,7 +95,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         pref = findPreference(key);
-
 
             //FOR ListPreference
             if (pref instanceof ListPreference) {
@@ -160,8 +156,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                     listPref.setValue(getResources().getString(R.string.frequency_0));
                 }
             }
-
-
     }
 
     public void sync() {
@@ -196,7 +190,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         }
         String version = info.versionName;
         pref.setSummary(version);
-        
     }
 
     public void clearDataBase() {
@@ -204,12 +197,28 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         cleanerDataBase.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                myDb.deleteAll(DBModel.DATABASE_TABLE);
-                Intent refresh = new Intent(SettingsActivity.this, MainActivity.class);
-                startActivity(refresh);
-                finish();
+
+                builder = new AlertDialog.Builder(SettingsActivity.this);
+                builder.setMessage(R.string.delete_db_records)
+                        .setPositiveButton(R.string.action_OK, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                deleteDbRows();
+                            }
+                        })
+                        .setNegativeButton(R.string.action_NO, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                            }
+                        }).show();
                 return true;
+
             }
         });
+    }
+
+    private void deleteDbRows() {
+       myDb.deleteAll(DBModel.DATABASE_TABLE);
+       Intent refresh = new Intent(SettingsActivity.this, MainActivity.class);
+       startActivity(refresh);
+       finish();
     }
 }
