@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent goSettings = new Intent(MainActivity.this, SettingsActivity.class);
                             startActivity(goSettings);
                         } else if (id == R.id.learningMode) {
-                            CharSequence[] items = {"10", "20", "30", "50", "100", DecimalFormatSymbols.getInstance().getInfinity()};
+                            CharSequence[] items = {"10", "20", "50", DecimalFormatSymbols.getInstance().getInfinity()};
                             new AlertDialog.Builder(MainActivity.this)
                                     .setSingleChoiceItems(items, 0, null)
                                     .setTitle(R.string.repeat_number)
@@ -66,11 +66,20 @@ public class MainActivity extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int whichButton) {
                                             dialog.dismiss();
                                             int selected = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
-                                            // SHARED PREFERENCES
-                                            if (myDb.getAllRows().getCount() > 0) {
-                                                Intent goLearningMode = new Intent(MainActivity.this, LearningModeActivity.class);
-                                                startActivity(goLearningMode);
-                                            } else {
+                                            if (selected == 0 && myDb.getAllRows().getCount() > 0){ //10
+
+                                            }
+                                            if (selected == 1 && myDb.getAllRows().getCount() > 0){ //20
+
+                                            }
+                                            if (selected == 2 && myDb.getAllRows().getCount() > 0){ //50
+
+                                            }
+                                            if (selected == 3 && myDb.getAllRows().getCount() > 0){ // infinity
+                                                Intent myIntent = new Intent(MainActivity.this, LearningModeActivity.class);
+                                                startActivity(myIntent);
+                                            }
+                                            else if (myDb.getAllRows().getCount() == 0){
                                                 alert.buildAlert(getString(R.string.alert_title_fail), getString(R.string.learningmode_emptybase), getString(R.string.alert_nameButton_OK), MainActivity.this);
                                             }
                                         }
