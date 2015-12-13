@@ -58,38 +58,14 @@ public class MainActivity extends AppCompatActivity {
                             Intent goSettings = new Intent(MainActivity.this, SettingsActivity.class);
                             startActivity(goSettings);
                         } else if (id == R.id.learningMode) {
-                            CharSequence[] items = {"10", "20", "50", DecimalFormatSymbols.getInstance().getInfinity()};
-                            new AlertDialog.Builder(MainActivity.this)
-                                    .setSingleChoiceItems(items, 0, null)
-                                    .setTitle(R.string.repeat_number)
-                                    .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int whichButton) {
-                                            dialog.dismiss();
-                                            int selected = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
-                                            if (selected == 0 && myDb.getAllRows().getCount() > 0){ //10
-
-                                            }
-                                            if (selected == 1 && myDb.getAllRows().getCount() > 0){ //20
-
-                                            }
-                                            if (selected == 2 && myDb.getAllRows().getCount() > 0){ //50
-
-                                            }
-                                            if (selected == 3 && myDb.getAllRows().getCount() > 0){ // infinity
-                                                Intent myIntent = new Intent(MainActivity.this, LearningModeActivity.class);
-                                                startActivity(myIntent);
-                                            }
-                                            else if (myDb.getAllRows().getCount() == 0){
-                                                alert.buildAlert(getString(R.string.alert_title_fail), getString(R.string.learningmode_emptybase), getString(R.string.alert_nameButton_OK), MainActivity.this);
-                                            }
-                                        }
-                                    })
-                                    .setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int whichButton) {
-                                            dialog.dismiss();
-                                        }
-                                    })
-                                    .show();
+                            if(myDb.getAllRows().getCount()>0) {
+                                Intent myIntent = new Intent(MainActivity.this, LearningModeActivity.class);
+                                startActivity(myIntent);
+                            }else {
+                                alert.buildAlert(getString(R.string.alert_title_fail),
+                                        getString(R.string.learningmode_emptybase),
+                                        getString(R.string.alert_nameButton_OK), MainActivity.this);
+                            }
                         }
                         return true;
                     }
