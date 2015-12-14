@@ -148,13 +148,7 @@ public class LearningModeActivity extends AppCompatActivity {
             int percent = (int)((trueAnswer * 100.0f) / numberOfRepeat);
             numberOfProcent.setText(Integer.toString(percent)+"%");
             numberOfTotal.setText(Integer.toString(numberOfRepeat));
-            toHome = (Button) findViewById(R.id.toHome);
             repeate = (Button) findViewById(R.id.repeate);
-            toHome.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    finish();
-                }
-            });
             repeate.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     finish();

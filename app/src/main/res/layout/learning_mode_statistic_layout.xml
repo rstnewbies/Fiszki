@@ -32,7 +32,7 @@
             android:layout_weight="0.13"
             android:gravity="center_vertical|center"
             android:textSize="25dp"
-            android:layout_marginTop="130dp" />
+            android:layout_marginTop="110dp" />
 
         <TextView
             android:layout_width="190dp"
@@ -80,7 +80,9 @@
             android:layout_gravity="left|center_vertical"
             android:layout_marginBottom="50dp"
             android:gravity="center|center_horizontal"
-            android:layout_marginLeft="200dp" />
+            android:layout_marginLeft="200dp"
+            android:textStyle="bold"
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="50dp"
@@ -89,7 +91,9 @@
             android:layout_gravity="left|center_vertical"
             android:gravity="center|center_horizontal"
             android:layout_marginTop="0dp"
-            android:layout_marginLeft="200dp" />
+            android:layout_marginLeft="200dp"
+            android:textStyle="bold"
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="50dp"
@@ -98,7 +102,9 @@
             android:layout_gravity="left|center_vertical"
             android:gravity="center|center_horizontal"
             android:layout_marginLeft="200dp"
-            android:layout_marginTop="50dp" />
+            android:layout_marginTop="50dp"
+            android:textStyle="bold"
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="190dp"
@@ -116,21 +122,14 @@
 
         <TextView
             android:layout_width="101dp"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:id="@+id/numberOfProcent"
             android:layout_gravity="center_horizontal|bottom"
             android:gravity="center|center_horizontal"
-            android:layout_marginBottom="125dp"
-            android:layout_marginLeft="50dp" />
-
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:id="@+id/toHome"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginRight="100dp"
-            android:layout_marginBottom="30dp"
-            android:text="@string/back"/>
+            android:layout_marginBottom="110dp"
+            android:layout_marginLeft="50dp"
+            android:textSize="50dp"
+            android:textStyle="bold" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -138,7 +137,7 @@
             android:layout_height="50dp"
             android:id="@+id/repeate"
             android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="0dp"
             android:layout_marginBottom="30dp"
             android:text="@string/statistic_repeat"/>
 
