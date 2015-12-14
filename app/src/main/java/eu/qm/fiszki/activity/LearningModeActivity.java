@@ -88,13 +88,6 @@ public class LearningModeActivity extends AppCompatActivity {
                 }
                 firstAnswer=true;
                 repeat++;
-                enteredWord.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        keyboard.hideSoftInputFromWindow(enteredWord.getWindowToken(), 0);
-                    }
-                }, 50);
                 algorith();
             } else {
              if(firstAnswer){
@@ -118,14 +111,6 @@ public class LearningModeActivity extends AppCompatActivity {
             c = myDb.getAllRows();
             enteredWord.setText("");
             enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-            enteredWord.requestFocus();
-            enteredWord.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    keyboard.showSoftInput(enteredWord, 0);
-                }
-            }, 50);
             word.setText("");
             int cCount = c.getCount();
             int cPosition = myDb.intRowValue(DBModel.SETTINGS_NAME, "cursorPosition");
@@ -141,13 +126,17 @@ public class LearningModeActivity extends AppCompatActivity {
             wordFromData = c.getString(c.getColumnIndex(DBModel.KEY_WORD));
             word.append(wordFromData);
             expectedWord = c.getString(c.getColumnIndex(DBModel.KEY_TRANSLATION));
-
-
-
-
+            enteredWord.requestFocus();
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
         } else {
-
+            enteredWord.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    keyboard.hideSoftInputFromWindow(enteredWord.getWindowToken(), 0);
+                }
+            }, 0);
             setContentView(R.layout.learning_mode_statistic_layout);
             menuItem.setVisible(false);
             numberOfFalse = (TextView) findViewById(R.id.numberOfFalse);
@@ -218,15 +207,6 @@ public class LearningModeActivity extends AppCompatActivity {
                         }
                         setContentView(R.layout.activity_check);
                         enteredWord = (EditText) findViewById(R.id.EnteredWord);
-                        enteredWord.setFocusable(true);
-                        enteredWord.requestFocus();
-                        enteredWord.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                                keyboard.showSoftInputFromInputMethod(enteredWord.getWindowToken(),0);
-                            }
-                        }, 50);
                         word = (TextView) findViewById(R.id.textView3);
                         OpenDataBase.openDB(myDb);
                         algorith();

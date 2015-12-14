@@ -19,7 +19,6 @@ import eu.qm.fiszki.database.DBModel;
 import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.R;
 
-//// TODO: 2015-10-03 Dodanie akceptacji słowa Enterem 
 public class CheckActivity extends AppCompatActivity {
 
     TextView word;
