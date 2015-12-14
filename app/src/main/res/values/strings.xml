@@ -47,6 +47,7 @@
     <string name="learningmode_emptybase">Zanim zaczniesz naukę, dodaj słówka do listy.</string>
     <string name="title_activity_sett">Settings</string>
     <string name="delete_db_records">Czy na pewno chcesz wyczyścić tablicę słówek?</string>
+    <string name="empty_base_check">Nie masz żadnego słowka w bazie, najpierw coś dodaj </string>
 
 
 

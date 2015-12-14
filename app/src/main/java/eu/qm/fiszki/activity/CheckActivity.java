@@ -29,6 +29,7 @@ public class CheckActivity extends AppCompatActivity {
     EditText enteredWord;
     DBAdapter myDb = new DBAdapter(this);
     DBStatus OpenDataBase = new DBStatus();
+    Alert alert;
 
     String wordFromData;
     String expectedWord;
@@ -44,12 +45,12 @@ public class CheckActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check);
-        
-
         OpenDataBase.openDB(myDb);
+        Cursor c = myDb.getAllRows();
+        alert = new Alert();
 
-        Cursor c = drawCardAlgorithm();
 
+        if(myDb.getAllRows().getCount()>0) {
             wordFromData = c.getString(c.getColumnIndex(DBModel.KEY_WORD));
             expectedWord = c.getString(c.getColumnIndex(DBModel.KEY_TRANSLATION));
             rowId = c.getInt(c.getColumnIndex(DBModel.KEY_ROWID));
@@ -59,9 +60,12 @@ public class CheckActivity extends AppCompatActivity {
             enteredWord.setText("");
             word = (TextView) findViewById(R.id.textView3);
             word.append(wordFromData);
-        enteredWord.requestFocus();
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        keyboardAction();
+            enteredWord.requestFocus();
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+            keyboardAction();
+        }else {
+            alert.emptyBase(this,getString(R.string.empty_base_check),getString(R.string.alert_title_fail),getString(R.string.action_OK));
+        }
     }
 
     @Override

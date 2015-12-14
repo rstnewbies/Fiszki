@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.text.Html;
 
 import eu.qm.fiszki.activity.LearningModeActivity;
+import eu.qm.fiszki.activity.MainActivity;
 
 public class Alert {
     public void pass(final Context context, String message, String title,
@@ -90,6 +91,22 @@ public class Alert {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(context, LearningModeActivity.class);
+                context.startActivity(intent);
+                ((Activity) context).finish();
+            }
+        });
+        alertDialog.show();
+    }
+    public void emptyBase(final Context context,String message, String title,String nameButton){
+        AlertDialog alertDialog;
+        alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle(title);
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage(Html.fromHtml(message));
+        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);
                 ((Activity) context).finish();
             }
