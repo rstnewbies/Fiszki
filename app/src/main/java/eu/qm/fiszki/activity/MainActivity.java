@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         settings = new SettingsActivity();
         alarm = new AlarmReceiver();
@@ -102,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         listViewPopulate();
-        listViewSelect();
         toolbarMainActivity();
         if (myDb.getAllRows().getCount() > 0) {
             emptyDBImage.setVisibility(View.INVISIBLE);
@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
         dialog = new Dialog(context);
         dialog.setContentView(R.layout.layout_dialog_edit);
         dialog.setTitle(R.string.dialog_edit_item);
+
         editOriginal = (EditText) dialog.findViewById(R.id.editOrginal);
         editTranslate = (EditText) dialog.findViewById(R.id.editTranslate);
         dialogButton = (Button) dialog.findViewById(R.id.editButton);
@@ -259,11 +260,12 @@ public class MainActivity extends AppCompatActivity {
                 keyboard.showSoftInput(editOriginal, 0);
             }
         }, 50);
+        editOriginal.setSelection(editOriginal.getText().length());
 
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editOriginal.getText().toString().isEmpty() || editTranslate.getText().toString().isEmpty()) {
+                if (editOriginal.getText().toString().isEmpty()|| editTranslate.getText().toString().isEmpty()) {
                     alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onEmptyFields), getString(R.string.action_OK), MainActivity.this);
                 } else {
                     if (myDb.getRow(rowId).getString(1).equals(editOriginal.getText().toString())) {
@@ -283,10 +285,10 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             myDb.updateAdapter(rowId, editOriginal.getText().toString(),
                                     editTranslate.getText().toString());
-                            selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
+                            //selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
                             fab.setVisibility(View.VISIBLE);
                             clickedItem[selectPosition] = false;
-                            selectedItem[selectPosition].setSelected(false);
+                            //selectedItem[selectPosition].setSelected(false);
                             listViewPopulate();
                             dialog.dismiss();
                             toolbarMainActivity();
