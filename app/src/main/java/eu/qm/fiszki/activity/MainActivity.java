@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         emptyDBText = (TextView) findViewById(R.id.emptyDBText);
         emptyDBImage.setImageResource(R.drawable.emptydb);
         openDataBase.openDB(myDb);
-        checkListComponents();
+        checkListComponents(myDb);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        checkListComponents();
+
+        checkListComponents(myDb);
         if (myDb.getAllRows().getCount() > 0) {
             emptyDBImage.setAlpha(0);
             emptyDBText.setAlpha(0);
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         listViewItems.setAdapter(flashCardList);
     }
 
-    public void checkListComponents() {
+    public void checkListComponents(DBAdapter myDb) {
         if (myDb.getAllRows().getCount() > 0) {
             populateListView();
         }
