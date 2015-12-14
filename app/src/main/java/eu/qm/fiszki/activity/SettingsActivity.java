@@ -203,6 +203,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                         .setPositiveButton(R.string.action_OK, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 deleteDbRows();
+
                             }
                         })
                         .setNegativeButton(R.string.action_NO, new DialogInterface.OnClickListener() {
@@ -220,5 +221,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity
        Intent refresh = new Intent(SettingsActivity.this, MainActivity.class);
        startActivity(refresh);
        finish();
+        alarm.close(manager,context,pendingIntent);
+        myDb.updateRow(Position,0);
+        myDb.updateRow(notificationStatus,0);
     }
 }
