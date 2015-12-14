@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceCategory
+    android:title="@string/settings_category_notification"
+    />
+    <ListPreference
+        android:title="@string/settings_title_notification"
+        android:summary=""
+        android:defaultValue="@string/frequency_0"
+        android:key="@string/settings_key_notification"
+        android:entries="@array/notification_frequency"
+        android:entryValues="@array/notification_frequency" />
+ <PreferenceCategory
+        android:title="@string/settings_category_date_base"
+        />
+    <Preference
+        android:key="@string/settings_key_data_base"
+        android:title="@string/settings_title_data_base"
+        android:summary="@string/settings_summary_data_base"
+        />
+ <PreferenceCategory
+        android:title="@string/settings_category_about"
+        />
+    <EditTextPreference
+        android:key="@string/settings_key_version"
+        android:title="@string/settings_title_version"
+        android:summary=" "
+        android:enabled="false"
+        />
+
+
+</PreferenceScreen>

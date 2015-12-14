@@ -1,6 +1,5 @@
 package eu.qm.fiszki.activity;
 
-import android.content.Context;
 import android.content.Intent;
 
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
@@ -31,12 +29,15 @@ public class MainActivity extends AppCompatActivity {
     ImageView emptyDBImage;
     TextView emptyDBText;
     Alert alert = new Alert();
-    Context context;
+    ListView listViewItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        listViewItems = (ListView) findViewById(R.id.listView);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.app_name));
         toolbar.inflateMenu(R.menu.menu_settings);
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         emptyDBText = (TextView) findViewById(R.id.emptyDBText);
         emptyDBImage.setImageResource(R.drawable.emptydb);
         openDataBase.openDB(myDb);
-        checkListComponents();
+        checkListComponents(myDb);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        checkListComponents();
+
+        checkListComponents(myDb);
         if (myDb.getAllRows().getCount() > 0) {
             emptyDBImage.setAlpha(0);
             emptyDBText.setAlpha(0);
@@ -90,14 +92,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void populateListView() {
-        ListView listViewItems = (ListView) findViewById(R.id.listView);
         ItemAdapter flashCardList = new ItemAdapter(this, myDb.getAllRows(), myDb, this);
         listViewItems.setAdapter(flashCardList);
     }
 
-    public void checkListComponents() {
+    public void checkListComponents(DBAdapter myDb) {
         if (myDb.getAllRows().getCount() > 0) {
             populateListView();
         }
     }
+
 }

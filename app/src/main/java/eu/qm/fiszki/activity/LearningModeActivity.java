@@ -1,12 +1,18 @@
 package eu.qm.fiszki.activity;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,22 +32,53 @@ public class LearningModeActivity extends AppCompatActivity {
 
     String wordFromData;
     String expectedWord;
+    Checker check;
+    Alert message;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check);
 
+
         OpenDataBase.openDB(myDb);
-        Cursor c = myDb.getRandomRow();
+        Cursor c = myDb.getAllRows();
+
+        int cCount = c.getCount();
+        int cPosition = myDb.intRowValue(DBModel.SETTINGS_NAME, "cursorPosition");
+        if(cPosition < cCount) {
+            c.move(cPosition);
+            cPosition++;
+            myDb.updateRow("cursorPosition", cPosition);
+        } else {
+            cPosition = 1;
+            myDb.updateRow("cursorPosition", cPosition);
+        }
+
         wordFromData = c.getString(c.getColumnIndex(DBModel.KEY_WORD));
         expectedWord = c.getString(c.getColumnIndex(DBModel.KEY_TRANSLATION));
         enteredWord = (EditText) findViewById(R.id.EnteredWord);
         enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        enteredWord.setText("");
         word = (TextView) findViewById(R.id.textView3);
         word.append(wordFromData);
         enteredWord.requestFocus();
+        check = new Checker();
+        message = new Alert();
+        context = this;
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        keyboardAction();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        enteredWord.setText("");
     }
 
     @Override
@@ -53,20 +90,49 @@ public class LearningModeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        Alert message = new Alert();
-        Checker check = new Checker();
+
         if (id == R.id.action_OK) {
             if (check.Check(expectedWord, enteredWord.getText().toString())) {
-                message.learningModePass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.alert_nameButton_OK));
+                finish();
+                startActivity(getIntent());
             } else {
-                message.learningModeFail(this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+                enteredWord.setText("");
+                message.fail(this, expectedWord, getString(R.string.alert_message_fail),getString(R.string.alert_message_tryagain) ,getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+
             }
-        } else if (id == R.id.learningMode_stop) {
-            this.finish();
         } else if (id == android.R.id.home) {
             this.finish();
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    public void keyboardAction(){
+        enteredWord.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId== EditorInfo.IME_ACTION_DONE){
+
+                        if (check.Check(expectedWord, enteredWord.getText().toString())) {
+                            Intent intent = new Intent(context, LearningModeActivity.class);
+                            context.startActivity(intent);
+                            ((Activity) context).finish();
+                        } else {
+                            enteredWord.setText("");
+                            message.fail(LearningModeActivity.this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+                        }
+
+                    enteredWord.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                            keyboard.showSoftInput(enteredWord, 0);
+                        }
+                    },50);
+
+                }
+
+                return false;
+            }
+        });
     }
 }

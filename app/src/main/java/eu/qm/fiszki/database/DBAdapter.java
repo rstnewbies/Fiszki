@@ -27,11 +27,16 @@ public class DBAdapter {
         myDBHelper.close();
     }
 
-    public long insertRow(String word, String translate) {
+    public long insertRow(String word, String translate, int priority) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(DBModel.KEY_WORD, word);
         initialValues.put(DBModel.KEY_TRANSLATION, translate);
+        initialValues.put(DBModel.KEY_PRIORITY, priority);
         return db.insert(DBModel.DATABASE_TABLE, null, initialValues);
+    }
+
+    public void deleteAll(String table){
+        db.execSQL("delete from "+ table);
     }
 
     public long updateRow(String settingName , int status) {
@@ -39,6 +44,12 @@ public class DBAdapter {
         values.put(DBModel.SETTINGS_STATUS, status);
         return db.update(DBModel.SETTINGS_TABLE, values,
                 DBModel.SETTINGS_NAME + "= " + "'" + settingName + "'", null);
+    }
+
+    public long updateFlashcardPriority(int id, int ptiotity){
+        ContentValues values = new ContentValues();
+        values.put(DBModel.KEY_PRIORITY, ptiotity);
+        return db.update(DBModel.DATABASE_TABLE, values, DBModel.KEY_ROWID + "=" + id, null);
     }
 
     public boolean getRowValue(String column, String text) {
@@ -66,6 +77,24 @@ public class DBAdapter {
     public Cursor getAllRows() {
         Cursor c = db.query(true, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS,
                 null, null, null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+    public Cursor getAllRowsPriority(int priority){
+        Cursor c = db.query(true, DBModel.DATABASE_TABLE,DBModel.ALL_KEYS,
+                DBModel.KEY_PRIORITY + "=" + priority, null, null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+    public Cursor getRandomRowWithpriority(int priority) {
+        Cursor c = db.query(true, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS,
+                DBModel.KEY_PRIORITY + "=" + priority, null, null, null, "RANDOM()", "1");
         if (c != null) {
             c.moveToFirst();
         }
@@ -101,17 +130,16 @@ public class DBAdapter {
             _db.execSQL(DBModel.SETTINGS_CREATE_SQL);
             _db.execSQL(DBModel.FILL_SETTINGS_SQL);
             _db.execSQL(DBModel.SECOND_FILL_SETTINGS_SQL);
-            _db.execSQL(DBModel.Fill_SETTINGS_SQL2);
+            _db.execSQL(DBModel.THIRD_Fill_SETTINGS_SQL);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase _db, int oldVersion, int newVersion) {
-            Log.w(DBModel.TAG, "Upgrading application's database from version " + oldVersion
-                    + " to " + newVersion + ", which will destroy all old data!");
-
-            _db.execSQL("DROP TABLE IF EXISTS " + DBModel.DATABASE_TABLE);
-
-            onCreate(_db);
+           _db.execSQL("ALTER TABLE " + DBModel.DATABASE_TABLE +
+                       " ADD COLUMN " + DBModel.KEY_PRIORITY + " INTEGER");
+           _db.execSQL("UPDATE " + DBModel.DATABASE_TABLE +
+                       " SET " + DBModel.KEY_PRIORITY + " = 1 " +
+                       " WHERE " + DBModel.KEY_PRIORITY + " IS NULL");
         }
     }
 }

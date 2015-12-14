@@ -7,7 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="eu.qm.fiszki.ActivityContainer.MainActivity">
+    tools:context="eu.qm.fiszki.ActivityContainer.MainActivity"
+    android:screenOrientation="portrait">
 
     <android.support.design.widget.AppBarLayout
         android:layout_height="wrap_content"

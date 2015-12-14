@@ -17,6 +17,7 @@ public class Alert {
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
+        alertDialog.setCancelable(false);
         alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -38,7 +39,8 @@ public class Alert {
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(Html.fromHtml(message + " " + "<b>" + orginalWord + "</b>" + ". " +
-                                                                        "\n" + messeageAgain));
+                "\n" + messeageAgain));
+        alertDialog.setCancelable(false);
         alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -56,30 +58,17 @@ public class Alert {
                 .setPositiveButton(buttonText, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                     }
                 }).create().show();
     }
-
-    public void addFirstWord(String title, String message, String nameButton, final Context context) {
-        AlertDialog alertDialog;
-        alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle(title);
-        alertDialog.setMessage(message);
-        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                ((Activity) context).finish();
-            }
-        });
-        alertDialog.show();
-
-    }
     public void learningModePass(final Context context, String message, String title,
-                     String nameButton) {
+                                 String nameButton) {
         final AlertDialog alertDialog;
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
+        alertDialog.setCancelable(false);
         alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -92,15 +81,32 @@ public class Alert {
         alertDialog.show();
     }
     public void learningModeFail(final Context context, String orginalWord, String message, String title,
-                     String nameButton) {
+                                 String nameButton) {
         AlertDialog alertDialog;
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
+        alertDialog.setCancelable(false);
         alertDialog.setMessage(Html.fromHtml(message + " " + "<b>" + orginalWord + "</b>"));
         alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(context, LearningModeActivity.class);
+                context.startActivity(intent);
+                ((Activity) context).finish();
+            }
+        });
+        alertDialog.show();
+    }
+    public void emptyBase(final Context context,String message, String title,String nameButton){
+        AlertDialog alertDialog;
+        alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle(title);
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage(Html.fromHtml(message));
+        alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);
                 ((Activity) context).finish();
             }

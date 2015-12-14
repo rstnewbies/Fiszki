@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name" translatable="false">Fiszki</string>
-    <string name="hello_world">Witaj świecie!</string> //Andrzeju, to jest core naszej apki
+    <string name="hello_world">Witaj świecie!</string>
+    //Andrzeju, to jest core naszej apki
+    <string name="version">Wersja aplikacji: 1.1.1</string>
+    //WERSJA
     <string name="action_settings">Ustawienia</string>
     <string name="title_activity_check">Sprawdzanie</string>
     <string name="action_OK">OK</string>
+    <string name="action_NO">NIE</string>
     <string name="alert_message_pass">Udało Ci się przetłumaczyć.</string>
     <string name="alert_message_fail">Podałeś niepoprawny wyraz. Poprawnie to:</string>
     <string name="alert_title_fail">Niestety</string>
@@ -31,13 +35,6 @@
     <string name="onNewPositionAdd">Nowa pozycja została dodana</string>
     <string name="OK">Ok</string>
     <string name="spinner_text">Częstotliwość powiadomień: </string>
-    <string-array name="spinner_frequency">
-        <item>Nigdy</item>
-        <item>1 min</item>
-        <item>5 min</item>
-        <item>15 min</item>
-        <item>30 min</item>
-    </string-array>
     <string name="notification_change_title">UWAGA</string>
     <string name="notification_change_message">Jeszcze nie dodałeś żadnego słówka.
         Powiadomienia włączą się automatycznie po dodaniu pierwszego słowka</string>
@@ -48,5 +45,11 @@
     <string name="learning_mede_stop">X</string>
     <string name="alert_message_tryagain">Napisz go ponownie.</string>
     <string name="learningmode_emptybase">Zanim zaczniesz naukę, dodaj słówka do listy.</string>
+    <string name="title_activity_sett">Settings</string>
+    <string name="delete_db_records">Czy na pewno chcesz wyczyścić tablicę słówek?</string>
+    <string name="empty_base_check">Nie masz żadnego słowka w bazie, najpierw coś dodaj </string>
+
+
+
 </resources>
 
