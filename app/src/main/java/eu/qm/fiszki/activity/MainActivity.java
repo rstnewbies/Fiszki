@@ -1,26 +1,23 @@
 package eu.qm.fiszki.activity;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.support.v7.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import java.text.DecimalFormatSymbols;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBStatus;
-
-
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,11 +47,13 @@ public class MainActivity extends AppCompatActivity {
                             Intent goSettings = new Intent(MainActivity.this, SettingsActivity.class);
                             startActivity(goSettings);
                         } else if (id == R.id.learningMode) {
-                            if (myDb.getAllRows().getCount() > 0) {
-                                Intent goLearningMode = new Intent(MainActivity.this, LearningModeActivity.class);
-                                startActivity(goLearningMode);
-                            } else {
-                                alert.buildAlert(getString(R.string.alert_title_fail), getString(R.string.learningmode_emptybase), getString(R.string.alert_nameButton_OK), MainActivity.this);
+                            if(myDb.getAllRows().getCount()>0) {
+                                Intent myIntent = new Intent(MainActivity.this, LearningModeActivity.class);
+                                startActivity(myIntent);
+                            }else {
+                                alert.buildAlert(getString(R.string.alert_title_fail),
+                                        getString(R.string.learningmode_emptybase),
+                                        getString(R.string.alert_nameButton_OK), MainActivity.this);
                             }
                         }
                         return true;

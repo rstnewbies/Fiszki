@@ -48,8 +48,18 @@
     <string name="title_activity_sett">Settings</string>
     <string name="delete_db_records">Czy na pewno chcesz wyczyścić tablicę słówek?</string>
     <string name="empty_base_check">Nie masz żadnego słowka w bazie, najpierw coś dodaj </string>
-
-
-
+    <string name="back">Wróć</string>
+    <string name="repeat_number">Ilość powtórzeń:</string>
+    <string name="statistic_title">Statystyki</string>
+    <string name="statistic_fantastic_answer">Fantastycznie!</string>
+    <string name="statistic_nice_answer">Wow! Ładnie!</string>
+    <string name="statistic_barely_answer">Ledwo, ledwo.</string>
+    <string name="statistic_properly">Poprawne odpowiedzi:</string>
+    <string name="statistic_wrongly">Błędne odpowiedzi:</string>
+    <string name="statistic_total">W sumie:</string>
+    <string name="statistic_procent">Procenty</string>
+    <string name="statistic_needwork_answer">Musisz jeszcze popracować!</string>
+    <string name="statistic_repeat">Powtórz</string>
+    <string name="statistic_gut">Poszło Ci całkiem dobrze.</string>
 </resources>
 

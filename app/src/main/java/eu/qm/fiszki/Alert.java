@@ -72,9 +72,6 @@ public class Alert {
         alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(context, LearningModeActivity.class);
-                context.startActivity(intent);
-                ((Activity) context).finish();
 
             }
         });
@@ -90,9 +87,7 @@ public class Alert {
         alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(context, LearningModeActivity.class);
-                context.startActivity(intent);
-                ((Activity) context).finish();
+
             }
         });
         alertDialog.show();

@@ -51,4 +51,17 @@
     <string name="alert_message_tryagain">Write it again.</string>
     <string name="learningmode_emptybase">Before you start learning, add some new words to the list.</string>
     <string name="delete_db_records">Are you sure you want to clear words board?</string>
+    <string name="repeat_number">The number of repetitions:</string>
+    <string name="back">Back</string>
+    <string name="statistic">Statistic</string>
+    <string name="statistic_barely_answer">Barely, barely...</string>
+    <string name="statistic_fantastic_answer">Fantastic!</string>
+    <string name="statistic_needwork_answer">You still need to work!</string>
+    <string name="statistic_nice_answer">Wow! Nice!</string>
+    <string name="statistic_properly">Good answers:</string>
+    <string name="statistic_rating">Rating</string>
+    <string name="statistic_title">Statistic</string>
+    <string name="statistic_total">In total:</string>
+    <string name="statistic_wrongly">Wrong answers:</string>
+    <string name="statistic_procent">Percent</string>
 </resources>

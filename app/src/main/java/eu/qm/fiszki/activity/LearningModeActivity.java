@@ -2,20 +2,29 @@ package eu.qm.fiszki.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.KeyEvent;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
+import android.widget.Toast;
+import java.text.DecimalFormatSymbols;
+import java.util.Objects;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
@@ -29,56 +38,43 @@ public class LearningModeActivity extends AppCompatActivity {
     EditText enteredWord;
     DBAdapter myDb = new DBAdapter(this);
     DBStatus OpenDataBase = new DBStatus();
-
+    TextView numberOfTrue;
+    TextView numberOfFalse;
+    TextView numberOfProcent;
+    TextView numberOfTotal;
+    TextView subtitle;
+    boolean firstAnswer=true;
+    int numberOfRepeat;
+    int repeat=0;
+    int trueAnswer=0;
+    int falseAnswer=0;
+    float procentAnswer;
     String wordFromData;
     String expectedWord;
     Checker check;
     Alert message;
     Context context;
+    Cursor c;
+    Button toHome;
+    Button repeate;
+    MenuItem menuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check);
-
-
-        OpenDataBase.openDB(myDb);
-        Cursor c = myDb.getAllRows();
-
-        int cCount = c.getCount();
-        int cPosition = myDb.intRowValue(DBModel.SETTINGS_NAME, "cursorPosition");
-        if(cPosition < cCount) {
-            c.move(cPosition);
-            cPosition++;
-            myDb.updateRow("cursorPosition", cPosition);
-        } else {
-            cPosition = 1;
-            myDb.updateRow("cursorPosition", cPosition);
-        }
-
-        wordFromData = c.getString(c.getColumnIndex(DBModel.KEY_WORD));
-        expectedWord = c.getString(c.getColumnIndex(DBModel.KEY_TRANSLATION));
-        enteredWord = (EditText) findViewById(R.id.EnteredWord);
-        enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        enteredWord.setText("");
-        word = (TextView) findViewById(R.id.textView3);
-        word.append(wordFromData);
-        enteredWord.requestFocus();
-        check = new Checker();
-        message = new Alert();
-        context = this;
-
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        setContentView(R.layout.blank_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        keyboardAction();
+        choosePacked();
+        context = this;
+        message = new Alert();
+        check = new Checker();
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        enteredWord.setText("");
     }
 
     @Override
@@ -89,50 +85,164 @@ public class LearningModeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        menuItem = item;
         int id = item.getItemId();
-
         if (id == R.id.action_OK) {
             if (check.Check(expectedWord, enteredWord.getText().toString())) {
-                finish();
-                startActivity(getIntent());
+                if(firstAnswer) {
+                    trueAnswer++;
+                }
+                firstAnswer=true;
+                repeat++;
+                algorith();
             } else {
+             if(firstAnswer){
+                 falseAnswer++;
+             }
+                firstAnswer=false;
                 enteredWord.setText("");
-                message.fail(this, expectedWord, getString(R.string.alert_message_fail),getString(R.string.alert_message_tryagain) ,getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
-
+                message.learningModeFail(this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
             }
+
         } else if (id == android.R.id.home) {
             this.finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void keyboardAction(){
+    public void keyboardAction() {
         enteredWord.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId== EditorInfo.IME_ACTION_DONE){
-
-                        if (check.Check(expectedWord, enteredWord.getText().toString())) {
-                            Intent intent = new Intent(context, LearningModeActivity.class);
-                            context.startActivity(intent);
-                            ((Activity) context).finish();
-                        } else {
-                            enteredWord.setText("");
-                            message.fail(LearningModeActivity.this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    if (check.Check(expectedWord, enteredWord.getText().toString())) {
+                        if(firstAnswer) {
+                            trueAnswer++;
                         }
-
-                    enteredWord.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                            keyboard.showSoftInput(enteredWord, 0);
+                        firstAnswer=true;
+                        repeat++;
+                        algorith();
+                    } else {
+                        if(firstAnswer){
+                            falseAnswer++;
                         }
-                    },50);
-
+                        firstAnswer=false;
+                        enteredWord.setText("");
+                        message.learningModeFail(context, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+                    }
                 }
-
-                return false;
+                    return false;
             }
         });
+    }
+
+
+
+    public void algorith(){
+
+        if(repeat!=numberOfRepeat) {
+            c = myDb.getAllRows();
+            enteredWord.setText("");
+            enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+            word.setText("");
+            int cCount = c.getCount();
+            int cPosition = myDb.intRowValue(DBModel.SETTINGS_NAME, "cursorPosition");
+            if (cPosition < cCount) {
+                c.move(cPosition);
+                cPosition++;
+                myDb.updateRow("cursorPosition", cPosition);
+            } else {
+                cPosition = 1;
+                myDb.updateRow("cursorPosition", cPosition);
+            }
+
+            wordFromData = c.getString(c.getColumnIndex(DBModel.KEY_WORD));
+            word.append(wordFromData);
+            expectedWord = c.getString(c.getColumnIndex(DBModel.KEY_TRANSLATION));
+            enteredWord.requestFocus();
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+        } else {
+            enteredWord.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    keyboard.hideSoftInputFromWindow(enteredWord.getWindowToken(), 0);
+                }
+            }, 0);
+            setContentView(R.layout.learning_mode_statistic_layout);
+            menuItem.setVisible(false);
+            numberOfFalse = (TextView) findViewById(R.id.numberOfFalse);
+            numberOfTrue = (TextView) findViewById(R.id.numberOfTrue);
+            numberOfProcent = (TextView) findViewById(R.id.numberOfProcent);
+            numberOfTotal = (TextView) findViewById(R.id.numberOfTotal);
+            numberOfFalse.setText(Integer.toString(falseAnswer));
+            numberOfTrue.setText(Integer.toString(trueAnswer));
+            int percent = (int)((trueAnswer * 100.0f) / numberOfRepeat);
+            numberOfProcent.setText(Integer.toString(percent)+"%");
+            numberOfTotal.setText(Integer.toString(numberOfRepeat));
+            repeate = (Button) findViewById(R.id.repeate);
+            repeate.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    finish();
+                    Intent myIntent = new Intent(LearningModeActivity.this, LearningModeActivity.class);
+                    startActivity(myIntent);
+                }
+            });
+            subtitle = (TextView) findViewById(R.id.statistic_subtitle);
+            if(percent<=100 && percent>=95){
+                subtitle.setText(R.string.statistic_fantastic_answer);
+            }
+            if(percent<=94 && percent>=80){
+                subtitle.setText(R.string.statistic_nice_answer);
+            }
+            if(percent<=79 && percent>=50){
+                subtitle.setText(R.string.statistic_gut);
+            }
+            if(percent<=49 && percent>=30){
+                subtitle.setText(R.string.statistic_barely_answer);
+            }
+            if(percent<=30 && percent>=0){
+                subtitle.setText(R.string.statistic_needwork_answer);
+            }
+        }
+    }
+
+    public void choosePacked(){
+        CharSequence[] items = {"10", "20", "50", DecimalFormatSymbols.getInstance().getInfinity()};
+        new AlertDialog.Builder(LearningModeActivity.this)
+                .setCancelable(false)
+                .setSingleChoiceItems(items, 0, null)
+                .setTitle(R.string.repeat_number)
+                .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                        int selected = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
+                        if (selected == 0) { //10
+                            numberOfRepeat=10;
+                        }
+                        if (selected == 1) { //20
+                            numberOfRepeat=20;
+                        }
+                        if (selected == 2) { //50
+                            numberOfRepeat=50;
+                        }
+                        if (selected == 3) { // infinity
+                            numberOfRepeat=-1;
+                        }
+                        setContentView(R.layout.activity_check);
+                        enteredWord = (EditText) findViewById(R.id.EnteredWord);
+                        word = (TextView) findViewById(R.id.textView3);
+                        OpenDataBase.openDB(myDb);
+                        algorith();
+                        keyboardAction();
+                    }
+                })
+                .setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        finish();
+                    }
+                })
+                .show();
     }
 }
