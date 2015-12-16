@@ -39,7 +39,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public DBStatus openDataBase = new DBStatus();
     public int time = 15;
     public Alert alert;
-    public String Position = "notification_time";
+    public String notificationPosition = "notification_time";
     public String notificationStatus = "notification";
     private AlertDialog.Builder builder;
 
@@ -105,7 +105,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                     alarm.close(manager, context, pendingIntent);
                     time = 0;
                     pref.setSummary(listPref.getEntry());
-                    myDb.updateRow(Position, 0);
+                    myDb.updateRow(notificationPosition, 0);
                     myDb.updateRow(notificationStatus, 0);
                 }else
                 //FOR 1 min
@@ -114,7 +114,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                     alarm.close(manager, context, pendingIntent);
                     time = 1;
                     pref.setSummary(listPref.getEntry());
-                    myDb.updateRow(Position, 1);
+                    myDb.updateRow(notificationPosition, 1);
                     myDb.updateRow(notificationStatus, 1);
                     alarm.start(manager, context, pendingIntent, time);
                 } else
@@ -124,7 +124,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                     alarm.close(manager, context, pendingIntent);
                     time = 5;
                     pref.setSummary(listPref.getEntry());
-                    myDb.updateRow(Position, 2);
+                    myDb.updateRow(notificationPosition, 2);
                     myDb.updateRow(notificationStatus, 1);
                     alarm.start(manager, context, pendingIntent, time);
                 } else
@@ -134,7 +134,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                     alarm.close(manager, context, pendingIntent);
                     time = 15;
                     pref.setSummary(listPref.getEntry());
-                    myDb.updateRow(Position, 3);
+                    myDb.updateRow(notificationPosition, 3);
                     myDb.updateRow(notificationStatus, 1);
                     alarm.start(manager, context, pendingIntent, time);
                 } else
@@ -144,7 +144,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                     alarm.close(manager, context, pendingIntent);
                     time = 15;
                     pref.setSummary(listPref.getEntry());
-                    myDb.updateRow(Position, 4);
+                    myDb.updateRow(notificationPosition, 4);
                     myDb.updateRow(notificationStatus, 1);
                     alarm.start(manager, context, pendingIntent, time);
                 } else {
@@ -162,19 +162,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         //Notification
         pref = findPreference(getResources().getString(R.string.settings_key_notification));
         ListPreference listPref = (ListPreference) pref;
-        if (myDb.intRowValue(DBModel.SETTINGS_NAME, Position) == 0) {
+        if (myDb.intRowValue(DBModel.SETTINGS_NAME, notificationPosition) == 0) {
             listPref.setValueIndex(0);
             pref.setSummary(listPref.getEntry());
         }
-        if (myDb.intRowValue(DBModel.SETTINGS_NAME, Position) == 1) {
+        if (myDb.intRowValue(DBModel.SETTINGS_NAME, notificationPosition) == 1) {
             listPref.setValueIndex(1);
             pref.setSummary(listPref.getEntry());
         }
-        if (myDb.intRowValue(DBModel.SETTINGS_NAME, Position) == 2) {
+        if (myDb.intRowValue(DBModel.SETTINGS_NAME, notificationPosition) == 2) {
             listPref.setValueIndex(2);
             pref.setSummary(listPref.getEntry());
         }
-        if (myDb.intRowValue(DBModel.SETTINGS_NAME, Position) == 3) {
+        if (myDb.intRowValue(DBModel.SETTINGS_NAME, notificationPosition) == 3) {
             listPref.setValueIndex(3);
             pref.setSummary(listPref.getEntry());
         }
@@ -222,7 +222,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
        startActivity(refresh);
        finish();
         alarm.close(manager,context,pendingIntent);
-        myDb.updateRow(Position,0);
+        myDb.updateRow(notificationPosition,0);
         myDb.updateRow(notificationStatus,0);
     }
 }

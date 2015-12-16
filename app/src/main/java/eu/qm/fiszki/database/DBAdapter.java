@@ -46,10 +46,22 @@ public class DBAdapter {
                 DBModel.SETTINGS_NAME + "= " + "'" + settingName + "'", null);
     }
 
+
     public long updateFlashcardPriority(int id, int ptiotity){
         ContentValues values = new ContentValues();
         values.put(DBModel.KEY_PRIORITY, ptiotity);
-        return db.update(DBModel.DATABASE_TABLE, values, DBModel.KEY_ROWID + "=" + id, null);
+        return db.update(DBModel.DATABASE_TABLE, values, DBModel.KEY_ROWID + "=" + id, null);}
+
+    public long updateAdapter(int id , String word, String translate) {
+        ContentValues values = new ContentValues();
+        values.put(DBModel.KEY_WORD, word);
+        values.put(DBModel.KEY_TRANSLATION, translate);
+        return db.update(DBModel.DATABASE_TABLE, values, DBModel.KEY_ROWID + "= " + "'" + id + "'", null);
+    }
+
+    public long deleteRecord(int id) {
+        String where = DBModel.KEY_ROWID+" = "+id;
+        return db.delete(DBModel.DATABASE_TABLE, where, null);
     }
 
     public boolean getRowValue(String column, String text) {
@@ -110,9 +122,10 @@ public class DBAdapter {
         return c;
     }
 
-    public Cursor getRow() {
+    public Cursor getRow(int id) {
+        String where = DBModel.KEY_ROWID+" = "+id;
         Cursor c = db.query(true, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS,
-                null, null, null, null, null, "1");
+                where, null, null, null, null, "1");
         if (c != null) {
             c.moveToFirst();
         }

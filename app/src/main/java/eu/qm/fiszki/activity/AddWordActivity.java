@@ -4,7 +4,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -85,7 +84,7 @@ public class AddWordActivity extends AppCompatActivity {
                 inputWord.requestFocus();
                 if (myDb.getAllRows().getCount() == 1) {
                     settings.alarm.start(settings.manager, settings.context, settings.pendingIntent, settings.time);
-                    myDb.updateRow(settings.Position, 3);
+                    myDb.updateRow(settings.notificationPosition, 3);
                     myDb.updateRow(settings.notificationStatus,1);
                     alert.buildAlert(
                             this.getString(R.string.alert_title_pass),
@@ -124,7 +123,7 @@ public class AddWordActivity extends AppCompatActivity {
                     inputWord.requestFocus();
                     if (myDb.getAllRows().getCount() == 1) {
                         settings.alarm.start(settings.manager, settings.context, settings.pendingIntent, settings.time);
-                        myDb.updateRow(settings.Position, 3);
+                        myDb.updateRow(settings.notificationPosition, 3);
                         myDb.updateRow(settings.notificationStatus, 1);
                         alert.buildAlert(
                                 getString(R.string.alert_title_pass),
