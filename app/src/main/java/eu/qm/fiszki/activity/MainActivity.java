@@ -328,6 +328,7 @@ public class MainActivity extends AppCompatActivity {
                     fab.setVisibility(View.VISIBLE);
                     myDb.updateRow(settings.notificationStatus, 0);
                     myDb.updateRow(settings.notificationPosition, 0);
+                    alarm.close(settings.manager,context,settings.pendingIntent);
                     toolbarMainActivity();
                 }
             }
