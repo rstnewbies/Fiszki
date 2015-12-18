@@ -57,7 +57,7 @@ public class LearningModeActivity extends AppCompatActivity {
     Cursor c;
     Button toHome;
     Button repeate;
-    MenuItem menuItem;
+    Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,13 +79,13 @@ public class LearningModeActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_learning_mode, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        menuItem = item;
         int id = item.getItemId();
         if (id == R.id.action_OK) {
             if (check.Check(expectedWord, enteredWord.getText().toString())) {
@@ -141,6 +141,13 @@ public class LearningModeActivity extends AppCompatActivity {
     public void algorith(){
 
         if(repeat!=numberOfRepeat) {
+            enteredWord.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    keyboard.showSoftInput(enteredWord,0);
+                }
+            },0);
             c = myDb.getAllRows();
             enteredWord.setText("");
             enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
@@ -171,7 +178,7 @@ public class LearningModeActivity extends AppCompatActivity {
                 }
             }, 0);
             setContentView(R.layout.learning_mode_statistic_layout);
-            menuItem.setVisible(false);
+            menu.findItem(R.id.action_OK).setVisible(false);
             numberOfFalse = (TextView) findViewById(R.id.numberOfFalse);
             numberOfTrue = (TextView) findViewById(R.id.numberOfTrue);
             numberOfProcent = (TextView) findViewById(R.id.numberOfProcent);
