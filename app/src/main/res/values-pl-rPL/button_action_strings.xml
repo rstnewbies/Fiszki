@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="button_action_yes">Yes</string>
-    <string name="button_action_no">No</string>
+    <string name="button_action_yes">Tak</string>
+    <string name="button_action_no">Nie</string>
     <string name="button_action_ok">OK</string>
 </resources>
