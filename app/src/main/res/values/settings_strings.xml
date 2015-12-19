@@ -8,4 +8,5 @@
     <string name="settings_title_data_base">Clear database</string>
     <string name="settings_summary_data_base">Delete all words in data base</string>
     <string name="settings_title_version">Version</string>
+    <string name="settings_clear_database_alert">Are you want delete all words ?</string>
     </resources>

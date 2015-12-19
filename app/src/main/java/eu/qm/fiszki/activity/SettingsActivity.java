@@ -199,14 +199,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity
             public boolean onPreferenceClick(Preference preference) {
 
                 builder = new AlertDialog.Builder(SettingsActivity.this);
-                builder.setMessage(R.string.delete_db_records)
-                        .setPositiveButton(R.string.action_OK, new DialogInterface.OnClickListener() {
+                builder.setMessage(R.string.settings_clear_database_alert)
+                        .setPositiveButton(R.string.button_action_yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 deleteDbRows();
 
                             }
                         })
-                        .setNegativeButton(R.string.action_NO, new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.button_action_no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                             }
                         }).show();

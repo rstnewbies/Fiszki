@@ -8,4 +8,5 @@
     <string name="settings_title_data_base">Wyczyść bazę</string>
     <string name="settings_summary_data_base">Usuń wszystkie słowa z bazy</string>
     <string name="settings_title_version">Wersja</string>
+    <string name="settings_clear_database_alert">Czy napewno chcesz usunąć wszystkie słówka?</string>
 </resources>
