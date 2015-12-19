@@ -110,11 +110,6 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public void populateListView() {
-        ItemAdapter flashCardList = new ItemAdapter(this, myDb.getAllRows(), myDb, this);
-        listView.setAdapter(flashCardList);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_selected_mainactivity, menu);
@@ -138,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void listViewPopulate() {
+        sync();
         if (myDb.getAllRows().getCount() > 0) {
             flashCardList = new ItemAdapter(this, myDb.getAllRows(), myDb, this);
             listView.setAdapter(flashCardList);
@@ -145,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void listViewSelect() {
-        sync();
         dialog = new Dialog(context);
         dialog.setContentView(R.layout.layout_dialog_edit);
         dialog.setTitle(R.string.dialog_edit_item);
@@ -347,8 +342,8 @@ public class MainActivity extends AppCompatActivity {
     public void sync() {
         earlierPosition = -1;
         int x = myDb.getAllRows().getCount();
-        selectedItem = new View[x + 1];
-        clickedItem = new boolean[x + 1];
+        selectedItem = new View[x+1];
+        clickedItem = new boolean[x+1];
         Arrays.fill(clickedItem, Boolean.FALSE);
     }
 }
