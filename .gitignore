@@ -6,19 +6,12 @@
 /build
 /captures
 /.idea
-sc.iml
-Fiszki.iml
-/app/src
 /app/app.iml
-/app/app-release.apk
-/app/build.grandle
-/app/proguard-rules.pro
-/app/build/generated
-/app/build/intermediates
-/app/build/tmp
-/app/build/outputs/logs
-
-
+sc.iml
+app/app.iml
+Fiszki.iml
+/app/build
+!/app/build/outputs/apk/app-debug.apk
 
 
 
