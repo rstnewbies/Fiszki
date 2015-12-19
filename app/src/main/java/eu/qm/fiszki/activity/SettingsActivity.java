@@ -190,10 +190,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         }
         String version = info.versionName;
         pref.setSummary(version);
+
+        //Clear database
+        cleanerDataBase = findPreference(getResources().getString(R.string.settings_key_data_base));
+        if(myDb.getAllRows().getCount()>0){
+            cleanerDataBase.setEnabled(true);
+        }else{
+            cleanerDataBase.setEnabled(false);
+        }
     }
 
     public void clearDataBase() {
-        cleanerDataBase = findPreference(getResources().getString(R.string.settings_key_data_base));
         cleanerDataBase.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
