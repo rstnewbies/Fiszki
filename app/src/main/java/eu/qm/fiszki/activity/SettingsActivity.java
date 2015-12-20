@@ -79,7 +79,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            ((Activity) this).finish();
+            Intent home = new Intent(this,MainActivity.class);
+            startActivity(home);
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -203,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
                         if (id == R.id.settings) {
                             Intent goSettings = new Intent(MainActivity.this, SettingsActivity.class);
                             startActivity(goSettings);
+                            finish();
                         } else if (id == R.id.learningMode) {
                             if (myDb.getAllRows().getCount() > 0) {
                                 Intent goLearningMode = new Intent(MainActivity.this, LearningModeActivity.class);
