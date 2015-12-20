@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.support.v7.app.ActionBar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import eu.qm.fiszki.AlarmReceiver;
@@ -85,6 +86,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK)
+            {
+                Intent home = new Intent(this,MainActivity.class);
+                startActivity(home);
+                finish();
+            }
+        return super.onKeyDown(keyCode, event);
     }
 
     private void setupActionBar() {
