@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
     public void listViewSelect() {
         dialog = new Dialog(context);
         dialog.setContentView(R.layout.layout_dialog_edit);
-        dialog.setTitle(R.string.dialog_edit_item);
+        dialog.setTitle(R.string.main_activity_dialog_edit_item);
 
         editOriginal = (EditText) dialog.findViewById(R.id.editOrginal);
         editTranslate = (EditText) dialog.findViewById(R.id.editTranslate);
@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
                                 Intent goLearningMode = new Intent(MainActivity.this, LearningModeActivity.class);
                                 startActivity(goLearningMode);
                             } else {
-                                alert.buildAlert(getString(R.string.alert_title_fail), getString(R.string.learningmode_emptybase), getString(R.string.alert_nameButton_OK), MainActivity.this);
+                                alert.buildAlert(getString(R.string.alert_title_fail), getString(R.string.alert_learningmode_emptybase), getString(R.string.button_action_ok), MainActivity.this);
                             }
                         }
                         return true;
@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.getMenu().clear();
-        toolbar.setTitle(getString(R.string.title_seleced_record));
+        toolbar.setTitle(getString(R.string.main_activity_title_seleced_record));
         toolbar.setBackgroundResource(R.color.seleced_Adapter);
         toolbar.setOnMenuItemClickListener(
                 new Toolbar.OnMenuItemClickListener() {
@@ -263,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (editOriginal.getText().toString().isEmpty() || editTranslate.getText().toString().isEmpty()) {
-                    alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onEmptyFields), getString(R.string.action_OK), MainActivity.this);
+                    alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onEmptyFields), getString(R.string.button_action_ok), MainActivity.this);
                 } else {
                     if (myDb.getRow(rowId).getString(1).equals(editOriginal.getText().toString())) {
                         myDb.updateAdapter(rowId, editOriginal.getText().toString(),
@@ -277,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
                         toolbarMainActivity();
                     } else {
                         if (myDb.getRowValue(DBModel.KEY_WORD, editOriginal.getText().toString())) {
-                            alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.alert_nameButton_OK), MainActivity.this);
+                            alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.button_action_ok), MainActivity.this);
                             editOriginal.requestFocus();
                         } else {
                             myDb.updateAdapter(rowId, editOriginal.getText().toString(),
@@ -310,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.setTitle(getString(R.string.alert_title));
         alertDialog.setCancelable(false);
         alertDialog.setMessage(Html.fromHtml(getString(R.string.alert_delete_record)));
-        alertDialog.setButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+        alertDialog.setButton(getString(R.string.button_action_yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 myDb.deleteRecord(rowId);
@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        alertDialog.setButton2(getString(R.string.no), new DialogInterface.OnClickListener() {
+        alertDialog.setButton2(getString(R.string.button_action_no), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 alertDialog.dismiss();

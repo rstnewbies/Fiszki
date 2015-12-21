@@ -8,14 +8,14 @@
         android:id="@+id/editRecord"
         android:orderInCategory="100"
         android:icon="@drawable/ic_mode_edit_white_48dp"
-        android:title="@string/edit_record"
+        android:title="@string/main_activity_edit_record"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/deleteRecord"
         android:orderInCategory="100"
         android:icon="@drawable/ic_delete_white_48dp"
-        android:title="@string/delete_record"
+        android:title="@string/main_activity_delete_record"
         app:showAsAction="ifRoom" />
 
 </menu>

@@ -2,10 +2,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
-    <item android:id="@+id/settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never"
-        android:actionLayout="@layout/activity_settings" />
-    <item android:id="@+id/learningMode" android:title="@string/learning_mode"
+    <item android:id="@+id/settings" android:title="@string/settings_title"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/learningMode" android:title="@string/learning_mode_title"
         android:orderInCategory="100" app:showAsAction="never"
         android:actionLayout="@layout/activity_learning_mode" />
 </menu>

@@ -16,7 +16,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.CheckActivity"
-            android:label="@string/title_activity_check"
+            android:label="@string/check_activity_title"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
 
@@ -30,7 +30,7 @@
 
         <activity
             android:name=".activity.LearningModeActivity"
-            android:label="@string/title_activity_learning_mode"
+            android:label="@string/learning_mode_title"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.MainActivity"
@@ -46,7 +46,7 @@
 
         <activity
             android:name=".activity.SettingsActivity"
-            android:label="@string/title_settings"
+            android:label="@string/settings_title"
             android:screenOrientation="portrait"></activity>
 
         <meta-data

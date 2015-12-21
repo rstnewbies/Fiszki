@@ -163,9 +163,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                     alarm.start(manager, context, pendingIntent, time);
                 } else {
                     alert.buildAlert(
-                            context.getString(R.string.notification_change_title),
-                            context.getString(R.string.notification_change_message),
-                            context.getString(R.string.action_OK),
+                            context.getString(R.string.alert_notification_change_title),
+                            context.getString(R.string.alert_notification_change_message),
+                            context.getString(R.string.button_action_ok),
                             SettingsActivity.this);
                     listPref.setValue(getResources().getString(R.string.frequency_0));
                 }
@@ -220,7 +220,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
             public boolean onPreferenceClick(Preference preference) {
 
                 builder = new AlertDialog.Builder(SettingsActivity.this);
-                builder.setMessage(R.string.settings_clear_database_alert)
+                builder.setMessage(R.string.alert_clear_database_settings)
                         .setPositiveButton(R.string.button_action_yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 deleteDbRows();

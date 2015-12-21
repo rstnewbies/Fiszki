@@ -37,7 +37,7 @@
         android:allowUndo="false"
         android:autoText="false"
         android:linksClickable="false"
-        android:text="@string/empty_base_main_layout"
+        android:text="@string/main_activity_empty_base_main_layout"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="20dp"
         android:textStyle="bold"

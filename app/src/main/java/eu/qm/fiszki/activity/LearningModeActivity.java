@@ -101,7 +101,7 @@ public class LearningModeActivity extends AppCompatActivity {
              }
                 firstAnswer=false;
                 enteredWord.setText("");
-                message.learningModeFail(this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+                message.learningModeFail(this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
             }
 
         } else if (id == android.R.id.home) {
@@ -128,7 +128,7 @@ public class LearningModeActivity extends AppCompatActivity {
                         }
                         firstAnswer=false;
                         enteredWord.setText("");
-                        message.learningModeFail(context, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+                        message.learningModeFail(context, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
                     }
                 }
                     return false;
@@ -204,7 +204,7 @@ public class LearningModeActivity extends AppCompatActivity {
                 subtitle.setText(R.string.statistic_nice_answer);
             }
             if(percent<=79 && percent>=50){
-                subtitle.setText(R.string.statistic_gut);
+                subtitle.setText(R.string.statistic_good);
             }
             if(percent<=49 && percent>=30){
                 subtitle.setText(R.string.statistic_barely_answer);
@@ -220,8 +220,8 @@ public class LearningModeActivity extends AppCompatActivity {
         new AlertDialog.Builder(LearningModeActivity.this)
                 .setCancelable(false)
                 .setSingleChoiceItems(items, 0, null)
-                .setTitle(R.string.repeat_number)
-                .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                .setTitle(R.string.learning_mode_repeat_number)
+                .setPositiveButton(R.string.button_action_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.dismiss();
                         int selected = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
@@ -245,7 +245,7 @@ public class LearningModeActivity extends AppCompatActivity {
                         keyboardAction();
                     }
                 })
-                .setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.button_action_back, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         finish();
                     }

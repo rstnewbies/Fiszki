@@ -74,7 +74,7 @@ ADDED from E:\RST\Fiszki\app\src\main\AndroidManifest.xml:31:9-34:61
 	android:screenOrientation
 		ADDED from E:\RST\Fiszki\app\src\main\AndroidManifest.xml:34:13-49
 	android:label
-		ADDED from E:\RST\Fiszki\app\src\main\AndroidManifest.xml:33:13-65
+		ADDED from E:\RST\Fiszki\app\src\main\AndroidManifest.xml:33:13-56
 	android:name
 		ADDED from E:\RST\Fiszki\app\src\main\AndroidManifest.xml:32:13-58
 activity#eu.qm.fiszki.activity.MainActivity

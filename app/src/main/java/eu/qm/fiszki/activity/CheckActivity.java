@@ -51,7 +51,7 @@ public class CheckActivity extends AppCompatActivity {
         context = this;
 
         if (myDb.getAllRows().getCount() <= 0) {
-            alert.emptyBase(context, getString(R.string.empty_base_check), getString(R.string.alert_title_fail), getString(R.string.action_OK));
+            alert.emptyBase(context, getString(R.string.main_activity_empty_base_main_layout), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
 
         } else {
 
@@ -80,7 +80,7 @@ public class CheckActivity extends AppCompatActivity {
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
                 keyboardAction();
             } else {
-                alert.emptyBase(this, getString(R.string.empty_base_check), getString(R.string.alert_title_fail), getString(R.string.action_OK));
+                alert.emptyBase(this, getString(R.string.main_activity_empty_base_main_layout), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
             }
         }
     }
@@ -117,7 +117,7 @@ public class CheckActivity extends AppCompatActivity {
         {
            if(check.Check(expectedWord, enteredWord.getText().toString()))
            {
-               message.pass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.alert_nameButton_OK));
+               message.pass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.button_action_ok));
 
                if(rowPriority<5 && firstTry) {
                    myDb.updateFlashcardPriority(rowId, rowPriority + 1);
@@ -128,7 +128,7 @@ public class CheckActivity extends AppCompatActivity {
                enteredWord.setText("");
                enteredWord.requestFocus();
             message.fail(this, expectedWord, getString(R.string.alert_message_fail),
-                    getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.alert_nameButton_OK));
+                    getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
                firstTry = false;
 
              myDb.updateFlashcardPriority(rowId, 1);
