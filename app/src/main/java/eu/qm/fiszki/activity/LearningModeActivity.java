@@ -48,14 +48,12 @@ public class LearningModeActivity extends AppCompatActivity {
     int repeat=0;
     int trueAnswer=0;
     int falseAnswer=0;
-    float procentAnswer;
     String wordFromData;
     String expectedWord;
     Checker check;
     Alert message;
     Context context;
     Cursor c;
-    Button toHome;
     Button repeate;
     Menu menu;
 
@@ -129,6 +127,13 @@ public class LearningModeActivity extends AppCompatActivity {
                         firstAnswer=false;
                         enteredWord.setText("");
                         message.learningModeFail(context, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
+                        enteredWord.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                keyboard.showSoftInput(enteredWord, 0);
+                            }
+                        }, 0);
                     }
                 }
                     return false;
