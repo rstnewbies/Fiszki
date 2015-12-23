@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         settings.manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         openDataBase.openDB(myDb);
 
-        listViewPopulate();
         listViewSelect();
         toolbarMainActivity();
 
@@ -91,6 +90,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        listViewPopulate();
     }
 
     @Override
@@ -112,8 +117,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_selected_mainactivity, menu);
-        return true;
+        if(earlierPosition == -1) {
+            return false;
+        } else {
+            getMenuInflater().inflate(R.menu.menu_selected_mainactivity, menu);
+            return true;
+        }
     }
 
     @Override
@@ -129,16 +138,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
-
-
     public void listViewPopulate() {
         sync();
         if (myDb.getAllRows().getCount() > 0) {
             flashCardList = new ItemAdapter(this, myDb.getAllRows(), myDb, this);
             listView.setAdapter(flashCardList);
         }
-    }
+     }
 
     public void listViewSelect() {
         dialog = new Dialog(context);
