@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     public int rowId;
     public AlarmReceiver alarm;
     public Toolbar toolbar;
+    String deletedWord;
+    String deletedTranslation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -320,9 +323,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 myDb.deleteRecord(rowId);
+                deletedWord = editedItem.getCursor().getString(1);
+                deletedTranslation = editedItem.getCursor().getString(2);
                 if (myDb.getAllRows().getCount() > 0) {
                     listViewPopulate();
                     toolbarMainActivity();
+                    Snackbar snackbar = Snackbar
+                            .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
+                            .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    myDb.insertRow(deletedWord, deletedTranslation, 1);
+                                    listViewPopulate();
+                                }
+                            });
+                    snackbar.show();
                 } else {
                     emptyDBImage.setVisibility(View.VISIBLE);
                     emptyDBText.setVisibility(View.VISIBLE);
@@ -330,8 +345,21 @@ public class MainActivity extends AppCompatActivity {
                     fab.setVisibility(View.VISIBLE);
                     myDb.updateRow(settings.notificationStatus, 0);
                     myDb.updateRow(settings.notificationPosition, 0);
-                    alarm.close(settings.manager,context,settings.pendingIntent);
+                    alarm.close(settings.manager, context, settings.pendingIntent);
                     toolbarMainActivity();
+                    Snackbar snackbar = Snackbar
+                            .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
+                            .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    myDb.insertRow(deletedWord, deletedTranslation, 1);
+                                    emptyDBImage.setVisibility(View.INVISIBLE);
+                                    emptyDBText.setVisibility(View.INVISIBLE);
+                                    listView.setVisibility(View.VISIBLE);
+                                    listViewPopulate();
+                                }
+                            });
+                    snackbar.show();
                 }
             }
         });
