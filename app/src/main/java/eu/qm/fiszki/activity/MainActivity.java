@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -58,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
     public int rowId;
     public AlarmReceiver alarm;
     public Toolbar toolbar;
-    String deletedWord;
-    String deletedTranslation;
+    Cursor deletedRow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,7 +227,6 @@ public class MainActivity extends AppCompatActivity {
         toolbar.dismissPopupMenus();
     }
 
-
     public void toolbarSelected() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -258,7 +257,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void listViewEdit() {
-
         editOriginal.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -310,7 +308,6 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.getWindow().setAttributes(lp);
         dialog.show();
-
     }
 
     public void listViewDelete() {
@@ -323,8 +320,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 myDb.deleteRecord(rowId);
-                deletedWord = editedItem.getCursor().getString(1);
-                deletedTranslation = editedItem.getCursor().getString(2);
+                deletedRow = editedItem.getCursor();
                 if (myDb.getAllRows().getCount() > 0) {
                     listViewPopulate();
                     toolbarMainActivity();
@@ -333,7 +329,8 @@ public class MainActivity extends AppCompatActivity {
                             .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    myDb.insertRow(deletedWord, deletedTranslation, 1);
+                                    myDb.insertRow(deletedRow.getInt(0), deletedRow.getString(1),
+                                                   deletedRow.getString(2), deletedRow.getInt(3));
                                     listViewPopulate();
                                 }
                             });
@@ -352,7 +349,8 @@ public class MainActivity extends AppCompatActivity {
                             .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    myDb.insertRow(deletedWord, deletedTranslation, 1);
+                                    myDb.insertRow(deletedRow.getInt(0), deletedRow.getString(1),
+                                                   deletedRow.getString(2), deletedRow.getInt(3));
                                     emptyDBImage.setVisibility(View.INVISIBLE);
                                     emptyDBText.setVisibility(View.INVISIBLE);
                                     listView.setVisibility(View.VISIBLE);
@@ -367,11 +365,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 alertDialog.dismiss();
-
             }
         });
         alertDialog.show();
-
     }
 
     public void sync() {

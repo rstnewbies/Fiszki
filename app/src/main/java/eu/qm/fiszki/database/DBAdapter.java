@@ -35,6 +35,15 @@ public class DBAdapter {
         return db.insert(DBModel.DATABASE_TABLE, null, initialValues);
     }
 
+    public long insertRow(int id, String word, String translate, int priority) {
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(DBModel.KEY_ROWID, id);
+        initialValues.put(DBModel.KEY_WORD, word);
+        initialValues.put(DBModel.KEY_TRANSLATION, translate);
+        initialValues.put(DBModel.KEY_PRIORITY, priority);
+        return db.insert(DBModel.DATABASE_TABLE, null, initialValues);
+    }
+
     public void deleteAll(String table){
         db.execSQL("delete from "+ table);
     }
