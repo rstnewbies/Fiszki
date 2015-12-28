@@ -337,11 +337,12 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     myDb.insertRow(deletedRow.getInt(0), deletedRow.getString(1),
-                                                   deletedRow.getString(2), deletedRow.getInt(3));
+                                            deletedRow.getString(2), deletedRow.getInt(3));
                                     listViewPopulate();
                                 }
                             });
                     snackbar.show();
+                    fab.setVisibility(View.VISIBLE);
                 } else {
                     emptyDBImage.setVisibility(View.VISIBLE);
                     emptyDBText.setVisibility(View.VISIBLE);
@@ -357,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     myDb.insertRow(deletedRow.getInt(0), deletedRow.getString(1),
-                                                   deletedRow.getString(2), deletedRow.getInt(3));
+                                            deletedRow.getString(2), deletedRow.getInt(3));
                                     emptyDBImage.setVisibility(View.INVISIBLE);
                                     emptyDBText.setVisibility(View.INVISIBLE);
                                     listView.setVisibility(View.VISIBLE);
@@ -365,6 +366,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                     snackbar.show();
+                    fab.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -375,6 +377,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         alertDialog.show();
+
     }
 
     public void sync() {
