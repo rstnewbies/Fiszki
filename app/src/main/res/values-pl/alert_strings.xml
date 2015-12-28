@@ -29,6 +29,6 @@
 
     <string name="alert_clear_database_settings">Czy napewno chcesz usunąć wszystkie słówka?</string>
 
-    <string name="alert_delete_record">Czy napewno chcesz usunąć ten rekord?</string>
+    <string name="alert_delete_record">Czy napewno chcesz usunąć to słowo?</string>
 
 </resources>
