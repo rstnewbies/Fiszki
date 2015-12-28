@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Html;
 
-import eu.qm.fiszki.activity.LearningModeActivity;
 import eu.qm.fiszki.activity.MainActivity;
 
 public class Alert {
