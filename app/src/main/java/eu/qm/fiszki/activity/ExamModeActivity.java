@@ -89,7 +89,6 @@ public class ExamModeActivity extends AppCompatActivity {
             } else {
                 falseAnswer++;
                 repeat++;
-                message.learningModeFail(this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
                 algorith();
             }
 
@@ -111,7 +110,6 @@ public class ExamModeActivity extends AppCompatActivity {
                     } else {
                         falseAnswer++;
                         repeat++;
-                        message.learningModeFail(context, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
                         algorith();
                         enteredWord.postDelayed(new Runnable() {
                             @Override
@@ -207,7 +205,7 @@ public class ExamModeActivity extends AppCompatActivity {
     }
 
     public void choosePacked(){
-        CharSequence[] items = {"10", "20", "50", DecimalFormatSymbols.getInstance().getInfinity()};
+        CharSequence[] items = {"10", "20", "50"};
         new AlertDialog.Builder(ExamModeActivity.this)
                 .setCancelable(false)
                 .setSingleChoiceItems(items, 0, null)
@@ -224,9 +222,6 @@ public class ExamModeActivity extends AppCompatActivity {
                         }
                         if (selected == 2) { //50
                             numberOfRepeat=50;
-                        }
-                        if (selected == 3) { // infinity
-                            numberOfRepeat=-1;
                         }
                         setContentView(R.layout.activity_check);
                         enteredWord = (EditText) findViewById(R.id.EnteredWord);
