@@ -3,7 +3,7 @@
 <h3>New way to learn languages!</h3>
 <p>New way to learn words!
 Do you have Portuguese or French exam? Learn these words ASAP with Fiszki application for Android.
-First, add list of words you need to learn. Then i'll show up notification every 15 minutes with exercise to translate, one of words you type, to translate.
+First, add list of words you need to learn. Then it will show up notification every 15 minutes with exercise to translate one of words you have entered.
 Thanks to our algorithm notification will show you words with less probability that you know that word.
 If you need to study faster, use our 'Learning Mode' wich allows you to translate every single word.</p>
 
