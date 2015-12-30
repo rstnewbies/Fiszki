@@ -111,13 +111,6 @@ public class ExamModeActivity extends AppCompatActivity {
                         falseAnswer++;
                         repeat++;
                         algorith();
-                        enteredWord.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                                keyboard.showSoftInput(enteredWord, 0);
-                            }
-                        }, 0);
                     }
                 }
                     return false;
