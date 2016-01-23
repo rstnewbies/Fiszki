@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.DecimalFormatSymbols;
+import java.util.Random;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.Checker;
@@ -180,19 +181,39 @@ public class ExamModeActivity extends AppCompatActivity {
             });
             subtitle = (TextView) findViewById(R.id.statistic_subtitle);
             if(percent<=100 && percent>=95){
-                subtitle.setText(R.string.statistic_fantastic_answer);
+                int[] strs = {R.string.statistic_e1, R.string.statistic_e2, R.string.statistic_e3, R.string.statistic_e4, R.string.statistic_e5};
+                int randomIndex = new Random().nextInt(6);
+                int resId = strs[randomIndex];
+                String randomString = getString(resId);
+                subtitle.setText(randomString);
             }
             if(percent<=94 && percent>=80){
-                subtitle.setText(R.string.statistic_nice_answer);
+                int[] strs = {R.string.statistic_d1, R.string.statistic_d2, R.string.statistic_d3, R.string.statistic_d4, R.string.statistic_d5};
+                int randomIndex = new Random().nextInt(6);
+                int resId = strs[randomIndex];
+                String randomString = getString(resId);
+                subtitle.setText(randomString);
             }
             if(percent<=79 && percent>=50){
-                subtitle.setText(R.string.statistic_good);
+                int[] strs = {R.string.statistic_c1, R.string.statistic_c2, R.string.statistic_c3, R.string.statistic_c4, R.string.statistic_c5};
+                int randomIndex = new Random().nextInt(6);
+                int resId = strs[randomIndex];
+                String randomString = getString(resId);
+                subtitle.setText(randomString);
             }
             if(percent<=49 && percent>=30){
-                subtitle.setText(R.string.statistic_barely_answer);
+                int[] strs = {R.string.statistic_b1, R.string.statistic_b2, R.string.statistic_b3, R.string.statistic_b4, R.string.statistic_b5};
+                int randomIndex = new Random().nextInt(6);
+                int resId = strs[randomIndex];
+                String randomString = getString(resId);
+                subtitle.setText(randomString);
             }
             if(percent<=30 && percent>=0){
-                subtitle.setText(R.string.statistic_needwork_answer);
+                int[] strs = {R.string.statistic_a1, R.string.statistic_a2, R.string.statistic_a3, R.string.statistic_a4, R.string.statistic_a5};
+                int randomIndex = new Random().nextInt(6);
+                int resId = strs[randomIndex];
+                String randomString = getString(resId);
+                subtitle.setText(randomString);
             }
         }
     }

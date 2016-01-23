@@ -2,15 +2,40 @@
 <resources>
 
     <string name="statistic_title">Statistic</string>
-    <string name="statistic_fantastic_answer">Fantastic!</string>
-    <string name="statistic_nice_answer">Wow! Nice!</string>
-    <string name="statistic_barely_answer">Barely, barely...</string>
     <string name="statistic_properly">Good answers:</string>
     <string name="statistic_wrongly">Wrong answers:</string>
     <string name="statistic_total">In total:</string>
     <string name="statistic_procent">Percent</string>
-    <string name="statistic_needwork_answer">You still need to work!</string>
     <string name="statistic_repeat">Repeat</string>
-    <string name="statistic_good">Quite good.</string>
+    <!-- for 0-30 percent -->
+    <string name="statistic_a1">Do you even trying?</string>
+    <string name="statistic_a2">Wrong answer! Oh don\'t blame me it\'s your fault.</string>
+    <string name="statistic_a3">Are you brainless Zombie or what?</string>
+    <string name="statistic_a4">Stop praying, god won\'t help you with this.</string>
+    <string name="statistic_a5">Just don\'t... never mind.</string>
+    <!-- for 30-49 percent -->
+    <string name="statistic_b1">You died and failed on such a simple thing?</string>
+    <string name="statistic_b2">It\'s ok no one\'s perfect...</string>
+    <string name="statistic_b3">Barely, barely...</string>
+    <string name="statistic_b4">Maybe we should be just friends?</string>
+    <string name="statistic_b5">It\'s funny cause it\'s true!</string>
+    <!-- for 50-79 percent -->
+    <string name="statistic_c1">Quite good.</string>
+    <string name="statistic_c2">Oh come on it\'s wasn\'t your best, wasn\'t it?</string>
+    <string name="statistic_c3">C\'mon man that\'s too easy!</string>
+    <string name="statistic_c4">I\'m studying law btw...</string>
+    <string name="statistic_c5">It\'s not that simple, huh?</string>
+    <!-- for 80-94 percent -->
+    <string name="statistic_d1">SUPER</string>
+    <string name="statistic_d2">Wow! Nice!</string>
+    <string name="statistic_d3">Yeah, just keep trying!</string>
+    <string name="statistic_d4">Do it! Don\'t let your dreams be dreams!</string>
+    <string name="statistic_d5">Never gonna run around and desert you!</string>
+    <!-- for 95-100 percent -->
+    <string name="statistic_e1">MENSA is looking for you...</string>
+    <string name="statistic_e2">Finally! (for the fourth time)</string>
+    <string name="statistic_e3">I\'m so freakin\' proud of you!</string>
+    <string name="statistic_e4">Who are you? You\'re a winner!</string>
+    <string name="statistic_e5">Fantastic!</string>
 
 </resources>
