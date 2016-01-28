@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="check_activity_title">Verification</string>
+    <string name="check_activity_title">One-word learning</string>
 
-    <string name="check_activity_translate">Translate it:</string>
+    <string name="check_activity_translate">Translate:</string>
 
 </resources>

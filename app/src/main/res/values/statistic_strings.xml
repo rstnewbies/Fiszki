@@ -11,7 +11,7 @@
     <string name="statistic_a1">Do you even trying?</string>
     <string name="statistic_a2">Wrong answer! Oh don\'t blame me it\'s your fault.</string>
     <string name="statistic_a3">Are you brainless Zombie or what?</string>
-    <string name="statistic_a4">Stop praying, god won\'t help you with this.</string>
+    <string name="statistic_a4">Stop praying, God won\'t help you with this.</string>
     <string name="statistic_a5">Just don\'t... never mind.</string>
     <!-- for 30-49 percent -->
     <string name="statistic_b1">You died and failed on such a simple thing?</string>
@@ -19,6 +19,7 @@
     <string name="statistic_b3">Barely, barely...</string>
     <string name="statistic_b4">Maybe we should be just friends?</string>
     <string name="statistic_b5">It\'s funny cause it\'s true!</string>
+    <string name="statistic_b6">So close... to half of it.</string>
     <!-- for 50-79 percent -->
     <string name="statistic_c1">Quite good.</string>
     <string name="statistic_c2">Oh come on it\'s wasn\'t your best, wasn\'t it?</string>
