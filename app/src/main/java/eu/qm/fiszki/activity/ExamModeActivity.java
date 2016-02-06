@@ -1,7 +1,7 @@
 package eu.qm.fiszki.activity;
 
-import android.content.Context;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.text.DecimalFormatSymbols;
 import java.util.Random;
 
 import eu.qm.fiszki.Alert;
@@ -40,11 +39,11 @@ public class ExamModeActivity extends AppCompatActivity {
     TextView numberOfProcent;
     TextView numberOfTotal;
     TextView subtitle;
-    boolean firstAnswer=true;
+    boolean firstAnswer = true;
     int numberOfRepeat;
-    int repeat=0;
-    int trueAnswer=0;
-    int falseAnswer=0;
+    int repeat = 0;
+    int trueAnswer = 0;
+    int falseAnswer = 0;
     String wordFromData;
     String expectedWord;
     Checker check;
@@ -114,23 +113,21 @@ public class ExamModeActivity extends AppCompatActivity {
                         algorith();
                     }
                 }
-                    return false;
+                return false;
             }
         });
     }
 
+    public void algorith() {
 
-
-    public void algorith(){
-
-        if(repeat!=numberOfRepeat) {
+        if (repeat != numberOfRepeat) {
             enteredWord.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    keyboard.showSoftInput(enteredWord,0);
+                    keyboard.showSoftInput(enteredWord, 0);
                 }
-            },0);
+            }, 0);
             c = myDb.getAllRows();
             enteredWord.setText("");
             enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
@@ -168,8 +165,8 @@ public class ExamModeActivity extends AppCompatActivity {
             numberOfTotal = (TextView) findViewById(R.id.numberOfTotal);
             numberOfFalse.setText(Integer.toString(falseAnswer));
             numberOfTrue.setText(Integer.toString(trueAnswer));
-            int percent = (int)((trueAnswer * 100.0f) / numberOfRepeat);
-            numberOfProcent.setText(Integer.toString(percent)+"%");
+            int percent = (int) ((trueAnswer * 100.0f) / numberOfRepeat);
+            numberOfProcent.setText(Integer.toString(percent) + "%");
             numberOfTotal.setText(Integer.toString(numberOfRepeat));
             repeate = (Button) findViewById(R.id.repeate);
             repeate.setOnClickListener(new View.OnClickListener() {
@@ -180,37 +177,37 @@ public class ExamModeActivity extends AppCompatActivity {
                 }
             });
             subtitle = (TextView) findViewById(R.id.statistic_subtitle);
-            if(percent<=100 && percent>=95){
+            if (percent <= 100 && percent >= 95) {
                 int[] strs = {R.string.statistic_e1, R.string.statistic_e2, R.string.statistic_e3, R.string.statistic_e4, R.string.statistic_e5};
-                int randomIndex = new Random().nextInt(6);
+                int randomIndex = new Random().nextInt(5);
                 int resId = strs[randomIndex];
                 String randomString = getString(resId);
                 subtitle.setText(randomString);
             }
-            if(percent<=94 && percent>=80){
+            if (percent <= 94 && percent >= 80) {
                 int[] strs = {R.string.statistic_d1, R.string.statistic_d2, R.string.statistic_d3, R.string.statistic_d4, R.string.statistic_d5};
-                int randomIndex = new Random().nextInt(6);
+                int randomIndex = new Random().nextInt(5);
                 int resId = strs[randomIndex];
                 String randomString = getString(resId);
                 subtitle.setText(randomString);
             }
-            if(percent<=79 && percent>=50){
+            if (percent <= 79 && percent >= 50) {
                 int[] strs = {R.string.statistic_c1, R.string.statistic_c2, R.string.statistic_c3, R.string.statistic_c4, R.string.statistic_c5};
+                int randomIndex = new Random().nextInt(5);
+                int resId = strs[randomIndex];
+                String randomString = getString(resId);
+                subtitle.setText(randomString);
+            }
+            if (percent <= 49 && percent >= 30) {
+                int[] strs = {R.string.statistic_b1, R.string.statistic_b2, R.string.statistic_b3, R.string.statistic_b4, R.string.statistic_b5, R.string.statistic_b6};
                 int randomIndex = new Random().nextInt(6);
                 int resId = strs[randomIndex];
                 String randomString = getString(resId);
                 subtitle.setText(randomString);
             }
-            if(percent<=49 && percent>=30){
-                int[] strs = {R.string.statistic_b1, R.string.statistic_b2, R.string.statistic_b3, R.string.statistic_b4, R.string.statistic_b5};
-                int randomIndex = new Random().nextInt(6);
-                int resId = strs[randomIndex];
-                String randomString = getString(resId);
-                subtitle.setText(randomString);
-            }
-            if(percent<=30 && percent>=0){
+            if (percent <= 30 && percent >= 0) {
                 int[] strs = {R.string.statistic_a1, R.string.statistic_a2, R.string.statistic_a3, R.string.statistic_a4, R.string.statistic_a5};
-                int randomIndex = new Random().nextInt(6);
+                int randomIndex = new Random().nextInt(5);
                 int resId = strs[randomIndex];
                 String randomString = getString(resId);
                 subtitle.setText(randomString);
@@ -218,7 +215,7 @@ public class ExamModeActivity extends AppCompatActivity {
         }
     }
 
-    public void choosePacked(){
+    public void choosePacked() {
         CharSequence[] items = {"10", "20", "50"};
         new AlertDialog.Builder(ExamModeActivity.this)
                 .setCancelable(false)
@@ -229,13 +226,13 @@ public class ExamModeActivity extends AppCompatActivity {
                         dialog.dismiss();
                         int selected = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
                         if (selected == 0) { //10
-                            numberOfRepeat=10;
+                            numberOfRepeat = 10;
                         }
                         if (selected == 1) { //20
-                            numberOfRepeat=20;
+                            numberOfRepeat = 20;
                         }
                         if (selected == 2) { //50
-                            numberOfRepeat=50;
+                            numberOfRepeat = 50;
                         }
                         setContentView(R.layout.activity_check);
                         enteredWord = (EditText) findViewById(R.id.EnteredWord);
