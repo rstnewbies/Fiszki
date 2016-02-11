@@ -43,12 +43,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public String notificationPosition = "notification_time";
     public String notificationStatus = "notification";
     private AlertDialog.Builder builder;
+    public SharedPreferences sharedPreferences;
+    public SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupActionBar();
         addPreferencesFromResource(R.xml.pref_settings);
+        sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE );
+        editor = sharedPreferences.edit();
 
         openDataBase.openDB(myDb);
         context = this;
@@ -116,56 +120,61 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                     alarm.close(context);
                     time = 0;
                     pref.setSummary(listPref.getEntry());
-                    myDb.updateRow(notificationPosition, 0);
-                    myDb.updateRow(notificationStatus, 0);
+                    editor.putInt(notificationPosition, 0);
+                    editor.putInt(notificationStatus, 0);
+                    editor.commit();
                 }else
-                //FOR 1 min
-                if (listPref.getValue().equals(getResources().getString(R.string.frequency_1)) &&
-                        myDb.getAllRows().getCount()>0) {
-                    alarm.close(context);
-                    time = 1;
-                    pref.setSummary(listPref.getEntry());
-                    myDb.updateRow(notificationPosition, 1);
-                    myDb.updateRow(notificationStatus, 1);
-                    alarm.start(context, time);
-                } else
-                //FOR 5 min
-                if (listPref.getValue().equals(getResources().getString(R.string.frequency_5)) &&
-                        myDb.getAllRows().getCount()>0) {
-                    alarm.close(context);
-                    time = 5;
-                    pref.setSummary(listPref.getEntry());
-                    myDb.updateRow(notificationPosition, 2);
-                    myDb.updateRow(notificationStatus, 1);
-                    alarm.start(context, time);
-                } else
-                //FOR 15min
-                if (listPref.getValue().equals(getResources().getString(R.string.frequency_15)) &&
-                        myDb.getAllRows().getCount()>0) {
-                    alarm.close(context);
-                    time = 15;
-                    pref.setSummary(listPref.getEntry());
-                    myDb.updateRow(notificationPosition, 3);
-                    myDb.updateRow(notificationStatus, 1);
-                    alarm.start(context, time);
-                } else
-                //FOR 30
-                if (listPref.getValue().equals(getResources().getString(R.string.frequency_30)) &&
-                        myDb.getAllRows().getCount()>0)  {
-                    alarm.close(context);
-                    time = 15;
-                    pref.setSummary(listPref.getEntry());
-                    myDb.updateRow(notificationPosition, 4);
-                    myDb.updateRow(notificationStatus, 1);
-                    alarm.start(context, time);
-                } else {
-                    alert.buildAlert(
-                            context.getString(R.string.alert_notification_change_title),
-                            context.getString(R.string.alert_notification_change_message),
-                            context.getString(R.string.button_action_ok),
-                            SettingsActivity.this);
-                    listPref.setValue(getResources().getString(R.string.frequency_0));
-                }
+                    //FOR 1 min
+                    if (listPref.getValue().equals(getResources().getString(R.string.frequency_1)) &&
+                            myDb.getAllRows().getCount()>0) {
+                        alarm.close(context);
+                        time = 1;
+                        pref.setSummary(listPref.getEntry());
+                        editor.putInt(notificationPosition, 1);
+                        editor.putInt(notificationStatus, 1);
+                        editor.commit();
+                        alarm.start(context, time);
+                    } else
+                        //FOR 5 min
+                        if (listPref.getValue().equals(getResources().getString(R.string.frequency_5)) &&
+                                myDb.getAllRows().getCount()>0) {
+                            alarm.close(context);
+                            time = 5;
+                            pref.setSummary(listPref.getEntry());
+                            editor.putInt(notificationPosition, 2);
+                            editor.putInt(notificationStatus, 1);
+                            editor.commit();
+                            alarm.start(context, time);
+                        } else
+                            //FOR 15min
+                            if (listPref.getValue().equals(getResources().getString(R.string.frequency_15)) &&
+                                    myDb.getAllRows().getCount()>0) {
+                                alarm.close(context);
+                                time = 15;
+                                pref.setSummary(listPref.getEntry());
+                                editor.putInt(notificationPosition, 3);
+                                editor.putInt(notificationStatus, 1);
+                                editor.commit();
+                                alarm.start(context, time);
+                            } else
+                                //FOR 30
+                                if (listPref.getValue().equals(getResources().getString(R.string.frequency_30)) &&
+                                        myDb.getAllRows().getCount()>0)  {
+                                    alarm.close(context);
+                                    time = 15;
+                                    pref.setSummary(listPref.getEntry());
+                                    editor.putInt(notificationPosition, 4);
+                                    editor.putInt(notificationStatus, 1);
+                                    editor.commit();
+                                    alarm.start(context, time);
+                                } else {
+                                    alert.buildAlert(
+                                            context.getString(R.string.alert_notification_change_title),
+                                            context.getString(R.string.alert_notification_change_message),
+                                            context.getString(R.string.button_action_ok),
+                                            SettingsActivity.this);
+                                    listPref.setValue(getResources().getString(R.string.frequency_0));
+                                }
             }
     }
 
@@ -173,19 +182,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         //Notification
         pref = findPreference(getResources().getString(R.string.settings_key_notification));
         ListPreference listPref = (ListPreference) pref;
-        if (myDb.intRowValue(DBModel.SETTINGS_NAME, notificationPosition) == 0) {
+        if (sharedPreferences.contains(notificationPosition)) {
             listPref.setValueIndex(0);
             pref.setSummary(listPref.getEntry());
         }
-        if (myDb.intRowValue(DBModel.SETTINGS_NAME, notificationPosition) == 1) {
+        if (sharedPreferences.contains(notificationPosition)) {
             listPref.setValueIndex(1);
             pref.setSummary(listPref.getEntry());
         }
-        if (myDb.intRowValue(DBModel.SETTINGS_NAME, notificationPosition) == 2) {
+        if (sharedPreferences.contains(notificationPosition)) {
             listPref.setValueIndex(2);
             pref.setSummary(listPref.getEntry());
         }
-        if (myDb.intRowValue(DBModel.SETTINGS_NAME, notificationPosition) == 3) {
+        if (sharedPreferences.contains(notificationPosition)) {
             listPref.setValueIndex(3);
             pref.setSummary(listPref.getEntry());
         }
@@ -235,12 +244,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     }
 
     private void deleteDbRows() {
-       myDb.deleteAll(DBModel.DATABASE_TABLE);
-       Intent refresh = new Intent(SettingsActivity.this, MainActivity.class);
-       startActivity(refresh);
-       finish();
+        myDb.deleteAll(DBModel.DATABASE_TABLE);
+        Intent refresh = new Intent(SettingsActivity.this, MainActivity.class);
+        startActivity(refresh);
+        finish();
         alarm.close(context);
-        myDb.updateRow(notificationPosition,0);
-        myDb.updateRow(notificationStatus,0);
+        editor.putInt(notificationPosition, 0);
+        editor.putInt(notificationStatus, 0);
+        editor.commit();
     }
 }

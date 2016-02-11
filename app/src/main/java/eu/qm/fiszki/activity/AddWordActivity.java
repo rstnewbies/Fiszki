@@ -1,6 +1,7 @@
 package eu.qm.fiszki.activity;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -33,6 +34,10 @@ public class AddWordActivity extends AppCompatActivity {
     SettingsActivity settings = new SettingsActivity();
     Alert alert = new Alert();
     private Rules rules = new Rules();
+    public SharedPreferences sharedPreferences;
+    public SharedPreferences.Editor editor;
+    public String notificationPosition = "notification_time";
+    public String notificationStatus = "notification";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,8 @@ public class AddWordActivity extends AppCompatActivity {
         OpenDataBase.openDB(myDb);
         settings.context = this;
         flashcardManagement = new FlashcardManagement(this);
+        sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE );
+        editor = sharedPreferences.edit();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -70,8 +77,9 @@ public class AddWordActivity extends AppCompatActivity {
                 flashcardManagement.addFlashcards(flashcard);
                 if (flashcardManagement.isFirst()) {
                     alarm.start(context, 15);
-                    myDb.updateRow(settings.notificationPosition, 3);
-                    myDb.updateRow(settings.notificationStatus, 1);
+                    editor.putInt(notificationPosition, 3);
+                    editor.putInt(notificationStatus, 1);
+                    editor.commit();
                     alert.buildAlert(
                             this.getString(R.string.alert_title_pass),
                             this.getString(R.string.alert_add_first_word_message),
@@ -100,8 +108,9 @@ public class AddWordActivity extends AppCompatActivity {
                         flashcardManagement.addFlashcards(flashcard);
                         if (flashcardManagement.isFirst()) {
                             alarm.start(context, 15);
-                            myDb.updateRow(settings.notificationPosition, 3);
-                            myDb.updateRow(settings.notificationStatus, 1);
+                            editor.putInt(notificationPosition, 3);
+                            editor.putInt(notificationStatus, 1);
+                            editor.commit();
                             alert.buildAlert(
                                     AddWordActivity.this.getString(R.string.alert_title_pass),
                                     AddWordActivity.this.getString(R.string.alert_add_first_word_message),
