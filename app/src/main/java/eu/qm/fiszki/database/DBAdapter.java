@@ -45,7 +45,7 @@ public class DBAdapter {
     }
 
     public void deleteAll(String table){
-        db.execSQL("delete from "+ table);
+        db.execSQL("delete from " + table);
     }
 
     public long updateRow(String settingName , int status) {
@@ -104,6 +104,7 @@ public class DBAdapter {
         return c;
     }
 
+
     public Cursor getAllRowsPriority(int priority){
         Cursor c = db.query(true, DBModel.DATABASE_TABLE,DBModel.ALL_KEYS,
                 DBModel.KEY_PRIORITY + "=" + priority, null, null, null, null, null);
@@ -148,6 +149,7 @@ public class DBAdapter {
 
         @Override
         public void onCreate(SQLiteDatabase _db) {
+            _db.execSQL(DBModel.DATABASE_CREATE_SQL);
             _db.execSQL(DBModel.SETTINGS_CREATE_SQL);
             _db.execSQL(DBModel.FILL_SETTINGS_SQL);
             _db.execSQL(DBModel.SECOND_FILL_SETTINGS_SQL);

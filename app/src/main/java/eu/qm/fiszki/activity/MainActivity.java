@@ -35,6 +35,7 @@ import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBModel;
 import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.database.DBTransform;
+import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardManagement;
 
 
@@ -66,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
     private FlashcardManagement flashcardManagement;
     private ListViewManagement listViewManagement;
 
+    View pastView;
+    Flashcard selectedFlashcard;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,8 +88,6 @@ public class MainActivity extends AppCompatActivity {
         listViewManagement = new ListViewManagement(listView);
         flashcardManagement = new FlashcardManagement(context);
 
-        toolbarMainActivity();
-
         transform = new DBTransform(myDb, context);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -96,13 +98,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
-        listViewManagement.select();
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        listViewPopulate();
+        toolbarMainActivity();
+
+
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (pastView != null) {
+                    pastView.setBackgroundColor(context.getResources().getColor(R.color.default_color));
+                }
+                selectedFlashcard = (Flashcard) parent.getAdapter().getItem(position);
+                view.setBackgroundColor(context.getResources().getColor(R.color.pressed_color));
+                pastView = view;
+                toolbarSelected();
+                return true;
+            }
+        });
+
     }
 
     @Override
@@ -124,13 +138,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (earlierPosition == -1) {
-            return false;
-        } else {
-            getMenuInflater().inflate(R.menu.menu_selected_mainactivity, menu);
-            return true;
-        }
+        getMenuInflater().inflate(R.menu.menu_selected_mainactivity, menu);
+        return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -168,14 +179,14 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(goSettings);
                             finish();
                         } else if (id == R.id.examMode) {
-                            if (flashcardManagement.getAllFlashcards().size() > 0) {
+                            if (myDb.getAllRows().getCount() > 0) {
                                 Intent goLearningMode = new Intent(MainActivity.this, ExamModeActivity.class);
                                 startActivity(goLearningMode);
                             } else {
                                 alert.buildAlert(getString(R.string.alert_title_fail), getString(R.string.alert_learningmode_emptybase), getString(R.string.button_action_ok), MainActivity.this);
                             }
                         } else if (id == R.id.learningMode) {
-                            if (flashcardManagement.getAllFlashcards().size() > 0) {
+                            if (myDb.getAllRows().getCount() > 0) {
                                 Intent goLearningMode = new Intent(MainActivity.this, LearningModeActivity.class);
                                 startActivity(goLearningMode);
                             } else {
@@ -242,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
                         selectedItem[selectPosition].setSelected(false);
                         listViewPopulate();
                         dialog.dismiss();
-                        toolbarMainActivity();
+
                     } else {
                         if (myDb.getRowValue(DBModel.KEY_WORD, editOriginal.getText().toString())) {
                             alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.button_action_ok), MainActivity.this);
@@ -256,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
                             //selectedItem[selectPosition].setSelected(false);
                             listViewPopulate();
                             dialog.dismiss();
-                            toolbarMainActivity();
+
                         }
                     }
                 }
@@ -283,7 +294,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (myDb.getAllRows().getCount() > 0) {
                     listViewPopulate();
-                    toolbarMainActivity();
+
                     Snackbar snackbar = Snackbar
                             .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
                             .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
@@ -304,7 +315,6 @@ public class MainActivity extends AppCompatActivity {
                     myDb.updateRow(settings.notificationStatus, 0);
                     myDb.updateRow(settings.notificationPosition, 0);
                     alarm.close(context);
-                    toolbarMainActivity();
                     Snackbar snackbar = Snackbar
                             .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
                             .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
