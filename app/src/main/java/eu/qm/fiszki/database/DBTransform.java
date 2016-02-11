@@ -22,6 +22,7 @@ public class DBTransform {
                 flashcard = new Flashcard(c.getInt(0),c.getString(1),c.getString(2),c.getInt(3));
                 flashcardManagement.addFlashcards(flashcard);
             } while (c.moveToNext());
+            myDb.deleteAll(DBModel.DATABASE_TABLE);
         }
     }
 }
