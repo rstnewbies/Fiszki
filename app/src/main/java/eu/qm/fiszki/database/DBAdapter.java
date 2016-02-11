@@ -148,7 +148,6 @@ public class DBAdapter {
 
         @Override
         public void onCreate(SQLiteDatabase _db) {
-            _db.execSQL(DBModel.DATABASE_CREATE_SQL);
             _db.execSQL(DBModel.SETTINGS_CREATE_SQL);
             _db.execSQL(DBModel.FILL_SETTINGS_SQL);
             _db.execSQL(DBModel.SECOND_FILL_SETTINGS_SQL);

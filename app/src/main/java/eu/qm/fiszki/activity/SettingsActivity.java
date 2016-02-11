@@ -52,10 +52,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
         openDataBase.openDB(myDb);
         context = this;
-        alarmIntent = new Intent(this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarm = new AlarmReceiver();
         alert = new Alert();
 
         sync();
@@ -116,7 +112,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
                 //FOR NEVER
                 if (listPref.getValue().equals(getResources().getString(R.string.frequency_0))) {
-                    alarm.close(manager, context, pendingIntent);
+                    alarm.close(context);
                     time = 0;
                     pref.setSummary(listPref.getEntry());
                     myDb.updateRow(notificationPosition, 0);
@@ -125,42 +121,42 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 //FOR 1 min
                 if (listPref.getValue().equals(getResources().getString(R.string.frequency_1)) &&
                         myDb.getAllRows().getCount()>0) {
-                    alarm.close(manager, context, pendingIntent);
+                    alarm.close(context);
                     time = 1;
                     pref.setSummary(listPref.getEntry());
                     myDb.updateRow(notificationPosition, 1);
                     myDb.updateRow(notificationStatus, 1);
-                    alarm.start(manager, context, pendingIntent, time);
+                    alarm.start(context, time);
                 } else
                 //FOR 5 min
                 if (listPref.getValue().equals(getResources().getString(R.string.frequency_5)) &&
                         myDb.getAllRows().getCount()>0) {
-                    alarm.close(manager, context, pendingIntent);
+                    alarm.close(context);
                     time = 5;
                     pref.setSummary(listPref.getEntry());
                     myDb.updateRow(notificationPosition, 2);
                     myDb.updateRow(notificationStatus, 1);
-                    alarm.start(manager, context, pendingIntent, time);
+                    alarm.start(context, time);
                 } else
                 //FOR 15min
                 if (listPref.getValue().equals(getResources().getString(R.string.frequency_15)) &&
                         myDb.getAllRows().getCount()>0) {
-                    alarm.close(manager, context, pendingIntent);
+                    alarm.close(context);
                     time = 15;
                     pref.setSummary(listPref.getEntry());
                     myDb.updateRow(notificationPosition, 3);
                     myDb.updateRow(notificationStatus, 1);
-                    alarm.start(manager, context, pendingIntent, time);
+                    alarm.start(context, time);
                 } else
                 //FOR 30
                 if (listPref.getValue().equals(getResources().getString(R.string.frequency_30)) &&
                         myDb.getAllRows().getCount()>0)  {
-                    alarm.close(manager, context, pendingIntent);
+                    alarm.close(context);
                     time = 15;
                     pref.setSummary(listPref.getEntry());
                     myDb.updateRow(notificationPosition, 4);
                     myDb.updateRow(notificationStatus, 1);
-                    alarm.start(manager, context, pendingIntent, time);
+                    alarm.start(context, time);
                 } else {
                     alert.buildAlert(
                             context.getString(R.string.alert_notification_change_title),
@@ -242,7 +238,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
        Intent refresh = new Intent(SettingsActivity.this, MainActivity.class);
        startActivity(refresh);
        finish();
-        alarm.close(manager,context,pendingIntent);
+        alarm.close(context);
         myDb.updateRow(notificationPosition,0);
         myDb.updateRow(notificationStatus,0);
     }
