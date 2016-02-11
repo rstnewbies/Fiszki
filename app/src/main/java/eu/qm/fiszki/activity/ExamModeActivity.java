@@ -19,17 +19,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.text.DecimalFormatSymbols;
-
 import eu.qm.fiszki.Alert;
+import eu.qm.fiszki.Algorithm;
 import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBModel;
 import eu.qm.fiszki.database.DBStatus;
+import eu.qm.fiszki.model.Flashcard;
+import eu.qm.fiszki.model.FlashcardManagement;
 
 public class ExamModeActivity extends AppCompatActivity {
 
+    FlashcardManagement flashcardManagement;
+    Algorithm algorithm = new Algorithm();
     TextView word;
     EditText enteredWord;
     DBAdapter myDb = new DBAdapter(this);
@@ -52,6 +55,8 @@ public class ExamModeActivity extends AppCompatActivity {
     Cursor c;
     Button repeate;
     Menu menu;
+    int position = 1;
+    Flashcard flashcard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,7 @@ public class ExamModeActivity extends AppCompatActivity {
         context = this;
         message = new Alert();
         check = new Checker();
+        flashcardManagement = new FlashcardManagement(context);
     }
 
 
@@ -85,11 +91,11 @@ public class ExamModeActivity extends AppCompatActivity {
             if (check.Check(expectedWord, enteredWord.getText().toString())) {
                 trueAnswer++;
                 repeat++;
-                algorith();
+                newDraw();
             } else {
                 falseAnswer++;
                 repeat++;
-                algorith();
+                newDraw();
             }
 
         } else if (id == android.R.id.home) {
@@ -106,11 +112,11 @@ public class ExamModeActivity extends AppCompatActivity {
                     if (check.Check(expectedWord, enteredWord.getText().toString())) {
                         trueAnswer++;
                         repeat++;
-                        algorith();
+                        newDraw();
                     } else {
                         falseAnswer++;
                         repeat++;
-                        algorith();
+                        newDraw();
                     }
                 }
                     return false;
@@ -120,34 +126,33 @@ public class ExamModeActivity extends AppCompatActivity {
 
 
 
-    public void algorith(){
+    public void newDraw(){
 
         if(repeat!=numberOfRepeat) {
             enteredWord.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    keyboard.showSoftInput(enteredWord,0);
+                    keyboard.showSoftInput(enteredWord, 0);
                 }
-            },0);
-            c = myDb.getAllRows();
+            }, 0);
             enteredWord.setText("");
             enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
             word.setText("");
-            int cCount = c.getCount();
-            int cPosition = myDb.intRowValue(DBModel.SETTINGS_NAME, "cursorPosition");
-            if (cPosition < cCount) {
-                c.move(cPosition);
-                cPosition++;
-                myDb.updateRow("cursorPosition", cPosition);
+
+            int count = flashcardManagement.getAllFlashcards().size();
+            if (position < count) {
+                flashcard = algorithm.simple(position);
+                position++;
             } else {
-                cPosition = 1;
-                myDb.updateRow("cursorPosition", cPosition);
+                position = 1;
+                flashcard = algorithm.simple(position);
+                position++;
             }
 
-            wordFromData = c.getString(c.getColumnIndex(DBModel.KEY_WORD));
+            wordFromData = flashcard.getWord();
             word.append(wordFromData);
-            expectedWord = c.getString(c.getColumnIndex(DBModel.KEY_TRANSLATION));
+            expectedWord = flashcard.getTranslation();
             enteredWord.requestFocus();
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
@@ -220,7 +225,7 @@ public class ExamModeActivity extends AppCompatActivity {
                         enteredWord = (EditText) findViewById(R.id.EnteredWord);
                         word = (TextView) findViewById(R.id.textView3);
                         OpenDataBase.openDB(myDb);
-                        algorith();
+                        newDraw();
                         keyboardAction();
                     }
                 })

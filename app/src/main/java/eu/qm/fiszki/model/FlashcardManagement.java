@@ -6,6 +6,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import eu.qm.fiszki.database.DBHelper;
 
@@ -67,11 +68,32 @@ public class FlashcardManagement {
         flashcardDao.delete(flashcard);
     }
 
-    public void deleteAllFlashcards(ArrayList<Flashcard> flashcards){
+    public void deleteAllFlashcards(ArrayList<Flashcard> flashcards) {
         flashcardDao.delete(flashcards);
     }
 
     public void updateFlashcard(Flashcard flashcard) {
         flashcardDao.update(flashcard);
+    }
+
+    public ArrayList<Flashcard> getFlashcardsByPriority(int priority){
+
+        ArrayList<Flashcard> flashcardListByPriority = new ArrayList<Flashcard>();
+        ArrayList<Flashcard> flashcardList = getAllFlashcards();
+
+        for (Flashcard flashcard : flashcardList) {
+            if (flashcard.getPriority() == priority) {
+                flashcardListByPriority.add(flashcard);
+            }
+
+        }
+        return flashcardListByPriority;
+    }
+
+    public Flashcard getRandomFlashcardByPririty(int priority){
+        Random generator = new Random();
+        ArrayList<Flashcard> flashcards = getFlashcardsByPriority(priority);
+        Flashcard flashcard = flashcards.get(generator.nextInt(flashcards.size())+1);
+        return flashcard;
     }
 }

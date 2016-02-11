@@ -15,11 +15,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import eu.qm.fiszki.Alert;
+import eu.qm.fiszki.Algorithm;
 import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
-import eu.qm.fiszki.database.DBModel;
 import eu.qm.fiszki.database.DBStatus;
+import eu.qm.fiszki.model.Flashcard;
+import eu.qm.fiszki.model.FlashcardManagement;
 
 public class LearningModeActivity extends AppCompatActivity {
 
@@ -27,50 +29,33 @@ public class LearningModeActivity extends AppCompatActivity {
     EditText enteredWord;
     DBAdapter myDb = new DBAdapter(this);
     DBStatus OpenDataBase = new DBStatus();
-
+    FlashcardManagement flashcardManagement;
     String wordFromData;
     String expectedWord;
     Checker check;
     Alert message;
     Context context;
     Cursor c;
+    int position = 1;
+    Flashcard flashcard;
+    Algorithm algorithm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check);
 
-        OpenDataBase.openDB(myDb);
-        Cursor c = myDb.getAllRows();
-
-        int cCount = c.getCount();
-        int cPosition = myDb.intRowValue(DBModel.SETTINGS_NAME, "cursorPosition");
-        if (cPosition < cCount) {
-            c.move(cPosition);
-            cPosition++;
-            myDb.updateRow("cursorPosition", cPosition);
-        } else {
-            cPosition = 1;
-            myDb.updateRow("cursorPosition", cPosition);
-        }
-
-        wordFromData = c.getString(c.getColumnIndex(DBModel.KEY_WORD));
-        expectedWord = c.getString(c.getColumnIndex(DBModel.KEY_TRANSLATION));
-        enteredWord = (EditText) findViewById(R.id.EnteredWord);
-        enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        enteredWord.setText("");
-        word = (TextView) findViewById(R.id.textView3);
-        word.append(wordFromData);
-        enteredWord.requestFocus();
+        context = this;
+        flashcardManagement = new FlashcardManagement(context);
+        algorithm = new Algorithm();
         check = new Checker();
         message = new Alert();
-        context = this;
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        algorith();
+        newDraw();
         keyboardAction();
     }
 
@@ -113,7 +98,7 @@ public class LearningModeActivity extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
 
                     if (check.Check(expectedWord, enteredWord.getText().toString())) {
-                        algorith();
+                        newDraw();
                     } else {
                         enteredWord.setText("");
                         message.fail(LearningModeActivity.this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
@@ -134,7 +119,7 @@ public class LearningModeActivity extends AppCompatActivity {
         });
     }
 
-    public void algorith() {
+    public void newDraw() {
 
         enteredWord.postDelayed(new Runnable() {
             @Override
@@ -143,24 +128,22 @@ public class LearningModeActivity extends AppCompatActivity {
                 keyboard.showSoftInput(enteredWord, 0);
             }
         }, 0);
-        c = myDb.getAllRows();
-        enteredWord.setText("");
-        enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        word.setText("");
-        int cCount = c.getCount();
-        int cPosition = myDb.intRowValue(DBModel.SETTINGS_NAME, "cursorPosition");
-        if (cPosition < cCount) {
-            c.move(cPosition);
-            cPosition++;
-            myDb.updateRow("cursorPosition", cPosition);
+        int count = flashcardManagement.getAllFlashcards().size();
+        if (position < count) {
+            flashcard = algorithm.simple(position);
+            position++;
         } else {
-            cPosition = 1;
-            myDb.updateRow("cursorPosition", cPosition);
+            position = 1;
+            flashcard = algorithm.simple(position);
         }
 
-        wordFromData = c.getString(c.getColumnIndex(DBModel.KEY_WORD));
+        wordFromData = flashcard.getWord();
+        expectedWord = flashcard.getTranslation();
+        enteredWord = (EditText) findViewById(R.id.EnteredWord);
+        enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        enteredWord.setText("");
+        word = (TextView) findViewById(R.id.textView3);
         word.append(wordFromData);
-        expectedWord = c.getString(c.getColumnIndex(DBModel.KEY_TRANSLATION));
         enteredWord.requestFocus();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }

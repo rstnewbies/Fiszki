@@ -166,14 +166,14 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(goSettings);
                             finish();
                         } else if (id == R.id.examMode) {
-                            if (myDb.getAllRows().getCount() > 0) {
+                            if (flashcardManagement.getAllFlashcards().size() > 0) {
                                 Intent goLearningMode = new Intent(MainActivity.this, ExamModeActivity.class);
                                 startActivity(goLearningMode);
                             } else {
                                 alert.buildAlert(getString(R.string.alert_title_fail), getString(R.string.alert_learningmode_emptybase), getString(R.string.button_action_ok), MainActivity.this);
                             }
                         } else if (id == R.id.learningMode) {
-                            if (myDb.getAllRows().getCount() > 0) {
+                            if (flashcardManagement.getAllFlashcards().size() > 0) {
                                 Intent goLearningMode = new Intent(MainActivity.this, LearningModeActivity.class);
                                 startActivity(goLearningMode);
                             } else {

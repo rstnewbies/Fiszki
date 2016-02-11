@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import java.util.Random;
 import eu.qm.fiszki.Alert;
+import eu.qm.fiszki.Algorithm;
 import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBModel;
@@ -27,6 +28,7 @@ import eu.qm.fiszki.model.FlashcardManagement;
 
 public class CheckActivity extends AppCompatActivity {
 
+    Algorithm algorithm = new Algorithm();
     TextView word;
     EditText enteredWord;
     DBAdapter myDb = new DBAdapter(this);
@@ -39,6 +41,7 @@ public class CheckActivity extends AppCompatActivity {
     int rowId;
     int rowPriority;
     boolean firstTry = true;
+    Flashcard flashcard;
 
     MenuItem mi;
     int id;
@@ -53,28 +56,18 @@ public class CheckActivity extends AppCompatActivity {
         context = this;
         flashcardManagement = new FlashcardManagement(context);
 
-        if (flashcardManagement.getAllFlashcards().size()<= 0) {
+        if (flashcardManagement.getAllFlashcards().size()<1) {
             alert.emptyBase(context, getString(R.string.main_activity_empty_base_main_layout),
                     getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
 
         } else {
 
-            int cCount = c.getCount();
-            int cPosition = myDb.intRowValue(DBModel.SETTINGS_NAME, "cursorPosition");
-            if (cPosition < cCount) {
-                c.move(cPosition);
-                cPosition++;
-                myDb.updateRow("cursorPosition", cPosition);
-            } else {
-                cPosition = 1;
-                myDb.updateRow("cursorPosition", cPosition);
-            }
+            flashcard = algorithm.drawCardAlgorithm();
 
-            if (myDb.getAllRows().getCount() > 0) {
-                wordFromData = c.getString(c.getColumnIndex(DBModel.KEY_WORD));
-                expectedWord = c.getString(c.getColumnIndex(DBModel.KEY_TRANSLATION));
-                rowId = c.getInt(c.getColumnIndex(DBModel.KEY_ROWID));
-                rowPriority = c.getInt(c.getColumnIndex(DBModel.KEY_PRIORITY));
+                wordFromData = flashcard.getWord();
+                expectedWord = flashcard.getTranslation();
+                rowId = flashcard.getId();
+                rowPriority = flashcard.getPriority();
                 enteredWord = (EditText) findViewById(R.id.EnteredWord);
                 enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
                 enteredWord.setText("");
@@ -83,9 +76,6 @@ public class CheckActivity extends AppCompatActivity {
                 enteredWord.requestFocus();
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
                 keyboardAction();
-            } else {
-                alert.emptyBase(this, getString(R.string.main_activity_empty_base_main_layout), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
-            }
         }
     }
 
@@ -124,7 +114,8 @@ public class CheckActivity extends AppCompatActivity {
                message.pass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.button_action_ok));
 
                if(rowPriority<5 && firstTry) {
-                   myDb.updateFlashcardPriority(rowId, rowPriority + 1);
+                   flashcard.setPriority(flashcard.getPriority()+1);
+                   flashcardManagement.updateFlashcard(flashcard);
                }
            }
            else
@@ -135,7 +126,8 @@ public class CheckActivity extends AppCompatActivity {
                     getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
                firstTry = false;
 
-             myDb.updateFlashcardPriority(rowId, 1);
+               flashcard.setPriority(1);
+               flashcardManagement.updateFlashcard(flashcard);
            }
         }
         else if (id == android.R.id.home) {
@@ -166,40 +158,4 @@ public class CheckActivity extends AppCompatActivity {
         });
     }
 
-    private Cursor drawCardAlgorithm() {
-        final int[] points = {25, 20, 15, 10, 5};
-        int[] totalPoints = new int[5];
-        int[] section = new int[5];
-        int drawn = 0;
-
-        Cursor cursorPriority = null;
-
-        for(int i=0; i<5; i++) {
-            Cursor cardsPriority = myDb.getAllRowsPriority(i+1);
-            int count = cardsPriority.getCount();
-            totalPoints[i] = count * points[i];
-            if(i <= 0) {
-                section[i] = totalPoints[i];
-            }else {
-                section[i] = totalPoints[i] + section[i-1];
-            }
-        }
-        Random rand = new Random();
-        drawn = rand.nextInt(section[4]);
-        drawn += 1;
-
-        if(drawn <= section[0]) {
-            cursorPriority = myDb.getRandomRowWithpriority(1);
-        } else if(drawn <= section[1]) {
-            cursorPriority = myDb.getRandomRowWithpriority(2);
-        } else if(drawn <= section[2]) {
-            cursorPriority = myDb.getRandomRowWithpriority(3);
-        } else if(drawn <= section[3]) {
-            cursorPriority = myDb.getRandomRowWithpriority(4);
-        } else if(drawn <= section[4]+1) {
-            cursorPriority = myDb.getRandomRowWithpriority(5);
-        }
-
-        return cursorPriority;
-    }
 }
