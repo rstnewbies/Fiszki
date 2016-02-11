@@ -53,6 +53,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         openDataBase.openDB(myDb);
         context = this;
         alert = new Alert();
+        alarm = new AlarmReceiver();
 
         sync();
         clearDataBase();

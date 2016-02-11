@@ -1,9 +1,7 @@
 package eu.qm.fiszki.activity;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,12 +24,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
@@ -41,18 +34,12 @@ import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBModel;
 import eu.qm.fiszki.database.DBStatus;
-import eu.qm.fiszki.database.DBHelper;
 import eu.qm.fiszki.database.DBTransform;
-import eu.qm.fiszki.model.Category;
-import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardManagement;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    DBTransform transform;
-    private FlashcardManagement flashcardManagement;
-    private ListViewManagement listViewManagement;
     static public SettingsActivity settings;
     static public DBAdapter myDb;
     static public DBStatus openDataBase;
@@ -74,7 +61,10 @@ public class MainActivity extends AppCompatActivity {
     public int rowId;
     public AlarmReceiver alarm;
     public Toolbar toolbar;
+    DBTransform transform;
     Cursor deletedRow;
+    private FlashcardManagement flashcardManagement;
+    private ListViewManagement listViewManagement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,10 +83,10 @@ public class MainActivity extends AppCompatActivity {
         openDataBase.openDB(myDb);
         listViewManagement = new ListViewManagement(listView);
         flashcardManagement = new FlashcardManagement(context);
-        listViewSelect();
+
         toolbarMainActivity();
 
-        transform = new DBTransform(myDb,context);
+        transform = new DBTransform(myDb, context);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+        listViewManagement.select();
     }
 
     @Override
@@ -133,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(earlierPosition == -1) {
+        if (earlierPosition == -1) {
             return false;
         } else {
             getMenuInflater().inflate(R.menu.menu_selected_mainactivity, menu);
@@ -156,58 +147,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void listViewPopulate() {
         sync();
-        if (flashcardManagement.getAllFlashcards().size()> 0) {
+        if (flashcardManagement.getAllFlashcards().size() > 0) {
             listViewManagement.populate(context, flashcardManagement.getAllFlashcards());
         }
-     }
-
-    public void listViewSelect() {
-        dialog = new Dialog(context);
-        dialog.setContentView(R.layout.layout_dialog_edit);
-        dialog.setTitle(R.string.main_activity_dialog_edit_item);
-
-        editOriginal = (EditText) dialog.findViewById(R.id.editOrginal);
-        editTranslate = (EditText) dialog.findViewById(R.id.editTranslate);
-        dialogButton = (Button) dialog.findViewById(R.id.editButton);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                rowId = (int) id;
-                selectPosition = position;
-                editedItem = (ItemAdapter) parent.getAdapter();
-                //editOriginal.setText(editedItem.);
-                //editTranslate.setText(editedItem.getCursor().getString(2));
-
-                if (!clickedItem[selectPosition] && earlierPosition == -1) {
-                    selectedItem[selectPosition] = view;
-                    clickedItem[selectPosition] = true;
-                    selectedItem[selectPosition].setBackgroundColor(getResources().getColor(R.color.pressed_color));
-                    selectedItem[selectPosition].setSelected(true);
-                    fab.setVisibility(View.INVISIBLE);
-                    earlierPosition = selectPosition;
-                    toolbarSelected();
-                } else if (!clickedItem[selectPosition]) {
-                    selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
-                    clickedItem[earlierPosition] = false;
-                    selectedItem[earlierPosition].setSelected(false);
-                    selectedItem[selectPosition] = view;
-                    clickedItem[selectPosition] = true;
-                    selectedItem[selectPosition].setBackgroundColor(getResources().getColor(R.color.pressed_color));
-                    selectedItem[selectPosition].setSelected(true);
-                    fab.setVisibility(View.INVISIBLE);
-                    earlierPosition = selectPosition;
-                    toolbarSelected();
-                } else {
-                    selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
-                    fab.setVisibility(View.VISIBLE);
-                    clickedItem[selectPosition] = false;
-                    selectedItem[selectPosition].setSelected(false);
-                    toolbarMainActivity();
-                }
-            }
-        });
     }
 
     public void toolbarMainActivity() {
@@ -232,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                             } else {
                                 alert.buildAlert(getString(R.string.alert_title_fail), getString(R.string.alert_learningmode_emptybase), getString(R.string.button_action_ok), MainActivity.this);
                             }
-                        } else if(id == R.id.learningMode){
+                        } else if (id == R.id.learningMode) {
                             if (flashcardManagement.getAllFlashcards().size() > 0) {
                                 Intent goLearningMode = new Intent(MainActivity.this, LearningModeActivity.class);
                                 startActivity(goLearningMode);
@@ -338,8 +280,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.setButton(getString(R.string.button_action_yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                myDb.deleteRecord(rowId);
-                //deletedRow = editedItem.getCursor();
+
                 if (myDb.getAllRows().getCount() > 0) {
                     listViewPopulate();
                     toolbarMainActivity();
@@ -395,8 +336,8 @@ public class MainActivity extends AppCompatActivity {
     public void sync() {
         earlierPosition = -1;
         int x = myDb.getAllRows().getCount();
-        selectedItem = new View[x+1];
-        clickedItem = new boolean[x+1];
+        selectedItem = new View[x + 1];
+        clickedItem = new boolean[x + 1];
         Arrays.fill(clickedItem, Boolean.FALSE);
     }
 }

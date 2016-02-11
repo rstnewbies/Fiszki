@@ -1,6 +1,11 @@
 package eu.qm.fiszki;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -23,6 +28,16 @@ public class ListViewManagement {
         listView.setAdapter(adapter);
     }
 
+    public void select() {
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
 
+
+                return true;
+            }
+        });
+    }
 }
