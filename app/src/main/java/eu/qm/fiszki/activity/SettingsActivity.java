@@ -25,10 +25,13 @@ import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBModel;
 import eu.qm.fiszki.database.DBStatus;
+import eu.qm.fiszki.model.Flashcard;
+import eu.qm.fiszki.model.FlashcardManagement;
 
 public class SettingsActivity extends AppCompatPreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+    private FlashcardManagement flashcardManagement;
     public Preference cleanerDataBase;
     public Preference pref;
     public PendingIntent pendingIntent;
@@ -51,13 +54,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         super.onCreate(savedInstanceState);
         setupActionBar();
         addPreferencesFromResource(R.xml.pref_settings);
-        sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE );
+        sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        openDataBase.openDB(myDb);
         context = this;
         alert = new Alert();
         alarm = new AlarmReceiver();
+        flashcardManagement = new FlashcardManagement(context);
 
         sync();
         clearDataBase();
@@ -126,7 +129,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 }else
                     //FOR 1 min
                     if (listPref.getValue().equals(getResources().getString(R.string.frequency_1)) &&
-                            myDb.getAllRows().getCount()>0) {
+                            flashcardManagement.getAllFlashcards().size()>0) {
                         alarm.close(context);
                         time = 1;
                         pref.setSummary(listPref.getEntry());
@@ -137,7 +140,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                     } else
                         //FOR 5 min
                         if (listPref.getValue().equals(getResources().getString(R.string.frequency_5)) &&
-                                myDb.getAllRows().getCount()>0) {
+                                flashcardManagement.getAllFlashcards().size()>0) {
                             alarm.close(context);
                             time = 5;
                             pref.setSummary(listPref.getEntry());
@@ -148,7 +151,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                         } else
                             //FOR 15min
                             if (listPref.getValue().equals(getResources().getString(R.string.frequency_15)) &&
-                                    myDb.getAllRows().getCount()>0) {
+                                    flashcardManagement.getAllFlashcards().size()>0) {
                                 alarm.close(context);
                                 time = 15;
                                 pref.setSummary(listPref.getEntry());
@@ -159,7 +162,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                             } else
                                 //FOR 30
                                 if (listPref.getValue().equals(getResources().getString(R.string.frequency_30)) &&
-                                        myDb.getAllRows().getCount()>0)  {
+                                        flashcardManagement.getAllFlashcards().size()>0)  {
                                     alarm.close(context);
                                     time = 15;
                                     pref.setSummary(listPref.getEntry());
@@ -213,7 +216,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
         //Clear database
         cleanerDataBase = findPreference(getResources().getString(R.string.settings_key_data_base));
-        if(myDb.getAllRows().getCount()>0){
+        if(flashcardManagement.getAllFlashcards().size()>0){
             cleanerDataBase.setEnabled(true);
         }else{
             cleanerDataBase.setEnabled(false);
@@ -244,7 +247,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     }
 
     private void deleteDbRows() {
-        myDb.deleteAll(DBModel.DATABASE_TABLE);
+
+        flashcardManagement.deleteAllFlashcards(flashcardManagement.getAllFlashcards());
         Intent refresh = new Intent(SettingsActivity.this, MainActivity.class);
         startActivity(refresh);
         finish();

@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     static public Context context;
     static public ListView listView;
     static public FloatingActionButton fab;
-    static public View[] selectedItem;
+    static public View selectedView;
     static public int earlierPosition, selectPosition;
     static public ItemAdapter editedItem;
     static public Dialog dialog;
@@ -63,12 +63,11 @@ public class MainActivity extends AppCompatActivity {
     public AlarmReceiver alarm;
     public Toolbar toolbar;
     DBTransform transform;
-    Cursor deletedRow;
-    private FlashcardManagement flashcardManagement;
-    private ListViewManagement listViewManagement;
-
+    private Flashcard deletedFlashcard;
     View pastView;
     Flashcard selectedFlashcard;
+    private FlashcardManagement flashcardManagement;
+    private ListViewManagement listViewManagement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,22 +99,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         toolbarMainActivity();
-
-
-
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if (pastView != null) {
-                    pastView.setBackgroundColor(context.getResources().getColor(R.color.default_color));
-                }
-                selectedFlashcard = (Flashcard) parent.getAdapter().getItem(position);
-                view.setBackgroundColor(context.getResources().getColor(R.color.pressed_color));
-                pastView = view;
-                toolbarSelected();
-                return true;
-            }
-        });
+        listViewSelect();
 
     }
 
@@ -147,17 +131,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
-            fab.setVisibility(View.VISIBLE);
-            clickedItem[selectPosition] = false;
-            selectedItem[selectPosition].setSelected(false);
+            selectedView.setBackgroundColor(getResources().getColor(R.color.default_color));
+            fab.show();
             toolbarMainActivity();
         }
         return true;
     }
 
     public void listViewPopulate() {
-        sync();
         if (flashcardManagement.getAllFlashcards().size() > 0) {
             listViewManagement.populate(context, flashcardManagement.getAllFlashcards());
         }
@@ -216,16 +197,53 @@ public class MainActivity extends AppCompatActivity {
                         } else if (id == R.id.deleteRecord) {
                             listViewDelete();
                         } else if (id == android.R.id.home) {
-                            selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
-                            fab.setVisibility(View.VISIBLE);
-                            clickedItem[selectPosition] = false;
-                            selectedItem[selectPosition].setSelected(false);
+                            selectedView.setBackgroundColor(getResources().getColor(R.color.default_color));
+                            fab.show();
                             toolbarMainActivity();
                         }
                         return true;
                     }
                 });
         toolbar.dismissPopupMenus();
+    }
+
+    public void listViewSelect() {
+        dialog = new Dialog(context);
+        dialog.setContentView(R.layout.layout_dialog_edit);
+        dialog.setTitle(R.string.main_activity_dialog_edit_item);
+
+        editOriginal = (EditText) dialog.findViewById(R.id.editOrginal);
+        editTranslate = (EditText) dialog.findViewById(R.id.editTranslate);
+        dialogButton = (Button) dialog.findViewById(R.id.editButton);
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                selectedView = view;
+                selectedFlashcard = (Flashcard) parent.getAdapter().getItem(position);
+                editOriginal.setText(selectedFlashcard.getWord());
+                editTranslate.setText(selectedFlashcard.getTranslation());
+
+                if (pastView == view) {
+                    toolbarMainActivity();
+                    fab.show();
+                    selectedView.setBackgroundColor(context.getResources().getColor(R.color.default_color));
+
+                } else {
+                    if (pastView != null) {
+                        pastView.setBackgroundColor(context.getResources().getColor(R.color.default_color));
+                    }
+                    selectedFlashcard = (Flashcard) parent.getAdapter().getItem(position);
+                    selectedView.setBackgroundColor(context.getResources().getColor(R.color.pressed_color));
+                    pastView = view;
+                    toolbarSelected();
+                    fab.hide();
+                }
+                return true;
+
+            }
+        });
     }
 
     public void listViewEdit() {
@@ -244,27 +262,24 @@ public class MainActivity extends AppCompatActivity {
                 if (editOriginal.getText().toString().isEmpty() || editTranslate.getText().toString().isEmpty()) {
                     alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onEmptyFields), getString(R.string.button_action_ok), MainActivity.this);
                 } else {
-                    if (flashcardManagement.getFlashcardById(rowId).getWord().equals(editOriginal.getText().toString())) {
-                        myDb.updateAdapter(rowId, editOriginal.getText().toString(),
-                                editTranslate.getText().toString());
-                        selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
-                        fab.setVisibility(View.VISIBLE);
-                        clickedItem[selectPosition] = false;
-                        selectedItem[selectPosition].setSelected(false);
+                    if (flashcardManagement.getFlashcardById(selectedFlashcard.getId()).getWord().equals(editOriginal.getText().toString())) {
+                        selectedFlashcard.setWord(editOriginal.getText().toString());
+                        selectedFlashcard.setTranslation(editTranslate.getText().toString());
+                        flashcardManagement.updateFlashcard(selectedFlashcard);
+                        selectedView.setBackgroundColor(getResources().getColor(R.color.default_color));
+                        fab.show();
                         listViewPopulate();
                         dialog.dismiss();
 
                     } else {
-                        if (myDb.getRowValue(DBModel.KEY_WORD, editOriginal.getText().toString())) {
+                        if (flashcardManagement.existence(selectedFlashcard.getWord())) {
                             alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.button_action_ok), MainActivity.this);
                             editOriginal.requestFocus();
                         } else {
-                            myDb.updateAdapter(rowId, editOriginal.getText().toString(),
-                                    editTranslate.getText().toString());
-                            //selectedItem[earlierPosition].setBackgroundColor(getResources().getColor(R.color.default_color));
-                            fab.setVisibility(View.VISIBLE);
-                            clickedItem[selectPosition] = false;
-                            //selectedItem[selectPosition].setSelected(false);
+                            selectedFlashcard.setWord(editOriginal.getText().toString());
+                            selectedFlashcard.setTranslation(editTranslate.getText().toString());
+                            flashcardManagement.updateFlashcard(selectedFlashcard);
+                            fab.show();
                             listViewPopulate();
                             dialog.dismiss();
 
@@ -292,36 +307,38 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                if (myDb.getAllRows().getCount() > 0) {
-                    listViewPopulate();
+                deletedFlashcard = selectedFlashcard;
+                flashcardManagement.deleteFlashcard(selectedFlashcard);
 
+                if (flashcardManagement.getAllFlashcards().size() > 0) {
+                    listViewPopulate();
                     Snackbar snackbar = Snackbar
                             .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
                             .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    myDb.insertRow(deletedRow.getInt(0), deletedRow.getString(1),
-                                            deletedRow.getString(2), deletedRow.getInt(3));
+                                    flashcardManagement.addFlashcards(deletedFlashcard);
                                     listViewPopulate();
                                 }
                             });
                     snackbar.show();
-                    fab.setVisibility(View.VISIBLE);
+                    fab.show();
+                    toolbarMainActivity();
                 } else {
                     emptyDBImage.setVisibility(View.VISIBLE);
                     emptyDBText.setVisibility(View.VISIBLE);
                     listView.setVisibility(View.INVISIBLE);
-                    fab.setVisibility(View.VISIBLE);
-                    myDb.updateRow(settings.notificationStatus, 0);
-                    myDb.updateRow(settings.notificationPosition, 0);
+                    fab.show();
+
+                    //tu zmiana czasu na 0
+
                     alarm.close(context);
                     Snackbar snackbar = Snackbar
                             .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
                             .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    myDb.insertRow(deletedRow.getInt(0), deletedRow.getString(1),
-                                            deletedRow.getString(2), deletedRow.getInt(3));
+                                    flashcardManagement.addFlashcards(deletedFlashcard);
                                     emptyDBImage.setVisibility(View.INVISIBLE);
                                     emptyDBText.setVisibility(View.INVISIBLE);
                                     listView.setVisibility(View.VISIBLE);
@@ -329,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                     snackbar.show();
-                    fab.setVisibility(View.VISIBLE);
+                    fab.show();
                 }
             }
         });
@@ -343,12 +360,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void sync() {
-        earlierPosition = -1;
-        int x = myDb.getAllRows().getCount();
-        selectedItem = new View[x + 1];
-        clickedItem = new boolean[x + 1];
-        Arrays.fill(clickedItem, Boolean.FALSE);
-    }
 }
 

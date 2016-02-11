@@ -29,7 +29,6 @@ public class AddWordActivity extends AppCompatActivity {
     public AlarmReceiver alarm;
     FlashcardManagement flashcardManagement;
     EditText inputWord, inputTranslation;
-    DBAdapter myDb = new DBAdapter(this);
     DBStatus OpenDataBase = new DBStatus();
     SettingsActivity settings = new SettingsActivity();
     Alert alert = new Alert();
@@ -50,11 +49,11 @@ public class AddWordActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         inputTranslation = (EditText) findViewById(R.id.inputTranslation);
         inputTranslation.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        OpenDataBase.openDB(myDb);
         settings.context = this;
         flashcardManagement = new FlashcardManagement(this);
         sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE );
         editor = sharedPreferences.edit();
+        alarm = new AlarmReceiver();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

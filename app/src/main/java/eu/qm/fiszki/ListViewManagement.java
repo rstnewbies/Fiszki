@@ -32,10 +32,6 @@ public class ListViewManagement {
         listView.setAdapter(adapter);
     }
 
-    public void select(final Context context) {
-
-
-    }
 
 
 }

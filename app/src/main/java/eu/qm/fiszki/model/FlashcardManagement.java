@@ -31,16 +31,16 @@ public class FlashcardManagement {
         flashcardDao.create(flashcard);
     }
 
-    public Flashcard getFlashcardById(int id){
+    public Flashcard getFlashcardById(int id) {
         Flashcard flashcard;
         flashcard = flashcardDao.queryForId(id);
         return flashcard;
     }
 
-    public Flashcard getFlashcardByName(String name){
+    public Flashcard getFlashcardByName(String name) {
         flashcardList = (ArrayList<Flashcard>) flashcardDao.queryForAll();
-        for (Flashcard flashcard :flashcardList) {
-            if(flashcard.getWord().equals(name)){
+        for (Flashcard flashcard : flashcardList) {
+            if (flashcard.getWord().equals(name)) {
                 return flashcard;
             }
 
@@ -56,14 +56,22 @@ public class FlashcardManagement {
         }
     }
 
-    public boolean isFirst(){
-        if(getAllFlashcards().size()==1){
+    public boolean isFirst() {
+        if (getAllFlashcards().size() == 1) {
             return true;
         }
         return false;
     }
 
-    public void deleteFlashcard(Flashcard flashcard){
+    public void deleteFlashcard(Flashcard flashcard) {
         flashcardDao.delete(flashcard);
+    }
+
+    public void deleteAllFlashcards(ArrayList<Flashcard> flashcards){
+        flashcardDao.delete(flashcards);
+    }
+
+    public void updateFlashcard(Flashcard flashcard) {
+        flashcardDao.update(flashcard);
     }
 }
