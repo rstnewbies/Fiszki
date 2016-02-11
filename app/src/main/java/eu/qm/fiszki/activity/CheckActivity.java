@@ -22,6 +22,8 @@ import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBModel;
 import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.model.Flashcard;
+import eu.qm.fiszki.model.FlashcardManagement;
 
 public class CheckActivity extends AppCompatActivity {
 
@@ -31,7 +33,7 @@ public class CheckActivity extends AppCompatActivity {
     DBStatus OpenDataBase = new DBStatus();
     Alert alert;
     Context context;
-
+    FlashcardManagement flashcardManagement;
     String wordFromData;
     String expectedWord;
     int rowId;
@@ -49,9 +51,11 @@ public class CheckActivity extends AppCompatActivity {
         Cursor c = myDb.getAllRows();
         alert = new Alert();
         context = this;
+        flashcardManagement = new FlashcardManagement(context);
 
-        if (myDb.getAllRows().getCount() <= 0) {
-            alert.emptyBase(context, getString(R.string.main_activity_empty_base_main_layout), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
+        if (flashcardManagement.getAllFlashcards().size()<= 0) {
+            alert.emptyBase(context, getString(R.string.main_activity_empty_base_main_layout),
+                    getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
 
         } else {
 

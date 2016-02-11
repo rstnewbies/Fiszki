@@ -131,9 +131,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            selectedView.setBackgroundColor(getResources().getColor(R.color.default_color));
+            pastView.setBackgroundColor(getResources().getColor(R.color.default_color));
             fab.show();
             toolbarMainActivity();
+            pastView = null;
         }
         return true;
     }
@@ -229,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
                     toolbarMainActivity();
                     fab.show();
                     selectedView.setBackgroundColor(context.getResources().getColor(R.color.default_color));
+                    pastView = null;
 
                 } else {
                     if (pastView != null) {
@@ -236,7 +238,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     selectedFlashcard = (Flashcard) parent.getAdapter().getItem(position);
                     selectedView.setBackgroundColor(context.getResources().getColor(R.color.pressed_color));
-                    pastView = view;
+                    pastView = selectedView;
+                    selectedView = null;
                     toolbarSelected();
                     fab.hide();
                 }
@@ -266,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
                         selectedFlashcard.setWord(editOriginal.getText().toString());
                         selectedFlashcard.setTranslation(editTranslate.getText().toString());
                         flashcardManagement.updateFlashcard(selectedFlashcard);
-                        selectedView.setBackgroundColor(getResources().getColor(R.color.default_color));
+                        pastView.setBackgroundColor(getResources().getColor(R.color.default_color));
                         fab.show();
                         listViewPopulate();
                         dialog.dismiss();
