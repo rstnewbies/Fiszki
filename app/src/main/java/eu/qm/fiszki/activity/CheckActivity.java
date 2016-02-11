@@ -28,7 +28,7 @@ import eu.qm.fiszki.model.FlashcardManagement;
 
 public class CheckActivity extends AppCompatActivity {
 
-    Algorithm algorithm = new Algorithm();
+    Algorithm algorithm;
     TextView word;
     EditText enteredWord;
     DBAdapter myDb = new DBAdapter(this);
@@ -54,6 +54,7 @@ public class CheckActivity extends AppCompatActivity {
         Cursor c = myDb.getAllRows();
         alert = new Alert();
         context = this;
+        algorithm = new Algorithm(this);
         flashcardManagement = new FlashcardManagement(context);
 
         if (flashcardManagement.getAllFlashcards().size()<1) {

@@ -32,7 +32,7 @@ import eu.qm.fiszki.model.FlashcardManagement;
 public class ExamModeActivity extends AppCompatActivity {
 
     FlashcardManagement flashcardManagement;
-    Algorithm algorithm = new Algorithm();
+    Algorithm algorithm;
     TextView word;
     EditText enteredWord;
     DBAdapter myDb = new DBAdapter(this);
@@ -55,7 +55,7 @@ public class ExamModeActivity extends AppCompatActivity {
     Cursor c;
     Button repeate;
     Menu menu;
-    int position = 1;
+    int position = 0;
     Flashcard flashcard;
 
     @Override
@@ -68,6 +68,7 @@ public class ExamModeActivity extends AppCompatActivity {
         context = this;
         message = new Alert();
         check = new Checker();
+        algorithm = new Algorithm(context);
         flashcardManagement = new FlashcardManagement(context);
     }
 
@@ -145,7 +146,7 @@ public class ExamModeActivity extends AppCompatActivity {
                 flashcard = algorithm.simple(position);
                 position++;
             } else {
-                position = 1;
+                position = 0;
                 flashcard = algorithm.simple(position);
                 position++;
             }

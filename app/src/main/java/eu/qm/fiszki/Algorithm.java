@@ -1,5 +1,7 @@
 package eu.qm.fiszki;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,8 +13,11 @@ import eu.qm.fiszki.model.FlashcardManagement;
  */
 public class Algorithm {
 
-
     FlashcardManagement flashcardManagement;
+
+    public Algorithm(Context context) {
+        flashcardManagement = new FlashcardManagement(context);
+    }
 
     public Flashcard simple(int x){
         ArrayList<Flashcard> flashcardsList = flashcardManagement.getAllFlashcards();

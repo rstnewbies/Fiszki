@@ -36,7 +36,7 @@ public class LearningModeActivity extends AppCompatActivity {
     Alert message;
     Context context;
     Cursor c;
-    int position = 1;
+    int position = 0;
     Flashcard flashcard;
     Algorithm algorithm;
 
@@ -48,10 +48,12 @@ public class LearningModeActivity extends AppCompatActivity {
 
         context = this;
         flashcardManagement = new FlashcardManagement(context);
-        algorithm = new Algorithm();
+        algorithm = new Algorithm(context);
         check = new Checker();
         message = new Alert();
 
+        enteredWord = (EditText) findViewById(R.id.EnteredWord);
+        word = (TextView) findViewById(R.id.textView3);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -133,16 +135,15 @@ public class LearningModeActivity extends AppCompatActivity {
             flashcard = algorithm.simple(position);
             position++;
         } else {
-            position = 1;
+            position = 0;
             flashcard = algorithm.simple(position);
         }
 
+        word.setText("");
         wordFromData = flashcard.getWord();
         expectedWord = flashcard.getTranslation();
-        enteredWord = (EditText) findViewById(R.id.EnteredWord);
         enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         enteredWord.setText("");
-        word = (TextView) findViewById(R.id.textView3);
         word.append(wordFromData);
         enteredWord.requestFocus();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
