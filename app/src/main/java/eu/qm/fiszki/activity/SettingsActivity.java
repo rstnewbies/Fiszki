@@ -44,7 +44,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public int time = 15;
     public Alert alert;
     public String notificationPosition = "notification_time";
-    public String notificationStatus = "notification";
     private AlertDialog.Builder builder;
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
@@ -124,8 +123,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                     time = 0;
                     pref.setSummary(listPref.getEntry());
                     editor.putInt(notificationPosition, 0);
-                    editor.putInt(notificationStatus, 0);
                     editor.commit();
+                    alarm.start(context, time);
                 }else
                     //FOR 1 min
                     if (listPref.getValue().equals(getResources().getString(R.string.frequency_1)) &&
@@ -134,7 +133,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                         time = 1;
                         pref.setSummary(listPref.getEntry());
                         editor.putInt(notificationPosition, 1);
-                        editor.putInt(notificationStatus, 1);
                         editor.commit();
                         alarm.start(context, time);
                     } else
@@ -145,7 +143,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                             time = 5;
                             pref.setSummary(listPref.getEntry());
                             editor.putInt(notificationPosition, 2);
-                            editor.putInt(notificationStatus, 1);
                             editor.commit();
                             alarm.start(context, time);
                         } else
@@ -156,7 +153,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                                 time = 15;
                                 pref.setSummary(listPref.getEntry());
                                 editor.putInt(notificationPosition, 3);
-                                editor.putInt(notificationStatus, 1);
                                 editor.commit();
                                 alarm.start(context, time);
                             } else
@@ -164,10 +160,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                                 if (listPref.getValue().equals(getResources().getString(R.string.frequency_30)) &&
                                         flashcardManagement.getAllFlashcards().size()>0)  {
                                     alarm.close(context);
-                                    time = 15;
+                                    time = 30;
                                     pref.setSummary(listPref.getEntry());
                                     editor.putInt(notificationPosition, 4);
-                                    editor.putInt(notificationStatus, 1);
                                     editor.commit();
                                     alarm.start(context, time);
                                 } else {
@@ -182,26 +177,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     }
 
     public void sync() {
-        //Notification
-        pref = findPreference(getResources().getString(R.string.settings_key_notification));
-        ListPreference listPref = (ListPreference) pref;
-        if (sharedPreferences.contains(notificationPosition)) {
-            listPref.setValueIndex(0);
-            pref.setSummary(listPref.getEntry());
-        }
-        if (sharedPreferences.contains(notificationPosition)) {
-            listPref.setValueIndex(1);
-            pref.setSummary(listPref.getEntry());
-        }
-        if (sharedPreferences.contains(notificationPosition)) {
-            listPref.setValueIndex(2);
-            pref.setSummary(listPref.getEntry());
-        }
-        if (sharedPreferences.contains(notificationPosition)) {
-            listPref.setValueIndex(3);
-            pref.setSummary(listPref.getEntry());
-        }
-
         //Version
         pref = findPreference(getResources().getString(R.string.settings_key_version));
         PackageManager manager = this.getPackageManager();
@@ -254,7 +229,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         finish();
         alarm.close(context);
         editor.putInt(notificationPosition, 0);
-        editor.putInt(notificationStatus, 0);
         editor.commit();
     }
 }

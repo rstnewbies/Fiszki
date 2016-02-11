@@ -5,7 +5,7 @@
     />
     <ListPreference
         android:title="@string/settings_title_notification"
-        android:summary=""
+        android:summary="%s"
         android:defaultValue="@string/frequency_0"
         android:key="@string/settings_key_notification"
         android:entries="@array/notification_frequency"

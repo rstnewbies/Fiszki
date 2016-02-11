@@ -36,7 +36,6 @@ public class AddWordActivity extends AppCompatActivity {
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
     public String notificationPosition = "notification_time";
-    public String notificationStatus = "notification";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +76,6 @@ public class AddWordActivity extends AppCompatActivity {
                 if (flashcardManagement.isFirst()) {
                     alarm.start(context, 15);
                     editor.putInt(notificationPosition, 3);
-                    editor.putInt(notificationStatus, 1);
                     editor.commit();
                     alert.buildAlert(
                             this.getString(R.string.alert_title_pass),
@@ -108,7 +106,6 @@ public class AddWordActivity extends AppCompatActivity {
                         if (flashcardManagement.isFirst()) {
                             alarm.start(context, 15);
                             editor.putInt(notificationPosition, 3);
-                            editor.putInt(notificationStatus, 1);
                             editor.commit();
                             alert.buildAlert(
                                     AddWordActivity.this.getString(R.string.alert_title_pass),
