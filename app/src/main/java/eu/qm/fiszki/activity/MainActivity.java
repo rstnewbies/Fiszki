@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -68,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
     Flashcard selectedFlashcard;
     private FlashcardManagement flashcardManagement;
     private ListViewManagement listViewManagement;
+    public SharedPreferences sharedPreferences;
+    public SharedPreferences.Editor editor;
+    public String notificationPosition = "notification_time";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         openDataBase.openDB(myDb);
         listViewManagement = new ListViewManagement(listView);
         flashcardManagement = new FlashcardManagement(context);
+
 
         transform = new DBTransform(myDb, context);
 
@@ -333,7 +338,8 @@ public class MainActivity extends AppCompatActivity {
                     listView.setVisibility(View.INVISIBLE);
                     fab.show();
 
-                    //tu zmiana czasu na 0
+                    editor.putInt(notificationPosition, 0);
+                    editor.commit();
 
                     alarm.close(context);
                     Snackbar snackbar = Snackbar
