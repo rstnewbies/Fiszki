@@ -43,7 +43,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public DBStatus openDataBase = new DBStatus();
     public int time = 15;
     public Alert alert;
-    public String notificationPosition = "notification_time";
+    public static String notificationPosition = "notification_time";
     private AlertDialog.Builder builder;
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;

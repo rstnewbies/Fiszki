@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     private ListViewManagement listViewManagement;
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
-    public String notificationPosition = "notification_time";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
         listViewManagement = new ListViewManagement(listView);
         flashcardManagement = new FlashcardManagement(context);
 
+        sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         transform = new DBTransform(myDb, context);
 
@@ -338,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
                     listView.setVisibility(View.INVISIBLE);
                     fab.show();
 
-                    editor.putInt(notificationPosition, 0);
+                    editor.putInt(SettingsActivity.notificationPosition, 0);
                     editor.commit();
 
                     alarm.close(context);
