@@ -339,10 +339,9 @@ public class MainActivity extends AppCompatActivity {
                     emptyDBText.setVisibility(View.VISIBLE);
                     listView.setVisibility(View.INVISIBLE);
                     fab.show();
-
+                    toolbarMainActivity();
                     editor.putInt(SettingsActivity.notificationPosition, 0);
                     editor.commit();
-
                     alarm.close(context);
                     Snackbar snackbar = Snackbar
                             .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
