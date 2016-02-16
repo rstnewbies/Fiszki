@@ -54,16 +54,16 @@ public class CheckActivity extends AppCompatActivity {
         Cursor c = myDb.getAllRows();
         alert = new Alert();
         context = this;
-        algorithm = new Algorithm(this);
+        algorithm = new Algorithm(context);
         flashcardManagement = new FlashcardManagement(context);
 
-        if (flashcardManagement.getAllFlashcards().size()<1) {
+        if (flashcardManagement.getAllFlashcards().size()<=0) {
             alert.emptyBase(context, getString(R.string.main_activity_empty_base_main_layout),
                     getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
 
         } else {
 
-            flashcard = algorithm.drawCardAlgorithm();
+            flashcard = flashcardManagement.getRandomFlashacrd();
 
                 wordFromData = flashcard.getWord();
                 expectedWord = flashcard.getTranslation();

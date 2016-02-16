@@ -76,7 +76,7 @@ public class FlashcardManagement {
         flashcardDao.update(flashcard);
     }
 
-    public ArrayList<Flashcard> getFlashcardsByPriority(int priority){
+    public ArrayList<Flashcard> getFlashcardsByPriority(int priority) {
 
         ArrayList<Flashcard> flashcardListByPriority = new ArrayList<Flashcard>();
         ArrayList<Flashcard> flashcardList = getAllFlashcards();
@@ -90,10 +90,16 @@ public class FlashcardManagement {
         return flashcardListByPriority;
     }
 
-    public Flashcard getRandomFlashcardByPririty(int priority){
+    public Flashcard getRandomFlashcardByPririty(int priority) {
         Random generator = new Random();
         ArrayList<Flashcard> flashcards = getFlashcardsByPriority(priority);
-        Flashcard flashcard = flashcards.get(generator.nextInt(flashcards.size())+1);
+        Flashcard flashcard = flashcards.get(generator.nextInt(flashcards.size()));
         return flashcard;
+    }
+
+    public Flashcard getRandomFlashacrd(){
+        Random generator = new Random();
+        ArrayList<Flashcard> flashcards = getAllFlashcards();
+        return flashcards.get(generator.nextInt(flashcards.size()));
     }
 }

@@ -340,7 +340,9 @@ public class MainActivity extends AppCompatActivity {
                     listView.setVisibility(View.INVISIBLE);
                     fab.show();
                     toolbarMainActivity();
+                    editor.clear();
                     editor.putInt(SettingsActivity.notificationPosition, 0);
+
                     editor.commit();
                     alarm.close(context);
                     Snackbar snackbar = Snackbar

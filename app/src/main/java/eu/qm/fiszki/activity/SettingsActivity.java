@@ -118,13 +118,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 ListPreference listPref = (ListPreference) pref;
 
                 //FOR NEVER
-                if (listPref.getValue().equals(getResources().getString(R.string.frequency_0))) {
+                if (listPref.getValue().equals(getResources().getString(R.string.frequency_0)) ||
+                        flashcardManagement.getAllFlashcards().size()<=0) {
                     alarm.close(context);
                     time = 0;
                     pref.setSummary(listPref.getEntry());
+                    editor.clear();
                     editor.putInt(notificationPosition, 0);
                     editor.commit();
-                    alarm.start(context, time);
                 }else
                     //FOR 1 min
                     if (listPref.getValue().equals(getResources().getString(R.string.frequency_1)) &&
@@ -132,6 +133,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                         alarm.close(context);
                         time = 1;
                         pref.setSummary(listPref.getEntry());
+                        editor.clear();
                         editor.putInt(notificationPosition, 1);
                         editor.commit();
                         alarm.start(context, time);
@@ -142,6 +144,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                             alarm.close(context);
                             time = 5;
                             pref.setSummary(listPref.getEntry());
+                            editor.clear();
                             editor.putInt(notificationPosition, 2);
                             editor.commit();
                             alarm.start(context, time);
@@ -152,6 +155,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                                 alarm.close(context);
                                 time = 15;
                                 pref.setSummary(listPref.getEntry());
+                                editor.clear();
                                 editor.putInt(notificationPosition, 3);
                                 editor.commit();
                                 alarm.start(context, time);
@@ -162,6 +166,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                                     alarm.close(context);
                                     time = 30;
                                     pref.setSummary(listPref.getEntry());
+                                    editor.clear();
                                     editor.putInt(notificationPosition, 4);
                                     editor.commit();
                                     alarm.start(context, time);
@@ -172,6 +177,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                                             context.getString(R.string.button_action_ok),
                                             SettingsActivity.this);
                                     listPref.setValue(getResources().getString(R.string.frequency_0));
+                                    editor.clear();
+                                    editor.putInt(notificationPosition, 0);
+                                    editor.commit();
+                                    alarm.close(context);
                                 }
             }
     }

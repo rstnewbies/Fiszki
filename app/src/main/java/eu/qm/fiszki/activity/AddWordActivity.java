@@ -75,6 +75,7 @@ public class AddWordActivity extends AppCompatActivity {
                 flashcardManagement.addFlashcards(flashcard);
                 if (flashcardManagement.isFirst()) {
                     alarm.start(context, 15);
+                    editor.clear();
                     editor.putInt(SettingsActivity.notificationPosition, 3);
                     editor.commit();
                     alert.buildAlert(
@@ -105,6 +106,7 @@ public class AddWordActivity extends AppCompatActivity {
                         flashcardManagement.addFlashcards(flashcard);
                         if (flashcardManagement.isFirst()) {
                             alarm.start(context, 15);
+                            editor.clear();
                             editor.putInt(SettingsActivity.notificationPosition, 3);
                             editor.commit();
                             alert.buildAlert(
