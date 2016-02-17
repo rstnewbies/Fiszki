@@ -13,7 +13,7 @@ public class Rules {
     Alert alert = new Alert();
     FlashcardManagement flashcardManagement;
 
-    public boolean addNewWord(EditText editText, EditText editText2, Activity activity) {
+    public boolean addNewWordRule(EditText editText, EditText editText2, Activity activity) {
         flashcardManagement = new FlashcardManagement(activity.getBaseContext());
         if (editText.getText().toString().isEmpty() || editText2.getText().toString().isEmpty()) {
             alert.buildAlert(activity.getString(R.string.alert_title),
