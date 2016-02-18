@@ -279,6 +279,7 @@ public class MainActivity extends AppCompatActivity {
                         pastView.setBackgroundColor(getResources().getColor(R.color.default_color));
                         fab.show();
                         listViewPopulate();
+                        toolbarMainActivity();
                         dialog.dismiss();
 
                     } else {
@@ -291,6 +292,7 @@ public class MainActivity extends AppCompatActivity {
                             flashcardManagement.updateFlashcard(selectedFlashcard);
                             fab.show();
                             listViewPopulate();
+                            toolbarMainActivity();
                             dialog.dismiss();
 
                         }
