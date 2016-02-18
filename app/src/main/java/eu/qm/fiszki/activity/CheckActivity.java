@@ -60,7 +60,7 @@ public class CheckActivity extends AppCompatActivity {
 
         } else {
 
-            flashcard = flashcardManagement.getRandomFlashacrd();
+            flashcard = algorithm.drawCardAlgorithm();
 
             wordFromData = flashcard.getWord();
             expectedWord = flashcard.getTranslation();

@@ -34,7 +34,7 @@ public class Algorithm {
         Flashcard flashcard = null;
 
         for(int i=0; i<5; i++) {
-            ArrayList<Flashcard> flashcardsList = flashcardManagement.getFlashcardsByPriority(i);
+            ArrayList<Flashcard> flashcardsList = flashcardManagement.getFlashcardsByPriority(i+1);
             int count = flashcardsList.size();
             totalPoints[i] = count * points[i];
             if(i <= 0) {

@@ -130,14 +130,8 @@ public class LearningModeActivity extends AppCompatActivity {
                 keyboard.showSoftInput(enteredWord, 0);
             }
         }, 0);
-        int count = flashcardManagement.getAllFlashcards().size();
-        if (position < count) {
-            flashcard = algorithm.simple(position);
-            position++;
-        } else {
-            position = 0;
-            flashcard = algorithm.simple(position);
-        }
+
+        flashcard = algorithm.drawCardAlgorithm();
 
         word.setText("");
         wordFromData = flashcard.getWord();

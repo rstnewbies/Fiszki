@@ -140,15 +140,7 @@ public class ExamModeActivity extends AppCompatActivity {
             enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
             word.setText("");
 
-            int count = flashcardManagement.getAllFlashcards().size();
-            if (position < count) {
-                flashcard = algorithm.simple(position);
-                position++;
-            } else {
-                position = 0;
-                flashcard = algorithm.simple(position);
-                position++;
-            }
+            flashcard = algorithm.drawCardAlgorithm();
 
             wordFromData = flashcard.getWord();
             word.append(wordFromData);
