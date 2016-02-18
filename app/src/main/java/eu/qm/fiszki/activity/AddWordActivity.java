@@ -69,7 +69,7 @@ public class AddWordActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_add_new_word) {
-            if (rules.addNewWord(inputWord, inputTranslation, this)) {
+            if (rules.addNewWordRule(inputWord, inputTranslation, this)) {
                 Flashcard flashcard = new Flashcard(inputWord.getText().toString(),
                         inputTranslation.getText().toString(), 1);
                 flashcardManagement.addFlashcards(flashcard);
@@ -100,7 +100,7 @@ public class AddWordActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    if (rules.addNewWord(inputWord, inputTranslation, AddWordActivity.this)) {
+                    if (rules.addNewWordRule(inputWord, inputTranslation, AddWordActivity.this)) {
                         Flashcard flashcard = new Flashcard(inputWord.getText().toString(),
                                 inputTranslation.getText().toString(), 1);
                         flashcardManagement.addFlashcards(flashcard);
