@@ -21,10 +21,9 @@ import android.widget.TextView;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.Algorithm;
-import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.database.DBAdapter;
-import eu.qm.fiszki.database.DBModel;
 import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardManagement;
@@ -49,7 +48,7 @@ public class ExamModeActivity extends AppCompatActivity {
     int falseAnswer=0;
     String wordFromData;
     String expectedWord;
-    Checker check;
+    Rules rules;
     Alert message;
     Context context;
     Cursor c;
@@ -67,7 +66,7 @@ public class ExamModeActivity extends AppCompatActivity {
         choosePacked();
         context = this;
         message = new Alert();
-        check = new Checker();
+        rules = new Rules();
         algorithm = new Algorithm(context);
         flashcardManagement = new FlashcardManagement(context);
     }
@@ -89,7 +88,7 @@ public class ExamModeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_OK) {
-            if (check.Check(expectedWord, enteredWord.getText().toString())) {
+            if (rules.Check(expectedWord, enteredWord.getText().toString())) {
                 trueAnswer++;
                 repeat++;
                 newDraw();
@@ -110,7 +109,7 @@ public class ExamModeActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    if (check.Check(expectedWord, enteredWord.getText().toString())) {
+                    if (rules.Check(expectedWord, enteredWord.getText().toString())) {
                         trueAnswer++;
                         repeat++;
                         newDraw();

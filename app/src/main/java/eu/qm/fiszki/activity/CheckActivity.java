@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.Algorithm;
-import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.model.Flashcard;
@@ -103,9 +103,9 @@ public class CheckActivity extends AppCompatActivity {
         mi = item;
         id = R.id.action_OK;
         Alert message = new Alert();
-        Checker check = new Checker();
+        Rules rules = new Rules();
         if (id == R.id.action_OK) {
-            if (check.Check(expectedWord, enteredWord.getText().toString())) {
+            if (rules.Check(expectedWord, enteredWord.getText().toString())) {
                 message.pass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.button_action_ok));
 
                 if (rowPriority < 5 && firstTry) {
