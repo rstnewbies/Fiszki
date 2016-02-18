@@ -1,10 +1,7 @@
 package eu.qm.fiszki.activity;
 
 
-import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,31 +19,22 @@ import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.AppCompatPreferenceActivity;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.database.DBAdapter;
-import eu.qm.fiszki.database.DBModel;
-import eu.qm.fiszki.database.DBStatus;
-import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardManagement;
 
 public class SettingsActivity extends AppCompatPreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private FlashcardManagement flashcardManagement;
+    public static String notificationPosition = "notification_time";
     public Preference cleanerDataBase;
     public Preference pref;
-    public PendingIntent pendingIntent;
     public AlarmReceiver alarm;
-    public AlarmManager manager;
-    public Intent alarmIntent;
     public Context context;
-    public DBAdapter myDb = new DBAdapter(this);
-    public DBStatus openDataBase = new DBStatus();
     public int time = 15;
     public Alert alert;
-    public static String notificationPosition = "notification_time";
-    private AlertDialog.Builder builder;
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
+    private FlashcardManagement flashcardManagement;
+    private AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +60,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         sync();
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -83,7 +72,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            Intent home = new Intent(this,MainActivity.class);
+            Intent home = new Intent(this, MainActivity.class);
             startActivity(home);
             finish();
             return true;
@@ -93,12 +82,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK)
-            {
-                Intent home = new Intent(this,MainActivity.class);
-                startActivity(home);
-                finish();
-            }
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent home = new Intent(this, MainActivity.class);
+            startActivity(home);
+            finish();
+        }
         return super.onKeyDown(keyCode, event);
     }
 
@@ -113,79 +101,102 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         pref = findPreference(key);
 
-            //FOR ListPreference
-            if (pref instanceof ListPreference) {
-                ListPreference listPref = (ListPreference) pref;
+        //FOR ListPreference
+        if (pref instanceof ListPreference) {
+            ListPreference listPref = (ListPreference) pref;
 
-                //FOR NEVER
-                if (listPref.getValue().equals(getResources().getString(R.string.frequency_0)) ||
-                        flashcardManagement.getAllFlashcards().size()<=0) {
+            //FOR NEVER
+            if (listPref.getValue().equals(getResources().getString(R.string.frequency_0)) ||
+                    flashcardManagement.getAllFlashcards().size() <= 0) {
+                alarm.close(context);
+                time = 0;
+                pref.setSummary(listPref.getEntry());
+                editor.clear();
+                editor.putInt(notificationPosition, 0);
+                editor.commit();
+            } else
+                //FOR 1 min
+                if (listPref.getValue().equals(getResources().getString(R.string.frequency_1)) &&
+                        flashcardManagement.getAllFlashcards().size() > 0) {
                     alarm.close(context);
-                    time = 0;
+                    time = 1;
                     pref.setSummary(listPref.getEntry());
                     editor.clear();
-                    editor.putInt(notificationPosition, 0);
+                    editor.putInt(notificationPosition, 1);
                     editor.commit();
-                }else
-                    //FOR 1 min
-                    if (listPref.getValue().equals(getResources().getString(R.string.frequency_1)) &&
-                            flashcardManagement.getAllFlashcards().size()>0) {
+                    alarm.start(context, time);
+                } else
+                    //FOR 5 min
+                    if (listPref.getValue().equals(getResources().getString(R.string.frequency_5)) &&
+                            flashcardManagement.getAllFlashcards().size() > 0) {
                         alarm.close(context);
-                        time = 1;
+                        time = 5;
                         pref.setSummary(listPref.getEntry());
                         editor.clear();
-                        editor.putInt(notificationPosition, 1);
+                        editor.putInt(notificationPosition, 2);
                         editor.commit();
                         alarm.start(context, time);
                     } else
-                        //FOR 5 min
-                        if (listPref.getValue().equals(getResources().getString(R.string.frequency_5)) &&
-                                flashcardManagement.getAllFlashcards().size()>0) {
+                        //FOR 15min
+                        if (listPref.getValue().equals(getResources().getString(R.string.frequency_15)) &&
+                                flashcardManagement.getAllFlashcards().size() > 0) {
                             alarm.close(context);
-                            time = 5;
+                            time = 15;
                             pref.setSummary(listPref.getEntry());
                             editor.clear();
-                            editor.putInt(notificationPosition, 2);
+                            editor.putInt(notificationPosition, 3);
                             editor.commit();
                             alarm.start(context, time);
                         } else
-                            //FOR 15min
-                            if (listPref.getValue().equals(getResources().getString(R.string.frequency_15)) &&
-                                    flashcardManagement.getAllFlashcards().size()>0) {
+                            //FOR 30
+                            if (listPref.getValue().equals(getResources().getString(R.string.frequency_30)) &&
+                                    flashcardManagement.getAllFlashcards().size() > 0) {
                                 alarm.close(context);
-                                time = 15;
+                                time = 30;
                                 pref.setSummary(listPref.getEntry());
                                 editor.clear();
-                                editor.putInt(notificationPosition, 3);
+                                editor.putInt(notificationPosition, 4);
                                 editor.commit();
                                 alarm.start(context, time);
-                            } else
-                                //FOR 30
-                                if (listPref.getValue().equals(getResources().getString(R.string.frequency_30)) &&
-                                        flashcardManagement.getAllFlashcards().size()>0)  {
-                                    alarm.close(context);
-                                    time = 30;
-                                    pref.setSummary(listPref.getEntry());
-                                    editor.clear();
-                                    editor.putInt(notificationPosition, 4);
-                                    editor.commit();
-                                    alarm.start(context, time);
-                                } else {
-                                    alert.buildAlert(
-                                            context.getString(R.string.alert_notification_change_title),
-                                            context.getString(R.string.alert_notification_change_message),
-                                            context.getString(R.string.button_action_ok),
-                                            SettingsActivity.this);
-                                    listPref.setValue(getResources().getString(R.string.frequency_0));
-                                    editor.clear();
-                                    editor.putInt(notificationPosition, 0);
-                                    editor.commit();
-                                    alarm.close(context);
-                                }
-            }
+                            } else {
+                                alert.buildAlert(
+                                        context.getString(R.string.alert_notification_change_title),
+                                        context.getString(R.string.alert_notification_change_message),
+                                        context.getString(R.string.button_action_ok),
+                                        SettingsActivity.this);
+                                listPref.setValue(getResources().getString(R.string.frequency_0));
+                                editor.clear();
+                                editor.putInt(notificationPosition, 0);
+                                editor.commit();
+                                alarm.close(context);
+                            }
+        }
     }
 
     public void sync() {
+        //Notification
+        pref = findPreference(getResources().getString(R.string.settings_key_notification));
+        ListPreference listPref = (ListPreference) pref;
+        if (sharedPreferences.getInt(notificationPosition, 0) == 0) {
+            listPref.setValueIndex(0);
+            pref.setSummary(listPref.getEntry());
+        }
+        if (sharedPreferences.getInt(notificationPosition, 0) == 1) {
+            listPref.setValueIndex(1);
+            pref.setSummary(listPref.getEntry());
+        }
+        if (sharedPreferences.getInt(notificationPosition, 0) == 2) {
+            listPref.setValueIndex(2);
+            pref.setSummary(listPref.getEntry());
+        }
+        if (sharedPreferences.getInt(notificationPosition, 0) == 3) {
+            listPref.setValueIndex(3);
+            pref.setSummary(listPref.getEntry());
+        }
+        if (sharedPreferences.getInt(notificationPosition, 0) == 4) {
+            listPref.setValueIndex(4);
+            pref.setSummary(listPref.getEntry());
+        }
         //Version
         pref = findPreference(getResources().getString(R.string.settings_key_version));
         PackageManager manager = this.getPackageManager();
@@ -200,9 +211,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
         //Clear database
         cleanerDataBase = findPreference(getResources().getString(R.string.settings_key_data_base));
-        if(flashcardManagement.getAllFlashcards().size()>0){
+        if (flashcardManagement.getAllFlashcards().size() > 0) {
             cleanerDataBase.setEnabled(true);
-        }else{
+        } else {
             cleanerDataBase.setEnabled(false);
         }
     }
