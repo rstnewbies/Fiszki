@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -25,53 +24,46 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.Arrays;
-
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
-import eu.qm.fiszki.ItemAdapter;
 import eu.qm.fiszki.ListViewManagement;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
-import eu.qm.fiszki.database.DBModel;
+import eu.qm.fiszki.database.DBHelper;
 import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.database.DBTransform;
+import eu.qm.fiszki.model.Category;
+import eu.qm.fiszki.model.CategoryManagement;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardManagement;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    static public SettingsActivity settings;
     static public DBAdapter myDb;
     static public DBStatus openDataBase;
     static public Alert alert;
-    static public ItemAdapter flashCardList;
     static public ImageView emptyDBImage;
     static public TextView emptyDBText;
     static public Context context;
     static public ListView listView;
     static public FloatingActionButton fab;
     static public View selectedView;
-    static public int earlierPosition, selectPosition;
-    static public ItemAdapter editedItem;
     static public Dialog dialog;
     static public EditText editOriginal;
     static public EditText editTranslate;
     static public Button dialogButton;
-    public boolean[] clickedItem;
-    public int rowId;
     public AlarmReceiver alarm;
     public Toolbar toolbar;
-    DBTransform transform;
-    private Flashcard deletedFlashcard;
-    View pastView;
-    Flashcard selectedFlashcard;
-    private FlashcardManagement flashcardManagement;
-    private ListViewManagement listViewManagement;
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
-
+    DBTransform transform;
+    View pastView;
+    Flashcard selectedFlashcard;
+    private Flashcard deletedFlashcard;
+    private FlashcardManagement flashcardManagement;
+    private ListViewManagement listViewManagement;
+    private CategoryManagement categoryManagement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         openDataBase.openDB(myDb);
         listViewManagement = new ListViewManagement(listView);
         flashcardManagement = new FlashcardManagement(context);
+        categoryManagement = new CategoryManagement(context);
 
         sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -107,7 +100,18 @@ public class MainActivity extends AppCompatActivity {
 
         toolbarMainActivity();
         listViewSelect();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(!categoryManagement.existCategory(DBHelper.addCategoryName) ||
+                !categoryManagement.existCategory(DBHelper.firstCategoryName)) {
+            Category firstCategory = new Category(0, DBHelper.firstCategoryName);
+            categoryManagement.addCategory(firstCategory);
+            Category addCategory = new Category(0, DBHelper.addCategoryName);
+            categoryManagement.addCategory(addCategory);
+        }
     }
 
     @Override
@@ -283,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
                         dialog.dismiss();
 
                     } else {
-                        if (flashcardManagement.existence(selectedFlashcard.getWord())) {
+                        if (!flashcardManagement.existence(selectedFlashcard.getWord())) {
                             alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.button_action_ok), MainActivity.this);
                             editOriginal.requestFocus();
                         } else {

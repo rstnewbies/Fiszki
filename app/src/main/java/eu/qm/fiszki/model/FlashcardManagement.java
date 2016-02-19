@@ -97,7 +97,7 @@ public class FlashcardManagement {
         return flashcard;
     }
 
-    public Flashcard getRandomFlashacrd(){
+    public Flashcard getRandomFlashacrd() {
         Random generator = new Random();
         ArrayList<Flashcard> flashcards = getAllFlashcards();
         return flashcards.get(generator.nextInt(flashcards.size()));

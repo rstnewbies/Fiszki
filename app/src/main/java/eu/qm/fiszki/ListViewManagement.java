@@ -17,8 +17,6 @@ import eu.qm.fiszki.model.Flashcard;
 public class ListViewManagement {
 
     ListView listView;
-    View pastView;
-    Flashcard selectedFlashcard;
     MainActivity mainActivity;
 
 

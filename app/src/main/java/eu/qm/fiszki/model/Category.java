@@ -18,6 +18,9 @@ public class Category implements Serializable {
         this.id = id;
         this.category = category;
     }
+    public Category(String category) {
+        this.category = category;
+    }
 
     public int getId() {
         return id;
@@ -34,4 +37,6 @@ public class Category implements Serializable {
     public void setCategory(String category) {
         this.category = category;
     }
+
+
 }

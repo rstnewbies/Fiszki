@@ -51,4 +51,14 @@
         android:inputType="textMultiLine"
         android:imeOptions="actionDone" />
 
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/CategorySpinner"
+        android:layout_below="@+id/inputTranslation"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="28dp"
+        android:spinnerMode="dropdown" />
+
 </RelativeLayout>
