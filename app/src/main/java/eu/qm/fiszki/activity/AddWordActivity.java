@@ -68,13 +68,13 @@ public class AddWordActivity extends AppCompatActivity {
         categorySpinner = (Spinner) findViewById(R.id.CategorySpinner);
         categoryManagement = new CategoryManagement(context);
 
-        categorySpinnerManagement = new CategorySpinnerManagement(categorySpinner);
-        categorySpinnerManagement.selectedSpinner(context);
+        categorySpinnerManagement = new CategorySpinnerManagement(categorySpinner,context);
+        categorySpinnerManagement.selectedSpinner(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         clickDone();
-        entriesSpinner();
+        categorySpinnerManagement.populateSpinner();
     }
 
     @Override
@@ -144,23 +144,6 @@ public class AddWordActivity extends AppCompatActivity {
         });
     }
 
-    public void entriesSpinner() {
-        ArrayList<Category> categories = categoryManagement.getAllCategory();
-        List<String> list = new ArrayList<String>();
-        int x = 0;
-        do {
-            if (categories.get(x).getCategory().equals(DBHelper.firstCategoryName)) {
-                list.add(getString(R.string.add_new_word_no_category));
-            } else if (categories.get(x).getCategory().equals(DBHelper.addCategoryName)) {
-                list.add(getString(R.string.add_new_word_add_category));
-            } else {
-                list.add(categories.get(x).getCategory());
-            }
-            x++;
-        } while (x != categories.size());
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, list);
-        categorySpinner.setAdapter(dataAdapter);
-    }
+
 
 }

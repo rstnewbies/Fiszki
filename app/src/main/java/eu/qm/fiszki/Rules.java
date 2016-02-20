@@ -2,7 +2,9 @@ package eu.qm.fiszki;
 
 import android.app.Activity;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import eu.qm.fiszki.model.CategoryManagement;
 import eu.qm.fiszki.model.FlashcardManagement;
 
 /**
@@ -12,6 +14,7 @@ public class Rules {
 
     Alert alert = new Alert();
     FlashcardManagement flashcardManagement;
+    CategoryManagement categoryManagement;
 
     public boolean addNewWordRule(EditText editText, EditText editText2, Activity activity) {
         flashcardManagement = new FlashcardManagement(activity.getBaseContext());
@@ -33,8 +36,9 @@ public class Rules {
         return true;
     }
 
-    public Boolean Check(String originalWord, String enteredWord) {
+    public boolean check(String originalWord, String enteredWord) {
         if (originalWord.compareTo(enteredWord) == 0) return true;
         else return false;
     }
+
 }

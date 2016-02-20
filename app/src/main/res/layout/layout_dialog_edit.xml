@@ -43,13 +43,10 @@
             android:inputType="textImeMultiLine"/>
 
         <Button
-            android:layout_width="50dp"
-            android:background="@color/White"
-            android:layout_height="36dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/button_action_ok"
-            android:id="@+id/editButton"
-            android:clickable="false"
-            android:textColor="@color/edit_button"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_below="@+id/editTranslate"
             android:layout_marginTop="32dp"
             android:layout_alignParentRight="true"
@@ -60,6 +57,7 @@
             android:layout_marginRight="8dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="8dp"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:id="@+id/editButton"/>
     </RelativeLayout>
 </LinearLayout>

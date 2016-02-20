@@ -9,5 +9,6 @@
     <string name="add_new_word_category">Kategoria</string>
     <string name="add_new_word_no_category">Bez kategori</string>
     <string name="add_new_word_add_category">Dodaj nową kategorie</string>
+    <string name="add_new_word_category_toast">Nowa kategoria została stworzona</string>
 
 </resources>

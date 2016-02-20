@@ -9,5 +9,7 @@
     <string name="add_new_word_category">Category</string>
     <string name="add_new_word_no_category">No Category</string>
     <string name="add_new_word_add_category">Add new category</string>
+    <string name="add_new_word_category_toast">New category has been created</string>
+
 
 </resources>

@@ -55,10 +55,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/CategorySpinner"
-        android:layout_below="@+id/inputTranslation"
+        android:spinnerMode="dropdown"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="28dp"
-        android:spinnerMode="dropdown" />
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/add_new_word_category"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/inputTranslation"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="28dp" />
 
 </RelativeLayout>
