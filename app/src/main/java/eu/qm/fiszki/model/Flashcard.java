@@ -14,25 +14,25 @@ public class Flashcard implements Serializable {
     private String translation;
     @DatabaseField
     private int priority;
-    @DatabaseField(foreign = true)
-    private Category category;
+    @DatabaseField
+    private int categoryID;
 
     public Flashcard() {
     }
 
-    public Flashcard (int id, String word, String translation, int priority, Category category) {
+    public Flashcard (int id, String word, String translation, int priority, int categoryID) {
         this.id = id;
         this.word = word;
         this.translation = translation;
         this.priority = priority;
-        this.category = category;
+        this.categoryID = categoryID;
     }
 
-    public Flashcard (String word, String translation, int priority,  Category category) {
+    public Flashcard (String word, String translation, int priority, int categoryID) {
         this.word = word;
         this.translation = translation;
         this.priority = priority;
-        this.category = category;
+        this.categoryID = categoryID;
     }
 
     public int getId() {
@@ -67,12 +67,12 @@ public class Flashcard implements Serializable {
         this.translation = translation;
     }
 
-    public Category getCategory() {
-        return category;
+    public int getCategory() {
+        return categoryID;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategory(int categoryID) {
+        this.categoryID = categoryID;
     }
 }
 

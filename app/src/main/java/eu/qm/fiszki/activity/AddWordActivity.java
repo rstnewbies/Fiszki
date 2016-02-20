@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +91,7 @@ public class AddWordActivity extends AppCompatActivity {
             if (rules.addNewWordRule(inputWord, inputTranslation, this)) {
                 Flashcard flashcard = new Flashcard(inputWord.getText().toString(),
                         inputTranslation.getText().toString(), 1,
-                        categorySpinnerManagement.getSelectedCategory());
+                        categorySpinnerManagement.getSelectedCategoryID());
                 flashcardManagement.addFlashcards(flashcard);
                 if (flashcardManagement.isFirst()) {
                     alarm.start(context, 15);
@@ -122,7 +123,7 @@ public class AddWordActivity extends AppCompatActivity {
                     if (rules.addNewWordRule(inputWord, inputTranslation, AddWordActivity.this)) {
                         Flashcard flashcard = new Flashcard(inputWord.getText().toString(),
                                 inputTranslation.getText().toString(), 1,
-                                categorySpinnerManagement.getSelectedCategory());
+                                categorySpinnerManagement.getSelectedCategoryID());
                         flashcardManagement.addFlashcards(flashcard);
                         if (flashcardManagement.isFirst()) {
                             alarm.start(context, 15);

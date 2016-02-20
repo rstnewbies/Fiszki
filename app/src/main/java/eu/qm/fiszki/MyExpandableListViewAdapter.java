@@ -21,7 +21,6 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
     private ArrayList<ArrayList<Flashcard>> sortedFlashcards;
     private ArrayList<Flashcard> flashcards;
     private ArrayList<Category> categories;
-    private Flashcard flashcard;
     private Activity activity;
     private LayoutInflater inflater;
 
@@ -38,9 +37,20 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(final int groupPosition, final int childPosition, final boolean isLastChild, View convertView, final ViewGroup parent) {
 
-        flashcards = sortedFlashcards.get(childPosition);
-        convertView = inflater.inflate(R.layout.empty_group, null);
-        convertView.setClickable(true);
+        flashcards = (ArrayList<Flashcard>) sortedFlashcards.get(groupPosition);
+        TextView textWord = null;
+        TextView textTranslation = null;
+        if (flashcards.get(0).getWord().equals(ListManagement.emptyFlashcard)) {
+            convertView = inflater.inflate(R.layout.empty_group, null);
+            convertView.setClickable(true);
+        } else {
+            convertView = inflater.inflate(R.layout.group, null);
+            textTranslation = (TextView) convertView.findViewById(R.id.translation);
+            textWord = (TextView) convertView.findViewById(R.id.word);
+            textTranslation.setText(flashcards.get(childPosition).getTranslation());
+            textWord.setText(flashcards.get(childPosition).getWord());
+            convertView.setClickable(false);
+        }
         convertView.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
         return convertView;
     }

@@ -103,12 +103,12 @@ public class FlashcardManagement {
         return flashcards.get(generator.nextInt(flashcards.size()));
     }
 
-    public ArrayList<Flashcard> getFlashcardsByCategory(Category category) {
+    public ArrayList<Flashcard> getFlashcardsByCategoryID(int CategoryID) {
         ArrayList<Flashcard> flashcardListByCategory = new ArrayList<Flashcard>();
         ArrayList<Flashcard> flashcardList = getAllFlashcards();
 
         for (Flashcard flashcard : flashcardList) {
-            if (flashcard.getCategory() == category) {
+            if (flashcard.getCategory() == CategoryID) {
                 flashcardListByCategory.add(flashcard);
             }
         }

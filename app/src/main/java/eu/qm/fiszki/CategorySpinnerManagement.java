@@ -109,7 +109,12 @@ public class CategorySpinnerManagement {
         });
     }
 
-    public Category getSelectedCategory(){
-       return categoryManagement.getCategoryByName(spinner.getSelectedItem().toString());
+    public int getSelectedCategoryID(){
+        if(spinner.getSelectedItemPosition()==0){
+            return 1;
+        }
+        String categoryNameFromSpinner = spinner.getSelectedItem().toString();
+        Category category = categoryManagement.getCategoryByName(categoryNameFromSpinner);
+       return category.getId();
     }
 }

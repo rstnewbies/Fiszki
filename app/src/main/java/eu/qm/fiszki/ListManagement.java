@@ -7,7 +7,6 @@ import android.widget.ExpandableListView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryManagement;
@@ -19,6 +18,7 @@ import eu.qm.fiszki.model.FlashcardManagement;
  */
 public class ListManagement {
 
+    public static final String emptyFlashcard = "ITISEMPTYCATEGORY";
     private Activity activity;
     private ListView listView;
     private ExpandableListView expandableListView;
@@ -37,8 +37,7 @@ public class ListManagement {
 
     public void populate() {
         //Uncategory
-        Category uncategory = categoryManagement.getCategoryByID(0);
-        ArrayList<Flashcard> arrayList = flashcardManagement.getFlashcardsByCategory(uncategory);
+        ArrayList<Flashcard> arrayList = flashcardManagement.getFlashcardsByCategoryID(1);
         ItemAdapter adapter = new ItemAdapter(activity.getBaseContext(), R.layout.item_layout, arrayList);
         listView.setAdapter(adapter);
 
@@ -46,8 +45,12 @@ public class ListManagement {
         ArrayList<Category> categories = categoryManagement.getUserCategory();
         ArrayList<ArrayList<Flashcard>> sortedFlashcard = new ArrayList<>();
         for (int x = 0; x<categories.size(); x++){
-            Category category = categoryManagement.getCategoryByID(3);
-            ArrayList<Flashcard> flashcards = flashcardManagement.getFlashcardsByCategory(category);
+            ArrayList<Flashcard> flashcards = flashcardManagement.getFlashcardsByCategoryID(categories.get(x).getId());
+            if(flashcards.size()<=0){
+                flashcards = new ArrayList<Flashcard>();
+                Flashcard emptyflashcard = new Flashcard(emptyFlashcard,null,0,0);
+                flashcards.add(emptyflashcard);
+            }
             sortedFlashcard.add(flashcards);
         }
         adapterExp = new MyExpandableListViewAdapter(sortedFlashcard,categories);

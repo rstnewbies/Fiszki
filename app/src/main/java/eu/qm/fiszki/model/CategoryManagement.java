@@ -33,9 +33,9 @@ public class CategoryManagement {
 
     public Category getCategoryByName(String name) {
         categoryList = (ArrayList<Category>) categoryDao.queryForAll();
-        for (Category categories : categoryList) {
-            if (categories.getCategory().equals(name)) {
-                return categories;
+        for (Category category : categoryList) {
+            if (category.getCategory().equals(name)) {
+                return category;
             }
         }
         return null;

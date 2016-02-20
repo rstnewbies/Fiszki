@@ -24,6 +24,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
@@ -77,20 +78,18 @@ public class MainActivity extends AppCompatActivity {
         openDataBase = new DBStatus();
         myDb = new DBAdapter(this);
         context = this;
-        expandableListView =(ExpandableListView) findViewById(R.id.categoryList);
+        expandableListView = (ExpandableListView) findViewById(R.id.categoryList);
         listView = (ListView) findViewById(R.id.uncategoryList);
         emptyDBImage = (ImageView) findViewById(R.id.emptyDBImage);
         emptyDBText = (TextView) findViewById(R.id.emptyDBText);
         emptyDBImage.setImageResource(R.drawable.emptydb);
         openDataBase.openDB(myDb);
-        listManagement = new ListManagement(listView,expandableListView,this);
+        listManagement = new ListManagement(listView, expandableListView, this);
         flashcardManagement = new FlashcardManagement(context);
         categoryManagement = new CategoryManagement(context);
 
         sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-
-        transform = new DBTransform(myDb, context);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -108,10 +107,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-            Category addCategory = new Category(2, DBHelper.addCategoryName);
-            categoryManagement.addCategory(addCategory);
-            Category firstCategory = new Category(1, DBHelper.uncategory);
-            categoryManagement.addCategory(firstCategory);
+        Category addCategory = new Category(2, DBHelper.addCategoryName);
+        categoryManagement.addCategory(addCategory);
+        Category firstCategory = new Category(1, DBHelper.uncategory);
+        categoryManagement.addCategory(firstCategory);
+        transform = new DBTransform(myDb, context);
     }
 
     @Override
