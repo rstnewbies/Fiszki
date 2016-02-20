@@ -10,20 +10,24 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import eu.qm.fiszki.model.Category;
+import eu.qm.fiszki.model.Flashcard;
+
 /**
  * Created by mBoiler on 19.02.2016.
  */
-public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
+public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
 
+    private ArrayList<ArrayList<Flashcard>> sortedFlashcards;
+    private ArrayList<Flashcard> flashcards;
+    private ArrayList<Category> categories;
+    private Flashcard flashcard;
     private Activity activity;
-    private ArrayList<Object> childtems1, childtems2;
     private LayoutInflater inflater;
-    private ArrayList<String> parentItems, child1, child2;
 
-    public ExpandableListViewAdapter(ArrayList<String> parents, ArrayList<Object> childern1, ArrayList<Object> childern2) {
-        this.parentItems = parents;
-        this.childtems1 = childern1;
-        this.childtems2 = childern2;
+    public MyExpandableListViewAdapter(ArrayList<ArrayList<Flashcard>> sortedFlashcards, ArrayList<Category> categories) {
+        this.sortedFlashcards = sortedFlashcards;
+        this.categories = categories;
     }
 
     public void setInflater(LayoutInflater inflater, Activity activity) {
@@ -34,21 +38,9 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(final int groupPosition, final int childPosition, final boolean isLastChild, View convertView, final ViewGroup parent) {
 
-        child1 = (ArrayList<String>) childtems1.get(groupPosition);
-        child2 = (ArrayList<String>) childtems2.get(groupPosition);
-        TextView textWord = null;
-        TextView textTranslation = null;
-        if (child1.get(childPosition).equals("")) {
-            convertView = inflater.inflate(R.layout.empty_group, null);
-            convertView.setClickable(true);
-        } else {
-            convertView = inflater.inflate(R.layout.group, null);
-            textTranslation = (TextView) convertView.findViewById(R.id.translation);
-            textWord = (TextView) convertView.findViewById(R.id.word);
-            textTranslation.setText(child2.get(childPosition));
-            textWord.setText(child1.get(childPosition));
-            convertView.setClickable(false);
-        }
+        flashcards = sortedFlashcards.get(childPosition);
+        convertView = inflater.inflate(R.layout.empty_group, null);
+        convertView.setClickable(true);
         convertView.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
         return convertView;
     }
@@ -59,7 +51,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.row, null);
         }
-        ((CheckedTextView) convertView).setText(parentItems.get(groupPosition));
+        ((CheckedTextView) convertView).setText(categories.get(groupPosition).getCategory());
         ((CheckedTextView) convertView).setChecked(isExpanded);
         convertView.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
         return convertView;
@@ -77,7 +69,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return ((ArrayList<String>) childtems1.get(groupPosition)).size();
+        return sortedFlashcards.get(groupPosition).size();
     }
 
     @Override
@@ -87,7 +79,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getGroupCount() {
-        return parentItems.size();
+        return categories.size();
     }
 
     @Override
@@ -115,17 +107,4 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-    public String getChildWord(int groupPosition, int childPosition){
-        child1 = (ArrayList<String>) childtems1.get(groupPosition);
-        return child1.get(childPosition);
-    }
-
-    public String getChildTranslate(int groupPosition, int childPosition){
-        child2 = (ArrayList<String>) childtems2.get(groupPosition);
-        return child2.get(childPosition);
-    }
-
-    public String getGroupName(int groupPosition){
-        return parentItems.get(groupPosition);
-    }
 }

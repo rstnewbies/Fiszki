@@ -28,7 +28,7 @@ public class CategoryManagement {
     }
 
     public void addCategory(Category category) {
-        categoryDao.createOrUpdate(category);
+        categoryDao.createIfNotExists(category);
     }
 
     public Category getCategoryByName(String name) {
@@ -41,11 +41,34 @@ public class CategoryManagement {
         return null;
     }
 
-    public boolean existCategory(String name) {
-        if (getCategoryByName(name) != null) {
+    public boolean existCategory(int id) {
+        if (getCategoryByID(id) != null) {
             return true;
         } else {
             return false;
         }
+    }
+
+    public Category getCategoryByID(int id) {
+        categoryList = (ArrayList<Category>) categoryDao.queryForAll();
+        for (Category categories : categoryList) {
+            if (categories.getId() == id) {
+                return categories;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Category> getUserCategory(){
+        ArrayList<Category> categories = new ArrayList<Category>();
+        categoryList = (ArrayList<Category>) categoryDao.queryForAll();
+        for (Category category:categoryList) {
+            if(category.getId()!=1){
+                if(category.getId()!=2) {
+                    categories.add(category);
+                }
+            }
+        }
+        return categories;
     }
 }

@@ -43,9 +43,9 @@ public class CategorySpinnerManagement {
         List<String> list = new ArrayList<String>();
         int x = 0;
         do {
-            if (categories.get(x).getCategory().equals(DBHelper.firstCategoryName)) {
+            if (categories.get(x).getId()==1) {
                 list.add(context.getString(R.string.add_new_word_no_category));
-            } else if (categories.get(x).getCategory().equals(DBHelper.addCategoryName)) {
+            } else if (categories.get(x).getId()==2) {
                 list.add(context.getString(R.string.add_new_word_add_category));
             } else {
                 list.add(categories.get(x).getCategory());
@@ -107,5 +107,9 @@ public class CategorySpinnerManagement {
 
             }
         });
+    }
+
+    public Category getSelectedCategory(){
+       return categoryManagement.getCategoryByName(spinner.getSelectedItem().toString());
     }
 }

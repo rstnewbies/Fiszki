@@ -16,7 +16,7 @@ import eu.qm.fiszki.model.Flashcard;
 
 public class DBHelper extends OrmLiteSqliteOpenHelper {
 
-    public static final String firstCategoryName = "UNCATEGORY";
+    public static final String uncategory = "UNCATEGORY";
     public static final String addCategoryName = "ADDNEWCATEGORY";
     private static final String DATABASE_NAME = "Flashcards.db";
     private static final int DATABASE_VERSION = 1;

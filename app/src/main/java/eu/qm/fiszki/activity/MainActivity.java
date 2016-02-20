@@ -20,13 +20,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
-import eu.qm.fiszki.ListViewManagement;
+import eu.qm.fiszki.ListManagement;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBHelper;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     static public ImageView emptyDBImage;
     static public TextView emptyDBText;
     static public Context context;
+    static public ExpandableListView expandableListView;
     static public ListView listView;
     static public FloatingActionButton fab;
     static public View selectedView;
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     Flashcard selectedFlashcard;
     private Flashcard deletedFlashcard;
     private FlashcardManagement flashcardManagement;
-    private ListViewManagement listViewManagement;
+    private ListManagement listManagement;
     private CategoryManagement categoryManagement;
 
     @Override
@@ -75,12 +77,13 @@ public class MainActivity extends AppCompatActivity {
         openDataBase = new DBStatus();
         myDb = new DBAdapter(this);
         context = this;
-        listView = (ListView) findViewById(R.id.listView);
+        expandableListView =(ExpandableListView) findViewById(R.id.categoryList);
+        listView = (ListView) findViewById(R.id.uncategoryList);
         emptyDBImage = (ImageView) findViewById(R.id.emptyDBImage);
         emptyDBText = (TextView) findViewById(R.id.emptyDBText);
         emptyDBImage.setImageResource(R.drawable.emptydb);
         openDataBase.openDB(myDb);
-        listViewManagement = new ListViewManagement(listView);
+        listManagement = new ListManagement(listView,expandableListView,this);
         flashcardManagement = new FlashcardManagement(context);
         categoryManagement = new CategoryManagement(context);
 
@@ -105,13 +108,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(!categoryManagement.existCategory(DBHelper.addCategoryName) ||
-                !categoryManagement.existCategory(DBHelper.firstCategoryName)) {
-            Category firstCategory = new Category(0, DBHelper.firstCategoryName);
-            categoryManagement.addCategory(firstCategory);
-            Category addCategory = new Category(0, DBHelper.addCategoryName);
+            Category addCategory = new Category(2, DBHelper.addCategoryName);
             categoryManagement.addCategory(addCategory);
-        }
+            Category firstCategory = new Category(1, DBHelper.uncategory);
+            categoryManagement.addCategory(firstCategory);
     }
 
     @Override
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void listViewPopulate() {
         if (flashcardManagement.getAllFlashcards().size() > 0) {
-            listViewManagement.populate(context, flashcardManagement.getAllFlashcards());
+            listManagement.populate();
         }
     }
 

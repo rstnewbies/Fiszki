@@ -102,4 +102,16 @@ public class FlashcardManagement {
         ArrayList<Flashcard> flashcards = getAllFlashcards();
         return flashcards.get(generator.nextInt(flashcards.size()));
     }
+
+    public ArrayList<Flashcard> getFlashcardsByCategory(Category category) {
+        ArrayList<Flashcard> flashcardListByCategory = new ArrayList<Flashcard>();
+        ArrayList<Flashcard> flashcardList = getAllFlashcards();
+
+        for (Flashcard flashcard : flashcardList) {
+            if (flashcard.getCategory() == category) {
+                flashcardListByCategory.add(flashcard);
+            }
+        }
+        return flashcardListByCategory;
+    }
 }

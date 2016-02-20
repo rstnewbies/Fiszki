@@ -20,17 +20,19 @@ public class Flashcard implements Serializable {
     public Flashcard() {
     }
 
-    public Flashcard (int id, String word, String translation, int priority) {
+    public Flashcard (int id, String word, String translation, int priority, Category category) {
         this.id = id;
         this.word = word;
         this.translation = translation;
         this.priority = priority;
+        this.category = category;
     }
 
-    public Flashcard (String word, String translation, int priority) {
+    public Flashcard (String word, String translation, int priority,  Category category) {
         this.word = word;
         this.translation = translation;
         this.priority = priority;
+        this.category = category;
     }
 
     public int getId() {

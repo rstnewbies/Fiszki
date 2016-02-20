@@ -11,7 +11,7 @@
     tools:showIn="@layout/activity_main">
 
     <ExpandableListView
-        android:id="@+id/list"
+        android:id="@+id/categoryList"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:groupIndicator="@null"
@@ -22,10 +22,10 @@
         android:layout_height="2px"
         android:id="@+id/line"
         android:background="@color/line"
-        android:layout_below="@+id/list"
+        android:layout_below="@+id/categoryList"
         />
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/uncategoryList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/line"
