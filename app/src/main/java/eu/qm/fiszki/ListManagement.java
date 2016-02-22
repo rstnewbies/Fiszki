@@ -24,7 +24,7 @@ public class ListManagement {
     private ExpandableListView expandableListView;
     private FlashcardManagement flashcardManagement;
     private CategoryManagement categoryManagement;
-    private MyExpandableListViewAdapter adapterExp;
+    public MyExpandableListViewAdapter adapterExp;
 
 
     public ListManagement(ListView listView,ExpandableListView expandableListView,Activity activity) {

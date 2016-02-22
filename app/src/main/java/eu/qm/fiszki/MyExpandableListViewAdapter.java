@@ -8,6 +8,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.model.Category;
@@ -115,6 +116,15 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+
+    public Flashcard getFlashcard(int groupPosition, int childPosition){
+        ArrayList<Flashcard> flashcards= (ArrayList<Flashcard>) sortedFlashcards.get(groupPosition);
+        return flashcards.get(childPosition);
+    }
+
+    public Category getCategory(int groupPosition){
+        return categories.get(groupPosition);
     }
 
 }

@@ -24,7 +24,6 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
@@ -60,13 +59,14 @@ public class MainActivity extends AppCompatActivity {
     public Toolbar toolbar;
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
-    DBTransform transform;
-    View pastView;
-    Flashcard selectedFlashcard;
+    private DBTransform transform;
+    private View pastView;
+    public Flashcard selectedFlashcard;
     private Flashcard deletedFlashcard;
     private FlashcardManagement flashcardManagement;
     private ListManagement listManagement;
     private CategoryManagement categoryManagement;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -228,6 +228,8 @@ public class MainActivity extends AppCompatActivity {
         editTranslate = (EditText) dialog.findViewById(R.id.editTranslate);
         dialogButton = (Button) dialog.findViewById(R.id.editButton);
 
+        selectedFlashcard = new Flashcard();
+
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -247,7 +249,6 @@ public class MainActivity extends AppCompatActivity {
                     if (pastView != null) {
                         pastView.setBackgroundColor(context.getResources().getColor(R.color.default_color));
                     }
-                    selectedFlashcard = (Flashcard) parent.getAdapter().getItem(position);
                     selectedView.setBackgroundColor(context.getResources().getColor(R.color.pressed_color));
                     pastView = selectedView;
                     selectedView = null;
@@ -258,6 +259,73 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        expandableListView.setOnItemLongClickListener
+                (new AdapterView.OnItemLongClickListener() {
+                     @Override
+                     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                         if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+                             int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+                             int childPosition = ExpandableListView.getPackedPositionChild(id);
+
+                             selectedFlashcard = listManagement.adapterExp.getFlashcard(groupPosition, childPosition);
+                             selectedView = view;
+
+                             dialog.setContentView(R.layout.layout_dialog_edit);
+                             dialog.setTitle(R.string.main_activity_dialog_edit_item);
+
+                             editOriginal = (EditText) dialog.findViewById(R.id.editOrginal);
+                             editTranslate = (EditText) dialog.findViewById(R.id.editTranslate);
+                             dialogButton = (Button) dialog.findViewById(R.id.editButton);
+
+                             editOriginal.setText(selectedFlashcard.getWord());
+                             editTranslate.setText(selectedFlashcard.getTranslation());
+
+
+                             if (pastView == view) {
+                                 toolbarMainActivity();
+                                 fab.show();
+                                 selectedView.setBackgroundColor(context.getResources().getColor(R.color.default_color));
+                                 pastView = null;
+
+                             } else {
+                                 if (pastView != null) {
+                                     pastView.setBackgroundColor(context.getResources().getColor(R.color.default_color));
+                                 }
+                                 selectedFlashcard = (Flashcard) parent.getAdapter().getItem(position);
+                                 selectedView.setBackgroundColor(context.getResources().getColor(R.color.pressed_color));
+                                 pastView = selectedView;
+                                 selectedView = null;
+                                 toolbarSelected();
+                                 fab.hide();
+                             }
+                         }
+                         /*if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
+                             int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+
+                             dialog.setContentView(R.layout.layout_dialog_edit_category);
+                             dialog.setTitle(R.string.main_activity_dialog_edit_category);
+
+                             editCategory = (EditText) dialog.findViewById(R.id.editCategory);
+                             dialogButton = (Button) dialog.findViewById(R.id.editButton);
+
+                             typeOfSelected = typeCategory;
+                             toolbarSelected();
+                             editCategory.setText(adapter.getGroupName(groupPosition));
+                             rowId = myDb.getCategoryId(editCategory.getText().toString()).getInt(0);
+                             if (clickedView != null) {
+                                 clickedView.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                             }
+                             clickedView = view;
+                             clickedView.setBackgroundColor(getResources().getColor(R.color.pressed_color));
+                             fab.hide();
+
+                         }*/
+                         return true;
+                     }
+                 }
+
+                );
     }
 
     public void listViewEdit() {
@@ -287,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
                         dialog.dismiss();
 
                     } else {
-                        if (!flashcardManagement.existence(selectedFlashcard.getWord())) {
+                        if (!flashcardManagement.existence(editOriginal.getText().toString())) {
                             alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.button_action_ok), MainActivity.this);
                             editOriginal.requestFocus();
                         } else {
