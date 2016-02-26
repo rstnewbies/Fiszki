@@ -14,8 +14,6 @@ public class Flashcard implements Serializable {
     private String translation;
     @DatabaseField
     private int priority;
-    @DatabaseField(foreign = true)
-    private Category category;
 
     public Flashcard() {
     }
@@ -63,14 +61,6 @@ public class Flashcard implements Serializable {
 
     public void setTranslation(String translation) {
         this.translation = translation;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 }
 
