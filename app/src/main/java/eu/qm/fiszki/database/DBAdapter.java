@@ -45,7 +45,7 @@ public class DBAdapter {
     }
 
     public void deleteAll(String table){
-        db.execSQL("delete from "+ table);
+        db.execSQL("delete from " + table);
     }
 
     public long updateRow(String settingName , int status) {
@@ -103,6 +103,7 @@ public class DBAdapter {
         }
         return c;
     }
+
 
     public Cursor getAllRowsPriority(int priority){
         Cursor c = db.query(true, DBModel.DATABASE_TABLE,DBModel.ALL_KEYS,

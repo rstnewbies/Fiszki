@@ -1,13 +1,10 @@
 package eu.qm.fiszki.activity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,23 +12,30 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.database.DBAdapter;
-import eu.qm.fiszki.database.DBModel;
 import eu.qm.fiszki.database.DBStatus;
+import eu.qm.fiszki.model.Flashcard;
+import eu.qm.fiszki.model.FlashcardManagement;
 
 
 public class AddWordActivity extends AppCompatActivity {
 
+    public Context context = this;
+    public AlarmReceiver alarm;
+    FlashcardManagement flashcardManagement;
     EditText inputWord, inputTranslation;
-    DBAdapter myDb = new DBAdapter(this);
     DBStatus OpenDataBase = new DBStatus();
     SettingsActivity settings = new SettingsActivity();
     Alert alert = new Alert();
+    private Rules rules = new Rules();
+    public SharedPreferences sharedPreferences;
+    public SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +48,11 @@ public class AddWordActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         inputTranslation = (EditText) findViewById(R.id.inputTranslation);
         inputTranslation.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        OpenDataBase.openDB(myDb);
-        settings.alarmIntent = new Intent(this, AlarmReceiver.class);
-        settings.pendingIntent = PendingIntent.getBroadcast(this, 0, settings.alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        settings.manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        settings.alarm = new AlarmReceiver();
         settings.context = this;
+        flashcardManagement = new FlashcardManagement(this);
+        sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE );
+        editor = sharedPreferences.edit();
+        alarm = new AlarmReceiver();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -66,32 +69,24 @@ public class AddWordActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_add_new_word) {
-            if (inputWord.getText().toString().isEmpty() || inputTranslation.getText().toString().isEmpty()) {
-                alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onEmptyFields), getString(R.string.button_action_ok), AddWordActivity.this);
-            } else if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString()) == true) {
-                alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.button_action_ok), AddWordActivity.this);
-                inputWord.setText(null);
-                inputTranslation.setText(null);
-                inputWord.requestFocus();
-
-            } else if (!TextUtils.isEmpty(inputWord.getText().toString()) &&
-                    !TextUtils.isEmpty(inputTranslation.getText().toString())) {
-                myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString(),1);
-                Toast.makeText(AddWordActivity.this,
-                        getString(R.string.add_new_word_toast), Toast.LENGTH_SHORT).show();
-                inputWord.setText(null);
-                inputTranslation.setText(null);
-                inputWord.requestFocus();
-                if (myDb.getAllRows().getCount() == 1) {
-                    settings.alarm.start(settings.manager, settings.context, settings.pendingIntent, settings.time);
-                    myDb.updateRow(settings.notificationPosition, 3);
-                    myDb.updateRow(settings.notificationStatus,1);
+            if (rules.addNewWordRule(inputWord, inputTranslation, this)) {
+                Flashcard flashcard = new Flashcard(inputWord.getText().toString(),
+                        inputTranslation.getText().toString(), 1);
+                flashcardManagement.addFlashcards(flashcard);
+                if (flashcardManagement.isFirst()) {
+                    alarm.start(context, 15);
+                    editor.clear();
+                    editor.putInt(SettingsActivity.notificationPosition, 3);
+                    editor.commit();
                     alert.buildAlert(
                             this.getString(R.string.alert_title_pass),
                             this.getString(R.string.alert_add_first_word_message),
                             this.getString(R.string.button_action_ok),
                             this);
                 }
+                inputWord.setText(null);
+                inputTranslation.setText(null);
+                inputWord.requestFocus();
             }
         }
         if (id == android.R.id.home) {
@@ -100,43 +95,35 @@ public class AddWordActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void clickDone(){
-    inputTranslation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-        @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-            if(actionId == EditorInfo.IME_ACTION_DONE){
-                if (inputWord.getText().toString().isEmpty() || inputTranslation.getText().toString().isEmpty()) {
-                    alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onEmptyFields), getString(R.string.button_action_ok), AddWordActivity.this);
-                } else if (myDb.getRowValue(DBModel.KEY_WORD, inputWord.getText().toString())) {
-                    alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.button_action_ok), AddWordActivity.this);
-                    inputWord.setText(null);
-                    inputTranslation.setText(null);
-                    inputWord.requestFocus();
-
-                } else if (!TextUtils.isEmpty(inputWord.getText().toString()) &&
-                        !TextUtils.isEmpty(inputTranslation.getText().toString())) {
-                    myDb.insertRow(inputWord.getText().toString(), inputTranslation.getText().toString(),1);
-                    Toast.makeText(AddWordActivity.this,
-                            getString(R.string.add_new_word_toast), Toast.LENGTH_SHORT).show();
-                    inputWord.setText(null);
-                    inputTranslation.setText(null);
-                    inputWord.requestFocus();
-                    if (myDb.getAllRows().getCount() == 1) {
-                        settings.alarm.start(settings.manager, settings.context, settings.pendingIntent, settings.time);
-                        myDb.updateRow(settings.notificationPosition, 3);
-                        myDb.updateRow(settings.notificationStatus, 1);
-                        alert.buildAlert(
-                                getString(R.string.alert_title_pass),
-                                getString(R.string.alert_add_first_word_message),
-                                getString(R.string.button_action_ok),
-                                AddWordActivity.this);
+    public void clickDone() {
+        inputTranslation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    if (rules.addNewWordRule(inputWord, inputTranslation, AddWordActivity.this)) {
+                        Flashcard flashcard = new Flashcard(inputWord.getText().toString(),
+                                inputTranslation.getText().toString(), 1);
+                        flashcardManagement.addFlashcards(flashcard);
+                        if (flashcardManagement.isFirst()) {
+                            alarm.start(context, 15);
+                            editor.clear();
+                            editor.putInt(SettingsActivity.notificationPosition, 3);
+                            editor.commit();
+                            alert.buildAlert(
+                                    AddWordActivity.this.getString(R.string.alert_title_pass),
+                                    AddWordActivity.this.getString(R.string.alert_add_first_word_message),
+                                    AddWordActivity.this.getString(R.string.button_action_ok),
+                                    AddWordActivity.this);
+                        }
+                        inputWord.setText(null);
+                        inputTranslation.setText(null);
+                        inputWord.requestFocus();
                     }
                 }
-            }
 
-            return true;
-        }
-    });
-}
+                return true;
+            }
+        });
+    }
 
 }

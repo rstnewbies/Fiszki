@@ -44,12 +44,18 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     }
 
-    public void start(AlarmManager manager, Context context, PendingIntent pendingIntent, int sec) {
-        long time = (1000*60*sec);
+    public void start(Context context, int min) {
+        Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        long time = (1000*60*min);
         manager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+time, time , pendingIntent);
     }
 
-    public void close(AlarmManager manager, Context context, PendingIntent pendingIntent) {
+    public void close(Context context) {
+        Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         manager.cancel(pendingIntent);
     }
 
