@@ -1,5 +1,6 @@
 package eu.qm.fiszki.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -25,10 +26,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.ListManagement;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBHelper;
 import eu.qm.fiszki.database.DBStatus;
@@ -41,6 +46,8 @@ import eu.qm.fiszki.model.FlashcardManagement;
 
 public class MainActivity extends AppCompatActivity {
 
+    static final private String typeCategory = "TYPECATEGORY";
+    static final private String typeFlashcard = "TYPEFLASHCARD";
     static public DBAdapter myDb;
     static public DBStatus openDataBase;
     static public Alert alert;
@@ -59,13 +66,20 @@ public class MainActivity extends AppCompatActivity {
     public Toolbar toolbar;
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
+    public Flashcard selectedFlashcard;
     private DBTransform transform;
     private View pastView;
-    public Flashcard selectedFlashcard;
     private Flashcard deletedFlashcard;
     private FlashcardManagement flashcardManagement;
     private ListManagement listManagement;
     private CategoryManagement categoryManagement;
+    private Rules rules;
+    private Activity activity;
+    private EditText editCategory;
+    private Category selectedCategory;
+    private String selectedType;
+    private Category deletedCategory;
+    private ArrayList<Flashcard> deletedFlashcards;
 
 
     @Override
@@ -73,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        activity = this;
+        rules = new Rules();
         alarm = new AlarmReceiver();
         alert = new Alert();
         openDataBase = new DBStatus();
@@ -292,16 +309,19 @@ public class MainActivity extends AppCompatActivity {
                                  if (pastView != null) {
                                      pastView.setBackgroundColor(context.getResources().getColor(R.color.default_color));
                                  }
-                                 selectedFlashcard = (Flashcard) parent.getAdapter().getItem(position);
                                  selectedView.setBackgroundColor(context.getResources().getColor(R.color.pressed_color));
                                  pastView = selectedView;
                                  selectedView = null;
                                  toolbarSelected();
                                  fab.hide();
+                                 selectedType = typeFlashcard;
                              }
                          }
-                         /*if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
+                         if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
                              int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+
+                             selectedCategory = listManagement.adapterExp.getCategory(groupPosition);
+                             selectedView = view;
 
                              dialog.setContentView(R.layout.layout_dialog_edit_category);
                              dialog.setTitle(R.string.main_activity_dialog_edit_category);
@@ -309,18 +329,26 @@ public class MainActivity extends AppCompatActivity {
                              editCategory = (EditText) dialog.findViewById(R.id.editCategory);
                              dialogButton = (Button) dialog.findViewById(R.id.editButton);
 
-                             typeOfSelected = typeCategory;
-                             toolbarSelected();
-                             editCategory.setText(adapter.getGroupName(groupPosition));
-                             rowId = myDb.getCategoryId(editCategory.getText().toString()).getInt(0);
-                             if (clickedView != null) {
-                                 clickedView.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                             }
-                             clickedView = view;
-                             clickedView.setBackgroundColor(getResources().getColor(R.color.pressed_color));
-                             fab.hide();
+                             editCategory.setText(selectedCategory.getCategory());
 
-                         }*/
+                             if (pastView == view) {
+                                 toolbarMainActivity();
+                                 fab.show();
+                                 selectedView.setBackgroundColor(context.getResources().getColor(R.color.default_color));
+                                 pastView = null;
+
+                             } else {
+                                 if (pastView != null) {
+                                     pastView.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                                 }
+                             }
+                             pastView = selectedView;
+                             selectedView = null;
+                             toolbarSelected();
+                             pastView.setBackgroundColor(getResources().getColor(R.color.pressed_color));
+                             fab.hide();
+                             selectedType = typeCategory;
+                         }
                          return true;
                      }
                  }
@@ -329,22 +357,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void listViewEdit() {
-        editOriginal.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                keyboard.showSoftInput(editOriginal, 0);
-            }
-        }, 50);
-        editOriginal.setSelection(editOriginal.getText().length());
-
+        if (selectedType.equals(typeFlashcard)) {
+            editOriginal.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    keyboard.showSoftInput(editOriginal, 0);
+                }
+            }, 50);
+            editOriginal.setSelection(editOriginal.getText().length());
+        } else if (selectedType.equals(typeCategory)) {
+            editCategory.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    keyboard.showSoftInput(editOriginal, 0);
+                }
+            }, 50);
+            editCategory.setSelection(editOriginal.getText().length());
+        }
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editOriginal.getText().toString().isEmpty() || editTranslate.getText().toString().isEmpty()) {
-                    alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onEmptyFields), getString(R.string.button_action_ok), MainActivity.this);
-                } else {
-                    if (flashcardManagement.getFlashcardById(selectedFlashcard.getId()).getWord().equals(editOriginal.getText().toString())) {
+                if (selectedType.equals(typeFlashcard)) {
+                    if (rules.addNewWordRule(editOriginal, editTranslate, activity)) {
                         selectedFlashcard.setWord(editOriginal.getText().toString());
                         selectedFlashcard.setTranslation(editTranslate.getText().toString());
                         flashcardManagement.updateFlashcard(selectedFlashcard);
@@ -353,22 +389,15 @@ public class MainActivity extends AppCompatActivity {
                         listViewPopulate();
                         toolbarMainActivity();
                         dialog.dismiss();
-
-                    } else {
-                        if (!flashcardManagement.existence(editOriginal.getText().toString())) {
-                            alert.buildAlert(getString(R.string.alert_title), getString(R.string.alert_message_onRecordExist), getString(R.string.button_action_ok), MainActivity.this);
-                            editOriginal.requestFocus();
-                        } else {
-                            selectedFlashcard.setWord(editOriginal.getText().toString());
-                            selectedFlashcard.setTranslation(editTranslate.getText().toString());
-                            flashcardManagement.updateFlashcard(selectedFlashcard);
-                            fab.show();
-                            listViewPopulate();
-                            toolbarMainActivity();
-                            dialog.dismiss();
-
-                        }
                     }
+                } else if (selectedType.equals(typeCategory)) {
+                    selectedCategory.setCategory(editCategory.getText().toString());
+                    categoryManagement.updateCategory(selectedCategory);
+                    pastView.setBackgroundColor(getResources().getColor(R.color.default_color));
+                    fab.show();
+                    listViewPopulate();
+                    toolbarMainActivity();
+                    dialog.dismiss();
                 }
             }
         });
@@ -390,49 +419,98 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.setButton(getString(R.string.button_action_yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                if (selectedType.equals(typeFlashcard)) {
+                    deletedFlashcard = selectedFlashcard;
+                    flashcardManagement.deleteFlashcard(selectedFlashcard);
 
-                deletedFlashcard = selectedFlashcard;
-                flashcardManagement.deleteFlashcard(selectedFlashcard);
+                    if (flashcardManagement.getAllFlashcards().size() > 0) {
+                        listViewPopulate();
+                        Snackbar snackbar = Snackbar
+                                .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
+                                .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        flashcardManagement.addFlashcards(deletedFlashcard);
+                                        listViewPopulate();
+                                    }
+                                });
+                        snackbar.show();
+                        fab.show();
+                        toolbarMainActivity();
+                    } else {
+                        emptyDBImage.setVisibility(View.VISIBLE);
+                        emptyDBText.setVisibility(View.VISIBLE);
+                        listView.setVisibility(View.INVISIBLE);
+                        fab.show();
+                        toolbarMainActivity();
+                        editor.clear();
+                        editor.putInt(SettingsActivity.notificationPosition, 0);
 
-                if (flashcardManagement.getAllFlashcards().size() > 0) {
-                    listViewPopulate();
-                    Snackbar snackbar = Snackbar
-                            .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
-                            .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    flashcardManagement.addFlashcards(deletedFlashcard);
-                                    listViewPopulate();
-                                }
-                            });
-                    snackbar.show();
-                    fab.show();
-                    toolbarMainActivity();
-                } else {
-                    emptyDBImage.setVisibility(View.VISIBLE);
-                    emptyDBText.setVisibility(View.VISIBLE);
-                    listView.setVisibility(View.INVISIBLE);
-                    fab.show();
-                    toolbarMainActivity();
-                    editor.clear();
-                    editor.putInt(SettingsActivity.notificationPosition, 0);
+                        editor.commit();
+                        alarm.close(context);
+                        Snackbar snackbar = Snackbar
+                                .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
+                                .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        flashcardManagement.addFlashcards(deletedFlashcard);
+                                        emptyDBImage.setVisibility(View.INVISIBLE);
+                                        emptyDBText.setVisibility(View.INVISIBLE);
+                                        listView.setVisibility(View.VISIBLE);
+                                        listViewPopulate();
+                                    }
+                                });
+                        snackbar.show();
+                        fab.show();
+                    }
+                } else if (selectedType.equals(typeCategory)) {
+                    deletedCategory = selectedCategory;
+                    categoryManagement.deleteCategory(deletedCategory);
+                    deletedFlashcards = flashcardManagement.getFlashcardsByPriority(deletedCategory.getId());
+                    flashcardManagement.deleteFlashcardByCategory(deletedCategory.getId());
 
-                    editor.commit();
-                    alarm.close(context);
-                    Snackbar snackbar = Snackbar
-                            .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
-                            .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    flashcardManagement.addFlashcards(deletedFlashcard);
-                                    emptyDBImage.setVisibility(View.INVISIBLE);
-                                    emptyDBText.setVisibility(View.INVISIBLE);
-                                    listView.setVisibility(View.VISIBLE);
-                                    listViewPopulate();
-                                }
-                            });
-                    snackbar.show();
-                    fab.show();
+                    if (flashcardManagement.getAllFlashcards().size() > 0) {
+                        listViewPopulate();
+                        Snackbar snackbar = Snackbar
+                                .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
+                                .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        categoryManagement.addCategory(deletedCategory);
+                                        flashcardManagement.addFlashcard(deletedFlashcards);
+                                        listViewPopulate();
+                                    }
+                                });
+                        snackbar.show();
+                        fab.show();
+                        toolbarMainActivity();
+                    } else {
+                        emptyDBImage.setVisibility(View.VISIBLE);
+                        emptyDBText.setVisibility(View.VISIBLE);
+                        listView.setVisibility(View.INVISIBLE);
+                        fab.show();
+                        toolbarMainActivity();
+                        editor.clear();
+                        editor.putInt(SettingsActivity.notificationPosition, 0);
+
+                        editor.commit();
+                        alarm.close(context);
+                        Snackbar snackbar = Snackbar
+                                .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
+                                .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        categoryManagement.addCategory(deletedCategory);
+                                        flashcardManagement.addFlashcard(deletedFlashcards);
+                                        emptyDBImage.setVisibility(View.INVISIBLE);
+                                        emptyDBText.setVisibility(View.INVISIBLE);
+                                        listView.setVisibility(View.VISIBLE);
+                                        listViewPopulate();
+                                    }
+                                });
+                        snackbar.show();
+                        fab.show();
+                    }
                 }
             }
         });

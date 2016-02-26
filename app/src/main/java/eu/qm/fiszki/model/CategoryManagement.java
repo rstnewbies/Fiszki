@@ -71,4 +71,12 @@ public class CategoryManagement {
         }
         return categories;
     }
+
+    public void updateCategory(Category category){
+        categoryDao.update(category);
+    }
+
+    public void deleteCategory(Category category){
+        categoryDao.delete(category);
+    }
 }

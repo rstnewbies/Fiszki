@@ -7,6 +7,7 @@
     <string name="main_activity_button_edit">Edit</string>
     <string name="main_activity_button_delete">Delete</string>
     <string name="main_activity_dialog_edit_item">Edit Flashcard</string>
+    <string name="main_activity_dialog_edit_category">Edit Category</string>
     <string name="main_activity_edit_record">Edit</string>
     <string name="main_activity_delete_record">Delete</string>
     <string name="main_activity_done_record">Back</string>

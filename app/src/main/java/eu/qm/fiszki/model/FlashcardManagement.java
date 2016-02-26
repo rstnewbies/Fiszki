@@ -32,6 +32,12 @@ public class FlashcardManagement {
         flashcardDao.create(flashcard);
     }
 
+    public void addFlashcard(ArrayList<Flashcard> arrayListFlashcards){
+        for (Flashcard flashcard: arrayListFlashcards) {
+            flashcardDao.create(flashcard);
+        }
+    }
+
     public Flashcard getFlashcardById(int id) {
         Flashcard flashcard;
         flashcard = flashcardDao.queryForId(id);
@@ -113,5 +119,10 @@ public class FlashcardManagement {
             }
         }
         return flashcardListByCategory;
+    }
+
+    public void deleteFlashcardByCategory(int categoryId){
+        flashcardList = getFlashcardsByPriority(categoryId);
+        flashcardDao.delete(flashcardList);
     }
 }
