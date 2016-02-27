@@ -32,13 +32,13 @@ public class ItemAdapter extends ArrayAdapter<Flashcard> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_layout, parent, false);
         }
 
-        Flashcard p = getItem(position);
+        Flashcard flashcard = getItem(position);
 
-        TextView tt1 = (TextView) convertView.findViewById(R.id.word);
-        TextView tt2 = (TextView) convertView.findViewById(R.id.translation);
+        TextView orginalWord = (TextView) convertView.findViewById(R.id.word);
+        TextView translateWord = (TextView) convertView.findViewById(R.id.translation);
 
-        tt1.setText(p.getWord());
-        tt2.setText(p.getTranslation());
+        orginalWord.setText(flashcard.getWord());
+        translateWord.setText(flashcard.getTranslation());
 
         return convertView;
     }

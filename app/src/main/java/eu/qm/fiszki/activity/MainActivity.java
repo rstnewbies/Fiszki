@@ -24,9 +24,9 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.AlarmReceiver;
@@ -277,7 +277,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         expandableListView.setOnItemLongClickListener
                 (new AdapterView.OnItemLongClickListener() {
                      @Override
@@ -312,7 +311,6 @@ public class MainActivity extends AppCompatActivity {
                                  }
                                  selectedView.setBackgroundColor(context.getResources().getColor(R.color.pressed_color));
                                  pastView = selectedView;
-                                 selectedView = null;
                                  toolbarSelected();
                                  fab.hide();
                                  selectedType = typeFlashcard;
@@ -344,7 +342,6 @@ public class MainActivity extends AppCompatActivity {
                                  }
                              }
                              pastView = selectedView;
-                             selectedView = null;
                              toolbarSelected();
                              pastView.setBackgroundColor(getResources().getColor(R.color.pressed_color));
                              fab.hide();
@@ -381,7 +378,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (selectedType.equals(typeFlashcard)) {
-                    if (rules.addNewWordRule(editOriginal, editTranslate, activity)) {
+                    if (flashcardManagement.getFlashcardById(selectedFlashcard.getId()).getWord().equals(editOriginal.getText().toString())) {
+                        selectedFlashcard.setWord(editOriginal.getText().toString());
+                        selectedFlashcard.setTranslation(editTranslate.getText().toString());
+                        flashcardManagement.updateFlashcard(selectedFlashcard);
+                        pastView.setBackgroundColor(getResources().getColor(R.color.default_color));
+                        fab.show();
+                        listViewPopulate();
+                        toolbarMainActivity();
+                        dialog.dismiss();
+                    } else if (rules.addNewWordRule(editOriginal, editTranslate, activity)) {
                         selectedFlashcard.setWord(editOriginal.getText().toString());
                         selectedFlashcard.setTranslation(editTranslate.getText().toString());
                         flashcardManagement.updateFlashcard(selectedFlashcard);
