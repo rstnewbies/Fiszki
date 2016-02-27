@@ -22,10 +22,9 @@ public class DBTransform {
             if (myDb.getAllRows().getCount() > 0) {
                 categoryManagement = new CategoryManagement(context);
                 flashcardManagement = new FlashcardManagement(context);
-                category = categoryManagement.getCategoryByName(DBHelper.uncategory);
                 Cursor c = myDb.getAllRows();
                 do {
-                    flashcard = new Flashcard(c.getInt(0), c.getString(1), c.getString(2), c.getInt(3),category.getId());
+                    flashcard = new Flashcard(c.getInt(0), c.getString(1), c.getString(2), c.getInt(3),1);
                     flashcardManagement.addFlashcards(flashcard);
                 } while (c.moveToNext());
                 myDb.deleteAll(DBModel.DATABASE_TABLE);

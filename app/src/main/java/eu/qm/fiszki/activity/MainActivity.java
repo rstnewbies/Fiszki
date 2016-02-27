@@ -271,6 +271,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedView = null;
                     toolbarSelected();
                     fab.hide();
+                    selectedType = typeFlashcard;
                 }
                 return true;
 
