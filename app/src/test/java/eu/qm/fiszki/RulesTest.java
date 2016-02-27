@@ -19,7 +19,7 @@ public class RulesTest {
 
     @Test
     public void testCheck() throws Exception {
-        assertTrue(tRules.Check(new String("test"),new String("test")));
-        assertFalse(tRules.Check(new String("test"),new String("zlyTest")));
+        assertTrue(tRules.check(new String("test"),new String("test")));
+        assertFalse(tRules.check(new String("test"),new String("zlyTest")));
     }
 }
