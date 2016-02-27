@@ -10,14 +10,26 @@
     tools:context="eu.qm.fiszki.activity.MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <ExpandableListView
+        android:id="@+id/categoryList"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:groupIndicator="@null"
+        android:layout_alignParentBottom="false" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:id="@+id/line"
+        android:background="@color/line"
+        android:layout_below="@+id/categoryList"
+        />
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/uncategoryList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentEnd="false" />
+        android:layout_below="@+id/line"
+        android:clickable="true"/>
 
     <ImageView
         android:id="@+id/emptyDBImage"

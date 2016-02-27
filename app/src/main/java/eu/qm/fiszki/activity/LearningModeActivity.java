@@ -79,7 +79,7 @@ public class LearningModeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_OK) {
-            if (rules.Check(expectedWord, enteredWord.getText().toString())) {
+            if (rules.check(expectedWord, enteredWord.getText().toString())) {
                 finish();
                 startActivity(getIntent());
             } else {
@@ -99,7 +99,7 @@ public class LearningModeActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
 
-                    if (rules.Check(expectedWord, enteredWord.getText().toString())) {
+                    if (rules.check(expectedWord, enteredWord.getText().toString())) {
                         newDraw();
                     } else {
                         enteredWord.setText("");

@@ -32,6 +32,12 @@ public class FlashcardManagement {
         flashcardDao.create(flashcard);
     }
 
+    public void addFlashcard(ArrayList<Flashcard> arrayListFlashcards){
+        for (Flashcard flashcard: arrayListFlashcards) {
+            flashcardDao.create(flashcard);
+        }
+    }
+
     public Flashcard getFlashcardById(int id) {
         Flashcard flashcard;
         flashcard = flashcardDao.queryForId(id);
@@ -97,9 +103,26 @@ public class FlashcardManagement {
         return flashcard;
     }
 
-    public Flashcard getRandomFlashacrd(){
+    public Flashcard getRandomFlashacrd() {
         Random generator = new Random();
         ArrayList<Flashcard> flashcards = getAllFlashcards();
         return flashcards.get(generator.nextInt(flashcards.size()));
+    }
+
+    public ArrayList<Flashcard> getFlashcardsByCategoryID(int CategoryID) {
+        ArrayList<Flashcard> flashcardListByCategory = new ArrayList<Flashcard>();
+        ArrayList<Flashcard> flashcardList = getAllFlashcards();
+
+        for (Flashcard flashcard : flashcardList) {
+            if (flashcard.getCategory() == CategoryID) {
+                flashcardListByCategory.add(flashcard);
+            }
+        }
+        return flashcardListByCategory;
+    }
+
+    public void deleteFlashcardByCategory(int categoryId){
+        flashcardList = getFlashcardsByPriority(categoryId);
+        flashcardDao.delete(flashcardList);
     }
 }

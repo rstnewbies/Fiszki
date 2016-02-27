@@ -105,7 +105,7 @@ public class CheckActivity extends AppCompatActivity {
         Alert message = new Alert();
         Rules rules = new Rules();
         if (id == R.id.action_OK) {
-            if (rules.Check(expectedWord, enteredWord.getText().toString())) {
+            if (rules.check(expectedWord, enteredWord.getText().toString())) {
                 message.pass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.button_action_ok));
 
                 if (rowPriority < 5 && firstTry) {

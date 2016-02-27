@@ -88,7 +88,7 @@ public class ExamModeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_OK) {
-            if (rules.Check(expectedWord, enteredWord.getText().toString())) {
+            if (rules.check(expectedWord, enteredWord.getText().toString())) {
                 trueAnswer++;
                 repeat++;
                 newDraw();
@@ -109,7 +109,7 @@ public class ExamModeActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    if (rules.Check(expectedWord, enteredWord.getText().toString())) {
+                    if (rules.check(expectedWord, enteredWord.getText().toString())) {
                         trueAnswer++;
                         repeat++;
                         newDraw();
