@@ -16,10 +16,9 @@ import android.widget.TextView;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
-import eu.qm.fiszki.CategorySpinnerManagement;
+import eu.qm.fiszki.CategorySpinnerRepository;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
-import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
@@ -33,13 +32,12 @@ public class AddWordActivity extends AppCompatActivity {
     public SharedPreferences.Editor editor;
     FlashcardRepository flashcardRepository;
     EditText inputWord, inputTranslation;
-    DBStatus OpenDataBase = new DBStatus();
     SettingsActivity settings = new SettingsActivity();
     Alert alert = new Alert();
     private Rules rules = new Rules();
     private Spinner categorySpinner;
     private CategoryRepository categoryRepository;
-    private CategorySpinnerManagement categorySpinnerManagement;
+    private CategorySpinnerRepository categorySpinnerRepository;
 
 
     @Override
@@ -62,13 +60,13 @@ public class AddWordActivity extends AppCompatActivity {
         categorySpinner = (Spinner) findViewById(R.id.CategorySpinner);
         categoryRepository = new CategoryRepository(context);
 
-        categorySpinnerManagement = new CategorySpinnerManagement(categorySpinner,context);
-        categorySpinnerManagement.selectedSpinner(this);
+        categorySpinnerRepository = new CategorySpinnerRepository(categorySpinner,context);
+        categorySpinnerRepository.setSelectedListener(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         clickDone();
-        categorySpinnerManagement.populateSpinner();
+        categorySpinnerRepository.populate();
     }
 
     @Override
@@ -84,7 +82,7 @@ public class AddWordActivity extends AppCompatActivity {
             if (rules.addNewWordRule(inputWord, inputTranslation, this)) {
                 Flashcard flashcard = new Flashcard(inputWord.getText().toString(),
                         inputTranslation.getText().toString(), 1,
-                        categorySpinnerManagement.getSelectedCategoryID());
+                        categorySpinnerRepository.getSelectedCategoryID());
                 flashcardRepository.addFlashcards(flashcard);
                 if (flashcardRepository.isFirst()) {
                     alarm.start(context, 15);
@@ -116,7 +114,7 @@ public class AddWordActivity extends AppCompatActivity {
                     if (rules.addNewWordRule(inputWord, inputTranslation, AddWordActivity.this)) {
                         Flashcard flashcard = new Flashcard(inputWord.getText().toString(),
                                 inputTranslation.getText().toString(), 1,
-                                categorySpinnerManagement.getSelectedCategoryID());
+                                categorySpinnerRepository.getSelectedCategoryID());
                         flashcardRepository.addFlashcards(flashcard);
                         if (flashcardRepository.isFirst()) {
                             alarm.start(context, 15);

@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
-import eu.qm.fiszki.ListManagement;
+import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.database.DBAdapter;
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     private View pastView;
     private Flashcard deletedFlashcard;
     private FlashcardRepository flashcardRepository;
-    private ListManagement listManagement;
+    private ListPopulate listPopulate;
     private CategoryRepository categoryRepository;
     private Rules rules;
     private Activity activity;
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         emptyDBText = (TextView) findViewById(R.id.emptyDBText);
         emptyDBImage.setImageResource(R.drawable.emptydb);
         openDataBase.openDB(myDb);
-        listManagement = new ListManagement(listView, expandableListView, this);
+        listPopulate = new ListPopulate(listView, expandableListView, this);
         flashcardRepository = new FlashcardRepository(context);
         categoryRepository = new CategoryRepository(context);
 
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void listViewPopulate() {
         if (flashcardRepository.getAllFlashcards().size() > 0) {
-            listManagement.populate();
+            listPopulate.populate();
         }
     }
 
@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
                              int groupPosition = ExpandableListView.getPackedPositionGroup(id);
                              int childPosition = ExpandableListView.getPackedPositionChild(id);
 
-                             selectedFlashcard = listManagement.adapterExp.getFlashcard(groupPosition, childPosition);
+                             selectedFlashcard = listPopulate.adapterExp.getFlashcard(groupPosition, childPosition);
                              selectedView = view;
 
                              dialog.setContentView(R.layout.layout_dialog_edit);
@@ -318,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
                          if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
                              int groupPosition = ExpandableListView.getPackedPositionGroup(id);
 
-                             selectedCategory = listManagement.adapterExp.getCategory(groupPosition);
+                             selectedCategory = listPopulate.adapterExp.getCategory(groupPosition);
                              selectedView = view;
 
                              dialog.setContentView(R.layout.layout_dialog_edit_category);

@@ -8,7 +8,6 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.model.Category;
@@ -41,7 +40,7 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
         flashcards = (ArrayList<Flashcard>) sortedFlashcards.get(groupPosition);
         TextView textWord = null;
         TextView textTranslation = null;
-        if (flashcards.get(0).getWord().equals(ListManagement.emptyFlashcard)) {
+        if (flashcards.get(0).getWord().equals(ListPopulate.emptyFlashcard)) {
             convertView = inflater.inflate(R.layout.empty_group, null);
             convertView.setClickable(true);
         } else {

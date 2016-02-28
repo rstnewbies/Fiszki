@@ -16,7 +16,7 @@ import eu.qm.fiszki.model.FlashcardRepository;
 /**
  * Created by mBoiler on 11.02.2016.
  */
-public class ListManagement {
+public class ListPopulate {
 
     public static final String emptyFlashcard = "ITISEMPTYCATEGORY";
     private Activity activity;
@@ -27,7 +27,7 @@ public class ListManagement {
     public MyExpandableListViewAdapter adapterExp;
 
 
-    public ListManagement(ListView listView,ExpandableListView expandableListView,Activity activity) {
+    public ListPopulate(ListView listView, ExpandableListView expandableListView, Activity activity) {
         this.activity = activity;
         this.listView = listView;
         this.expandableListView = expandableListView;

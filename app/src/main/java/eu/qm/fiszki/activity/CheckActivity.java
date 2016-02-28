@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.Algorithm;
+import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.database.DBAdapter;
@@ -39,6 +40,7 @@ public class CheckActivity extends AppCompatActivity {
     int rowPriority;
     boolean firstTry = true;
     Flashcard flashcard;
+    Checker checker;
 
     MenuItem mi;
     int id;
@@ -53,6 +55,7 @@ public class CheckActivity extends AppCompatActivity {
         context = this;
         algorithm = new Algorithm(context);
         flashcardRepository = new FlashcardRepository(context);
+        checker = new Checker();
 
         if (flashcardRepository.countFlashcards() <= 0) {
             alert.emptyBase(context, getString(R.string.main_activity_empty_base_main_layout),
@@ -105,7 +108,7 @@ public class CheckActivity extends AppCompatActivity {
         Alert message = new Alert();
         Rules rules = new Rules();
         if (id == R.id.action_OK) {
-            if (rules.check(expectedWord, enteredWord.getText().toString())) {
+            if (checker.check(expectedWord, enteredWord.getText().toString())) {
                 message.pass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.button_action_ok));
 
                 if (rowPriority < 5 && firstTry) {

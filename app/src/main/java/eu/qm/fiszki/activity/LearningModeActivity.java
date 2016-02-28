@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.Algorithm;
+import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.database.DBAdapter;
@@ -39,6 +40,7 @@ public class LearningModeActivity extends AppCompatActivity {
     int position = 0;
     Flashcard flashcard;
     Algorithm algorithm;
+    private Checker checker;
 
 
     @Override
@@ -51,7 +53,7 @@ public class LearningModeActivity extends AppCompatActivity {
         algorithm = new Algorithm(context);
         rules = new Rules();
         message = new Alert();
-
+        checker = new Checker();
         enteredWord = (EditText) findViewById(R.id.EnteredWord);
         word = (TextView) findViewById(R.id.textView3);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -79,7 +81,7 @@ public class LearningModeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_OK) {
-            if (rules.check(expectedWord, enteredWord.getText().toString())) {
+            if (checker.check(expectedWord, enteredWord.getText().toString())) {
                 finish();
                 startActivity(getIntent());
             } else {
@@ -99,7 +101,7 @@ public class LearningModeActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
 
-                    if (rules.check(expectedWord, enteredWord.getText().toString())) {
+                    if (checker.check(expectedWord, enteredWord.getText().toString())) {
                         newDraw();
                     } else {
                         enteredWord.setText("");

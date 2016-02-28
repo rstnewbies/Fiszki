@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.Algorithm;
+import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.database.DBAdapter;
@@ -56,6 +57,7 @@ public class ExamModeActivity extends AppCompatActivity {
     Menu menu;
     int position = 0;
     Flashcard flashcard;
+    Checker checker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,7 @@ public class ExamModeActivity extends AppCompatActivity {
         rules = new Rules();
         algorithm = new Algorithm(context);
         flashcardRepository = new FlashcardRepository(context);
+        checker = new Checker();
     }
 
 
@@ -88,7 +91,7 @@ public class ExamModeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_OK) {
-            if (rules.check(expectedWord, enteredWord.getText().toString())) {
+            if (checker.check(expectedWord, enteredWord.getText().toString())) {
                 trueAnswer++;
                 repeat++;
                 newDraw();
@@ -109,7 +112,7 @@ public class ExamModeActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    if (rules.check(expectedWord, enteredWord.getText().toString())) {
+                    if (checker.check(expectedWord, enteredWord.getText().toString())) {
                         trueAnswer++;
                         repeat++;
                         newDraw();

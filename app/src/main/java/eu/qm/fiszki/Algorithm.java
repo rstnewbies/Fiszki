@@ -19,12 +19,6 @@ public class Algorithm {
         flashcardRepository = new FlashcardRepository(context);
     }
 
-    public Flashcard simple(int x){
-        ArrayList<Flashcard> flashcardsList = flashcardRepository.getAllFlashcards();
-        Flashcard flashcard = flashcardsList.get(x);
-        return flashcard;
-    }
-
     public Flashcard drawCardAlgorithm() {
         final int[] points = {25, 20, 15, 10, 5};
         int[] totalPoints = new int[5];

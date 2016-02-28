@@ -16,47 +16,37 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.qm.fiszki.R;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 
 /**
  * Created by mBoiler on 19.02.2016.
  */
-public class CategorySpinnerManagement {
+public class CategorySpinnerRepository {
 
     private Spinner spinner;
     private Context context;
     private CategoryRepository categoryRepository;
     private EditText categoryName;
     private Button addCategoryButton;
-    ArrayAdapter<String> dataAdapter;
+    private ArrayAdapter<String> dataAdapter;
 
-    public CategorySpinnerManagement(Spinner spinner, Context context) {
+    public CategorySpinnerRepository(Spinner spinner, Context context) {
         this.spinner = spinner;
-        this.context = context;
         categoryRepository = new CategoryRepository(context);
     }
 
-    public void populateSpinner() {
-        ArrayList<Category> categories = categoryRepository.getAllCategory();
-        List<String> list = new ArrayList<String>();
-        int x = 0;
-        do {
-            if (categories.get(x).getId()==1) {
-                list.add(context.getString(R.string.add_new_word_no_category));
-            } else if (categories.get(x).getId()==2) {
-                list.add(context.getString(R.string.add_new_word_add_category));
-            } else {
-                list.add(categories.get(x).getCategory());
-            }
-            x++;
-        } while (x != categories.size());
-        dataAdapter = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item, list);
-        spinner.setAdapter(dataAdapter);
+    public int getSelectedCategoryID(){
+        if(spinner.getSelectedItemPosition()==0){
+            return 1;
+        }
+        String categoryNameFromSpinner = spinner.getSelectedItem().toString();
+        Category category = categoryRepository.getCategoryByName(categoryNameFromSpinner);
+       return category.getId();
     }
 
-
-    public void selectedSpinner(final Activity activity) {
+    public void setSelectedListener(final Activity activity) {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -86,7 +76,6 @@ public class CategorySpinnerManagement {
                                     context.getString(R.string.add_new_word_category_toast),
                                     Toast.LENGTH_LONG).show();
                             dialog.dismiss();
-                            populateSpinner();
                             spinner.setSelection(dataAdapter.getPosition(categoryName.getText().toString()));
                         }
                     });
@@ -108,12 +97,21 @@ public class CategorySpinnerManagement {
         });
     }
 
-    public int getSelectedCategoryID(){
-        if(spinner.getSelectedItemPosition()==0){
-            return 1;
-        }
-        String categoryNameFromSpinner = spinner.getSelectedItem().toString();
-        Category category = categoryRepository.getCategoryByName(categoryNameFromSpinner);
-       return category.getId();
+    public void populate() {
+        ArrayList<Category> categories = categoryRepository.getAllCategory();
+        List<String> list = new ArrayList<String>();
+        int x = 0;
+        do {
+            if (categories.get(x).getId()==1) {
+                list.add(context.getString(R.string.add_new_word_no_category));
+            } else if (categories.get(x).getId()==2) {
+                list.add(context.getString(R.string.add_new_word_add_category));
+            } else {
+                list.add(categories.get(x).getCategory());
+            }
+            x++;
+        } while (x != categories.size());
+        dataAdapter = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item, list);
+        spinner.setAdapter(dataAdapter);
     }
 }
