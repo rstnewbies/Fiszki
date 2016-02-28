@@ -26,11 +26,11 @@ import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.model.Flashcard;
-import eu.qm.fiszki.model.FlashcardManagement;
+import eu.qm.fiszki.model.FlashcardRepository;
 
 public class ExamModeActivity extends AppCompatActivity {
 
-    FlashcardManagement flashcardManagement;
+    FlashcardRepository flashcardRepository;
     Algorithm algorithm;
     TextView word;
     EditText enteredWord;
@@ -68,7 +68,7 @@ public class ExamModeActivity extends AppCompatActivity {
         message = new Alert();
         rules = new Rules();
         algorithm = new Algorithm(context);
-        flashcardManagement = new FlashcardManagement(context);
+        flashcardRepository = new FlashcardRepository(context);
     }
 
 

@@ -21,7 +21,7 @@ import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.model.Flashcard;
-import eu.qm.fiszki.model.FlashcardManagement;
+import eu.qm.fiszki.model.FlashcardRepository;
 
 public class LearningModeActivity extends AppCompatActivity {
 
@@ -29,7 +29,7 @@ public class LearningModeActivity extends AppCompatActivity {
     EditText enteredWord;
     DBAdapter myDb = new DBAdapter(this);
     DBStatus OpenDataBase = new DBStatus();
-    FlashcardManagement flashcardManagement;
+    FlashcardRepository flashcardRepository;
     String wordFromData;
     String expectedWord;
     Rules rules = new Rules();
@@ -47,7 +47,7 @@ public class LearningModeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_check);
 
         context = this;
-        flashcardManagement = new FlashcardManagement(context);
+        flashcardRepository = new FlashcardRepository(context);
         algorithm = new Algorithm(context);
         rules = new Rules();
         message = new Alert();

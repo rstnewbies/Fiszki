@@ -24,7 +24,6 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -39,9 +38,9 @@ import eu.qm.fiszki.database.DBHelper;
 import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.database.DBTransform;
 import eu.qm.fiszki.model.Category;
-import eu.qm.fiszki.model.CategoryManagement;
+import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;
-import eu.qm.fiszki.model.FlashcardManagement;
+import eu.qm.fiszki.model.FlashcardRepository;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -70,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
     private DBTransform transform;
     private View pastView;
     private Flashcard deletedFlashcard;
-    private FlashcardManagement flashcardManagement;
+    private FlashcardRepository flashcardRepository;
     private ListManagement listManagement;
-    private CategoryManagement categoryManagement;
+    private CategoryRepository categoryRepository;
     private Rules rules;
     private Activity activity;
     private EditText editCategory;
@@ -102,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
         emptyDBImage.setImageResource(R.drawable.emptydb);
         openDataBase.openDB(myDb);
         listManagement = new ListManagement(listView, expandableListView, this);
-        flashcardManagement = new FlashcardManagement(context);
-        categoryManagement = new CategoryManagement(context);
+        flashcardRepository = new FlashcardRepository(context);
+        categoryRepository = new CategoryRepository(context);
 
         sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -125,9 +124,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Category addCategory = new Category(2, DBHelper.addCategoryName);
-        categoryManagement.addCategory(addCategory);
+        categoryRepository.addCategory(addCategory);
         Category firstCategory = new Category(1, DBHelper.uncategory);
-        categoryManagement.addCategory(firstCategory);
+        categoryRepository.addCategory(firstCategory);
         transform = new DBTransform(myDb, context);
     }
 
@@ -136,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         listViewPopulate();
         toolbarMainActivity();
-        if (flashcardManagement.getAllFlashcards().size() > 0) {
+        if (flashcardRepository.countFlashcards() > 0) {
             emptyDBImage.setVisibility(View.INVISIBLE);
             emptyDBText.setVisibility(View.INVISIBLE);
             listView.setVisibility(View.VISIBLE);
@@ -168,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void listViewPopulate() {
-        if (flashcardManagement.getAllFlashcards().size() > 0) {
+        if (flashcardRepository.getAllFlashcards().size() > 0) {
             listManagement.populate();
         }
     }
@@ -189,14 +188,14 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(goSettings);
                             finish();
                         } else if (id == R.id.examMode) {
-                            if (flashcardManagement.getAllFlashcards().size() > 0) {
+                            if (flashcardRepository.countFlashcards() > 0) {
                                 Intent goLearningMode = new Intent(MainActivity.this, ExamModeActivity.class);
                                 startActivity(goLearningMode);
                             } else {
                                 alert.buildAlert(getString(R.string.alert_title_fail), getString(R.string.alert_learningmode_emptybase), getString(R.string.button_action_ok), MainActivity.this);
                             }
                         } else if (id == R.id.learningMode) {
-                            if (flashcardManagement.getAllFlashcards().size() > 0) {
+                            if (flashcardRepository.countFlashcards() > 0) {
                                 Intent goLearningMode = new Intent(MainActivity.this, LearningModeActivity.class);
                                 startActivity(goLearningMode);
                             } else {
@@ -378,10 +377,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (selectedType.equals(typeFlashcard)) {
-                    if (flashcardManagement.getFlashcardById(selectedFlashcard.getId()).getWord().equals(editOriginal.getText().toString())) {
+                    if (flashcardRepository.getFlashcardById(selectedFlashcard.getId()).getWord().equals(editOriginal.getText().toString())) {
                         selectedFlashcard.setWord(editOriginal.getText().toString());
                         selectedFlashcard.setTranslation(editTranslate.getText().toString());
-                        flashcardManagement.updateFlashcard(selectedFlashcard);
+                        flashcardRepository.updateFlashcard(selectedFlashcard);
                         pastView.setBackgroundColor(getResources().getColor(R.color.default_color));
                         fab.show();
                         listViewPopulate();
@@ -390,7 +389,7 @@ public class MainActivity extends AppCompatActivity {
                     } else if (rules.addNewWordRule(editOriginal, editTranslate, activity)) {
                         selectedFlashcard.setWord(editOriginal.getText().toString());
                         selectedFlashcard.setTranslation(editTranslate.getText().toString());
-                        flashcardManagement.updateFlashcard(selectedFlashcard);
+                        flashcardRepository.updateFlashcard(selectedFlashcard);
                         pastView.setBackgroundColor(getResources().getColor(R.color.default_color));
                         fab.show();
                         listViewPopulate();
@@ -399,7 +398,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } else if (selectedType.equals(typeCategory)) {
                     selectedCategory.setCategory(editCategory.getText().toString());
-                    categoryManagement.updateCategory(selectedCategory);
+                    categoryRepository.updateCategory(selectedCategory);
                     pastView.setBackgroundColor(getResources().getColor(R.color.default_color));
                     fab.show();
                     listViewPopulate();
@@ -428,16 +427,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 if (selectedType.equals(typeFlashcard)) {
                     deletedFlashcard = selectedFlashcard;
-                    flashcardManagement.deleteFlashcard(selectedFlashcard);
+                    flashcardRepository.deleteFlashcard(selectedFlashcard);
 
-                    if (flashcardManagement.getAllFlashcards().size() > 0) {
+                    if (flashcardRepository.countFlashcards() > 0) {
                         listViewPopulate();
                         Snackbar snackbar = Snackbar
                                 .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
                                 .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        flashcardManagement.addFlashcards(deletedFlashcard);
+                                        flashcardRepository.addFlashcards(deletedFlashcard);
                                         listViewPopulate();
                                     }
                                 });
@@ -460,7 +459,7 @@ public class MainActivity extends AppCompatActivity {
                                 .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        flashcardManagement.addFlashcards(deletedFlashcard);
+                                        flashcardRepository.addFlashcards(deletedFlashcard);
                                         emptyDBImage.setVisibility(View.INVISIBLE);
                                         emptyDBText.setVisibility(View.INVISIBLE);
                                         listView.setVisibility(View.VISIBLE);
@@ -472,19 +471,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } else if (selectedType.equals(typeCategory)) {
                     deletedCategory = selectedCategory;
-                    categoryManagement.deleteCategory(deletedCategory);
-                    deletedFlashcards = flashcardManagement.getFlashcardsByPriority(deletedCategory.getId());
-                    flashcardManagement.deleteFlashcardByCategory(deletedCategory.getId());
+                    categoryRepository.deleteCategory(deletedCategory);
+                    deletedFlashcards = flashcardRepository.getFlashcardsByPriority(deletedCategory.getId());
+                    flashcardRepository.deleteFlashcardByCategory(deletedCategory.getId());
 
-                    if (flashcardManagement.getAllFlashcards().size() > 0) {
+                    if (flashcardRepository.countFlashcards() > 0) {
                         listViewPopulate();
                         Snackbar snackbar = Snackbar
                                 .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
                                 .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        categoryManagement.addCategory(deletedCategory);
-                                        flashcardManagement.addFlashcard(deletedFlashcards);
+                                        categoryRepository.addCategory(deletedCategory);
+                                        flashcardRepository.addFlashcard(deletedFlashcards);
                                         listViewPopulate();
                                     }
                                 });
@@ -507,8 +506,8 @@ public class MainActivity extends AppCompatActivity {
                                 .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        categoryManagement.addCategory(deletedCategory);
-                                        flashcardManagement.addFlashcard(deletedFlashcards);
+                                        categoryRepository.addCategory(deletedCategory);
+                                        flashcardRepository.addFlashcard(deletedFlashcards);
                                         emptyDBImage.setVisibility(View.INVISIBLE);
                                         emptyDBText.setVisibility(View.INVISIBLE);
                                         listView.setVisibility(View.VISIBLE);

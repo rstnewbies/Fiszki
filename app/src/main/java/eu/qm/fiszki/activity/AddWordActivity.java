@@ -10,26 +10,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.CategorySpinnerManagement;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
-import eu.qm.fiszki.database.DBHelper;
 import eu.qm.fiszki.database.DBStatus;
-import eu.qm.fiszki.model.Category;
-import eu.qm.fiszki.model.CategoryManagement;
+import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;
-import eu.qm.fiszki.model.FlashcardManagement;
+import eu.qm.fiszki.model.FlashcardRepository;
 
 
 public class AddWordActivity extends AppCompatActivity {
@@ -38,14 +31,14 @@ public class AddWordActivity extends AppCompatActivity {
     public AlarmReceiver alarm;
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
-    FlashcardManagement flashcardManagement;
+    FlashcardRepository flashcardRepository;
     EditText inputWord, inputTranslation;
     DBStatus OpenDataBase = new DBStatus();
     SettingsActivity settings = new SettingsActivity();
     Alert alert = new Alert();
     private Rules rules = new Rules();
     private Spinner categorySpinner;
-    private CategoryManagement categoryManagement;
+    private CategoryRepository categoryRepository;
     private CategorySpinnerManagement categorySpinnerManagement;
 
 
@@ -62,12 +55,12 @@ public class AddWordActivity extends AppCompatActivity {
         inputTranslation = (EditText) findViewById(R.id.inputTranslation);
         inputTranslation.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         settings.context = this;
-        flashcardManagement = new FlashcardManagement(context);
+        flashcardRepository = new FlashcardRepository(context);
         sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         alarm = new AlarmReceiver();
         categorySpinner = (Spinner) findViewById(R.id.CategorySpinner);
-        categoryManagement = new CategoryManagement(context);
+        categoryRepository = new CategoryRepository(context);
 
         categorySpinnerManagement = new CategorySpinnerManagement(categorySpinner,context);
         categorySpinnerManagement.selectedSpinner(this);
@@ -92,8 +85,8 @@ public class AddWordActivity extends AppCompatActivity {
                 Flashcard flashcard = new Flashcard(inputWord.getText().toString(),
                         inputTranslation.getText().toString(), 1,
                         categorySpinnerManagement.getSelectedCategoryID());
-                flashcardManagement.addFlashcards(flashcard);
-                if (flashcardManagement.isFirst()) {
+                flashcardRepository.addFlashcards(flashcard);
+                if (flashcardRepository.isFirst()) {
                     alarm.start(context, 15);
                     editor.clear();
                     editor.putInt(SettingsActivity.notificationPosition, 3);
@@ -124,8 +117,8 @@ public class AddWordActivity extends AppCompatActivity {
                         Flashcard flashcard = new Flashcard(inputWord.getText().toString(),
                                 inputTranslation.getText().toString(), 1,
                                 categorySpinnerManagement.getSelectedCategoryID());
-                        flashcardManagement.addFlashcards(flashcard);
-                        if (flashcardManagement.isFirst()) {
+                        flashcardRepository.addFlashcards(flashcard);
+                        if (flashcardRepository.isFirst()) {
                             alarm.start(context, 15);
                             editor.clear();
                             editor.putInt(SettingsActivity.notificationPosition, 3);

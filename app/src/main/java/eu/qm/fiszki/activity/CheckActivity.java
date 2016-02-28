@@ -21,7 +21,7 @@ import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.model.Flashcard;
-import eu.qm.fiszki.model.FlashcardManagement;
+import eu.qm.fiszki.model.FlashcardRepository;
 
 public class CheckActivity extends AppCompatActivity {
 
@@ -32,7 +32,7 @@ public class CheckActivity extends AppCompatActivity {
     DBStatus OpenDataBase = new DBStatus();
     Alert alert;
     Context context;
-    FlashcardManagement flashcardManagement;
+    FlashcardRepository flashcardRepository;
     String wordFromData;
     String expectedWord;
     int rowId;
@@ -52,9 +52,9 @@ public class CheckActivity extends AppCompatActivity {
         alert = new Alert();
         context = this;
         algorithm = new Algorithm(context);
-        flashcardManagement = new FlashcardManagement(context);
+        flashcardRepository = new FlashcardRepository(context);
 
-        if (flashcardManagement.getAllFlashcards().size() <= 0) {
+        if (flashcardRepository.countFlashcards() <= 0) {
             alert.emptyBase(context, getString(R.string.main_activity_empty_base_main_layout),
                     getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
 
@@ -110,7 +110,7 @@ public class CheckActivity extends AppCompatActivity {
 
                 if (rowPriority < 5 && firstTry) {
                     flashcard.setPriority(flashcard.getPriority() + 1);
-                    flashcardManagement.updateFlashcard(flashcard);
+                    flashcardRepository.updateFlashcard(flashcard);
                 }
             } else {
                 enteredWord.setText("");
@@ -120,7 +120,7 @@ public class CheckActivity extends AppCompatActivity {
                 firstTry = false;
 
                 flashcard.setPriority(1);
-                flashcardManagement.updateFlashcard(flashcard);
+                flashcardRepository.updateFlashcard(flashcard);
             }
         } else if (id == android.R.id.home) {
             this.finish();

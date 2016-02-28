@@ -4,9 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 
 import eu.qm.fiszki.model.Category;
-import eu.qm.fiszki.model.CategoryManagement;
+import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;
-import eu.qm.fiszki.model.FlashcardManagement;
+import eu.qm.fiszki.model.FlashcardRepository;
 
 /**
  * Created by mBoiler on 11.02.2016.
@@ -15,17 +15,17 @@ public class DBTransform {
 
     Category category;
     Flashcard flashcard;
-    FlashcardManagement flashcardManagement;
-    CategoryManagement categoryManagement;
+    FlashcardRepository flashcardRepository;
+    CategoryRepository categoryRepository;
 
     public DBTransform(DBAdapter myDb, Context context) {
             if (myDb.getAllRows().getCount() > 0) {
-                categoryManagement = new CategoryManagement(context);
-                flashcardManagement = new FlashcardManagement(context);
+                categoryRepository = new CategoryRepository(context);
+                flashcardRepository = new FlashcardRepository(context);
                 Cursor c = myDb.getAllRows();
                 do {
                     flashcard = new Flashcard(c.getInt(0), c.getString(1), c.getString(2), c.getInt(3),1);
-                    flashcardManagement.addFlashcards(flashcard);
+                    flashcardRepository.addFlashcards(flashcard);
                 } while (c.moveToNext());
                 myDb.deleteAll(DBModel.DATABASE_TABLE);
             }

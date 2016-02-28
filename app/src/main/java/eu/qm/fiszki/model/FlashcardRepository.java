@@ -13,19 +13,23 @@ import eu.qm.fiszki.database.DBHelper;
 /**
  * Created by mBoiler on 11.02.2016.
  */
-public class FlashcardManagement {
+public class FlashcardRepository {
 
     public DBHelper dbHelper;
     public RuntimeExceptionDao<Flashcard, Integer> flashcardDao;
     public ArrayList<Flashcard> flashcardList;
 
-    public FlashcardManagement(Context context) {
+    public FlashcardRepository(Context context) {
         dbHelper = OpenHelperManager.getHelper(context, DBHelper.class);
         flashcardDao = dbHelper.getFlashcardDao();
     }
 
     public ArrayList<Flashcard> getAllFlashcards() {
         return flashcardList = (ArrayList<Flashcard>) flashcardDao.queryForAll();
+    }
+
+    public int countFlashcards(){
+        return (int) flashcardDao.countOf();
     }
 
     public void addFlashcards(Flashcard flashcard) {

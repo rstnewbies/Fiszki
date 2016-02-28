@@ -6,21 +6,21 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import eu.qm.fiszki.model.Flashcard;
-import eu.qm.fiszki.model.FlashcardManagement;
+import eu.qm.fiszki.model.FlashcardRepository;
 
 /**
  * Created by mBoiler on 11.02.2016.
  */
 public class Algorithm {
 
-    FlashcardManagement flashcardManagement;
+    FlashcardRepository flashcardRepository;
 
     public Algorithm(Context context) {
-        flashcardManagement = new FlashcardManagement(context);
+        flashcardRepository = new FlashcardRepository(context);
     }
 
     public Flashcard simple(int x){
-        ArrayList<Flashcard> flashcardsList = flashcardManagement.getAllFlashcards();
+        ArrayList<Flashcard> flashcardsList = flashcardRepository.getAllFlashcards();
         Flashcard flashcard = flashcardsList.get(x);
         return flashcard;
     }
@@ -34,7 +34,7 @@ public class Algorithm {
         Flashcard flashcard = null;
 
         for(int i=0; i<5; i++) {
-            ArrayList<Flashcard> flashcardsList = flashcardManagement.getFlashcardsByPriority(i+1);
+            ArrayList<Flashcard> flashcardsList = flashcardRepository.getFlashcardsByPriority(i+1);
             int count = flashcardsList.size();
             totalPoints[i] = count * points[i];
             if(i <= 0) {
@@ -48,15 +48,15 @@ public class Algorithm {
         drawn += 1;
 
         if(drawn <= section[0]) {
-            flashcard = flashcardManagement.getRandomFlashcardByPririty(1);
+            flashcard = flashcardRepository.getRandomFlashcardByPririty(1);
         } else if(drawn <= section[1]) {
-            flashcard = flashcardManagement.getRandomFlashcardByPririty(2);
+            flashcard = flashcardRepository.getRandomFlashcardByPririty(2);
         } else if(drawn <= section[2]) {
-            flashcard = flashcardManagement.getRandomFlashcardByPririty(3);
+            flashcard = flashcardRepository.getRandomFlashcardByPririty(3);
         } else if(drawn <= section[3]) {
-            flashcard = flashcardManagement.getRandomFlashcardByPririty(4);
+            flashcard = flashcardRepository.getRandomFlashcardByPririty(4);
         } else if(drawn <= section[4]+1) {
-            flashcard = flashcardManagement.getRandomFlashcardByPririty(5);
+            flashcard = flashcardRepository.getRandomFlashcardByPririty(5);
         }
 
         return flashcard;

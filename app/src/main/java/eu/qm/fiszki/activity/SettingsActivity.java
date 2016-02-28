@@ -16,7 +16,6 @@ import android.preference.Preference;
 import android.support.v7.app.ActionBar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
@@ -24,7 +23,7 @@ import eu.qm.fiszki.AppCompatPreferenceActivity;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBStatus;
-import eu.qm.fiszki.model.FlashcardManagement;
+import eu.qm.fiszki.model.FlashcardRepository;
 
 public class SettingsActivity extends AppCompatPreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -43,7 +42,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public Alert alert;
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
-    private FlashcardManagement flashcardManagement;
+    private FlashcardRepository flashcardRepository;
     private AlertDialog.Builder builder;
 
     @Override
@@ -57,7 +56,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         context = this;
         alert = new Alert();
         alarm = new AlarmReceiver();
-        flashcardManagement = new FlashcardManagement(context);
+        flashcardRepository = new FlashcardRepository(context);
 
         sync();
         clearDataBase();
@@ -126,7 +125,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
             } else
                 //FOR 1 min
                 if (listPref.getValue().equals(getResources().getString(R.string.frequency_1)) &&
-                        flashcardManagement.getAllFlashcards().size() > 0) {
+                        flashcardRepository.countFlashcards() > 0) {
                     alarm.close(context);
                     time = 1;
                     pref.setSummary(listPref.getEntry());
@@ -137,7 +136,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 } else
                     //FOR 5 min
                     if (listPref.getValue().equals(getResources().getString(R.string.frequency_5)) &&
-                            flashcardManagement.getAllFlashcards().size() > 0) {
+                            flashcardRepository.countFlashcards() > 0) {
                         alarm.close(context);
                         time = 5;
                         pref.setSummary(listPref.getEntry());
@@ -148,7 +147,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                     } else
                         //FOR 15min
                         if (listPref.getValue().equals(getResources().getString(R.string.frequency_15)) &&
-                                flashcardManagement.getAllFlashcards().size() > 0) {
+                                flashcardRepository.countFlashcards() > 0) {
                             alarm.close(context);
                             time = 15;
                             pref.setSummary(listPref.getEntry());
@@ -159,7 +158,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                         } else
                             //FOR 30
                             if (listPref.getValue().equals(getResources().getString(R.string.frequency_30)) &&
-                                    flashcardManagement.getAllFlashcards().size() > 0) {
+                                    flashcardRepository.countFlashcards() > 0) {
                                 alarm.close(context);
                                 time = 30;
                                 pref.setSummary(listPref.getEntry());
@@ -190,19 +189,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity
             listPref.setValueIndex(0);
             pref.setSummary(listPref.getEntry());
         } else if (sharedPreferences.getInt(notificationPosition, 0) == 1
-                && flashcardManagement.getAllFlashcards().size() > 0) {
+                && flashcardRepository.countFlashcards() > 0) {
             listPref.setValueIndex(1);
             pref.setSummary(listPref.getEntry());
         } else if (sharedPreferences.getInt(notificationPosition, 0) == 2
-                && flashcardManagement.getAllFlashcards().size() > 0) {
+                && flashcardRepository.countFlashcards() > 0) {
             listPref.setValueIndex(2);
             pref.setSummary(listPref.getEntry());
         } else if (sharedPreferences.getInt(notificationPosition, 0) == 3
-                && flashcardManagement.getAllFlashcards().size() > 0) {
+                && flashcardRepository.countFlashcards() > 0) {
             listPref.setValueIndex(3);
             pref.setSummary(listPref.getEntry());
         } else if (sharedPreferences.getInt(notificationPosition, 0) == 4
-                && flashcardManagement.getAllFlashcards().size() > 0) {
+                && flashcardRepository.countFlashcards() > 0) {
             listPref.setValueIndex(4);
             pref.setSummary(listPref.getEntry());
         }
@@ -220,7 +219,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
         //Clear database
         cleanerDataBase = findPreference(getResources().getString(R.string.settings_key_data_base));
-        if (flashcardManagement.getAllFlashcards().size() > 0) {
+        if (flashcardRepository.countFlashcards() > 0) {
             cleanerDataBase.setEnabled(true);
         } else {
             cleanerDataBase.setEnabled(false);
@@ -252,7 +251,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
     private void deleteDbRows() {
 
-        flashcardManagement.deleteAllFlashcards(flashcardManagement.getAllFlashcards());
+        flashcardRepository.deleteAllFlashcards(flashcardRepository.getAllFlashcards());
         Intent refresh = new Intent(SettingsActivity.this, MainActivity.class);
         startActivity(refresh);
         finish();

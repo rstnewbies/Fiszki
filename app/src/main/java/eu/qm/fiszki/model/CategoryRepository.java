@@ -12,13 +12,13 @@ import eu.qm.fiszki.database.DBHelper;
 /**
  * Created by mBoiler on 11.02.2016.
  */
-public class CategoryManagement {
+public class CategoryRepository {
 
     private DBHelper dbHelper;
     private RuntimeExceptionDao<Category, Integer> categoryDao;
     private ArrayList<Category> categoryList;
 
-    public CategoryManagement(Context context) {
+    public CategoryRepository(Context context) {
         dbHelper = OpenHelperManager.getHelper(context, DBHelper.class);
         categoryDao = dbHelper.getCategoryDao();
     }
