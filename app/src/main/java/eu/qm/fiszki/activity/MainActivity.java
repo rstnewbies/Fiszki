@@ -338,6 +338,7 @@ public class MainActivity extends AppCompatActivity {
                              } else {
                                  if (pastView != null) {
                                      pastView.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                                     toolbarMainActivity();
                                  }
                              }
                              pastView = selectedView;
@@ -351,6 +352,13 @@ public class MainActivity extends AppCompatActivity {
                  }
 
                 );
+        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                toolbarMainActivity();
+                return false;
+            }
+        });
     }
 
     public void listViewEdit() {
