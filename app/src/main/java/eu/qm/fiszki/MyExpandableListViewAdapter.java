@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -61,8 +62,16 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.row, null);
         }
-        ((CheckedTextView) convertView).setText(categories.get(groupPosition).getCategory());
-        ((CheckedTextView) convertView).setChecked(isExpanded);
+        CheckedTextView categoryName = (CheckedTextView) convertView.findViewById(R.id.categoryName);
+        ImageView icon = (ImageView) convertView.findViewById(R.id.group_icon);
+        if(isExpanded){
+            icon.setImageResource(R.drawable.ic_info_black_24dp);
+        }else{
+            icon.setImageResource(R.drawable.ic_done_black_48dp);
+        }
+        categoryName.setText(categories.get(groupPosition).getCategory());
+        categoryName.setChecked(isExpanded);
+        categoryName.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
         convertView.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
         return convertView;
     }

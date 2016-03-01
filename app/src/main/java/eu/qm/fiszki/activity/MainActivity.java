@@ -356,6 +356,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 toolbarMainActivity();
+                if(pastView!=null) {
+                    pastView.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    pastView = null;
+                }
                 return false;
             }
         });
