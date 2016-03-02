@@ -21,19 +21,6 @@
             android:layout_width="match_parent"
             android:groupIndicator="@null"
             android:layout_alignParentBottom="false" />
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:id="@+id/line"
-            android:background="@color/line"
-            android:layout_below="@+id/categoryList"
-            />
-        <ListView
-            android:id="@+id/uncategoryList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/line"
-            android:clickable="true"/>
     </RelativeLayout>
 
     <ImageView

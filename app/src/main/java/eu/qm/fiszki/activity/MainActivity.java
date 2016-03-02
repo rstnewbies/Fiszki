@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
     static public TextView emptyDBText;
     static public Context context;
     static public ExpandableListView expandableListView;
-    static public ListView listView;
     static public FloatingActionButton fab;
     static public View selectedView;
     static public Dialog dialog;
@@ -66,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
     public Flashcard selectedFlashcard;
-    private DBTransform transform;
     private View pastView;
     private Flashcard deletedFlashcard;
     private FlashcardRepository flashcardRepository;
@@ -79,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     private String selectedType;
     private Category deletedCategory;
     private ArrayList<Flashcard> deletedFlashcards;
+    private DBTransform transform;
 
 
     @Override
@@ -95,12 +94,11 @@ public class MainActivity extends AppCompatActivity {
         myDb = new DBAdapter(this);
         context = this;
         expandableListView = (ExpandableListView) findViewById(R.id.categoryList);
-        listView = (ListView) findViewById(R.id.uncategoryList);
         emptyDBImage = (ImageView) findViewById(R.id.emptyDBImage);
         emptyDBText = (TextView) findViewById(R.id.emptyDBText);
         emptyDBImage.setImageResource(R.drawable.emptydb);
         openDataBase.openDB(myDb);
-        listPopulate = new ListPopulate(listView, expandableListView, this);
+        listPopulate = new ListPopulate(expandableListView, this);
         flashcardRepository = new FlashcardRepository(context);
         categoryRepository = new CategoryRepository(context);
 
@@ -138,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
         if (flashcardRepository.countFlashcards() > 0) {
             emptyDBImage.setVisibility(View.INVISIBLE);
             emptyDBText.setVisibility(View.INVISIBLE);
-            listView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -246,36 +243,6 @@ public class MainActivity extends AppCompatActivity {
 
         selectedFlashcard = new Flashcard();
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                selectedView = view;
-                selectedFlashcard = (Flashcard) parent.getAdapter().getItem(position);
-                editOriginal.setText(selectedFlashcard.getWord());
-                editTranslate.setText(selectedFlashcard.getTranslation());
-
-                if (pastView == view) {
-                    toolbarMainActivity();
-                    fab.show();
-                    selectedView.setBackgroundColor(context.getResources().getColor(R.color.default_color));
-                    pastView = null;
-
-                } else {
-                    if (pastView != null) {
-                        pastView.setBackgroundColor(context.getResources().getColor(R.color.default_color));
-                    }
-                    selectedView.setBackgroundColor(context.getResources().getColor(R.color.pressed_color));
-                    pastView = selectedView;
-                    selectedView = null;
-                    toolbarSelected();
-                    fab.hide();
-                    selectedType = typeFlashcard;
-                }
-                return true;
-
-            }
-        });
         expandableListView.setOnItemLongClickListener
                 (new AdapterView.OnItemLongClickListener() {
                      @Override
@@ -458,7 +425,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         emptyDBImage.setVisibility(View.VISIBLE);
                         emptyDBText.setVisibility(View.VISIBLE);
-                        listView.setVisibility(View.INVISIBLE);
+
                         fab.show();
                         toolbarMainActivity();
                         editor.clear();
@@ -474,7 +441,7 @@ public class MainActivity extends AppCompatActivity {
                                         flashcardRepository.addFlashcards(deletedFlashcard);
                                         emptyDBImage.setVisibility(View.INVISIBLE);
                                         emptyDBText.setVisibility(View.INVISIBLE);
-                                        listView.setVisibility(View.VISIBLE);
+
                                         listViewPopulate();
                                     }
                                 });
@@ -505,7 +472,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         emptyDBImage.setVisibility(View.VISIBLE);
                         emptyDBText.setVisibility(View.VISIBLE);
-                        listView.setVisibility(View.INVISIBLE);
+
                         fab.show();
                         toolbarMainActivity();
                         editor.clear();
@@ -522,7 +489,7 @@ public class MainActivity extends AppCompatActivity {
                                         flashcardRepository.addFlashcard(deletedFlashcards);
                                         emptyDBImage.setVisibility(View.INVISIBLE);
                                         emptyDBText.setVisibility(View.INVISIBLE);
-                                        listView.setVisibility(View.VISIBLE);
+
                                         listViewPopulate();
                                     }
                                 });

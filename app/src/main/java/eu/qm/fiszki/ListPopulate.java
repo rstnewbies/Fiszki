@@ -27,20 +27,14 @@ public class ListPopulate {
     public MyExpandableListViewAdapter adapterExp;
 
 
-    public ListPopulate(ListView listView, ExpandableListView expandableListView, Activity activity) {
+    public ListPopulate(ExpandableListView expandableListView, Activity activity) {
         this.activity = activity;
-        this.listView = listView;
         this.expandableListView = expandableListView;
         flashcardRepository = new FlashcardRepository(activity.getBaseContext());
         categoryRepository = new CategoryRepository(activity.getBaseContext());
     }
 
     public void populate() {
-        //Uncategory
-        ArrayList<Flashcard> arrayList = flashcardRepository.getFlashcardsByCategoryID(1);
-        ItemAdapter adapter = new ItemAdapter(activity.getBaseContext(), R.layout.item_layout, arrayList);
-        listView.setAdapter(adapter);
-
         //Categories
         ArrayList<Category> categories = categoryRepository.getUserCategory();
         ArrayList<ArrayList<Flashcard>> sortedFlashcard = new ArrayList<>();
@@ -58,6 +52,7 @@ public class ListPopulate {
         expandableListView.setDividerHeight(2);
         expandableListView.setAdapter(adapterExp);
 
+        expandableListView.expandGroup(MyExpandableListViewAdapter.lastGroup);
     }
 
 
