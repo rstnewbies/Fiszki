@@ -6,10 +6,15 @@ import java.io.Serializable;
 
 public class Flashcard implements Serializable {
 
+    public static final String columnNameWord =  "FLASHCARD_WORD";
+    public static final String columnNameTranslation =  "FLASHCARD_TRANSLATION";
+    public static final String columnNamePriority =  "FLASHCARD_PRIORITY";
+    public static final String columnNameCategoryID =  "FLASHCARD_CATEGORYID";
+
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField
-    private String word;
+    public String word;
     @DatabaseField
     private String translation;
     @DatabaseField

@@ -34,6 +34,7 @@ public class CategorySpinnerRepository {
 
     public CategorySpinnerRepository(Spinner spinner, Context context) {
         this.spinner = spinner;
+        this.context = context;
         categoryRepository = new CategoryRepository(context);
     }
 

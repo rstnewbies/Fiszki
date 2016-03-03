@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,17 +19,19 @@ public class FlashcardRepository {
     public DBHelper dbHelper;
     public RuntimeExceptionDao<Flashcard, Integer> flashcardDao;
     public ArrayList<Flashcard> flashcardList;
+    QueryBuilder<Flashcard, Integer> qb;
 
     public FlashcardRepository(Context context) {
         dbHelper = OpenHelperManager.getHelper(context, DBHelper.class);
         flashcardDao = dbHelper.getFlashcardDao();
+        qb = flashcardDao.queryBuilder();
     }
 
     public ArrayList<Flashcard> getAllFlashcards() {
         return flashcardList = (ArrayList<Flashcard>) flashcardDao.queryForAll();
     }
 
-    public int countFlashcards(){
+    public int countFlashcards() {
         return (int) flashcardDao.countOf();
     }
 
@@ -36,8 +39,8 @@ public class FlashcardRepository {
         flashcardDao.create(flashcard);
     }
 
-    public void addFlashcard(ArrayList<Flashcard> arrayListFlashcards){
-        for (Flashcard flashcard: arrayListFlashcards) {
+    public void addFlashcard(ArrayList<Flashcard> arrayListFlashcards) {
+        for (Flashcard flashcard : arrayListFlashcards) {
             flashcardDao.create(flashcard);
         }
     }
@@ -49,14 +52,9 @@ public class FlashcardRepository {
     }
 
     public Flashcard getFlashcardByName(String name) {
-        flashcardList = (ArrayList<Flashcard>) flashcardDao.queryForAll();
-        for (Flashcard flashcard : flashcardList) {
-            if (flashcard.getWord().equals(name)) {
-                return flashcard;
-            }
 
-        }
-        return null;
+        flashcardList = (ArrayList<Flashcard>) flashcardDao.queryForEq("word", name);
+        return flashcardList.get(0);
     }
 
     public boolean existence(String name) {
@@ -125,7 +123,7 @@ public class FlashcardRepository {
         return flashcardListByCategory;
     }
 
-    public void deleteFlashcardByCategory(int categoryId){
+    public void deleteFlashcardByCategory(int categoryId) {
         flashcardList = getFlashcardsByPriority(categoryId);
         flashcardDao.delete(flashcardList);
     }
