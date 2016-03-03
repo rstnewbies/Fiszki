@@ -3,29 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1"
-    android:screenOrientation="portrait">
+    android:screenOrientation="portrait"
+    android:weightSum="1">
 
-        <TextView
-            android:layout_width="403dp"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/translation"
-            android:layout_below="@+id/word"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="10dp" />
-
-        <TextView
-            android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/translation"
+        android:layout_width="403dp"
         android:layout_height="wrap_content"
-        android:text="New Text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/word"
+        android:layout_marginLeft="10dp"
+        android:text="New Text" />
+
+    <TextView
         android:id="@+id/word"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:text="New Text"
         android:textSize="20dp"
-        android:textStyle="bold"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="10dp" />
+        android:textStyle="bold" />
 
 </RelativeLayout>

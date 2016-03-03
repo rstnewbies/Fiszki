@@ -19,12 +19,12 @@ import eu.qm.fiszki.model.FlashcardRepository;
 public class ListPopulate {
 
     public static final String emptyFlashcard = "ITISEMPTYCATEGORY";
+    public MyExpandableListViewAdapter adapterExp;
     private Activity activity;
     private ListView listView;
     private ExpandableListView expandableListView;
     private FlashcardRepository flashcardRepository;
     private CategoryRepository categoryRepository;
-    public MyExpandableListViewAdapter adapterExp;
 
 
     public ListPopulate(ExpandableListView expandableListView, Activity activity) {
@@ -35,26 +35,31 @@ public class ListPopulate {
     }
 
     public void populate() {
+        //Uncategory
+        Category lastCategory = categoryRepository.getCategoryByID(1);
+        ArrayList<Flashcard> unCategoryFlashcard = flashcardRepository.getFlashcardsByCategoryID(1);
         //Categories
         ArrayList<Category> categories = categoryRepository.getUserCategory();
         ArrayList<ArrayList<Flashcard>> sortedFlashcard = new ArrayList<>();
-        for (int x = 0; x<categories.size(); x++){
+        for (int x = 0; x < categories.size(); x++) {
             ArrayList<Flashcard> flashcards = flashcardRepository.getFlashcardsByCategoryID(categories.get(x).getId());
-            if(flashcards.size()<=0){
+            if (flashcards.size() <= 0) {
                 flashcards = new ArrayList<Flashcard>();
-                Flashcard emptyflashcard = new Flashcard(emptyFlashcard,null,0,0);
+                Flashcard emptyflashcard = new Flashcard(emptyFlashcard, null, 0, 0);
                 flashcards.add(emptyflashcard);
             }
             sortedFlashcard.add(flashcards);
         }
-        adapterExp = new MyExpandableListViewAdapter(sortedFlashcard,categories);
-        adapterExp.setInflater((LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE),activity);
+
+        categories.add(lastCategory);
+        sortedFlashcard.add(unCategoryFlashcard);
+        adapterExp = new MyExpandableListViewAdapter(sortedFlashcard, categories);
+        adapterExp.setInflater((LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE), activity);
         expandableListView.setDividerHeight(2);
         expandableListView.setAdapter(adapterExp);
 
-        expandableListView.expandGroup(MyExpandableListViewAdapter.lastGroup);
+        expandableListView.expandGroup(adapterExp.lastGroup);
     }
-
 
 
 }

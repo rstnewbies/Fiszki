@@ -37,7 +37,7 @@ public class AddWordActivity extends AppCompatActivity {
     private Rules rules = new Rules();
     private Spinner categorySpinner;
     private CategoryRepository categoryRepository;
-    private CategorySpinnerRepository categorySpinnerRepository;
+     CategorySpinnerRepository categorySpinnerRepository;
 
 
     @Override
@@ -61,12 +61,12 @@ public class AddWordActivity extends AppCompatActivity {
         categoryRepository = new CategoryRepository(context);
 
         categorySpinnerRepository = new CategorySpinnerRepository(categorySpinner,context);
-        categorySpinnerRepository.setSelectedListener(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         clickDone();
         categorySpinnerRepository.populate();
+        categorySpinnerRepository.setSelectedListener(this);
     }
 
     @Override

@@ -19,17 +19,17 @@ import eu.qm.fiszki.model.Flashcard;
  */
 public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
 
+    public ArrayList<Category> categories;
+    public int lastGroup;
     private ArrayList<ArrayList<Flashcard>> sortedFlashcards;
     private ArrayList<Flashcard> flashcards;
-    public ArrayList<Category> categories;
     private Activity activity;
     private LayoutInflater inflater;
-    public static int lastGroup;
 
     public MyExpandableListViewAdapter(ArrayList<ArrayList<Flashcard>> sortedFlashcards, ArrayList<Category> categories) {
         this.sortedFlashcards = sortedFlashcards;
         this.categories = categories;
-        lastGroup = categories.size()-1;
+        lastGroup = categories.size() - 1;
     }
 
     public void setInflater(LayoutInflater inflater, Activity activity) {
@@ -47,12 +47,19 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             convertView = inflater.inflate(R.layout.empty_group, null);
             convertView.setClickable(true);
         } else {
-            convertView = inflater.inflate(R.layout.group, null);
-            textTranslation = (TextView) convertView.findViewById(R.id.translation);
-            textWord = (TextView) convertView.findViewById(R.id.word);
+            if (groupPosition == lastGroup) {
+                convertView = inflater.inflate(R.layout.item_layout, null);
+                textTranslation = (TextView) convertView.findViewById(R.id.translation);
+                textWord = (TextView) convertView.findViewById(R.id.word);
+            } else {
+                convertView = inflater.inflate(R.layout.group, null);
+                textTranslation = (TextView) convertView.findViewById(R.id.translation);
+                textWord = (TextView) convertView.findViewById(R.id.word);
+            }
             textTranslation.setText(flashcards.get(childPosition).getTranslation());
             textWord.setText(flashcards.get(childPosition).getWord());
             convertView.setClickable(false);
+
         }
         convertView.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
         return convertView;
@@ -62,15 +69,15 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            if(groupPosition==categories.size()-1){
+            if (groupPosition == lastGroup) {
                 convertView = inflater.inflate(R.layout.lauout_last_category, null);
-            }else {
+            } else {
                 convertView = inflater.inflate(R.layout.row, null);
                 ImageView icon = (ImageView) convertView.findViewById(R.id.group_icon);
                 CheckedTextView categoryName = (CheckedTextView) convertView.findViewById(R.id.categoryName);
-                if(isExpanded){
+                if (isExpanded) {
                     icon.setImageResource(R.drawable.ic_info_black_24dp);
-                }else{
+                } else {
                     icon.setImageResource(R.drawable.ic_done_black_48dp);
                 }
                 categoryName.setText(categories.get(groupPosition).getCategory());
@@ -132,12 +139,12 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-    public Flashcard getFlashcard(int groupPosition, int childPosition){
-        ArrayList<Flashcard> flashcards= (ArrayList<Flashcard>) sortedFlashcards.get(groupPosition);
+    public Flashcard getFlashcard(int groupPosition, int childPosition) {
+        ArrayList<Flashcard> flashcards = (ArrayList<Flashcard>) sortedFlashcards.get(groupPosition);
         return flashcards.get(childPosition);
     }
 
-    public Category getCategory(int groupPosition){
+    public Category getCategory(int groupPosition) {
         return categories.get(groupPosition);
     }
 
