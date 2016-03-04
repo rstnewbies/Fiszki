@@ -46,15 +46,17 @@ public class FlashcardRepository {
     }
 
     public Flashcard getFlashcardById(int id) {
-        Flashcard flashcard;
-        flashcard = flashcardDao.queryForId(id);
-        return flashcard;
+        return flashcardDao.queryForId(id);
     }
 
     public Flashcard getFlashcardByName(String name) {
-
-        flashcardList = (ArrayList<Flashcard>) flashcardDao.queryForEq("word", name);
-        return flashcardList.get(0);
+        flashcardList =
+                (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnNameWord, name);
+        if (!flashcardList.isEmpty()) {
+            return flashcardList.get(0);
+        } else {
+            return null;
+        }
     }
 
     public boolean existence(String name) {
@@ -76,7 +78,7 @@ public class FlashcardRepository {
         flashcardDao.delete(flashcard);
     }
 
-    public void deleteAllFlashcards(ArrayList<Flashcard> flashcards) {
+    public void deleteFlashcards(ArrayList<Flashcard> flashcards) {
         flashcardDao.delete(flashcards);
     }
 
@@ -86,15 +88,8 @@ public class FlashcardRepository {
 
     public ArrayList<Flashcard> getFlashcardsByPriority(int priority) {
 
-        ArrayList<Flashcard> flashcardListByPriority = new ArrayList<Flashcard>();
-        ArrayList<Flashcard> flashcardList = getAllFlashcards();
-
-        for (Flashcard flashcard : flashcardList) {
-            if (flashcard.getPriority() == priority) {
-                flashcardListByPriority.add(flashcard);
-            }
-
-        }
+        ArrayList<Flashcard> flashcardListByPriority =
+                (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnNamePriority, priority);
         return flashcardListByPriority;
     }
 
@@ -112,15 +107,7 @@ public class FlashcardRepository {
     }
 
     public ArrayList<Flashcard> getFlashcardsByCategoryID(int CategoryID) {
-        ArrayList<Flashcard> flashcardListByCategory = new ArrayList<Flashcard>();
-        ArrayList<Flashcard> flashcardList = getAllFlashcards();
-
-        for (Flashcard flashcard : flashcardList) {
-            if (flashcard.getCategory() == CategoryID) {
-                flashcardListByCategory.add(flashcard);
-            }
-        }
-        return flashcardListByCategory;
+        return (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnNameCategoryID, CategoryID);
     }
 
     public void deleteFlashcardByCategory(int categoryId) {

@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
+import eu.qm.fiszki.DeleteCategory;
 import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
     public Flashcard selectedFlashcard;
-    private DBTransform transform;
+    DBTransform transform;
     private View pastView;
     private Flashcard deletedFlashcard;
     private FlashcardRepository flashcardRepository;
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     private String selectedType;
     private Category deletedCategory;
     private ArrayList<Flashcard> deletedFlashcards;
-
+    private DeleteCategory deleteCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         toolbarMainActivity();
         listViewSelect();
     }
+
 
     @Override
     protected void onStart() {
@@ -223,7 +225,13 @@ public class MainActivity extends AppCompatActivity {
                         if (id == R.id.editRecord) {
                             listViewEdit();
                         } else if (id == R.id.deleteRecord) {
-                            listViewDelete();
+                            if (selectedType.equals(typeFlashcard)) {
+                                listViewDelete();
+                            } else {
+                                deleteCategory = new DeleteCategory(selectedCategory, activity, fab, expandableListView, listView);
+                                toolbarMainActivity();
+                            }
+
                         } else if (id == android.R.id.home) {
                             selectedView.setBackgroundColor(getResources().getColor(R.color.default_color));
                             fab.show();
@@ -356,7 +364,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 toolbarMainActivity();
-                if(pastView!=null) {
+                if (pastView != null) {
                     pastView.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                     pastView = null;
                 }

@@ -251,7 +251,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
     private void deleteDbRows() {
 
-        flashcardRepository.deleteAllFlashcards(flashcardRepository.getAllFlashcards());
+        flashcardRepository.deleteFlashcards(flashcardRepository.getAllFlashcards());
         Intent refresh = new Intent(SettingsActivity.this, MainActivity.class);
         startActivity(refresh);
         finish();
