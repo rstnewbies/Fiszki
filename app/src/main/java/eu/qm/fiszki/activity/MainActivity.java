@@ -125,9 +125,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Category addCategory = new Category(2, DBHelper.addCategoryName);
+        Category addCategory = new Category(2, DBHelper.addCategoryName,false);
         categoryRepository.addCategory(addCategory);
-        Category firstCategory = new Category(1, DBHelper.uncategory);
+        Category firstCategory = new Category(1, DBHelper.uncategory,false);
         categoryRepository.addCategory(firstCategory);
         transform = new DBTransform(myDb, context);
     }

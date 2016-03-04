@@ -32,13 +32,13 @@ public class CategoryRepository {
     }
 
     public Category getCategoryByName(String name) {
-        categoryList = (ArrayList<Category>) categoryDao.queryForAll();
-        for (Category category : categoryList) {
-            if (category.getCategory().equals(name)) {
-                return category;
-            }
+        ArrayList<Category> arrayList =
+                (ArrayList<Category>) categoryDao.queryForEq(Category.columnCategoryCategory, name);
+        if (!arrayList.isEmpty()) {
+            return arrayList.get(0);
+        } else {
+            return null;
         }
-        return null;
     }
 
     public boolean existCategory(int id) {
@@ -50,33 +50,24 @@ public class CategoryRepository {
     }
 
     public Category getCategoryByID(int id) {
-        categoryList = (ArrayList<Category>) categoryDao.queryForAll();
-        for (Category categories : categoryList) {
-            if (categories.getId() == id) {
-                return categories;
-            }
+        ArrayList<Category> arrayList =
+                (ArrayList<Category>) categoryDao.queryForEq(Category.columnCategoryId, id);
+        if (!arrayList.isEmpty()) {
+            return arrayList.get(0);
+        } else {
+            return null;
         }
-        return null;
     }
 
-    public ArrayList<Category> getUserCategory(){
-        ArrayList<Category> categories = new ArrayList<Category>();
-        categoryList = (ArrayList<Category>) categoryDao.queryForAll();
-        for (Category category:categoryList) {
-            if(category.getId()!=1){
-                if(category.getId()!=2) {
-                    categories.add(category);
-                }
-            }
-        }
-        return categories;
+    public ArrayList<Category> getUserCategory() {
+        return (ArrayList<Category>) categoryDao.queryForEq(Category.columnCategoryEntryByUsers, true);
     }
 
-    public void updateCategory(Category category){
+    public void updateCategory(Category category) {
         categoryDao.update(category);
     }
 
-    public void deleteCategory(Category category){
+    public void deleteCategory(Category category) {
         categoryDao.delete(category);
     }
 }

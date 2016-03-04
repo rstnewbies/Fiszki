@@ -51,7 +51,7 @@ public class FlashcardRepository {
 
     public Flashcard getFlashcardByName(String name) {
         flashcardList =
-                (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnNameWord, name);
+                (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnFlashcardWord, name);
         if (!flashcardList.isEmpty()) {
             return flashcardList.get(0);
         } else {
@@ -89,7 +89,7 @@ public class FlashcardRepository {
     public ArrayList<Flashcard> getFlashcardsByPriority(int priority) {
 
         ArrayList<Flashcard> flashcardListByPriority =
-                (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnNamePriority, priority);
+                (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnFlashcardPriority, priority);
         return flashcardListByPriority;
     }
 
@@ -107,7 +107,7 @@ public class FlashcardRepository {
     }
 
     public ArrayList<Flashcard> getFlashcardsByCategoryID(int CategoryID) {
-        return (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnNameCategoryID, CategoryID);
+        return (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnFlashcardCategoryID, CategoryID);
     }
 
     public void deleteFlashcardByCategory(int categoryId) {
