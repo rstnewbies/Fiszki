@@ -68,23 +68,21 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            if (groupPosition == lastGroup) {
-                convertView = inflater.inflate(R.layout.layout_last_category, null);
+        if(groupPosition==lastGroup){
+            convertView = inflater.inflate(R.layout.layout_last_category, null);
+        }else {
+            convertView = inflater.inflate(R.layout.row, null);
+            ImageView icon = (ImageView) convertView.findViewById(R.id.group_icon);
+            CheckedTextView categoryName = (CheckedTextView) convertView.findViewById(R.id.categoryName);
+            if (isExpanded) {
+                icon.setImageResource(R.drawable.ic_info_black_24dp);
             } else {
-                convertView = inflater.inflate(R.layout.row, null);
-                ImageView icon = (ImageView) convertView.findViewById(R.id.group_icon);
-                CheckedTextView categoryName = (CheckedTextView) convertView.findViewById(R.id.categoryName);
-                if (isExpanded) {
-                    icon.setImageResource(R.drawable.ic_info_black_24dp);
-                } else {
-                    icon.setImageResource(R.drawable.ic_done_black_48dp);
-                }
-                categoryName.setText(categories.get(groupPosition).getCategory());
-                categoryName.setChecked(isExpanded);
-                categoryName.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
-                convertView.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
+                icon.setImageResource(R.drawable.ic_done_black_48dp);
             }
+            categoryName.setText(categories.get(groupPosition).getCategory());
+            categoryName.setChecked(isExpanded);
+            categoryName.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
+            convertView.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
         }
         return convertView;
     }

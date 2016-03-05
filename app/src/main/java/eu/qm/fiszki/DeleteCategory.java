@@ -3,11 +3,9 @@ package eu.qm.fiszki;
 import android.app.Activity;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -55,9 +53,9 @@ public class DeleteCategory {
             listPopulate.populate();
             Snackbar snackbar = Snackbar
                     .make(activity.findViewById(android.R.id.content),
-                            activity.getString(R.string.snackbar_returnword_message),
+                            activity.getString(R.string.snackbar_return_category_message),
                             Snackbar.LENGTH_LONG)
-                    .setAction(activity.getString(R.string.snackbar_returnword_button),
+                    .setAction(activity.getString(R.string.snackbar_return_word_button),
                             new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -78,9 +76,9 @@ public class DeleteCategory {
             mainActivity.alarm.close(activity.getBaseContext());
             Snackbar snackbar = Snackbar
                     .make(activity.findViewById(android.R.id.content),
-                            activity.getString(R.string.snackbar_returnword_message),
+                            activity.getString(R.string.snackbar_return_word_message),
                             Snackbar.LENGTH_LONG)
-                    .setAction(activity.getString(R.string.snackbar_returnword_button),
+                    .setAction(activity.getString(R.string.snackbar_return_word_button),
                             new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {

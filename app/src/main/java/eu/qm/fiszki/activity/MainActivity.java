@@ -23,12 +23,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
@@ -421,8 +418,8 @@ public class MainActivity extends AppCompatActivity {
                     if (flashcardRepository.countFlashcards() > 0) {
                         listViewPopulate();
                         Snackbar snackbar = Snackbar
-                                .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
-                                .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
+                                .make(findViewById(android.R.id.content), getString(R.string.snackbar_return_word_message), Snackbar.LENGTH_LONG)
+                                .setAction(getString(R.string.snackbar_return_word_button), new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         flashcardRepository.addFlashcards(deletedFlashcard);
@@ -444,8 +441,8 @@ public class MainActivity extends AppCompatActivity {
                         editor.commit();
                         alarm.close(context);
                         Snackbar snackbar = Snackbar
-                                .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
-                                .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
+                                .make(findViewById(android.R.id.content), getString(R.string.snackbar_return_word_message), Snackbar.LENGTH_LONG)
+                                .setAction(getString(R.string.snackbar_return_word_button), new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         flashcardRepository.addFlashcards(deletedFlashcard);
@@ -467,8 +464,8 @@ public class MainActivity extends AppCompatActivity {
                     if (flashcardRepository.countFlashcards() > 0) {
                         listViewPopulate();
                         Snackbar snackbar = Snackbar
-                                .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
-                                .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
+                                .make(findViewById(android.R.id.content), getString(R.string.snackbar_return_word_message), Snackbar.LENGTH_LONG)
+                                .setAction(getString(R.string.snackbar_return_word_button), new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         categoryRepository.addCategory(deletedCategory);
@@ -491,8 +488,8 @@ public class MainActivity extends AppCompatActivity {
                         editor.commit();
                         alarm.close(context);
                         Snackbar snackbar = Snackbar
-                                .make(findViewById(android.R.id.content), getString(R.string.snackbar_returnword_message), Snackbar.LENGTH_LONG)
-                                .setAction(getString(R.string.snackbar_returnword_button), new View.OnClickListener() {
+                                .make(findViewById(android.R.id.content), getString(R.string.snackbar_return_word_message), Snackbar.LENGTH_LONG)
+                                .setAction(getString(R.string.snackbar_return_word_button), new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         categoryRepository.addCategory(deletedCategory);
