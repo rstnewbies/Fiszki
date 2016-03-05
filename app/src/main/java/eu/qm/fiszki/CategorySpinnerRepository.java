@@ -88,7 +88,7 @@ public class CategorySpinnerRepository {
                     addCategoryButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Category category = new Category(categoryName.getText().toString());
+                            Category category = new Category(categoryName.getText().toString(), true);
                             categoryRepository.addCategory(category);
                             Toast.makeText(context,
                                     context.getString(R.string.add_new_word_category_toast),

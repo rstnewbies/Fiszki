@@ -23,13 +23,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
+import eu.qm.fiszki.DeleteCategory;
 import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
@@ -78,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private Category deletedCategory;
     private ArrayList<Flashcard> deletedFlashcards;
     private DBTransform transform;
-
+    private DeleteCategory deleteCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,12 +121,13 @@ public class MainActivity extends AppCompatActivity {
         listViewSelect();
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
-        Category addCategory = new Category(2, DBHelper.addCategoryName);
+        Category addCategory = new Category(2, DBHelper.addCategoryName,false);
         categoryRepository.addCategory(addCategory);
-        Category firstCategory = new Category(1, DBHelper.uncategory);
+        Category firstCategory = new Category(1, DBHelper.uncategory,false);
         categoryRepository.addCategory(firstCategory);
         transform = new DBTransform(myDb, context);
     }
@@ -220,7 +224,13 @@ public class MainActivity extends AppCompatActivity {
                         if (id == R.id.editRecord) {
                             listViewEdit();
                         } else if (id == R.id.deleteRecord) {
-                            listViewDelete();
+                            if (selectedType.equals(typeFlashcard)) {
+                                listViewDelete();
+                            } else {
+                                deleteCategory = new DeleteCategory(selectedCategory, activity, fab, expandableListView);
+                                toolbarMainActivity();
+                            }
+
                         } else if (id == android.R.id.home) {
                             selectedView.setBackgroundColor(getResources().getColor(R.color.default_color));
                             fab.show();
@@ -323,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 toolbarMainActivity();
-                if(pastView!=null) {
+                if (pastView != null) {
                     pastView.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                     pastView = null;
                 }

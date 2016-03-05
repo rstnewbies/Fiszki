@@ -70,7 +70,7 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if (convertView == null) {
             if (groupPosition == lastGroup) {
-                convertView = inflater.inflate(R.layout.lauout_last_category, null);
+                convertView = inflater.inflate(R.layout.layout_last_category, null);
             } else {
                 convertView = inflater.inflate(R.layout.row, null);
                 ImageView icon = (ImageView) convertView.findViewById(R.id.group_icon);

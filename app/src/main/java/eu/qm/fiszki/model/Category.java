@@ -6,20 +6,28 @@ import java.io.Serializable;
 
 public class Category implements Serializable {
 
+    public static final String columnCategoryId =  "id";
+    public static final String columnCategoryCategory =  "category";
+    public static final String columnCategoryEntryByUsers =  "entryByUser";
+
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField
     private String category;
+    @DatabaseField
+    private boolean entryByUser;
 
     public Category() {
     }
 
-    public Category(int id, String category) {
+    public Category(int id, String category, boolean entryByUser) {
         this.id = id;
         this.category = category;
+        this.entryByUser = entryByUser;
     }
-    public Category(String category) {
+    public Category(String category, boolean entryByUser) {
         this.category = category;
+        this.entryByUser = entryByUser;
     }
 
     public int getId() {

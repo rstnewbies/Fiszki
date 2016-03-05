@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,17 +19,19 @@ public class FlashcardRepository {
     public DBHelper dbHelper;
     public RuntimeExceptionDao<Flashcard, Integer> flashcardDao;
     public ArrayList<Flashcard> flashcardList;
+    QueryBuilder<Flashcard, Integer> qb;
 
     public FlashcardRepository(Context context) {
         dbHelper = OpenHelperManager.getHelper(context, DBHelper.class);
         flashcardDao = dbHelper.getFlashcardDao();
+        qb = flashcardDao.queryBuilder();
     }
 
     public ArrayList<Flashcard> getAllFlashcards() {
         return flashcardList = (ArrayList<Flashcard>) flashcardDao.queryForAll();
     }
 
-    public int countFlashcards(){
+    public int countFlashcards() {
         return (int) flashcardDao.countOf();
     }
 
@@ -36,27 +39,24 @@ public class FlashcardRepository {
         flashcardDao.create(flashcard);
     }
 
-    public void addFlashcard(ArrayList<Flashcard> arrayListFlashcards){
-        for (Flashcard flashcard: arrayListFlashcards) {
+    public void addFlashcard(ArrayList<Flashcard> arrayListFlashcards) {
+        for (Flashcard flashcard : arrayListFlashcards) {
             flashcardDao.create(flashcard);
         }
     }
 
     public Flashcard getFlashcardById(int id) {
-        Flashcard flashcard;
-        flashcard = flashcardDao.queryForId(id);
-        return flashcard;
+        return flashcardDao.queryForId(id);
     }
 
     public Flashcard getFlashcardByName(String name) {
-        flashcardList = (ArrayList<Flashcard>) flashcardDao.queryForAll();
-        for (Flashcard flashcard : flashcardList) {
-            if (flashcard.getWord().equals(name)) {
-                return flashcard;
-            }
-
+        flashcardList =
+                (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnFlashcardWord, name);
+        if (!flashcardList.isEmpty()) {
+            return flashcardList.get(0);
+        } else {
+            return null;
         }
-        return null;
     }
 
     public boolean existence(String name) {
@@ -78,7 +78,7 @@ public class FlashcardRepository {
         flashcardDao.delete(flashcard);
     }
 
-    public void deleteAllFlashcards(ArrayList<Flashcard> flashcards) {
+    public void deleteFlashcards(ArrayList<Flashcard> flashcards) {
         flashcardDao.delete(flashcards);
     }
 
@@ -88,15 +88,8 @@ public class FlashcardRepository {
 
     public ArrayList<Flashcard> getFlashcardsByPriority(int priority) {
 
-        ArrayList<Flashcard> flashcardListByPriority = new ArrayList<Flashcard>();
-        ArrayList<Flashcard> flashcardList = getAllFlashcards();
-
-        for (Flashcard flashcard : flashcardList) {
-            if (flashcard.getPriority() == priority) {
-                flashcardListByPriority.add(flashcard);
-            }
-
-        }
+        ArrayList<Flashcard> flashcardListByPriority =
+                (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnFlashcardPriority, priority);
         return flashcardListByPriority;
     }
 
@@ -114,18 +107,10 @@ public class FlashcardRepository {
     }
 
     public ArrayList<Flashcard> getFlashcardsByCategoryID(int CategoryID) {
-        ArrayList<Flashcard> flashcardListByCategory = new ArrayList<Flashcard>();
-        ArrayList<Flashcard> flashcardList = getAllFlashcards();
-
-        for (Flashcard flashcard : flashcardList) {
-            if (flashcard.getCategory() == CategoryID) {
-                flashcardListByCategory.add(flashcard);
-            }
-        }
-        return flashcardListByCategory;
+        return (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnFlashcardCategoryID, CategoryID);
     }
 
-    public void deleteFlashcardByCategory(int categoryId){
+    public void deleteFlashcardByCategory(int categoryId) {
         flashcardList = getFlashcardsByPriority(categoryId);
         flashcardDao.delete(flashcardList);
     }
