@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,6 @@ import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.database.DBAdapter;
-import eu.qm.fiszki.database.DBHelper;
 import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.database.DBTransform;
 import eu.qm.fiszki.model.Category;
@@ -122,22 +122,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Category addCategory = new Category(2, DBHelper.addCategoryName,false);
-        categoryRepository.addCategory(addCategory);
-        Category firstCategory = new Category(1, DBHelper.uncategory,false);
-        categoryRepository.addCategory(firstCategory);
+        categoryRepository.addSystemCategory();
         transform = new DBTransform(myDb, context);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        listViewPopulate();
         toolbarMainActivity();
-        if (flashcardRepository.countFlashcards() > 0) {
-            emptyDBImage.setVisibility(View.INVISIBLE);
-            emptyDBText.setVisibility(View.INVISIBLE);
-        }
+        populate();
     }
 
     @Override
@@ -162,12 +155,6 @@ public class MainActivity extends AppCompatActivity {
             pastView = null;
         }
         return true;
-    }
-
-    public void listViewPopulate() {
-        if (flashcardRepository.getAllFlashcards().size() > 0) {
-            listPopulate.populate();
-        }
     }
 
     public void toolbarMainActivity() {
@@ -224,8 +211,7 @@ public class MainActivity extends AppCompatActivity {
                             if (selectedType.equals(typeFlashcard)) {
                                 listViewDelete();
                             } else {
-                                deleteCategory = new DeleteCategory(selectedCategory, activity, fab, expandableListView);
-                                toolbarMainActivity();
+                                listViewDelete();
                             }
 
                         } else if (id == android.R.id.home) {
@@ -261,6 +247,8 @@ public class MainActivity extends AppCompatActivity {
                              selectedFlashcard = listPopulate.adapterExp.getFlashcard(groupPosition, childPosition);
                              selectedView = view;
 
+                             Toast.makeText(context,selectedFlashcard.getId()+" "+selectedFlashcard.getCategory(),Toast.LENGTH_LONG).show();
+
                              dialog.setContentView(R.layout.layout_dialog_edit);
                              dialog.setTitle(R.string.main_activity_dialog_edit_item);
 
@@ -294,6 +282,8 @@ public class MainActivity extends AppCompatActivity {
 
                              selectedCategory = listPopulate.adapterExp.getCategory(groupPosition);
                              selectedView = view;
+
+                             Toast.makeText(context,selectedCategory.getId()+" "+selectedCategory.getCategory(),Toast.LENGTH_LONG).show();
 
                              dialog.setContentView(R.layout.layout_dialog_edit_category);
                              dialog.setTitle(R.string.main_activity_dialog_edit_category);
@@ -369,7 +359,7 @@ public class MainActivity extends AppCompatActivity {
                         flashcardRepository.updateFlashcard(selectedFlashcard);
                         pastView.setBackgroundColor(getResources().getColor(R.color.default_color));
                         fab.show();
-                        listViewPopulate();
+                        populate();
                         toolbarMainActivity();
                         dialog.dismiss();
                     } else if (rules.addNewWordRule(editOriginal, editTranslate, activity)) {
@@ -378,7 +368,7 @@ public class MainActivity extends AppCompatActivity {
                         flashcardRepository.updateFlashcard(selectedFlashcard);
                         pastView.setBackgroundColor(getResources().getColor(R.color.default_color));
                         fab.show();
-                        listViewPopulate();
+                        populate();
                         toolbarMainActivity();
                         dialog.dismiss();
                     }
@@ -387,7 +377,7 @@ public class MainActivity extends AppCompatActivity {
                     categoryRepository.updateCategory(selectedCategory);
                     pastView.setBackgroundColor(getResources().getColor(R.color.default_color));
                     fab.show();
-                    listViewPopulate();
+                    populate();
                     toolbarMainActivity();
                     dialog.dismiss();
                 }
@@ -415,94 +405,39 @@ public class MainActivity extends AppCompatActivity {
                     deletedFlashcard = selectedFlashcard;
                     flashcardRepository.deleteFlashcard(selectedFlashcard);
 
-                    if (flashcardRepository.countFlashcards() > 0) {
-                        listViewPopulate();
-                        Snackbar snackbar = Snackbar
-                                .make(findViewById(android.R.id.content), getString(R.string.snackbar_return_word_message), Snackbar.LENGTH_LONG)
-                                .setAction(getString(R.string.snackbar_return_word_button), new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        flashcardRepository.addFlashcards(deletedFlashcard);
-                                        listViewPopulate();
-                                    }
-                                });
-                        snackbar.show();
-                        fab.show();
-                        toolbarMainActivity();
-                    } else {
-                        emptyDBImage.setVisibility(View.VISIBLE);
-                        emptyDBText.setVisibility(View.VISIBLE);
+                    populate();
+                    Snackbar snackbar = Snackbar
+                            .make(findViewById(android.R.id.content), getString(R.string.snackbar_return_word_message), Snackbar.LENGTH_LONG)
+                            .setAction(getString(R.string.snackbar_return_word_button), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    flashcardRepository.addFlashcards(deletedFlashcard);
+                                    populate();
+                                }
+                            });
+                    snackbar.show();
+                    fab.show();
+                    toolbarMainActivity();
 
-                        fab.show();
-                        toolbarMainActivity();
-                        editor.clear();
-                        editor.putInt(SettingsActivity.notificationPosition, 0);
-
-                        editor.commit();
-                        alarm.close(context);
-                        Snackbar snackbar = Snackbar
-                                .make(findViewById(android.R.id.content), getString(R.string.snackbar_return_word_message), Snackbar.LENGTH_LONG)
-                                .setAction(getString(R.string.snackbar_return_word_button), new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        flashcardRepository.addFlashcards(deletedFlashcard);
-                                        emptyDBImage.setVisibility(View.INVISIBLE);
-                                        emptyDBText.setVisibility(View.INVISIBLE);
-
-                                        listViewPopulate();
-                                    }
-                                });
-                        snackbar.show();
-                        fab.show();
-                    }
                 } else if (selectedType.equals(typeCategory)) {
                     deletedCategory = selectedCategory;
                     categoryRepository.deleteCategory(deletedCategory);
                     deletedFlashcards = flashcardRepository.getFlashcardsByPriority(deletedCategory.getId());
                     flashcardRepository.deleteFlashcardByCategory(deletedCategory.getId());
-
-                    if (flashcardRepository.countFlashcards() > 0) {
-                        listViewPopulate();
-                        Snackbar snackbar = Snackbar
-                                .make(findViewById(android.R.id.content), getString(R.string.snackbar_return_word_message), Snackbar.LENGTH_LONG)
-                                .setAction(getString(R.string.snackbar_return_word_button), new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        categoryRepository.addCategory(deletedCategory);
-                                        flashcardRepository.addFlashcard(deletedFlashcards);
-                                        listViewPopulate();
-                                    }
-                                });
-                        snackbar.show();
-                        fab.show();
-                        toolbarMainActivity();
-                    } else {
-                        emptyDBImage.setVisibility(View.VISIBLE);
-                        emptyDBText.setVisibility(View.VISIBLE);
-
-                        fab.show();
-                        toolbarMainActivity();
-                        editor.clear();
-                        editor.putInt(SettingsActivity.notificationPosition, 0);
-
-                        editor.commit();
-                        alarm.close(context);
-                        Snackbar snackbar = Snackbar
-                                .make(findViewById(android.R.id.content), getString(R.string.snackbar_return_word_message), Snackbar.LENGTH_LONG)
-                                .setAction(getString(R.string.snackbar_return_word_button), new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        categoryRepository.addCategory(deletedCategory);
-                                        flashcardRepository.addFlashcard(deletedFlashcards);
-                                        emptyDBImage.setVisibility(View.INVISIBLE);
-                                        emptyDBText.setVisibility(View.INVISIBLE);
-
-                                        listViewPopulate();
-                                    }
-                                });
-                        snackbar.show();
-                        fab.show();
-                    }
+                    populate();
+                    Snackbar snackbar = Snackbar
+                            .make(findViewById(android.R.id.content), getString(R.string.snackbar_return_word_message), Snackbar.LENGTH_LONG)
+                            .setAction(getString(R.string.snackbar_return_word_button), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    categoryRepository.addCategory(deletedCategory);
+                                    flashcardRepository.addFlashcard(deletedFlashcards);
+                                    populate();
+                                }
+                            });
+                    snackbar.show();
+                    fab.show();
+                    toolbarMainActivity();
                 }
             }
         });
@@ -514,6 +449,23 @@ public class MainActivity extends AppCompatActivity {
         });
         alertDialog.show();
 
+    }
+
+    public void populate() {
+        if (categoryRepository.countCategory() > 2 || flashcardRepository.countFlashcards() > 0) {
+            emptyDBImage.setVisibility(View.INVISIBLE);
+            emptyDBText.setVisibility(View.INVISIBLE);
+            expandableListView.setVisibility(View.VISIBLE);
+            listPopulate.populate();
+        } else {
+            emptyDBImage.setVisibility(View.VISIBLE);
+            emptyDBText.setVisibility(View.VISIBLE);
+            expandableListView.setVisibility(View.INVISIBLE);
+            editor.clear();
+            editor.putInt(SettingsActivity.notificationPosition, 0);
+            editor.commit();
+            alarm.close(context);
+        }
     }
 
 }

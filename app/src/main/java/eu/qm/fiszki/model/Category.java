@@ -10,7 +10,7 @@ public class Category implements Serializable {
     public static final String columnCategoryCategory =  "category";
     public static final String columnCategoryEntryByUsers =  "entryByUser";
 
-    @DatabaseField(generatedId = true)
+    @DatabaseField(generatedId = true,allowGeneratedIdInsert=true)
     private int id;
     @DatabaseField
     private String category;
