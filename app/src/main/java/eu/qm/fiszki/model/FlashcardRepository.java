@@ -35,11 +35,11 @@ public class FlashcardRepository {
         return (int) flashcardDao.countOf();
     }
 
-    public void addFlashcards(Flashcard flashcard) {
+    public void addFlashcard(Flashcard flashcard) {
         flashcardDao.create(flashcard);
     }
 
-    public void addFlashcard(ArrayList<Flashcard> arrayListFlashcards) {
+    public void addFlashcards(ArrayList<Flashcard> arrayListFlashcards) {
         for (Flashcard flashcard : arrayListFlashcards) {
             flashcardDao.create(flashcard);
         }

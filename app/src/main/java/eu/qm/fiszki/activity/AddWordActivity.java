@@ -84,7 +84,7 @@ public class AddWordActivity extends AppCompatActivity {
                 Flashcard flashcard = new Flashcard(inputWord.getText().toString(),
                         inputTranslation.getText().toString(), 1,
                         categorySpinnerRepository.getSelectedCategoryID());
-                flashcardRepository.addFlashcards(flashcard);
+                flashcardRepository.addFlashcard(flashcard);
                 if (flashcardRepository.isFirst()) {
                     alarm.start(context, 15);
                     editor.clear();
@@ -116,7 +116,7 @@ public class AddWordActivity extends AppCompatActivity {
                         Flashcard flashcard = new Flashcard(inputWord.getText().toString(),
                                 inputTranslation.getText().toString(), 1,
                                 categorySpinnerRepository.getSelectedCategoryID());
-                        flashcardRepository.addFlashcards(flashcard);
+                        flashcardRepository.addFlashcard(flashcard);
                         if (flashcardRepository.isFirst()) {
                             alarm.start(context, 15);
                             editor.clear();
