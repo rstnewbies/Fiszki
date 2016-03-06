@@ -24,13 +24,12 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
-import eu.qm.fiszki.DeleteCategory;
+import eu.qm.fiszki.BackgroundSetter;
 import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
@@ -41,6 +40,7 @@ import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
+import eu.qm.fiszki.optionsAfterSelection.DeleteCategory;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
     static public DBAdapter myDb;
     static public DBStatus openDataBase;
     static public Alert alert;
-    static public ImageView emptyDBImage;
-    static public TextView emptyDBText;
     static public Context context;
     static public ExpandableListView expandableListView;
     static public FloatingActionButton fab;
@@ -78,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private Category deletedCategory;
     private ArrayList<Flashcard> deletedFlashcards;
     private DBTransform transform;
-    private DeleteCategory deleteCategory;
+    BackgroundSetter backgroundSetter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,13 +92,11 @@ public class MainActivity extends AppCompatActivity {
         myDb = new DBAdapter(this);
         context = this;
         expandableListView = (ExpandableListView) findViewById(R.id.categoryList);
-        emptyDBImage = (ImageView) findViewById(R.id.emptyDBImage);
-        emptyDBText = (TextView) findViewById(R.id.emptyDBText);
-        emptyDBImage.setImageResource(R.drawable.emptydb);
         openDataBase.openDB(myDb);
         listPopulate = new ListPopulate(expandableListView, this);
         flashcardRepository = new FlashcardRepository(context);
         categoryRepository = new CategoryRepository(context);
+        backgroundSetter = new BackgroundSetter(activity);
 
         sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -130,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         toolbarMainActivity();
-        populate();
+        backgroundSetter.set();
     }
 
     @Override
@@ -211,7 +207,9 @@ public class MainActivity extends AppCompatActivity {
                             if (selectedType.equals(typeFlashcard)) {
                                 listViewDelete();
                             } else {
-                                listViewDelete();
+                                DeleteCategory deleteCategory = new DeleteCategory(selectedCategory, activity);
+                                fab.show();
+                                toolbarMainActivity();
                             }
 
                         } else if (id == android.R.id.home) {
@@ -244,10 +242,8 @@ public class MainActivity extends AppCompatActivity {
                              int groupPosition = ExpandableListView.getPackedPositionGroup(id);
                              int childPosition = ExpandableListView.getPackedPositionChild(id);
 
-                             selectedFlashcard = listPopulate.adapterExp.getFlashcard(groupPosition, childPosition);
+                             selectedFlashcard = backgroundSetter.listPopulate.adapterExp.getFlashcard(groupPosition, childPosition);
                              selectedView = view;
-
-                             Toast.makeText(context,selectedFlashcard.getId()+" "+selectedFlashcard.getCategory(),Toast.LENGTH_LONG).show();
 
                              dialog.setContentView(R.layout.layout_dialog_edit);
                              dialog.setTitle(R.string.main_activity_dialog_edit_item);
@@ -282,8 +278,6 @@ public class MainActivity extends AppCompatActivity {
 
                              selectedCategory = listPopulate.adapterExp.getCategory(groupPosition);
                              selectedView = view;
-
-                             Toast.makeText(context,selectedCategory.getId()+" "+selectedCategory.getCategory(),Toast.LENGTH_LONG).show();
 
                              dialog.setContentView(R.layout.layout_dialog_edit_category);
                              dialog.setTitle(R.string.main_activity_dialog_edit_category);
@@ -359,7 +353,7 @@ public class MainActivity extends AppCompatActivity {
                         flashcardRepository.updateFlashcard(selectedFlashcard);
                         pastView.setBackgroundColor(getResources().getColor(R.color.default_color));
                         fab.show();
-                        populate();
+                        backgroundSetter.set();
                         toolbarMainActivity();
                         dialog.dismiss();
                     } else if (rules.addNewWordRule(editOriginal, editTranslate, activity)) {
@@ -368,7 +362,7 @@ public class MainActivity extends AppCompatActivity {
                         flashcardRepository.updateFlashcard(selectedFlashcard);
                         pastView.setBackgroundColor(getResources().getColor(R.color.default_color));
                         fab.show();
-                        populate();
+                        backgroundSetter.set();
                         toolbarMainActivity();
                         dialog.dismiss();
                     }
@@ -377,7 +371,7 @@ public class MainActivity extends AppCompatActivity {
                     categoryRepository.updateCategory(selectedCategory);
                     pastView.setBackgroundColor(getResources().getColor(R.color.default_color));
                     fab.show();
-                    populate();
+                    backgroundSetter.set();
                     toolbarMainActivity();
                     dialog.dismiss();
                 }
@@ -405,14 +399,14 @@ public class MainActivity extends AppCompatActivity {
                     deletedFlashcard = selectedFlashcard;
                     flashcardRepository.deleteFlashcard(selectedFlashcard);
 
-                    populate();
+                    backgroundSetter.set();
                     Snackbar snackbar = Snackbar
                             .make(findViewById(android.R.id.content), getString(R.string.snackbar_return_word_message), Snackbar.LENGTH_LONG)
                             .setAction(getString(R.string.snackbar_return_word_button), new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     flashcardRepository.addFlashcards(deletedFlashcard);
-                                    populate();
+                                    backgroundSetter.set();
                                 }
                             });
                     snackbar.show();
@@ -424,15 +418,15 @@ public class MainActivity extends AppCompatActivity {
                     categoryRepository.deleteCategory(deletedCategory);
                     deletedFlashcards = flashcardRepository.getFlashcardsByPriority(deletedCategory.getId());
                     flashcardRepository.deleteFlashcardByCategory(deletedCategory.getId());
-                    populate();
+                    backgroundSetter.set();
                     Snackbar snackbar = Snackbar
-                            .make(findViewById(android.R.id.content), getString(R.string.snackbar_return_word_message), Snackbar.LENGTH_LONG)
+                            .make(findViewById(android.R.id.content), getString(R.string.snackbar_return_category_message), Snackbar.LENGTH_LONG)
                             .setAction(getString(R.string.snackbar_return_word_button), new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     categoryRepository.addCategory(deletedCategory);
                                     flashcardRepository.addFlashcard(deletedFlashcards);
-                                    populate();
+                                    backgroundSetter.set();
                                 }
                             });
                     snackbar.show();
@@ -450,23 +444,5 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
 
     }
-
-    public void populate() {
-        if (categoryRepository.countCategory() > 2 || flashcardRepository.countFlashcards() > 0) {
-            emptyDBImage.setVisibility(View.INVISIBLE);
-            emptyDBText.setVisibility(View.INVISIBLE);
-            expandableListView.setVisibility(View.VISIBLE);
-            listPopulate.populate();
-        } else {
-            emptyDBImage.setVisibility(View.VISIBLE);
-            emptyDBText.setVisibility(View.VISIBLE);
-            expandableListView.setVisibility(View.INVISIBLE);
-            editor.clear();
-            editor.putInt(SettingsActivity.notificationPosition, 0);
-            editor.commit();
-            alarm.close(context);
-        }
-    }
-
 }
 

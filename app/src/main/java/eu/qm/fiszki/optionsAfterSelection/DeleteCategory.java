@@ -1,0 +1,54 @@
+package eu.qm.fiszki.optionsAfterSelection;
+
+import android.app.Activity;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+
+import java.util.ArrayList;
+
+import eu.qm.fiszki.BackgroundSetter;
+import eu.qm.fiszki.R;
+import eu.qm.fiszki.activity.MainActivity;
+import eu.qm.fiszki.model.Category;
+import eu.qm.fiszki.model.CategoryRepository;
+import eu.qm.fiszki.model.Flashcard;
+import eu.qm.fiszki.model.FlashcardRepository;
+
+/**
+ * Created by mBoiler on 06.03.2016.
+ */
+public class DeleteCategory {
+
+    Category deletedCategory;
+    CategoryRepository categoryRepository;
+    ArrayList<Flashcard> deletedFlashcards;
+    FlashcardRepository flashcardRepository;
+    BackgroundSetter backgroundSetter;
+
+    public DeleteCategory(Category selectedCategory, Activity activity) {
+
+        backgroundSetter = new BackgroundSetter(activity);
+        categoryRepository = new CategoryRepository(activity.getBaseContext());
+        flashcardRepository = new FlashcardRepository(activity.getBaseContext());
+
+        deletedCategory = selectedCategory;
+        categoryRepository.deleteCategory(deletedCategory);
+        deletedFlashcards = flashcardRepository.getFlashcardsByPriority(deletedCategory.getId());
+        flashcardRepository.deleteFlashcardByCategory(deletedCategory.getId());
+        backgroundSetter.set();
+        Snackbar snackbar = Snackbar
+                .make(activity.findViewById(android.R.id.content),
+                        activity.getString(R.string.snackbar_return_category_message),
+                        Snackbar.LENGTH_LONG)
+                .setAction(activity.getString(R.string.snackbar_return_word_button),
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                categoryRepository.addCategory(deletedCategory);
+                                flashcardRepository.addFlashcard(deletedFlashcards);
+                                backgroundSetter.set();
+                            }
+                        });
+        snackbar.show();
+    }
+}
