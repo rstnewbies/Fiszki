@@ -14,7 +14,6 @@ import eu.qm.fiszki.R;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 import eu.qm.fiszki.toolbar.ToolbarMainActivity;
-import eu.qm.fiszki.toolbar.ToolbarSelected;
 
 /**
  * Created by mBoiler on 06.03.2016.
@@ -38,7 +37,7 @@ public class EditFlashcard {
         flashcardRepository = new FlashcardRepository(activity.getBaseContext());
         dialogButton = (Button) dialog.findViewById(R.id.editButton);
         editOrginal = (EditText) dialog.findViewById(R.id.editOrginal);
-        editTranslate =(EditText) dialog.findViewById(R.id.editTranslate);
+        editTranslate = (EditText) dialog.findViewById(R.id.editTranslate);
         toolbarMainActivity = new ToolbarMainActivity(activity);
         editOrginal.setText(selectedFlashcard.getWord());
         editTranslate.setText(selectedFlashcard.getTranslation());

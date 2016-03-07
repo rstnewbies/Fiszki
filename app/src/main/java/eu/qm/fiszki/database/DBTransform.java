@@ -19,16 +19,16 @@ public class DBTransform {
     CategoryRepository categoryRepository;
 
     public DBTransform(DBAdapter myDb, Context context) {
-            if (myDb.getAllRows().getCount() > 0) {
-                categoryRepository = new CategoryRepository(context);
-                flashcardRepository = new FlashcardRepository(context);
-                Cursor c = myDb.getAllRows();
-                do {
-                    flashcard = new Flashcard(c.getInt(0), c.getString(1), c.getString(2), c.getInt(3),1);
-                    flashcardRepository.addFlashcard(flashcard);
-                } while (c.moveToNext());
-                myDb.deleteAll(DBModel.DATABASE_TABLE);
-            }
+        if (myDb.getAllRows().getCount() > 0) {
+            categoryRepository = new CategoryRepository(context);
+            flashcardRepository = new FlashcardRepository(context);
+            Cursor c = myDb.getAllRows();
+            do {
+                flashcard = new Flashcard(c.getInt(0), c.getString(1), c.getString(2), c.getInt(3), 1);
+                flashcardRepository.addFlashcard(flashcard);
+            } while (c.moveToNext());
+            myDb.deleteAll(DBModel.DATABASE_TABLE);
+        }
 
     }
 }

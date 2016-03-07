@@ -14,7 +14,6 @@ import eu.qm.fiszki.R;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.toolbar.ToolbarMainActivity;
-import eu.qm.fiszki.toolbar.ToolbarSelected;
 
 /**
  * Created by mBoiler on 06.03.2016.

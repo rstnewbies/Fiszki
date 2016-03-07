@@ -68,9 +68,9 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        if(groupPosition==lastGroup){
+        if (groupPosition == lastGroup) {
             convertView = inflater.inflate(R.layout.layout_last_category, null);
-        }else {
+        } else {
             convertView = inflater.inflate(R.layout.row, null);
             ImageView icon = (ImageView) convertView.findViewById(R.id.group_icon);
             CheckedTextView categoryName = (CheckedTextView) convertView.findViewById(R.id.categoryName);

@@ -13,9 +13,6 @@ import android.net.Uri;
 import android.support.v7.app.NotificationCompat;
 
 import eu.qm.fiszki.activity.CheckActivity;
-import eu.qm.fiszki.activity.SettingsActivity;
-
-import static android.app.AlarmManager.RTC_WAKEUP;
 
 public class AlarmReceiver extends BroadcastReceiver {
 

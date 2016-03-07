@@ -12,7 +12,7 @@ public class Flashcard implements Serializable {
     public static final String columnFlashcardPriority =  "priority";
     public static final String columnFlashcardCategoryID =  "categoryID";
 
-    @DatabaseField(generatedId = true,allowGeneratedIdInsert=true)
+    @DatabaseField(generatedId = true, allowGeneratedIdInsert=true)
     private int id;
     @DatabaseField
     public String word;

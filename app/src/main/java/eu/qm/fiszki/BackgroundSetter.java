@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import eu.qm.fiszki.activity.SettingsActivity;
 import eu.qm.fiszki.model.CategoryRepository;
-import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 
 /**
@@ -18,12 +17,12 @@ import eu.qm.fiszki.model.FlashcardRepository;
  */
 public class BackgroundSetter {
 
+    public ListPopulate listPopulate;
     CategoryRepository categoryRepository;
     FlashcardRepository flashcardRepository;
     ImageView emptyDBImage;
     TextView emptyDBText;
     ExpandableListView expandableListView;
-    public ListPopulate listPopulate;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     AlarmReceiver alarm;
@@ -32,7 +31,7 @@ public class BackgroundSetter {
     public BackgroundSetter(Activity activity) {
         this.activity = activity;
         categoryRepository = new CategoryRepository(activity.getBaseContext());
-        flashcardRepository  = new FlashcardRepository(activity.getBaseContext());
+        flashcardRepository = new FlashcardRepository(activity.getBaseContext());
         emptyDBImage = (ImageView) activity.findViewById(R.id.emptyDBImage);
         emptyDBText = (TextView) activity.findViewById(R.id.emptyDBText);
         emptyDBImage.setImageResource(R.drawable.emptydb);
@@ -43,7 +42,7 @@ public class BackgroundSetter {
         alarm = new AlarmReceiver();
     }
 
-    public void set(){
+    public void set() {
         if (categoryRepository.countCategory() > 2 || flashcardRepository.countFlashcards() > 0) {
             emptyDBImage.setVisibility(View.INVISIBLE);
             emptyDBText.setVisibility(View.INVISIBLE);

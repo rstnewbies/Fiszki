@@ -34,11 +34,10 @@ public class AddWordActivity extends AppCompatActivity {
     EditText inputWord, inputTranslation;
     SettingsActivity settings = new SettingsActivity();
     Alert alert = new Alert();
+    CategorySpinnerRepository categorySpinnerRepository;
     private Rules rules = new Rules();
     private Spinner categorySpinner;
     private CategoryRepository categoryRepository;
-     CategorySpinnerRepository categorySpinnerRepository;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +59,7 @@ public class AddWordActivity extends AppCompatActivity {
         categorySpinner = (Spinner) findViewById(R.id.CategorySpinner);
         categoryRepository = new CategoryRepository(context);
 
-        categorySpinnerRepository = new CategorySpinnerRepository(categorySpinner,context);
+        categorySpinnerRepository = new CategorySpinnerRepository(categorySpinner, context);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -138,7 +137,6 @@ public class AddWordActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
 }

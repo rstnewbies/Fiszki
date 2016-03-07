@@ -48,8 +48,8 @@ public class DeleteFlashcard {
                                 flashcardRepository.addFlashcard(deletedFlashcard);
                                 backgroundSetter.set();
                                 toolbarMainActivity.set();
-                                if(flashcardRepository.isFirst()){
-                                    alarm.start(activity,15);
+                                if (flashcardRepository.isFirst()) {
+                                    alarm.start(activity, 15);
                                     editor.clear();
                                     editor.putInt(SettingsActivity.notificationPosition, 3);
                                     editor.commit();

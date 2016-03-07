@@ -12,6 +12,6 @@ public class DBConfigUtility extends OrmLiteConfigUtil {
     private static final Class<?>[] classes = new Class[]{Category.class, Flashcard.class};
 
     public static void main(String[] args) throws SQLException, IOException {
-    writeConfigFile("ormlite_config.txt", classes);
+        writeConfigFile("ormlite_config.txt", classes);
     }
 }

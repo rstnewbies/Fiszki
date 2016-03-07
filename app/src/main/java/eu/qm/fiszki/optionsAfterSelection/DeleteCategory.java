@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import eu.qm.fiszki.BackgroundSetter;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.activity.MainActivity;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;

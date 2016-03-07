@@ -42,11 +42,11 @@ public class DBModel {
                     + " (" + SETTINGS_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + SETTINGS_NAME + " TEXT NOT NULL, "
                     + SETTINGS_STATUS + " INTEGER "
-                    +");";
+                    + ");";
     public static final String FILL_SETTINGS_SQL =
-            "INSERT INTO "+ SETTINGS_TABLE +" VALUES(1, 'notification', 0)";
+            "INSERT INTO " + SETTINGS_TABLE + " VALUES(1, 'notification', 0)";
     public static final String SECOND_FILL_SETTINGS_SQL =
-            "INSERT INTO "+ SETTINGS_TABLE +" VALUES(2, 'notification_time', 0)";
+            "INSERT INTO " + SETTINGS_TABLE + " VALUES(2, 'notification_time', 0)";
     public static final String THIRD_Fill_SETTINGS_SQL =
-            "INSERT INTO "+SETTINGS_TABLE +" VALUES(3, 'cursorPosition', 0)";
+            "INSERT INTO " + SETTINGS_TABLE + " VALUES(3, 'cursorPosition', 0)";
 }

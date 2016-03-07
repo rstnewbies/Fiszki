@@ -4,12 +4,10 @@ import android.content.Context;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.j256.ormlite.stmt.PreparedQuery;
 
 import java.util.ArrayList;
 
 import eu.qm.fiszki.database.DBHelper;
-import eu.qm.fiszki.database.DBTransform;
 
 /**
  * Created by mBoiler on 11.02.2016.
