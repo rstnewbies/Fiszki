@@ -28,7 +28,6 @@ public class EditFlashcard {
     Dialog dialog;
     FlashcardRepository flashcardRepository;
     BackgroundSetter backgroundSetter;
-    ToolbarSelected toolbarSelected;
 
     public EditFlashcard(final Activity activity, final Flashcard selectedFlashcard) {
 
@@ -40,7 +39,6 @@ public class EditFlashcard {
         dialogButton = (Button) dialog.findViewById(R.id.editButton);
         editOrginal = (EditText) dialog.findViewById(R.id.editOrginal);
         editTranslate =(EditText) dialog.findViewById(R.id.editTranslate);
-        toolbarSelected = new ToolbarSelected(activity);
         toolbarMainActivity = new ToolbarMainActivity(activity);
         editOrginal.setText(selectedFlashcard.getWord());
         editTranslate.setText(selectedFlashcard.getTranslation());
@@ -59,7 +57,7 @@ public class EditFlashcard {
             @Override
             public void onClick(View v) {
                 selectedFlashcard.setWord(editOrginal.getText().toString());
-                selectedFlashcard.setTranslation(editOrginal.getText().toString());
+                selectedFlashcard.setTranslation(editTranslate.getText().toString());
                 flashcardRepository.updateFlashcard(selectedFlashcard);
                 backgroundSetter.set();
                 toolbarMainActivity.set();

@@ -1,33 +1,20 @@
 package eu.qm.fiszki.activity;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ExpandableListView;
 
-import java.util.ArrayList;
-
-import eu.qm.fiszki.AlarmReceiver;
-import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.BackgroundSetter;
 import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.Rules;
-import eu.qm.fiszki.SelectionFlashcard;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.database.DBTransform;
@@ -35,9 +22,6 @@ import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
-import eu.qm.fiszki.optionsAfterSelection.DeleteCategory;
-import eu.qm.fiszki.optionsAfterSelection.DeleteFlashcard;
-import eu.qm.fiszki.optionsAfterSelection.EditCategory;
 import eu.qm.fiszki.toolbar.ToolbarMainActivity;
 import eu.qm.fiszki.toolbar.ToolbarSelected;
 
@@ -65,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     private CategoryRepository categoryRepository;
     private Activity activity;
     DBTransform transform;
-    SelectionFlashcard selectionFlashcard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
         toolbarSelected = new ToolbarSelected(activity);
         toolbarMainActivity = new ToolbarMainActivity(activity);
-        selectionFlashcard = new SelectionFlashcard(expandableListView,activity);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         toolbarMainActivity.set();
-        selectionFlashcard.set();
+        selectionFlashcard();
     }
 
 
@@ -118,6 +100,79 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    public void selectionFlashcard() {
+        expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+                    int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+                    int childPosition = ExpandableListView.getPackedPositionChild(id);
+
+                    selectedFlashcard =
+                            backgroundSetter.listPopulate.adapterExp.getFlashcard(groupPosition, childPosition);
+                    selectedType = typeFlashcard;
+
+                    if (selectedView == view) {
+                        toolbarMainActivity.set();
+                        fab.show();
+                        selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
+                        selectedView = null;
+
+                    } else {
+                        if (selectedView != null) {
+                            selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
+                        }
+                        selectedView = view;
+                        selectedView.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
+                        toolbarSelected.set(selectedCategory, selectedFlashcard, selectedType, selectedView);
+                        fab.hide();
+                    }
+
+                }
+                if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
+                    int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+
+                    selectedCategory =
+                            backgroundSetter.listPopulate.adapterExp.getCategory(groupPosition);
+                    selectedType = typeCategory;
+
+                    if (selectedView == view) {
+                        toolbarMainActivity.set();
+                        fab.show();
+                        selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
+                        selectedView = null;
+
+                    } else {
+                        if (selectedView != null) {
+                            selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
+                        }
+                        selectedView = view;
+                        selectedView.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
+                        toolbarSelected.set(selectedCategory, selectedFlashcard, selectedType, selectedView);
+                        fab.hide();
+                    }
+
+                }
+                return true;
+            }
+        });
+
+        expandableListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                if(selectedView != null){
+                    selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
+                    selectedView = null;
+                    toolbarMainActivity.set();
+                }
+
+                return false;
+            }
+        });
+
     }
 }
 

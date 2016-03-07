@@ -38,7 +38,6 @@ public class EditCategory {
         categoryRepository = new CategoryRepository(activity.getBaseContext());
         dialogButton = (Button) dialog.findViewById(R.id.editButton);
         editCategory = (EditText) dialog.findViewById(R.id.editCategory);
-        toolbarSelected = new ToolbarSelected(activity);
         toolbarMainActivity = new ToolbarMainActivity(activity);
         toolbarMainActivity.set();
         editCategory.setText(selectedCategory.getCategory());
