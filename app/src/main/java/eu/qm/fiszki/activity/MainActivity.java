@@ -7,8 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 
@@ -37,18 +37,18 @@ public class MainActivity extends AppCompatActivity {
     static public FloatingActionButton fab;
     static public View selectedView;
     static public String selectedType;
-    public SharedPreferences sharedPreferences;
-    public SharedPreferences.Editor editor;
     static public Flashcard selectedFlashcard;
     static public Category selectedCategory;
+    public SharedPreferences sharedPreferences;
+    public SharedPreferences.Editor editor;
     BackgroundSetter backgroundSetter;
     ToolbarSelected toolbarSelected;
     ToolbarMainActivity toolbarMainActivity;
     FlashcardRepository flashcardRepository;
     ListPopulate listPopulate;
+    DBTransform transform;
     private CategoryRepository categoryRepository;
     private Activity activity;
-    DBTransform transform;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectionFlashcard() {
+        expandableListView.setLongClickable(true);
         expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                         toolbarSelected.set(selectedCategory, selectedFlashcard, selectedType, selectedView);
                         fab.hide();
                     }
-
+                    return true;
                 }
                 if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
                     int groupPosition = ExpandableListView.getPackedPositionGroup(id);
@@ -153,23 +154,24 @@ public class MainActivity extends AppCompatActivity {
                         toolbarSelected.set(selectedCategory, selectedFlashcard, selectedType, selectedView);
                         fab.hide();
                     }
-
+                    return true;
                 }
                 return true;
             }
         });
 
-        expandableListView.setOnTouchListener(new View.OnTouchListener() {
+        expandableListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                if(selectedView != null){
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (selectedView != null) {
                     selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
                     selectedView = null;
                     toolbarMainActivity.set();
                 }
+            }
 
-                return false;
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             }
         });
 
