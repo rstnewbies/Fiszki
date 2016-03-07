@@ -1,11 +1,15 @@
 package eu.qm.fiszki.optionsAfterSelection;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
+import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.BackgroundSetter;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.activity.SettingsActivity;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 import eu.qm.fiszki.toolbar.ToolbarMainActivity;
@@ -15,12 +19,18 @@ import eu.qm.fiszki.toolbar.ToolbarMainActivity;
  */
 public class DeleteFlashcard {
 
+    SharedPreferences.Editor editor;
+    SharedPreferences sharedPreferences;
     ToolbarMainActivity toolbarMainActivity;
     Flashcard deletedFlashcard;
     BackgroundSetter backgroundSetter;
     FlashcardRepository flashcardRepository;
+    AlarmReceiver alarm;
 
-    public DeleteFlashcard(Flashcard selectedFlashcard, Activity activity) {
+    public DeleteFlashcard(Flashcard selectedFlashcard, final Activity activity) {
+        sharedPreferences = activity.getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        alarm = new AlarmReceiver();
         backgroundSetter = new BackgroundSetter(activity);
         flashcardRepository = new FlashcardRepository(activity.getBaseContext());
         toolbarMainActivity = new ToolbarMainActivity(activity);
@@ -38,6 +48,12 @@ public class DeleteFlashcard {
                                 flashcardRepository.addFlashcard(deletedFlashcard);
                                 backgroundSetter.set();
                                 toolbarMainActivity.set();
+                                if(flashcardRepository.isFirst()){
+                                    alarm.start(activity,15);
+                                    editor.clear();
+                                    editor.putInt(SettingsActivity.notificationPosition, 3);
+                                    editor.commit();
+                                }
                             }
                         });
         snackbar.show();

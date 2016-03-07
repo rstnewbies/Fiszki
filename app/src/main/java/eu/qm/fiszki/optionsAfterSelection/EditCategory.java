@@ -26,7 +26,6 @@ public class EditCategory {
     Dialog dialog;
     CategoryRepository categoryRepository;
     BackgroundSetter backgroundSetter;
-    ToolbarSelected toolbarSelected;
     ToolbarMainActivity toolbarMainActivity;
 
     public EditCategory(final Activity activity, final Category selectedCategory) {
