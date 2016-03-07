@@ -23,7 +23,7 @@ import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 import eu.qm.fiszki.toolbar.ToolbarMainActivity;
-import eu.qm.fiszki.toolbar.ToolbarSelected;
+import eu.qm.fiszki.toolbar.ToolbarAfterClick;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
     BackgroundSetter backgroundSetter;
-    ToolbarSelected toolbarSelected;
+    ToolbarAfterClick toolbarAfterClick;
     ToolbarMainActivity toolbarMainActivity;
     FlashcardRepository flashcardRepository;
     ListPopulate listPopulate;
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         backgroundSetter = new BackgroundSetter(activity);
         sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        toolbarSelected = new ToolbarSelected(activity);
+        toolbarAfterClick = new ToolbarAfterClick(activity);
         toolbarMainActivity = new ToolbarMainActivity(activity);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         selectedView = view;
                         selectedView.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
-                        toolbarSelected.set(selectedCategory, selectedFlashcard, selectedType, selectedView);
+                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, selectedView);
                         fab.hide();
                     }
                     return true;
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         selectedView = view;
                         selectedView.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
-                        toolbarSelected.set(selectedCategory, selectedFlashcard, selectedType, selectedView);
+                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, selectedView);
                         fab.hide();
                     }
                     return true;

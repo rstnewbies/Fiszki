@@ -18,14 +18,14 @@ import eu.qm.fiszki.optionsAfterSelection.EditFlashcard;
 /**
  * Created by mBoiler on 06.03.2016.
  */
-public class ToolbarSelected {
+public class ToolbarAfterClick {
 
     Activity activity;
     Toolbar toolbar;
     ToolbarMainActivity toolbarMainActivity;
     FloatingActionButton fab;
 
-    public ToolbarSelected(Activity activity) {
+    public ToolbarAfterClick(Activity activity) {
         this.activity = activity;
         toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
         toolbarMainActivity = new ToolbarMainActivity(activity);
@@ -78,5 +78,4 @@ public class ToolbarSelected {
                 });
         toolbar.dismissPopupMenus();
     }
-
 }
