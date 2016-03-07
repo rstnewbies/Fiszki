@@ -21,7 +21,7 @@
         Powiadomienia włączą się automatycznie po dodaniu pierwszego słowka</string>
 
     <string name="alert_add_first_word_message">Dodałeś pierwsze słówko. Powiadomienia włączyły się
-        automatycznie, domyślny czas powtórzeń to 15min. Czas możesz zmienić w ustawieniach.</string>
+        automatycznie, domyślny czas powtórzeń to 15 minut. Czas możesz zmienić w ustawieniach.</string>
 
     <string name="alert_message_tryagain">Napisz go ponownie.</string>
 
