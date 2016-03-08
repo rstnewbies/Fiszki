@@ -112,10 +112,8 @@ public class MainActivity extends AppCompatActivity {
                     selectedFlashcard =
                             listPopulate.adapterExp.getFlashcard(groupPosition, childPosition);
 
-                    Toast.makeText(context, listPopulate.adapterExp.getFlashcard(groupPosition, childPosition).getWord(), Toast.LENGTH_SHORT).show();
                     selectedType = typeFlashcard;
 
-                    view.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
                 }
                 if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
                     int groupPosition = ExpandableListView.getPackedPositionGroup(id);
@@ -138,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     selectedView = view;
                     selectedView.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
-                    toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, selectedView,listPopulate);
+                    toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, selectedView, listPopulate);
                     fab.hide();
                 }
                 return true;
@@ -157,6 +155,18 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            }
+        });
+
+        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                if (selectedView != null) {
+                    selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
+                    selectedView = null;
+                    toolbarMainActivity.set();
+                }
+                return false;
             }
         });
 

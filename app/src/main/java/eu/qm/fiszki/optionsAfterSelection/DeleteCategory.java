@@ -32,8 +32,8 @@ public class DeleteCategory {
         toolbarMainActivity = new ToolbarMainActivity(activity);
         deletedCategory = selectedCategory;
         categoryRepository.deleteCategory(deletedCategory);
-        deletedFlashcards = flashcardRepository.getFlashcardsByPriority(deletedCategory.getId());
-        flashcardRepository.deleteFlashcardByCategory(deletedCategory.getId());
+        deletedFlashcards = flashcardRepository.getFlashcardsByCategoryID(deletedCategory.getId());
+        flashcardRepository.deleteFlashcards(deletedFlashcards);
         listPopulate.populate();
         Snackbar snackbar = Snackbar
                 .make(activity.findViewById(android.R.id.content),

@@ -45,10 +45,6 @@ public class FlashcardRepository {
         }
     }
 
-    public Flashcard getFlashcardById(int id) {
-        return flashcardDao.queryForId(id);
-    }
-
     public Flashcard getFlashcardByName(String name) {
         flashcardList =
                 (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnFlashcardWord, name);
@@ -79,7 +75,9 @@ public class FlashcardRepository {
     }
 
     public void deleteFlashcards(ArrayList<Flashcard> flashcards) {
-        flashcardDao.delete(flashcards);
+        for (Flashcard flashcard:flashcards) {
+            flashcardDao.delete(flashcard);
+        }
     }
 
     public void updateFlashcard(Flashcard flashcard) {
@@ -100,18 +98,7 @@ public class FlashcardRepository {
         return flashcard;
     }
 
-    public Flashcard getRandomFlashacrd() {
-        Random generator = new Random();
-        ArrayList<Flashcard> flashcards = getAllFlashcards();
-        return flashcards.get(generator.nextInt(flashcards.size()));
-    }
-
     public ArrayList<Flashcard> getFlashcardsByCategoryID(int CategoryID) {
         return (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnFlashcardCategoryID, CategoryID);
-    }
-
-    public void deleteFlashcardByCategory(int categoryId) {
-        flashcardList = getFlashcardsByPriority(categoryId);
-        flashcardDao.delete(flashcardList);
     }
 }

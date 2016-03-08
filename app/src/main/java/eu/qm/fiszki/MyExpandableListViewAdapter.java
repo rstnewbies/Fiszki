@@ -75,9 +75,9 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             ImageView icon = (ImageView) convertView.findViewById(R.id.group_icon);
             CheckedTextView categoryName = (CheckedTextView) convertView.findViewById(R.id.categoryName);
             if (isExpanded) {
-                icon.setImageResource(android.R.drawable.arrow_up_float);
+                icon.setImageResource(R.drawable.ic_arrow_drop_up_black_36dp);
             } else {
-                icon.setImageResource(android.R.drawable.arrow_down_float);
+                icon.setImageResource(R.drawable.ic_arrow_drop_down_black_36dp);
             }
             categoryName.setText(categories.get(groupPosition).getCategory());
             categoryName.setChecked(isExpanded);

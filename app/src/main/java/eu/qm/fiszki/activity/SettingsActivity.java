@@ -23,6 +23,7 @@ import eu.qm.fiszki.AppCompatPreferenceActivity;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBStatus;
+import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.FlashcardRepository;
 
 public class SettingsActivity extends AppCompatPreferenceActivity
@@ -43,6 +44,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
     private FlashcardRepository flashcardRepository;
+    private CategoryRepository categoryRepository;
     private AlertDialog.Builder builder;
 
     @Override
@@ -57,6 +59,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         alert = new Alert();
         alarm = new AlarmReceiver();
         flashcardRepository = new FlashcardRepository(context);
+        categoryRepository = new CategoryRepository(context);
 
         sync();
         clearDataBase();
@@ -219,7 +222,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
         //Clear database
         cleanerDataBase = findPreference(getResources().getString(R.string.settings_key_data_base));
-        if (flashcardRepository.countFlashcards() > 0) {
+        if (flashcardRepository.countFlashcards() > 0 || categoryRepository.countCategory()>2) {
             cleanerDataBase.setEnabled(true);
         } else {
             cleanerDataBase.setEnabled(false);
@@ -236,7 +239,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                         .setPositiveButton(R.string.button_action_yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 deleteDbRows();
-
                             }
                         })
                         .setNegativeButton(R.string.button_action_no, new DialogInterface.OnClickListener() {
@@ -252,6 +254,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     private void deleteDbRows() {
 
         flashcardRepository.deleteFlashcards(flashcardRepository.getAllFlashcards());
+        categoryRepository.deleteCategories(categoryRepository.getAllCategory());
         Intent refresh = new Intent(SettingsActivity.this, MainActivity.class);
         startActivity(refresh);
         finish();

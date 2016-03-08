@@ -31,14 +31,14 @@ public class CategoryRepository {
         categoryDao.create(category);
     }
 
-    public int countCategory(){
+    public int countCategory() {
         return (int) categoryDao.countOf();
     }
 
-    public void addSystemCategory(){
-        Category addCategory = new Category(2, DBHelper.addCategoryName,false);
+    public void addSystemCategory() {
+        Category addCategory = new Category(2, DBHelper.addCategoryName, false);
         categoryDao.createIfNotExists(addCategory);
-        Category firstCategory = new Category(1, DBHelper.uncategory,false);
+        Category firstCategory = new Category(1, DBHelper.uncategory, false);
         categoryDao.createIfNotExists(firstCategory);
     }
 
@@ -52,13 +52,6 @@ public class CategoryRepository {
         }
     }
 
-    public boolean existCategory(int id) {
-        if (getCategoryByID(id) != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     public Category getCategoryByID(int id) {
         ArrayList<Category> arrayList =
@@ -80,5 +73,11 @@ public class CategoryRepository {
 
     public void deleteCategory(Category category) {
         categoryDao.delete(category);
+    }
+
+    public void deleteCategories(ArrayList<Category> categories) {
+        for (Category category : categories) {
+            categoryDao.delete(category);
+        }
     }
 }
