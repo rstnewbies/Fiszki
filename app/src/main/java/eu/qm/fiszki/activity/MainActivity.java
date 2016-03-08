@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
-import eu.qm.fiszki.BackgroundSetter;
 import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
@@ -22,8 +22,8 @@ import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
-import eu.qm.fiszki.toolbar.ToolbarMainActivity;
 import eu.qm.fiszki.toolbar.ToolbarAfterClick;
+import eu.qm.fiszki.toolbar.ToolbarMainActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,14 +41,13 @@ public class MainActivity extends AppCompatActivity {
     static public Category selectedCategory;
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
-    BackgroundSetter backgroundSetter;
     ToolbarAfterClick toolbarAfterClick;
     ToolbarMainActivity toolbarMainActivity;
     FlashcardRepository flashcardRepository;
-    ListPopulate listPopulate;
     DBTransform transform;
-    private CategoryRepository categoryRepository;
-    private Activity activity;
+    CategoryRepository categoryRepository;
+    Activity activity;
+    ListPopulate listPopulate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,16 +58,15 @@ public class MainActivity extends AppCompatActivity {
         openDataBase = new DBStatus();
         myDb = new DBAdapter(this);
         context = this;
-        expandableListView = (ExpandableListView) findViewById(R.id.categoryList);
+        expandableListView = (ExpandableListView) findViewById(R.id.list);
         openDataBase.openDB(myDb);
-        listPopulate = new ListPopulate(expandableListView, this);
         flashcardRepository = new FlashcardRepository(context);
         categoryRepository = new CategoryRepository(context);
-        backgroundSetter = new BackgroundSetter(activity);
         sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         toolbarAfterClick = new ToolbarAfterClick(activity);
         toolbarMainActivity = new ToolbarMainActivity(activity);
+        listPopulate = new ListPopulate(activity);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         toolbarMainActivity.set();
-        backgroundSetter.set();
+        listPopulate.populate();
     }
 
     @Override
@@ -112,49 +110,36 @@ public class MainActivity extends AppCompatActivity {
                     int childPosition = ExpandableListView.getPackedPositionChild(id);
 
                     selectedFlashcard =
-                            backgroundSetter.listPopulate.adapterExp.getFlashcard(groupPosition, childPosition);
+                            listPopulate.adapterExp.getFlashcard(groupPosition, childPosition);
+
+                    Toast.makeText(context, listPopulate.adapterExp.getFlashcard(groupPosition, childPosition).getWord(), Toast.LENGTH_SHORT).show();
                     selectedType = typeFlashcard;
 
-                    if (selectedView == view) {
-                        toolbarMainActivity.set();
-                        fab.show();
-                        selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
-                        selectedView = null;
-
-                    } else {
-                        if (selectedView != null) {
-                            selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
-                        }
-                        selectedView = view;
-                        selectedView.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
-                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, selectedView);
-                        fab.hide();
-                    }
-                    return true;
+                    view.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
                 }
                 if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
                     int groupPosition = ExpandableListView.getPackedPositionGroup(id);
 
                     selectedCategory =
-                            backgroundSetter.listPopulate.adapterExp.getCategory(groupPosition);
+                            listPopulate.adapterExp.getCategory(groupPosition);
                     selectedType = typeCategory;
 
-                    if (selectedView == view) {
-                        toolbarMainActivity.set();
-                        fab.show();
-                        selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
-                        selectedView = null;
+                }
 
-                    } else {
-                        if (selectedView != null) {
-                            selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
-                        }
-                        selectedView = view;
-                        selectedView.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
-                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, selectedView);
-                        fab.hide();
+                if (selectedView == view) {
+                    toolbarMainActivity.set();
+                    fab.show();
+                    selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
+                    selectedView = null;
+
+                } else {
+                    if (selectedView != null) {
+                        selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
                     }
-                    return true;
+                    selectedView = view;
+                    selectedView.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
+                    toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, selectedView,listPopulate);
+                    fab.hide();
                 }
                 return true;
             }

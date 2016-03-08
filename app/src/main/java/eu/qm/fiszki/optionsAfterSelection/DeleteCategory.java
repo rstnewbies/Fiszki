@@ -6,7 +6,7 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-import eu.qm.fiszki.BackgroundSetter;
+import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
@@ -23,12 +23,10 @@ public class DeleteCategory {
     CategoryRepository categoryRepository;
     ArrayList<Flashcard> deletedFlashcards;
     FlashcardRepository flashcardRepository;
-    BackgroundSetter backgroundSetter;
     ToolbarMainActivity toolbarMainActivity;
 
-    public DeleteCategory(Category selectedCategory, Activity activity) {
+    public DeleteCategory(Category selectedCategory, Activity activity, final ListPopulate listPopulate) {
 
-        backgroundSetter = new BackgroundSetter(activity);
         categoryRepository = new CategoryRepository(activity.getBaseContext());
         flashcardRepository = new FlashcardRepository(activity.getBaseContext());
         toolbarMainActivity = new ToolbarMainActivity(activity);
@@ -36,7 +34,7 @@ public class DeleteCategory {
         categoryRepository.deleteCategory(deletedCategory);
         deletedFlashcards = flashcardRepository.getFlashcardsByPriority(deletedCategory.getId());
         flashcardRepository.deleteFlashcardByCategory(deletedCategory.getId());
-        backgroundSetter.set();
+        listPopulate.populate();
         Snackbar snackbar = Snackbar
                 .make(activity.findViewById(android.R.id.content),
                         activity.getString(R.string.snackbar_return_category_message),
@@ -47,7 +45,7 @@ public class DeleteCategory {
                             public void onClick(View v) {
                                 categoryRepository.addCategory(deletedCategory);
                                 flashcardRepository.addFlashcards(deletedFlashcards);
-                                backgroundSetter.set();
+                                listPopulate.populate();
                                 toolbarMainActivity.set();
                             }
                         });

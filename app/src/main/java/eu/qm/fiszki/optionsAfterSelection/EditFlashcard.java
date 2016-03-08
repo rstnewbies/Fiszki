@@ -9,7 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-import eu.qm.fiszki.BackgroundSetter;
+import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
@@ -26,14 +26,13 @@ public class EditFlashcard {
     Button dialogButton;
     Dialog dialog;
     FlashcardRepository flashcardRepository;
-    BackgroundSetter backgroundSetter;
 
-    public EditFlashcard(final Activity activity, final Flashcard selectedFlashcard) {
+    public EditFlashcard(final Activity activity, final Flashcard selectedFlashcard,
+                         final ListPopulate listPopulate) {
 
         dialog = new Dialog(activity);
         dialog.setContentView(R.layout.layout_dialog_edit_flashcard);
         dialog.setTitle(R.string.main_activity_dialog_edit_item);
-        backgroundSetter = new BackgroundSetter(activity);
         flashcardRepository = new FlashcardRepository(activity.getBaseContext());
         dialogButton = (Button) dialog.findViewById(R.id.editButton);
         editOrginal = (EditText) dialog.findViewById(R.id.editOrginal);
@@ -58,7 +57,7 @@ public class EditFlashcard {
                 selectedFlashcard.setWord(editOrginal.getText().toString());
                 selectedFlashcard.setTranslation(editTranslate.getText().toString());
                 flashcardRepository.updateFlashcard(selectedFlashcard);
-                backgroundSetter.set();
+                listPopulate.populate();
                 toolbarMainActivity.set();
                 dialog.dismiss();
             }

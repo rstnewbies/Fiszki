@@ -9,7 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-import eu.qm.fiszki.BackgroundSetter;
+import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
@@ -24,15 +24,14 @@ public class EditCategory {
     Button dialogButton;
     Dialog dialog;
     CategoryRepository categoryRepository;
-    BackgroundSetter backgroundSetter;
     ToolbarMainActivity toolbarMainActivity;
 
-    public EditCategory(final Activity activity, final Category selectedCategory) {
+    public EditCategory(final Activity activity, final Category selectedCategory,
+                        final ListPopulate listPopulate) {
 
         dialog = new Dialog(activity);
         dialog.setContentView(R.layout.layout_dialog_edit_category);
         dialog.setTitle(R.string.main_activity_dialog_edit_category);
-        backgroundSetter = new BackgroundSetter(activity);
         categoryRepository = new CategoryRepository(activity.getBaseContext());
         dialogButton = (Button) dialog.findViewById(R.id.editButton);
         editCategory = (EditText) dialog.findViewById(R.id.editCategory);
@@ -54,7 +53,7 @@ public class EditCategory {
             public void onClick(View v) {
                 selectedCategory.setCategory(editCategory.getText().toString());
                 categoryRepository.updateCategory(selectedCategory);
-                backgroundSetter.set();
+                listPopulate.populate();
                 dialog.dismiss();
             }
         });

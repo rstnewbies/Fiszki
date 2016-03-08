@@ -7,7 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 
 import eu.qm.fiszki.AlarmReceiver;
-import eu.qm.fiszki.BackgroundSetter;
+import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.SettingsActivity;
 import eu.qm.fiszki.model.Flashcard;
@@ -23,20 +23,20 @@ public class DeleteFlashcard {
     SharedPreferences sharedPreferences;
     ToolbarMainActivity toolbarMainActivity;
     Flashcard deletedFlashcard;
-    BackgroundSetter backgroundSetter;
+
     FlashcardRepository flashcardRepository;
     AlarmReceiver alarm;
 
-    public DeleteFlashcard(Flashcard selectedFlashcard, final Activity activity) {
+    public DeleteFlashcard(Flashcard selectedFlashcard, final Activity activity,
+                           final ListPopulate listPopulate) {
         sharedPreferences = activity.getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         alarm = new AlarmReceiver();
-        backgroundSetter = new BackgroundSetter(activity);
         flashcardRepository = new FlashcardRepository(activity.getBaseContext());
         toolbarMainActivity = new ToolbarMainActivity(activity);
         deletedFlashcard = selectedFlashcard;
         flashcardRepository.deleteFlashcard(deletedFlashcard);
-        backgroundSetter.set();
+        listPopulate.populate();
         Snackbar snackbar = Snackbar
                 .make(activity.findViewById(android.R.id.content),
                         activity.getString(R.string.snackbar_return_word_message),
@@ -46,7 +46,7 @@ public class DeleteFlashcard {
                             @Override
                             public void onClick(View v) {
                                 flashcardRepository.addFlashcard(deletedFlashcard);
-                                backgroundSetter.set();
+                                listPopulate.populate();
                                 toolbarMainActivity.set();
                                 if (flashcardRepository.isFirst()) {
                                     alarm.start(activity, 15);

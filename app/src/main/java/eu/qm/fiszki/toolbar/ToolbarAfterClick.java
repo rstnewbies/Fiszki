@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.MainActivity;
 import eu.qm.fiszki.model.Category;
@@ -34,7 +35,8 @@ public class ToolbarAfterClick {
     }
 
     public void set(final Category selectedCategory, final Flashcard selectedFlashcard,
-                    final String selectedType, final View selectedView) {
+                    final String selectedType, final View selectedView,
+                    final ListPopulate listPopulate) {
         fab.hide();
         toolbar.getMenu().clear();
         toolbar.setTitle(activity.getString(R.string.main_activity_title_seleced_record));
@@ -57,19 +59,19 @@ public class ToolbarAfterClick {
                         if (id == R.id.editRecord) {
                             if (selectedType.equals(MainActivity.typeFlashcard)) {
                                 EditFlashcard editFlashcard =
-                                        new EditFlashcard(activity, selectedFlashcard);
+                                        new EditFlashcard(activity, selectedFlashcard,listPopulate);
                             } else {
                                 EditCategory editCategory =
-                                        new EditCategory(activity, selectedCategory);
+                                        new EditCategory(activity, selectedCategory,listPopulate);
                             }
                         } else if (id == R.id.deleteRecord) {
                             if (selectedType.equals(MainActivity.typeFlashcard)) {
                                 DeleteFlashcard deleteFlashcard =
-                                        new DeleteFlashcard(selectedFlashcard, activity);
+                                        new DeleteFlashcard(selectedFlashcard, activity,listPopulate);
                                 toolbarMainActivity.set();
                             } else {
                                 DeleteCategory deleteCategory =
-                                        new DeleteCategory(selectedCategory, activity);
+                                        new DeleteCategory(selectedCategory, activity,listPopulate);
                                 toolbarMainActivity.set();
                             }
                         }
