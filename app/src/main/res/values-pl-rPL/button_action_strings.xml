@@ -2,7 +2,7 @@
 <resources>
     <string name="button_action_yes">Tak</string>
     <string name="button_action_no">Nie</string>
-    <string name="button_action_ok">OK</string>
+    <string name="button_action_ok">Ok</string>
     <string name="button_action_back">Wróć</string>
     <string name="button_action_add_new_word">+</string>
     <string name="button_action_add_new_category">Dodaj</string>

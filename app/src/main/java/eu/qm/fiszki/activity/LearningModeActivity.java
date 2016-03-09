@@ -14,6 +14,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Random;
+
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.Algorithm;
 import eu.qm.fiszki.Checker;
@@ -34,6 +36,8 @@ public class LearningModeActivity extends AppCompatActivity {
     String wordFromData;
     String expectedWord;
     Rules rules = new Rules();
+    String randomString;
+    Checker check;
     Alert message;
     Context context;
     Cursor c;
@@ -76,6 +80,13 @@ public class LearningModeActivity extends AppCompatActivity {
         return true;
     }
 
+    public void drawString() {
+        int[] strs = {R.string.statistic_a1, R.string.statistic_a2, R.string.statistic_a3, R.string.statistic_a4, R.string.statistic_b1, R.string.statistic_b2, R.string.statistic_c3, R.string.statistic_c5};
+        int randomIndex = new Random().nextInt(8);
+        int resId = strs[randomIndex];
+        randomString = getString(resId);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -86,8 +97,8 @@ public class LearningModeActivity extends AppCompatActivity {
                 startActivity(getIntent());
             } else {
                 enteredWord.setText("");
-                message.fail(this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
-
+                drawString();
+                message.fail(this, expectedWord, randomString, getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
             }
         } else if (id == android.R.id.home) {
             this.finish();
@@ -105,7 +116,8 @@ public class LearningModeActivity extends AppCompatActivity {
                         newDraw();
                     } else {
                         enteredWord.setText("");
-                        message.fail(LearningModeActivity.this, expectedWord, getString(R.string.alert_message_fail), getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
+                        drawString();
+                        message.fail(LearningModeActivity.this, expectedWord, randomString, getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
                     }
 
                     enteredWord.postDelayed(new Runnable() {

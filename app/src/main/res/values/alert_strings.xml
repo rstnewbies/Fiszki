@@ -5,9 +5,9 @@
 
     <string name="alert_message_fail">Incorrect word, correctly </string>
 
-    <string name="alert_title_fail">Unfortunately</string>
+    <string name="alert_title_fail">Whoops!</string>
 
-    <string name="alert_title_pass">Congratulations!</string>
+    <string name="alert_title_pass">Yeah! Correct!</string>
 
     <string name="alert_title">Alert!</string>
 
@@ -26,12 +26,13 @@
 
     <string name="alert_message_tryagain">Write it again.</string>
 
-    <string name="alert_learningmode_emptybase">Before you start learning, add some new words to
+    <string name="alert_learningmode_emptybase">Before you start, add some new words to
         the list.</string>
 
-    <string name="alert_clear_database_settings">Are you want delete all words ?</string>
+    <string name="alert_clear_database_settings">Are you sure you want delete all the words?
+    </string>
 
-    <string name="alert_delete_record">Are you want delete this word?</string>
+    <string name="alert_delete_record">Are you sure you want to delete this word?</string>
 
 
 </resources>

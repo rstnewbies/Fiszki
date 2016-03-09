@@ -14,11 +14,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Random;
+
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.Algorithm;
 import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.database.DBAdapter;
 import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.model.Flashcard;
@@ -36,6 +37,8 @@ public class CheckActivity extends AppCompatActivity {
     FlashcardRepository flashcardRepository;
     String wordFromData;
     String expectedWord;
+    String randomPassString;
+    String randomFailString;
     int rowId;
     int rowPriority;
     boolean firstTry = true;
@@ -94,11 +97,24 @@ public class CheckActivity extends AppCompatActivity {
         OpenDataBase.closeDB(myDb);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_check, menu);
         return true;
+    }
+
+    public void drawFailString() {
+        int[] strs = {R.string.statistic_a1, R.string.statistic_a2, R.string.statistic_a3, R.string.statistic_a4, R.string.statistic_b1, R.string.statistic_b2, R.string.statistic_c3, R.string.statistic_c5};
+        int randomIndex = new Random().nextInt(8);
+        int resId = strs[randomIndex];
+        randomFailString = getString(resId);
+    }
+
+    public void drawPassString() {
+        int[] strs = {R.string.statistic_e1, R.string.statistic_e2, R.string.statistic_e3, R.string.statistic_e4, R.string.statistic_e1, R.string.statistic_d4, R.string.statistic_d3, R.string.statistic_d5};
+        int randomIndex = new Random().nextInt(8);
+        int resId = strs[randomIndex];
+        randomPassString = getString(resId);
     }
 
     @Override
@@ -106,24 +122,24 @@ public class CheckActivity extends AppCompatActivity {
         mi = item;
         id = R.id.action_OK;
         Alert message = new Alert();
-        Rules rules = new Rules();
+        Checker check = new Checker();
         if (id == R.id.action_OK) {
-            if (checker.check(expectedWord, enteredWord.getText().toString())) {
-                message.pass(this, getString(R.string.alert_message_pass), getString(R.string.alert_title_pass), getString(R.string.button_action_ok));
+            if (check.check(expectedWord, enteredWord.getText().toString())) {
+                drawPassString();
+                message.pass(this, randomPassString, getString(R.string.alert_title_pass), getString(R.string.button_action_ok));
 
                 if (rowPriority < 5 && firstTry) {
-                    flashcard.setPriority(flashcard.getPriority() + 1);
-                    flashcardRepository.updateFlashcard(flashcard);
+                    myDb.updateFlashcardPriority(rowId, rowPriority + 1);
                 }
             } else {
+                drawFailString();
                 enteredWord.setText("");
                 enteredWord.requestFocus();
-                message.fail(this, expectedWord, getString(R.string.alert_message_fail),
+                message.fail(this, expectedWord, randomFailString,
                         getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
                 firstTry = false;
 
-                flashcard.setPriority(1);
-                flashcardRepository.updateFlashcard(flashcard);
+                myDb.updateFlashcardPriority(rowId, 1);
             }
         } else if (id == android.R.id.home) {
             this.finish();
@@ -152,5 +168,4 @@ public class CheckActivity extends AppCompatActivity {
             }
         });
     }
-
 }
