@@ -69,6 +69,7 @@ public class CategorySpinnerRepository {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 1) {
+                    spinner.setSelection(0);
                     final Dialog dialog = new Dialog(context);
                     dialog.setContentView(R.layout.layout_dialog_add_category);
                     dialog.setTitle(R.string.main_activity_dialog_edit_item);
