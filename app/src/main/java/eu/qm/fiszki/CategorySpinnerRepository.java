@@ -60,7 +60,7 @@ public class CategorySpinnerRepository {
             }
             x++;
         } while (x != categories.size());
-        dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, list);
+        dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, list);
         spinner.setAdapter(dataAdapter);
     }
 
