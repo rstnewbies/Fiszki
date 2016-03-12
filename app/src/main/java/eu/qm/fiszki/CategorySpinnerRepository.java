@@ -89,14 +89,20 @@ public class CategorySpinnerRepository {
                     addCategoryButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Category category = new Category(categoryName.getText().toString(), true);
-                            categoryRepository.addCategory(category);
-                            Toast.makeText(context,
-                                    context.getString(R.string.add_new_word_category_toast),
-                                    Toast.LENGTH_LONG).show();
-                            dialog.dismiss();
-                            populate();
-                            spinner.setSelection(dataAdapter.getPosition(categoryName.getText().toString()));
+                            if (categoryName.getText().toString().isEmpty()) {
+                                Toast.makeText(context,
+                                        context.getString(R.string.alert_message_onEmptyFields),
+                                        Toast.LENGTH_LONG).show();
+                            } else {
+                                Category category = new Category(categoryName.getText().toString(), true);
+                                categoryRepository.addCategory(category);
+                                Toast.makeText(context,
+                                        context.getString(R.string.add_new_word_category_toast),
+                                        Toast.LENGTH_LONG).show();
+                                dialog.dismiss();
+                                populate();
+                                spinner.setSelection(dataAdapter.getPosition(categoryName.getText().toString()));
+                            }
                         }
                     });
 
