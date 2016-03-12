@@ -72,7 +72,7 @@ public class CategorySpinnerRepository {
                     spinner.setSelection(0);
                     final Dialog dialog = new Dialog(context);
                     dialog.setContentView(R.layout.layout_dialog_add_category);
-                    dialog.setTitle(R.string.main_activity_dialog_edit_item);
+                    dialog.setTitle(R.string.add_new_word_add_category);
 
                     addCategoryButton = (Button) dialog.findViewById(R.id.addCategoryButton);
                     categoryName = (EditText) dialog.findViewById(R.id.categoryName);
