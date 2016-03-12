@@ -98,7 +98,7 @@ public class LearningModeActivity extends AppCompatActivity {
             } else {
                 enteredWord.setText("");
                 drawString();
-                message.fail(this, expectedWord, randomString, getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
+                message.fail(this, expectedWord, randomString,getString(R.string.alert_message_correctis) ,getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
             }
         } else if (id == android.R.id.home) {
             this.finish();
@@ -117,7 +117,7 @@ public class LearningModeActivity extends AppCompatActivity {
                     } else {
                         enteredWord.setText("");
                         drawString();
-                        message.fail(LearningModeActivity.this, expectedWord, randomString, getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
+                        message.fail(LearningModeActivity.this, expectedWord, getString(R.string.alert_message_fail) ,getString(R.string.alert_message_correctis), getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
                     }
 
                     enteredWord.postDelayed(new Runnable() {

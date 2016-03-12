@@ -26,6 +26,8 @@
 
     <string name="alert_message_tryagain">Write it again.</string>
 
+    <string name="alert_message_correctis">Correct answer is </string>
+
     <string name="alert_learningmode_emptybase">Before you start, add some new words to
         the list.</string>
 

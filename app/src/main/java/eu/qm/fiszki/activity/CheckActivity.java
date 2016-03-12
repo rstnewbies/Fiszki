@@ -135,7 +135,7 @@ public class CheckActivity extends AppCompatActivity {
                 drawFailString();
                 enteredWord.setText("");
                 enteredWord.requestFocus();
-                message.fail(this, expectedWord, randomFailString,
+                message.fail(this, expectedWord, randomFailString, getString(R.string.alert_message_correctis),
                         getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
                 firstTry = false;
 

@@ -25,6 +25,8 @@
 
     <string name="alert_message_tryagain">Wpisz ponownie.</string>
 
+    <string name="alert_message_correctis">Poprawna odpowiedź to</string>
+
     <string name="alert_learningmode_emptybase">Zanim zaczniesz naukę, dodaj słówka do listy.</string>
 
     <string name="alert_clear_database_settings">Czy napewno chcesz usunąć wszystkie słówka?</string>
