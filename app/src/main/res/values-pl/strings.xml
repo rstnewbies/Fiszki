@@ -6,7 +6,7 @@
     <string name="main_activity_button_edit">Edytuj</string>
     <string name="main_activity_button_delete">Usuń</string>
     <string name="main_activity_dialog_edit_item">Edycja Fiszki</string>
-    <string name="main_activity_dialog_edit_category">Edycja Kategori</string>
+    <string name="main_activity_dialog_edit_category">Edycja Kategorii</string>
     <string name="main_activity_edit_record">Edytuj</string>
     <string name="main_activity_delete_record">Usuń</string>
     <string name="main_activity_done_record">Wróć</string>
