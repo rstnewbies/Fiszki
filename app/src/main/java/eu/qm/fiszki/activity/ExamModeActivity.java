@@ -58,6 +58,7 @@ public class ExamModeActivity extends AppCompatActivity {
     int position = 0;
     Flashcard flashcard;
     Checker checker;
+    TextView counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +138,7 @@ public class ExamModeActivity extends AppCompatActivity {
                 }
             }, 0);
 
+            counter.setText((repeat+1) +" / "+ numberOfRepeat);
             enteredWord.setText("");
             enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
             word.setText("");
@@ -234,10 +236,10 @@ public class ExamModeActivity extends AppCompatActivity {
                         if (selected == 2) { //50
                             numberOfRepeat = 50;
                         }
-                        setContentView(R.layout.activity_check);
+                        setContentView(R.layout.activity_exam_mode);
                         enteredWord = (EditText) findViewById(R.id.EnteredWord);
                         word = (TextView) findViewById(R.id.textView3);
-                        OpenDataBase.openDB(myDb);
+                        counter = (TextView) findViewById(R.id.counter);
                         newDraw();
                         keyboardAction();
                     }
