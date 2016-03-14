@@ -73,11 +73,11 @@ public class Flashcard implements Serializable {
         this.translation = translation;
     }
 
-    public int getCategory() {
+    public int getCategoryId() {
         return categoryID;
     }
 
-    public void setCategory(int categoryID) {
+    public void setCategoryId(int categoryID) {
         this.categoryID = categoryID;
     }
 }

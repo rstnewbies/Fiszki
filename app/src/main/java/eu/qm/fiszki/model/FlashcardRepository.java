@@ -6,6 +6,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -55,11 +56,11 @@ public class FlashcardRepository {
         }
     }
 
-    public boolean existence(String name) {
+    public boolean existFlashcardInCategory(String name) {
         if (getFlashcardByName(name) != null) {
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 
@@ -101,4 +102,5 @@ public class FlashcardRepository {
     public ArrayList<Flashcard> getFlashcardsByCategoryID(int CategoryID) {
         return (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnFlashcardCategoryID, CategoryID);
     }
+
 }

@@ -3,7 +3,9 @@ package eu.qm.fiszki;
 import android.app.Activity;
 import android.widget.EditText;
 
-import eu.qm.fiszki.model.CategoryRepository;
+import java.util.ArrayList;
+
+import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 
 /**
@@ -13,9 +15,9 @@ public class Rules {
 
     Alert alert;
     FlashcardRepository flashcardRepository;
-    CategoryRepository categoryRepository;
 
-    public boolean addNewWordRule(EditText orginalWord, EditText translateWord, Activity activity) {
+    public boolean addNewWordRule(EditText orginalWord, EditText translateWord, Activity activity,
+                                  int categoryId) {
         alert = new Alert();
         flashcardRepository = new FlashcardRepository(activity.getBaseContext());
         if (orginalWord.getText().toString().isEmpty() || translateWord.getText().toString().isEmpty()) {
@@ -24,34 +26,19 @@ public class Rules {
                     activity.getString(R.string.button_action_ok), activity);
             return false;
         }
-        if (!flashcardRepository.existence(orginalWord.getText().toString())) {
-            alert.buildAlert(activity.getString(R.string.alert_title),
-                    activity.getString(R.string.alert_message_onRecordExist),
-                    activity.getString(R.string.button_action_ok), activity);
-            orginalWord.setText(null);
-            translateWord.setText(null);
-            orginalWord.requestFocus();
-            return false;
-        }
-        return true;
-    }
-
-    public boolean addNewCategoryRule( Activity activity,EditText newCategory ){
-        alert = new Alert();
-        categoryRepository = new CategoryRepository(activity.getBaseContext());
-        if(newCategory.getText().toString().isEmpty()){
-            alert.buildAlert(activity.getString(R.string.alert_title),
-                    activity.getString(R.string.alert_message_onEmptyFields),
-                    activity.getString(R.string.button_action_ok), activity);
-            return false;
-        }
-        if(categoryRepository.getCategoryByName(newCategory.getText().toString())==null){
-            alert.buildAlert(activity.getString(R.string.alert_title),
-                    activity.getString(R.string.alert_message_onRecordExist),
-                    activity.getString(R.string.button_action_ok), activity);
-            newCategory.setText(null);
-            newCategory.requestFocus();
-            return false;
+        if (flashcardRepository.getFlashcardByName(orginalWord.getText().toString())!=null) {
+            ArrayList<Flashcard> flashcards = flashcardRepository.getFlashcardsByCategoryID(categoryId);
+            for (Flashcard flashcard:flashcards) {
+                if (flashcard.getWord().equals(orginalWord.getText().toString())) ;
+                alert.buildAlert(activity.getString(R.string.alert_title),
+                        activity.getString(R.string.alert_message_onRecordExist),
+                        activity.getString(R.string.button_action_ok), activity);
+                orginalWord.setText(null);
+                translateWord.setText(null);
+                orginalWord.requestFocus();
+                return false;
+            }
+            return true;
         }
         return true;
     }
