@@ -93,11 +93,15 @@ public class CategorySpinnerRepository {
                                 Toast.makeText(context,
                                         context.getString(R.string.alert_message_onEmptyFields),
                                         Toast.LENGTH_LONG).show();
-                            } else {
+                            } else if(categoryRepository.getCategoryByName(categoryName.getText().toString())!=null) {
+                                Toast.makeText(context,
+                                        context.getString(R.string.add_new_category_exist),
+                                        Toast.LENGTH_LONG).show();
+                            }else{
                                 Category category = new Category(categoryName.getText().toString(), true);
                                 categoryRepository.addCategory(category);
                                 Toast.makeText(context,
-                                        context.getString(R.string.add_new_word_category_toast),
+                                        context.getString(R.string.add_new_category_toast),
                                         Toast.LENGTH_LONG).show();
                                 dialog.dismiss();
                                 populate();
