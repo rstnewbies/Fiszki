@@ -56,6 +56,7 @@ public class ExamModeActivity extends AppCompatActivity {
     Button repeate;
     Menu menu;
     int position = 0;
+    int[] strs;
     Flashcard flashcard;
     Checker checker;
     TextView counter;
@@ -180,39 +181,24 @@ public class ExamModeActivity extends AppCompatActivity {
             });
             subtitle = (TextView) findViewById(R.id.statistic_subtitle);
             if (percent <= 100 && percent >= 95) {
-                int[] strs = {R.string.statistic_e1, R.string.statistic_e2, R.string.statistic_e3, R.string.statistic_e4, R.string.statistic_e5};
-                int randomIndex = new Random().nextInt(5);
-                int resId = strs[randomIndex];
-                String randomString = getString(resId);
-                subtitle.setText(randomString);
+                strs = new int[]{R.string.statistic_e1, R.string.statistic_e2, R.string.statistic_e3, R.string.statistic_e4, R.string.statistic_e5};
+                randomStringDraw();
             }
             if (percent <= 94 && percent >= 80) {
-                int[] strs = {R.string.statistic_d1, R.string.statistic_d2, R.string.statistic_d3, R.string.statistic_d4, R.string.statistic_d5};
-                int randomIndex = new Random().nextInt(5);
-                int resId = strs[randomIndex];
-                String randomString = getString(resId);
-                subtitle.setText(randomString);
+                strs = new int[]{R.string.statistic_d1, R.string.statistic_d2, R.string.statistic_d3, R.string.statistic_d4, R.string.statistic_d5};
+                randomStringDraw();
             }
             if (percent <= 79 && percent >= 50) {
-                int[] strs = {R.string.statistic_c1, R.string.statistic_c2, R.string.statistic_c3, R.string.statistic_c4, R.string.statistic_c5};
-                int randomIndex = new Random().nextInt(5);
-                int resId = strs[randomIndex];
-                String randomString = getString(resId);
-                subtitle.setText(randomString);
+                strs = new int[]{R.string.statistic_c1, R.string.statistic_c2, R.string.statistic_c3, R.string.statistic_c4, R.string.statistic_c5};
+                randomStringDraw();
             }
             if (percent <= 49 && percent >= 30) {
-                int[] strs = {R.string.statistic_b1, R.string.statistic_b2, R.string.statistic_b3, R.string.statistic_b4, R.string.statistic_b5, R.string.statistic_b6};
-                int randomIndex = new Random().nextInt(6);
-                int resId = strs[randomIndex];
-                String randomString = getString(resId);
-                subtitle.setText(randomString);
+                strs = new int[]{R.string.statistic_b1, R.string.statistic_b2, R.string.statistic_b3, R.string.statistic_b4, R.string.statistic_b5, R.string.statistic_b6};
+                randomStringDraw();
             }
             if (percent <= 30 && percent >= 0) {
-                int[] strs = {R.string.statistic_a1, R.string.statistic_a2, R.string.statistic_a3, R.string.statistic_a4, R.string.statistic_a5};
-                int randomIndex = new Random().nextInt(5);
-                int resId = strs[randomIndex];
-                String randomString = getString(resId);
-                subtitle.setText(randomString);
+                strs = new int[]{R.string.statistic_a1, R.string.statistic_a2, R.string.statistic_a3, R.string.statistic_a4, R.string.statistic_a5};
+                randomStringDraw();
             }
         }
     }
@@ -250,5 +236,12 @@ public class ExamModeActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    public void randomStringDraw(){
+        int randomIndex = new Random().nextInt(6);
+        int resId = strs[randomIndex];
+        String randomString = getString(resId);
+        subtitle.setText(randomString);
     }
 }
