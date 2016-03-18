@@ -36,7 +36,7 @@ public class DeleteCategory {
         flashcardRepository.deleteFlashcards(deletedFlashcards);
         listPopulate.populate();
         Snackbar snackbar = Snackbar
-                .make(activity.findViewById(android.R.id.content),
+                .make(activity.findViewById(R.id.fab),
                         activity.getString(R.string.snackbar_return_category_message),
                         Snackbar.LENGTH_LONG)
                 .setAction(activity.getString(R.string.snackbar_return_word_button),

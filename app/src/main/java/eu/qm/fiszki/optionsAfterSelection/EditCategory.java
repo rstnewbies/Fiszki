@@ -36,7 +36,7 @@ public class EditCategory {
         dialogButton = (Button) dialog.findViewById(R.id.editButton);
         editCategory = (EditText) dialog.findViewById(R.id.editCategory);
         toolbarMainActivity = new ToolbarMainActivity(activity);
-        toolbarMainActivity.set();
+
         editCategory.setText(selectedCategory.getCategory());
         editCategory.postDelayed(new Runnable() {
             @Override
@@ -51,6 +51,7 @@ public class EditCategory {
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                toolbarMainActivity.set();
                 selectedCategory.setCategory(editCategory.getText().toString());
                 categoryRepository.updateCategory(selectedCategory);
                 listPopulate.populate();

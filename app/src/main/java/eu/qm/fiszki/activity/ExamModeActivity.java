@@ -35,14 +35,11 @@ public class ExamModeActivity extends AppCompatActivity {
     Algorithm algorithm;
     TextView word;
     EditText enteredWord;
-    DBAdapter myDb = new DBAdapter(this);
-    DBStatus OpenDataBase = new DBStatus();
     TextView numberOfTrue;
     TextView numberOfFalse;
     TextView numberOfProcent;
     TextView numberOfTotal;
     TextView subtitle;
-    boolean firstAnswer = true;
     int numberOfRepeat;
     int repeat = 0;
     int trueAnswer = 0;
@@ -52,10 +49,8 @@ public class ExamModeActivity extends AppCompatActivity {
     Rules rules;
     Alert message;
     Context context;
-    Cursor c;
     Button repeate;
     Menu menu;
-    int position = 0;
     int[] strs;
     Flashcard flashcard;
     Checker checker;
