@@ -7,7 +7,14 @@ First, add list of words you need to learn. Then it will show up notification ev
 Thanks to our algorithm notification will show you words with less probability that you know that word.
 If you need to study faster, use our 'Learning Mode' wich allows you to translate every single word.</p>
 
+<h3><a href="https://play.google.com/store/apps/details?id=eu.qm.fiszki">Fiszki now available on Google Play!</a></h3>
 
+Changelog
+v1.4:
+<ul><li>Introduced categories</li>
+<li>Random lines after answering</li>
+<li>Algorithm improvements</li>
+<li>Fixed bugs</li></ul>
 
 <h2>Polski:</h2>
 <h3>Ucz się słówek szybciej niż kiedykolwiek!</h3>
@@ -15,6 +22,12 @@ If you need to study faster, use our 'Learning Mode' wich allows you to translat
 Dzięki aplikacji Fiszki nie trzeba spędzać ani 5 minut na naukę, ponieważ uczysz sie przez chwilę co 15 minut.
 Daje to świetne rezultaty i nie zajmuje czasu! 
 Wszystko co musisz zrobić, to wpisać słowa, których chcesz się nauczyć</p>
+
+Funkcje w wersji v1.4:
+<ul><li>Wprowadzenie kategorii oraz zarządzanie nimi</li>
+<li>Losowo wyświetlane alerty odpowiedzi</li>
+<li>Poprawki błędów</li>
+<li>Usprawnienie algorytmu</li></ul>
 
 Funkcje w wersji <a href="http://d-h.st/xl0u">v1.3</a>:
 <ul><li>Edycja wprowadzonych słówek</li>
