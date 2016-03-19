@@ -1,8 +1,6 @@
 -- Merging decision tree log ---
 manifest
 ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:2:1-61:12
-	xmlns:android
-		ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:2:11-69
 	package
 		ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:3:5-27
 		INJECTED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml
@@ -10,6 +8,8 @@ ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:2:1-61:12
 	android:versionName
 		INJECTED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml
 		INJECTED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:2:11-69
 	android:versionCode
 		INJECTED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml
 		INJECTED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml
@@ -53,10 +53,10 @@ ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:17:9-21:52
 		ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:21:13-49
 	android:label
 		ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:19:13-57
-	android:name
-		ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:18:13-51
 	android:launchMode
 		ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:20:13-48
+	android:name
+		ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:18:13-51
 receiver#eu.qm.fiszki.AlarmReceiver
 ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:23:9-29:20
 	android:exported
@@ -108,10 +108,10 @@ ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:46:9-49:52
 meta-data#com.google.android.gms.version
 ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:51:9-53:69
 MERGED from [com.google.android.gms:play-services-basement:8.1.0] D:\RST\Fiszki\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\AndroidManifest.xml:21:9-23:69
-	android:name
-		ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:52:13-58
 	android:value
 		ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:53:13-66
+	android:name
+		ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:52:13-58
 activity#eu.qm.fiszki.activity.LearningModeActivity
 ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:55:9-58:52
 	android:screenOrientation

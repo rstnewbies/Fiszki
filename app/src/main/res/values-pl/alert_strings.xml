@@ -5,7 +5,7 @@
 
     <string name="alert_message_fail">Podałeś niepoprawny wyraz. Poprawnie to:</string>
 
-    <string name="alert_title_fail">Niestety</string>
+    <string name="alert_title_fail">Ups!</string>
 
     <string name="alert_title_pass">Gratulacje</string>
 
@@ -21,9 +21,11 @@
         Powiadomienia włączą się automatycznie po dodaniu pierwszego słowka</string>
 
     <string name="alert_add_first_word_message">Dodałeś pierwsze słówko. Powiadomienia włączyły się
-        automatycznie, domyślny czas powtórzeń to 15min. Czas możesz zmienić w ustawieniach.</string>
+        automatycznie, domyślny czas powtórzeń to 15 minut. Czas możesz zmienić w ustawieniach.</string>
 
-    <string name="alert_message_tryagain">Napisz go ponownie.</string>
+    <string name="alert_message_tryagain">Wpisz ponownie.</string>
+
+    <string name="alert_message_correctis">Poprawna odpowiedź to</string>
 
     <string name="alert_learningmode_emptybase">Zanim zaczniesz naukę, dodaj słówka do listy.</string>
 

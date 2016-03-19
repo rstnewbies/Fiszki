@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class DBAdapter {
 
@@ -44,11 +43,11 @@ public class DBAdapter {
         return db.insert(DBModel.DATABASE_TABLE, null, initialValues);
     }
 
-    public void deleteAll(String table){
-        db.execSQL("delete from "+ table);
+    public void deleteAll(String table) {
+        db.execSQL("delete from " + table);
     }
 
-    public long updateRow(String settingName , int status) {
+    public long updateRow(String settingName, int status) {
         ContentValues values = new ContentValues();
         values.put(DBModel.SETTINGS_STATUS, status);
         return db.update(DBModel.SETTINGS_TABLE, values,
@@ -56,12 +55,13 @@ public class DBAdapter {
     }
 
 
-    public long updateFlashcardPriority(int id, int ptiotity){
+    public long updateFlashcardPriority(int id, int ptiotity) {
         ContentValues values = new ContentValues();
         values.put(DBModel.KEY_PRIORITY, ptiotity);
-        return db.update(DBModel.DATABASE_TABLE, values, DBModel.KEY_ROWID + "=" + id, null);}
+        return db.update(DBModel.DATABASE_TABLE, values, DBModel.KEY_ROWID + "=" + id, null);
+    }
 
-    public long updateAdapter(int id , String word, String translate) {
+    public long updateAdapter(int id, String word, String translate) {
         ContentValues values = new ContentValues();
         values.put(DBModel.KEY_WORD, word);
         values.put(DBModel.KEY_TRANSLATION, translate);
@@ -69,22 +69,21 @@ public class DBAdapter {
     }
 
     public long deleteRecord(int id) {
-        String where = DBModel.KEY_ROWID+" = "+id;
+        String where = DBModel.KEY_ROWID + " = " + id;
         return db.delete(DBModel.DATABASE_TABLE, where, null);
     }
 
     public boolean getRowValue(String column, String text) {
         Cursor c = db.query(false, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS,
-                column +"="+ "'"+text+"'", null, null, null, null, null);
-        if (c.getCount()>0) {
+                column + "=" + "'" + text + "'", null, null, null, null, null);
+        if (c.getCount() > 0) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
-    public int intRowValue(String column, String text){
+    public int intRowValue(String column, String text) {
         String where = column + "=" + "'" + text + "'";
         Cursor c = db.query(true, DBModel.SETTINGS_TABLE, DBModel.ALL_KEYS_SETTINGS,
                 where, null, null, null, null, null);
@@ -104,8 +103,9 @@ public class DBAdapter {
         return c;
     }
 
-    public Cursor getAllRowsPriority(int priority){
-        Cursor c = db.query(true, DBModel.DATABASE_TABLE,DBModel.ALL_KEYS,
+
+    public Cursor getAllRowsPriority(int priority) {
+        Cursor c = db.query(true, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS,
                 DBModel.KEY_PRIORITY + "=" + priority, null, null, null, null, null);
         if (c != null) {
             c.moveToFirst();
@@ -132,7 +132,7 @@ public class DBAdapter {
     }
 
     public Cursor getRow(int id) {
-        String where = DBModel.KEY_ROWID+" = "+id;
+        String where = DBModel.KEY_ROWID + " = " + id;
         Cursor c = db.query(true, DBModel.DATABASE_TABLE, DBModel.ALL_KEYS,
                 where, null, null, null, null, "1");
         if (c != null) {
@@ -157,11 +157,11 @@ public class DBAdapter {
 
         @Override
         public void onUpgrade(SQLiteDatabase _db, int oldVersion, int newVersion) {
-           _db.execSQL("ALTER TABLE " + DBModel.DATABASE_TABLE +
-                       " ADD COLUMN " + DBModel.KEY_PRIORITY + " INTEGER");
-           _db.execSQL("UPDATE " + DBModel.DATABASE_TABLE +
-                       " SET " + DBModel.KEY_PRIORITY + " = 1 " +
-                       " WHERE " + DBModel.KEY_PRIORITY + " IS NULL");
+            _db.execSQL("ALTER TABLE " + DBModel.DATABASE_TABLE +
+                    " ADD COLUMN " + DBModel.KEY_PRIORITY + " INTEGER");
+            _db.execSQL("UPDATE " + DBModel.DATABASE_TABLE +
+                    " SET " + DBModel.KEY_PRIORITY + " = 1 " +
+                    " WHERE " + DBModel.KEY_PRIORITY + " IS NULL");
         }
     }
 }

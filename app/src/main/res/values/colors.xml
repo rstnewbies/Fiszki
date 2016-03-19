@@ -10,4 +10,7 @@
     <color name="default_color">#ffffff</color>
     <color name="seleced_Adapter">#F44336</color>
     <color name="edit_button">#FF6D00</color>
+    <color name="black">#424242</color>
+    <color name="likeWhite">#F1F1F1</color>
+    <color name="line">#d6d6d6</color>
 </resources>

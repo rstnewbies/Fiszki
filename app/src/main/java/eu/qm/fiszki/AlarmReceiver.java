@@ -13,9 +13,6 @@ import android.net.Uri;
 import android.support.v7.app.NotificationCompat;
 
 import eu.qm.fiszki.activity.CheckActivity;
-import eu.qm.fiszki.activity.SettingsActivity;
-
-import static android.app.AlarmManager.RTC_WAKEUP;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
@@ -30,7 +27,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
         mBuilder.setLargeIcon(icon);
-        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        mBuilder.setSmallIcon(R.mipmap.ic_stat_f);
         mBuilder.setSound(sound);
         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.notification_message)));
         mBuilder.setContentTitle(context.getString(R.string.notification_title));
@@ -44,12 +41,18 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     }
 
-    public void start(AlarmManager manager, Context context, PendingIntent pendingIntent, int sec) {
-        long time = (1000*60*sec);
+    public void start(Context context, int min) {
+        Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        long time = (1000*60*min);
         manager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+time, time , pendingIntent);
     }
 
-    public void close(AlarmManager manager, Context context, PendingIntent pendingIntent) {
+    public void close(Context context) {
+        Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         manager.cancel(pendingIntent);
     }
 

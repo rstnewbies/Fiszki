@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="notification_title">It is time to study!</string>
-    <string name="notification_message">The time has come to translate word.
-         This will allow you to faster study specific language.</string>
+    <string name="notification_title">1 word to translate</string>
+    <string name="notification_message">To achieve the best study results spend a second to translate
+                                        the word</string>
     <string name="notification_on">Notifications enabled</string>
     <string name="notification_off">Notifications disabled</string>
 

@@ -31,12 +31,12 @@ public class Alert {
         alertDialog.show();
     }
 
-    public void fail(final Context context, String orginalWord, String message,
+    public void fail(final Context context, String orginalWord, String message,String messageCorrectIs,
                      String messeageAgain,String title,String nameButton) {
         AlertDialog alertDialog;
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
-        alertDialog.setMessage(Html.fromHtml(message + " " + "<b>" + orginalWord + "</b>" + ". " +
+        alertDialog.setMessage(Html.fromHtml(message + " "+ messageCorrectIs + " " + "<b>\"" + orginalWord + "\"</b>" + ". " +
                 "\n" + messeageAgain));
         alertDialog.setCancelable(false);
         alertDialog.setButton(nameButton, new DialogInterface.OnClickListener() {
