@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
@@ -151,10 +150,19 @@ public class MainActivity extends AppCompatActivity {
                     selectedView = null;
                     toolbarMainActivity.set();
                 }
+                if (expandableListView.getAdapter().getCount()>=12) {
+                    if (scrollState < 1) {
+                        fab.show();
+                    }
+                    if (scrollState >= 1) {
+                        fab.hide();
+                    }
+                }
             }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
             }
         });
 
