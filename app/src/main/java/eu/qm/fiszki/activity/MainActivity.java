@@ -24,6 +24,11 @@ import eu.qm.fiszki.model.FlashcardRepository;
 import eu.qm.fiszki.toolbar.ToolbarAfterClick;
 import eu.qm.fiszki.toolbar.ToolbarMainActivity;
 
+import com.apptentive.android.sdk.Apptentive;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,21 +75,20 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(MainActivity.this, AddWordActivity.class);
-                startActivity(myIntent);
+                Apptentive.showMessageCenter(MainActivity.this);
             }
         });
-
         toolbarMainActivity.set();
         selectionFlashcard();
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
+        Apptentive.onStart(this);
         categoryRepository.addSystemCategory();
         transform = new DBTransform(myDb, context);
+        boolean shown = Apptentive.engage(this, "test");
     }
 
     @Override
