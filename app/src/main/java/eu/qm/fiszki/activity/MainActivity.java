@@ -75,11 +75,13 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Apptentive.showMessageCenter(MainActivity.this);
+                Intent myIntent = new Intent(MainActivity.this, AddWordActivity.class);
+                startActivity(myIntent);
             }
         });
         toolbarMainActivity.set();
         selectionFlashcard();
+
     }
 
     @Override
@@ -88,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
         Apptentive.onStart(this);
         categoryRepository.addSystemCategory();
         transform = new DBTransform(myDb, context);
-        boolean shown = Apptentive.engage(this, "test");
     }
 
     @Override

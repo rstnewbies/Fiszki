@@ -10,6 +10,8 @@
     <string name="settings_title_data_base">Clear database</string>
     <string name="settings_summary_data_base">Delete all words in data base</string>
     <string name="settings_title_version">Version</string>
+    <string name="settings_title_support">Support</string>
+    <string name="settings_contact_us">Contact with us</string>
 
 
     </resources>

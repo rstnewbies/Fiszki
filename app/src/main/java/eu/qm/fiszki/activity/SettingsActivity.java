@@ -1,6 +1,7 @@
 package eu.qm.fiszki.activity;
 
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -17,6 +18,8 @@ import android.support.v7.app.ActionBar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
+import com.apptentive.android.sdk.Apptentive;
+
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.AppCompatPreferenceActivity;
@@ -31,14 +34,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
     public static String notificationPosition = "notification_time";
     public Preference cleanerDataBase;
+    public Preference contactButton;
     public Preference pref;
-    public PendingIntent pendingIntent;
     public AlarmReceiver alarm;
-    public AlarmManager manager;
-    public Intent alarmIntent;
     public Context context;
-    public DBAdapter myDb = new DBAdapter(this);
-    public DBStatus openDataBase = new DBStatus();
     public int time = 15;
     public Alert alert;
     public SharedPreferences sharedPreferences;
@@ -46,6 +45,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     private FlashcardRepository flashcardRepository;
     private CategoryRepository categoryRepository;
     private AlertDialog.Builder builder;
+    private Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        activity = this;
         context = this;
         alert = new Alert();
         alarm = new AlarmReceiver();
@@ -63,6 +64,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
         sync();
         clearDataBase();
+        contact();
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
 
@@ -247,6 +249,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                         }).show();
                 return true;
 
+            }
+        });
+    }
+
+    public void contact(){
+        contactButton = findPreference(getResources().getString(R.string.settings_key_contact));
+        contactButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Apptentive.showMessageCenter(activity);
+                return false;
             }
         });
     }
