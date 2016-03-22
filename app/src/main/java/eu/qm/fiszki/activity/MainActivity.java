@@ -12,6 +12,8 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 
+import com.shamanland.fab.ShowHideOnScroll;
+
 import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
@@ -77,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
         toolbarMainActivity.set();
         selectionFlashcard();
+
+        expandableListView.setOnTouchListener(new ShowHideOnScroll(fab));
     }
 
 
@@ -150,14 +154,6 @@ public class MainActivity extends AppCompatActivity {
                     selectedView = null;
                     toolbarMainActivity.set();
                 }
-                if (expandableListView.getAdapter().getCount()>=12) {
-                    if (scrollState < 1) {
-                        fab.show();
-                    }
-                    if (scrollState >= 1) {
-                        fab.hide();
-                    }
-                }
             }
 
             @Override
@@ -177,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 }
 

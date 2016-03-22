@@ -29,6 +29,7 @@ MERGED from [com.android.support:support-v4:23.0.1] D:\RST\Fiszki\app\build\inte
 MERGED from [com.google.android.gms:play-services-appindexing:8.1.0] D:\RST\Fiszki\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.1.0\AndroidManifest.xml:19:5-20
 MERGED from [com.google.android.gms:play-services-basement:8.1.0] D:\RST\Fiszki\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\AndroidManifest.xml:20:5-24:19
 MERGED from [com.android.support:support-v4:23.0.1] D:\RST\Fiszki\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\AndroidManifest.xml:22:5-20
+MERGED from [com.shamanland:fab:0.0.8] D:\RST\Fiszki\app\build\intermediates\exploded-aar\com.shamanland\fab\0.0.8\AndroidManifest.xml:12:5-20
 	android:screenOrientation
 		ADDED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml:11:9-45
 	android:label
@@ -132,6 +133,7 @@ MERGED from [com.android.support:support-v4:23.0.1] D:\RST\Fiszki\app\build\inte
 MERGED from [com.google.android.gms:play-services-appindexing:8.1.0] D:\RST\Fiszki\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.1.0\AndroidManifest.xml:18:5-42
 MERGED from [com.google.android.gms:play-services-basement:8.1.0] D:\RST\Fiszki\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\AndroidManifest.xml:18:5-42
 MERGED from [com.android.support:support-v4:23.0.1] D:\RST\Fiszki\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\AndroidManifest.xml:20:5-43
+MERGED from [com.shamanland:fab:0.0.8] D:\RST\Fiszki\app\build\intermediates\exploded-aar\com.shamanland\fab\0.0.8\AndroidManifest.xml:8:5-10:41
 	android:targetSdkVersion
 		INJECTED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml
 		INJECTED from D:\RST\Fiszki\app\src\main\AndroidManifest.xml
