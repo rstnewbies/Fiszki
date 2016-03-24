@@ -15,7 +15,7 @@
         android:inputType="textImeMultiLine"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="138dp"
         android:layout_height="wrap_content"
         android:text="@string/button_action_add_new_category"
         android:id="@+id/addCategoryButton"
@@ -25,5 +25,5 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:textSize="20sp"/>
+        android:textSize="20dp"/>
 </LinearLayout>
