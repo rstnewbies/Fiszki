@@ -10,8 +10,9 @@
 sc.iml
 app/app.iml
 Fiszki.iml
-/app/build/*
-build
+/app/build
+/app/build/outputs/logs/manifest-merger-debug-report.txt
+
 
 
 
