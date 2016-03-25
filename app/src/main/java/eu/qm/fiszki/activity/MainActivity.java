@@ -75,8 +75,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(MainActivity.this, AddWordActivity.class);
-                startActivity(myIntent);
+                boolean shown = Apptentive.engage(activity, "changelog");
             }
         });
         toolbarMainActivity.set();
@@ -90,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         Apptentive.onStart(this);
         categoryRepository.addSystemCategory();
         transform = new DBTransform(myDb, context);
+        boolean shown = Apptentive.engage(this, "changelog");
     }
 
     @Override
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedView = null;
                     toolbarMainActivity.set();
                 }
-                if (expandableListView.getAdapter().getCount()>=12) {
+                if (expandableListView.getAdapter().getCount() >= 12) {
                     if (scrollState < 1) {
                         fab.show();
                     }
