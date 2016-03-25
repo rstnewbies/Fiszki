@@ -14,7 +14,8 @@
         android:layout_below="@+id/word"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="40dp" />
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="10dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -26,6 +27,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="40dp" />
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="10dp" />
 
 </RelativeLayout>
