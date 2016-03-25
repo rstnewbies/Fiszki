@@ -10,9 +10,8 @@
 sc.iml
 app/app.iml
 Fiszki.iml
-/app/build
-*/build
-
+/app/build/*
+build
 
 
 
