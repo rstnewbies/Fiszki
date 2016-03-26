@@ -29,7 +29,7 @@ import eu.qm.fiszki.toolbar.ToolbarMainActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    static public ArrayList<String> expandedGroup;
+    static public Category expandedGroup;
     static final public String typeCategory = "TYPECATEGORY";
     static final public String typeFlashcard = "TYPEFLASHCARD";
     static public DBAdapter myDb;
@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        expandedGroup=new ArrayList<String>();
         activity = this;
         openDataBase = new DBStatus();
         myDb = new DBAdapter(this);
@@ -118,10 +117,12 @@ public class MainActivity extends AppCompatActivity {
                         listPopulate.populate(null, null);
                         selectedFlashcard = null;
                         selectedCategory = null;
+                        expandedGroup = null;
                     } else {
                         selectedFlashcard =
                                 listPopulate.adapterExp.getFlashcard(groupPosition, childPosition);
                         selectedCategory = null;
+                        expandedGroup = listPopulate.adapterExp.getCategory(groupPosition);
                         selectedType = typeFlashcard;
                         toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate);
                         fab.hide();

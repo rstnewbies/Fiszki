@@ -84,10 +84,8 @@ public class ListPopulate {
             expandableListView.setDividerHeight(1);
             expandableListView.setAdapter(adapterExp);
             expandableListView.expandGroup(adapterExp.lastGroup);
-            if (!MainActivity.expandedGroup.isEmpty()) {
-                for (String expandedGroup : MainActivity.expandedGroup) {
-                    expandableListView.expandGroup(adapterExp.getPositionGroupByName(expandedGroup));
-                }
+            if (MainActivity.expandedGroup != null) {
+                expandableListView.expandGroup(adapterExp.getPositionGroupByCategory(MainActivity.expandedGroup));
             }
         } else {
             expandableListView.setVisibility(View.INVISIBLE);

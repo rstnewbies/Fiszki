@@ -50,6 +50,7 @@ public class ToolbarAfterClick {
                 listPopulate.populate(null, null);
                 MainActivity.selectedFlashcard = null;
                 MainActivity.selectedCategory = null;
+                MainActivity.expandedGroup = null;
             }
         });
         toolbar.setOnMenuItemClickListener(
