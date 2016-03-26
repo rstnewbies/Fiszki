@@ -47,7 +47,9 @@ public class ToolbarAfterClick {
             public void onClick(View v) {
                 fab.show();
                 toolbarMainActivity.set();
-                listPopulate.populate(null,null);
+                listPopulate.populate(null, null);
+                MainActivity.selectedFlashcard = null;
+                MainActivity.selectedCategory = null;
             }
         });
         toolbar.setOnMenuItemClickListener(
