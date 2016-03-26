@@ -29,7 +29,7 @@ import eu.qm.fiszki.toolbar.ToolbarMainActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    static public ArrayList<Integer> expandedGroup;
+    static public ArrayList<String> expandedGroup;
     static final public String typeCategory = "TYPECATEGORY";
     static final public String typeFlashcard = "TYPEFLASHCARD";
     static public DBAdapter myDb;
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        expandedGroup=new ArrayList<Integer>();
+        expandedGroup=new ArrayList<String>();
         activity = this;
         openDataBase = new DBStatus();
         myDb = new DBAdapter(this);

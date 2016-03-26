@@ -87,9 +87,10 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             CheckedTextView categoryName = (CheckedTextView) convertView.findViewById(R.id.categoryName);
             if (isExpanded) {
                 icon.setImageResource(R.drawable.ic_arrow_drop_up_black_36dp);
-                MainActivity.expandedGroup.add(groupPosition);
+                MainActivity.expandedGroup.add(categories.get(groupPosition).getCategory());
             } else {
                 icon.setImageResource(R.drawable.ic_arrow_drop_down_black_36dp);
+                MainActivity.expandedGroup.remove(categories.get(groupPosition).getCategory());
             }
             categoryName.setText(categories.get(groupPosition).getCategory());
             categoryName.setChecked(isExpanded);
@@ -160,6 +161,18 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     public Category getCategory(int groupPosition) {
         return categories.get(groupPosition);
+    }
+
+    public int getPositionGroupByName(String name){
+        int x = 0;
+        for (Category category:categories) {
+            if(category.getCategory().equals(name)){
+                return x;
+            }else{
+                x++;
+            }
+        }
+        return 0;
     }
 
 }
