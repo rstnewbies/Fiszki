@@ -35,8 +35,7 @@ public class ToolbarAfterClick {
     }
 
     public void set(final Category selectedCategory, final Flashcard selectedFlashcard,
-                    final String selectedType, final View selectedView,
-                    final ListPopulate listPopulate) {
+                    final String selectedType, final ListPopulate listPopulate) {
         fab.hide();
         toolbar.getMenu().clear();
         toolbar.setTitle(activity.getString(R.string.main_activity_title_seleced_record));
@@ -48,7 +47,7 @@ public class ToolbarAfterClick {
             public void onClick(View v) {
                 fab.show();
                 toolbarMainActivity.set();
-                selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
+                listPopulate.populate(null,null);
             }
         });
         toolbar.setOnMenuItemClickListener(

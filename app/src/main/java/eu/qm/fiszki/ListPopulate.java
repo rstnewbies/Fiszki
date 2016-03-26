@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import eu.qm.fiszki.activity.MainActivity;
 import eu.qm.fiszki.activity.SettingsActivity;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
@@ -52,7 +53,7 @@ public class ListPopulate {
         alarm = new AlarmReceiver();
     }
 
-    public void populate() {
+    public void populate(Flashcard selectedFlashcard, Category selectedCategory) {
 
         if (flashcardRepository.countFlashcards() > 0 || categoryRepository.countCategory() > 2) {
             emptyDBImage.setVisibility(View.INVISIBLE);
@@ -77,13 +78,18 @@ public class ListPopulate {
             categories.add(lastCategory);
             sortedFlashcard.add(unCategoryFlashcard);
 
-            adapterExp = new MyExpandableListViewAdapter(sortedFlashcard, categories);
+            adapterExp = new MyExpandableListViewAdapter(sortedFlashcard, categories,
+                    selectedFlashcard, selectedCategory);
             adapterExp.setInflater((LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE), activity);
             expandableListView.setDividerHeight(1);
             expandableListView.setAdapter(adapterExp);
             expandableListView.expandGroup(adapterExp.lastGroup);
-        }else
-        {
+            if (!MainActivity.expandedGroup.isEmpty()) {
+                for (int expandedGroup : MainActivity.expandedGroup) {
+                    expandableListView.expandGroup(expandedGroup);
+                }
+            }
+        } else {
             expandableListView.setVisibility(View.INVISIBLE);
             emptyDBImage.setVisibility(View.VISIBLE);
             emptyDBText.setVisibility(View.VISIBLE);

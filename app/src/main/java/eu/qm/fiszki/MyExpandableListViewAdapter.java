@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import eu.qm.fiszki.activity.MainActivity;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.Flashcard;
 
@@ -25,11 +27,17 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
     private ArrayList<Flashcard> flashcards;
     private Activity activity;
     private LayoutInflater inflater;
+    private Flashcard selectedFlashcard;
+    private Category selectedCategory;
 
-    public MyExpandableListViewAdapter(ArrayList<ArrayList<Flashcard>> sortedFlashcards, ArrayList<Category> categories) {
+    public MyExpandableListViewAdapter(ArrayList<ArrayList<Flashcard>> sortedFlashcards,
+                                       ArrayList<Category> categories, Flashcard selectedFlashcard,
+                                       Category selectedCategory) {
         this.sortedFlashcards = sortedFlashcards;
         this.categories = categories;
-        lastGroup = categories.size() - 1;
+        this.lastGroup = categories.size() - 1;
+        this.selectedFlashcard = selectedFlashcard;
+        this.selectedCategory = selectedCategory;
     }
 
     public void setInflater(LayoutInflater inflater, Activity activity) {
@@ -61,10 +69,13 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             convertView.setClickable(false);
 
         }
-        convertView.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
+        if (selectedFlashcard != null && selectedFlashcard.getId() == (flashcards.get(childPosition).getId())) {
+            convertView.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
+        } else {
+            convertView.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
+        }
         return convertView;
     }
-
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
@@ -76,13 +87,18 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             CheckedTextView categoryName = (CheckedTextView) convertView.findViewById(R.id.categoryName);
             if (isExpanded) {
                 icon.setImageResource(R.drawable.ic_arrow_drop_up_black_36dp);
+                MainActivity.expandedGroup.add(groupPosition);
             } else {
                 icon.setImageResource(R.drawable.ic_arrow_drop_down_black_36dp);
             }
             categoryName.setText(categories.get(groupPosition).getCategory());
             categoryName.setChecked(isExpanded);
             categoryName.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
-            convertView.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
+            if (selectedCategory != null && selectedCategory.getId() == (categories.get(groupPosition).getId())) {
+                convertView.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
+            } else {
+                convertView.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
+            }
         }
         return convertView;
     }

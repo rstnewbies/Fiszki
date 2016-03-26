@@ -57,7 +57,7 @@ public class EditFlashcard {
                 selectedFlashcard.setWord(editOrginal.getText().toString());
                 selectedFlashcard.setTranslation(editTranslate.getText().toString());
                 flashcardRepository.updateFlashcard(selectedFlashcard);
-                listPopulate.populate();
+                listPopulate.populate(null,null);
                 toolbarMainActivity.set();
                 dialog.dismiss();
             }
