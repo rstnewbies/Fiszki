@@ -75,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean shown = Apptentive.engage(activity, "changelog");
+                Intent myIntent = new Intent(MainActivity.this, AddWordActivity.class);
+                startActivity(myIntent);
             }
         });
         toolbarMainActivity.set();
