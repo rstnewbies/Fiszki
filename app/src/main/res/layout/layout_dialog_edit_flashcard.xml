@@ -63,8 +63,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/editFlashcardSpinner"
             android:layout_below="@+id/editTranslate"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp" />
+            android:layout_alignRight="@+id/editTranslate"
+            android:layout_alignEnd="@+id/editTranslate"
+            android:layout_alignLeft="@+id/editTranslate"
+            android:layout_alignStart="@+id/editTranslate" />
     </RelativeLayout>
 </LinearLayout>
