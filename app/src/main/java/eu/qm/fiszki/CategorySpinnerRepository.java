@@ -29,7 +29,7 @@ public class CategorySpinnerRepository {
     private CategoryRepository categoryRepository;
     private EditText categoryName;
     private Button addCategoryButton;
-    private ArrayAdapter<String> dataAdapter;
+    public ArrayAdapter<String> dataAdapter;
 
     public CategorySpinnerRepository(Spinner spinner, Context context) {
         this.spinner = spinner;
@@ -46,16 +46,16 @@ public class CategorySpinnerRepository {
         return category.getId();
     }
 
-    public void populate() {
+    public void populate(boolean possibilityAdded) {
         ArrayList<Category> categories = categoryRepository.getAllCategory();
         List<String> list = new ArrayList<String>();
         int x = 0;
         do {
             if (categories.get(x).getId() == 1) {
                 list.add(context.getString(R.string.add_new_word_no_category));
-            } else if (categories.get(x).getId() == 2) {
+            } else if (categories.get(x).getId() == 2 && possibilityAdded) {
                 list.add(context.getString(R.string.add_new_word_add_category));
-            } else {
+            } else if(categories.get(x).getId() != 2){
                 list.add(categories.get(x).getCategory());
             }
             x++;
@@ -104,7 +104,7 @@ public class CategorySpinnerRepository {
                                         context.getString(R.string.add_new_category_toast),
                                         Toast.LENGTH_LONG).show();
                                 dialog.dismiss();
-                                populate();
+                                populate(true);
                                 spinner.setSelection(dataAdapter.getPosition(categoryName.getText().toString()));
                             }
                         }

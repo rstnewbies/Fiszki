@@ -65,7 +65,7 @@ public class AddWordActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         clickDone();
         categoryRepository.addSystemCategory();
-        categorySpinnerRepository.populate();
+        categorySpinnerRepository.populate(true);
         categorySpinnerRepository.setSelectedListener(this);
     }
 
