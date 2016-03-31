@@ -14,6 +14,7 @@ import eu.qm.fiszki.model.FlashcardRepository;
 public class Algorithm {
 
     FlashcardRepository flashcardRepository;
+    CatcherFlashcardToAlgorithm catcherFlashcardToAlgorithm;
     PriorityCount priorityCount;
     MultiplierPoints multiplierPoints;
     int[] calculatedPriority;
@@ -21,6 +22,7 @@ public class Algorithm {
 
     public Algorithm(Context context) {
         flashcardRepository = new FlashcardRepository(context);
+        catcherFlashcardToAlgorithm = new CatcherFlashcardToAlgorithm(context);
     }
 
     public Flashcard drawCardAlgorithm(ArrayList<Flashcard> flashcardsList) {
@@ -33,19 +35,19 @@ public class Algorithm {
         int draw = drawer.drawInteger(calculatedPriority[4]);
 
         if(0<=draw && draw<=calculatedPriority[0]){
-            flashcard = flashcardRepository.getRandomFlashcardByPririty(1);
+            flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritm(1);
         }
         if(calculatedPriority[0]<=draw && draw<=calculatedPriority[1]){
-            flashcard = flashcardRepository.getRandomFlashcardByPririty(2);
+            flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritm(2);
         }
         if(calculatedPriority[1]<=draw && draw<=calculatedPriority[2]){
-            flashcard = flashcardRepository.getRandomFlashcardByPririty(3);
+            flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritm(3);
         }
         if(calculatedPriority[2]<=draw && draw<=calculatedPriority[3]){
-            flashcard = flashcardRepository.getRandomFlashcardByPririty(4);
+            flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritm(4);
         }
         if(calculatedPriority[3]<=draw && draw<=calculatedPriority[4]){
-            flashcard = flashcardRepository.getRandomFlashcardByPririty(5);
+            flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritm(5);
         }
         return flashcard;
     }

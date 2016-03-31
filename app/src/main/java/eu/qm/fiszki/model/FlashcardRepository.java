@@ -55,14 +55,6 @@ public class FlashcardRepository {
         }
     }
 
-    public boolean existFlashcardInCategory(String name) {
-        if (getFlashcardByName(name) != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public boolean isFirst() {
         if (getAllFlashcards().size() == 1) {
             return true;
