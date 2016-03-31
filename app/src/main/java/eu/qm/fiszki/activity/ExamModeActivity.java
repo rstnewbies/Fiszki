@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -20,12 +19,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import java.util.Random;
 import eu.qm.fiszki.Alert;
-import eu.qm.fiszki.Algorithm;
+import eu.qm.fiszki.algorithm.Algorithm;
 import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
-import eu.qm.fiszki.database.DBAdapter;
-import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 
@@ -139,7 +136,7 @@ public class ExamModeActivity extends AppCompatActivity {
             enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
             word.setText("");
 
-            flashcard = algorithm.drawCardAlgorithm();
+            flashcard = algorithm.drawCardAlgorithm(flashcardRepository.getFlashcardsByCategoryID(1));
 
             wordFromData = flashcard.getWord();
             word.append(wordFromData);

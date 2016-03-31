@@ -17,7 +17,7 @@ import android.widget.TextView;
 import java.util.Random;
 
 import eu.qm.fiszki.Alert;
-import eu.qm.fiszki.Algorithm;
+import eu.qm.fiszki.algorithm.Algorithm;
 import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
@@ -145,7 +145,7 @@ public class LearningModeActivity extends AppCompatActivity {
             }
         }, 0);
 
-        flashcard = algorithm.drawCardAlgorithm();
+        flashcard = algorithm.drawCardAlgorithm(flashcardRepository.getAllFlashcards());
 
         word.setText("");
         wordFromData = flashcard.getWord();

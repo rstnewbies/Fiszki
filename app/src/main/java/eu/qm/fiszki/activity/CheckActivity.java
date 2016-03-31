@@ -17,7 +17,7 @@ import android.widget.TextView;
 import java.util.Random;
 
 import eu.qm.fiszki.Alert;
-import eu.qm.fiszki.Algorithm;
+import eu.qm.fiszki.algorithm.Algorithm;
 import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
@@ -66,7 +66,7 @@ public class CheckActivity extends AppCompatActivity {
 
         } else {
 
-            flashcard = algorithm.drawCardAlgorithm();
+            flashcard = algorithm.drawCardAlgorithm(flashcardRepository.getFlashcardsByCategoryID(1));
 
             wordFromData = flashcard.getWord();
             expectedWord = flashcard.getTranslation();
