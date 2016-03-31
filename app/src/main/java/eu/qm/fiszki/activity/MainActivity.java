@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        categoryRepository.addSystemCategory();
         transform = new DBTransform(myDb, context);
     }
 
