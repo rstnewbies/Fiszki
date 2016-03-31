@@ -29,6 +29,9 @@ public class CatcherFlashcardToAlgorithm {
         ArrayList<Flashcard> flashcardsPiorited = new ArrayList<Flashcard>();
         ArrayList<Flashcard> categoricalFlashcards = new ArrayList<Flashcard>();
         ArrayList<Category> categories = categoryRepository.getChosenCategory();
+        if(categories.isEmpty()){
+            return flashcardRepository.getRandomFlashcardByPririty(priority);
+        }
         for (Category category:categories) {
             ArrayList<Flashcard> flashcards = flashcardRepository.getFlashcardsByCategoryID(category.getId());
             categoricalFlashcards.addAll(flashcards);
