@@ -21,8 +21,8 @@ import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.AppCompatPreferenceActivity;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.database.DBAdapter;
-import eu.qm.fiszki.database.DBStatus;
+import eu.qm.fiszki.database.SQL.DBAdapter;
+import eu.qm.fiszki.database.SQL.DBStatus;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.FlashcardRepository;
 

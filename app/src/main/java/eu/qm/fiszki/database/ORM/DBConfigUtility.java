@@ -1,4 +1,4 @@
-package eu.qm.fiszki.database;
+package eu.qm.fiszki.database.ORM;
 
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
 

@@ -7,7 +7,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 import java.util.ArrayList;
 
-import eu.qm.fiszki.database.DBHelper;
+import eu.qm.fiszki.database.ORM.DBHelper;
 
 /**
  * Created by mBoiler on 11.02.2016.

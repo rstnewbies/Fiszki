@@ -1,4 +1,6 @@
-package eu.qm.fiszki.database;
+package eu.qm.fiszki.database.SQL;
+
+import eu.qm.fiszki.database.SQL.DBAdapter;
 
 public class DBStatus {
 

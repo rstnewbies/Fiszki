@@ -21,8 +21,8 @@ import eu.qm.fiszki.algorithm.Algorithm;
 import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
-import eu.qm.fiszki.database.DBAdapter;
-import eu.qm.fiszki.database.DBStatus;
+import eu.qm.fiszki.database.SQL.DBAdapter;
+import eu.qm.fiszki.database.SQL.DBStatus;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 

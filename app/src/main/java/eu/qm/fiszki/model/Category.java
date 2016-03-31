@@ -9,6 +9,7 @@ public class Category implements Serializable {
     public static final String columnCategoryId =  "id";
     public static final String columnCategoryCategory =  "category";
     public static final String columnCategoryEntryByUsers =  "entryByUser";
+    public static final String columnCategoryChoose =  "choose";
 
     @DatabaseField(generatedId = true, allowGeneratedIdInsert=true)
     private int id;
@@ -16,6 +17,8 @@ public class Category implements Serializable {
     private String category;
     @DatabaseField
     private boolean entryByUser;
+    @DatabaseField
+    private boolean choose;
 
     public Category() {
     }

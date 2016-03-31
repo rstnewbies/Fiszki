@@ -8,7 +8,6 @@ import eu.qm.fiszki.R;
 public class MultiplierPoints {
 
     int[] priority;
-
     int[] priorytyRange;
 
     public MultiplierPoints(int[] priority) {

@@ -15,6 +15,12 @@ public class PriorityCount {
     public PriorityCount(ArrayList<Flashcard> flashcards) {
         this.flashcards = flashcards;
         priority = new int[5];
+        priority[0]=0;
+        priority[1]=0;
+        priority[2]=0;
+        priority[3]=0;
+        priority[4]=0;
+
     }
 
     public int[] priorityCount() {
