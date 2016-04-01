@@ -6,41 +6,43 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="159dp"
         android:background="@color/White">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editCategory"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginBottom="0dp"
             android:maxLines="1"
-            android:inputType="textImeMultiLine"/>
+            android:inputType="textImeMultiLine"
+            android:layout_below="@+id/textView8"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginBottom="20dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_action_ok"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_below="@+id/editCategory"
-            android:layout_marginTop="32dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="8dp"
             android:textSize="20sp"
-            android:id="@+id/editButton"/>
+            android:id="@+id/editButton"
+            android:layout_below="@+id/editCategory"
+            android:layout_alignRight="@+id/editCategory"
+            android:layout_alignEnd="@+id/editCategory"
+            android:layout_alignLeft="@+id/editCategory"
+            android:layout_alignStart="@+id/editCategory" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/add_new_category_name"
+            android:id="@+id/textView8"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/editCategory"
+            android:layout_alignStart="@+id/editCategory"
+            android:layout_marginTop="8dp" />
     </RelativeLayout>
 </LinearLayout>
