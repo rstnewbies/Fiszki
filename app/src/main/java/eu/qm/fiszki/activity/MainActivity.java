@@ -81,19 +81,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            if (selectedView != null) {
-                toolbarMainActivity.set();
-                fab.show();
-                selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
-                selectedView = null;
-            }
+    public void onBackPressed() {
+        if (selectedView != null) {
+            toolbarMainActivity.set();
+            fab.show();
+            selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
+            selectedView = null;
+        }else{
             this.finish();
         }
-        return super.onKeyDown(keyCode, event);
     }
-
+    
     @Override
     protected void onStart() {
         super.onStart();
