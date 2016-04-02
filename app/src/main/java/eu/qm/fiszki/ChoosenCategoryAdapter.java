@@ -2,15 +2,18 @@ package eu.qm.fiszki;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import java.util.ArrayList;
 
 import eu.qm.fiszki.model.Category;
+import eu.qm.fiszki.model.CategoryRepository;
 
 /**
  * Created by bgood on 2016-04-03.
@@ -25,28 +28,42 @@ public class ChoosenCategoryAdapter extends ArrayAdapter<Category> {
     Context context;
     int rLayout;
     CheckBox checkBox;
+    CategoryRepository categoryRepository;
 
     public ChoosenCategoryAdapter(Context context, int resource, ArrayList<Category> arrayList) {
         super(context, resource, arrayList);
         this.arrayList = arrayList;
         this.context = context;
         this.rLayout = resource;
+        categoryRepository = new CategoryRepository(context);
 
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Category category = (Category) arrayList.get(position);
+        final Category category = (Category) arrayList.get(position);
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
         convertView = inflater.inflate(rLayout, parent, false);
         checkBox = (CheckBox)convertView.findViewById(R.id.checkBox);
         checkBox.setText(category.getCategory());
         if (category.isChosen()){
-            checkBox.setSelected(true);
+            checkBox.setChecked(true);
         }
         else {
-            checkBox.setSelected(false);
+            checkBox.setChecked(false);
         }
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    category.setChosen(true);
+                    categoryRepository.updateCategory(category);
+                }else {
+                    category.setChosen(false);
+                    categoryRepository.updateCategory(category);
+                }
+            }
+        });
         return convertView;
     }
 
