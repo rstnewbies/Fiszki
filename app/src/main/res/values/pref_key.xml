@@ -4,4 +4,5 @@
     <string name="settings_key_vibration">settings_vibration</string>
     <string name="settings_key_data_base">settings_database</string>
     <string name="settings_key_version">settings_version</string>
+    <string name="settings_key_category">settings_category</string>
 </resources>

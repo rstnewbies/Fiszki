@@ -17,12 +17,16 @@ import android.support.v7.app.ActionBar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.AppCompatPreferenceActivity;
+import eu.qm.fiszki.CategorySpinnerRepository;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.SQL.DBAdapter;
 import eu.qm.fiszki.database.SQL.DBStatus;
+import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.FlashcardRepository;
 
@@ -208,6 +212,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity
             listPref.setValueIndex(4);
             pref.setSummary(listPref.getEntry());
         }
+
+        //Choose Category
+        pref = findPreference(getResources().getString(R.string.settings_key_category));
+
+
+
         //Version
         pref = findPreference(getResources().getString(R.string.settings_key_version));
         PackageManager manager = this.getPackageManager();

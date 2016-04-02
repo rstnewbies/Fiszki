@@ -10,6 +10,8 @@
     <string name="settings_title_data_base">Clear database</string>
     <string name="settings_summary_data_base">Delete all words in data base</string>
     <string name="settings_title_version">Version</string>
+    <string name="settings_choose_category">Choose category</string>
+    <string name="settings_select_category">Fiszki will show words from selected categories</string>
 
 
     </resources>
