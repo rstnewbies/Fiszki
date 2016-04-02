@@ -15,7 +15,9 @@
         android:layout_below="@+id/word"
         android:layout_marginLeft="10dp"
         android:text="New Text"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical|right"/>
 
     <TextView
         android:id="@+id/word"
@@ -28,6 +30,7 @@
         android:text="New Text"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        android:layout_gravity="center_vertical|right"/>
 
 </RelativeLayout>
