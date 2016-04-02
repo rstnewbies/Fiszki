@@ -1,8 +1,10 @@
 package eu.qm.fiszki.activity;
 
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,13 +18,17 @@ import android.preference.Preference;
 import android.support.v7.app.ActionBar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.WindowManager;
+import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.AppCompatPreferenceActivity;
 import eu.qm.fiszki.CategorySpinnerRepository;
+import eu.qm.fiszki.ChoosenCategoryAdapter;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.SQL.DBAdapter;
 import eu.qm.fiszki.database.SQL.DBStatus;
@@ -36,6 +42,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public static String notificationPosition = "notification_time";
     public Preference cleanerDataBase;
     public Preference pref;
+    public Preference chooseCategory;
     public PendingIntent pendingIntent;
     public AlarmReceiver alarm;
     public AlarmManager manager;
@@ -49,7 +56,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public SharedPreferences.Editor editor;
     private FlashcardRepository flashcardRepository;
     private CategoryRepository categoryRepository;
-    private AlertDialog.Builder builder;
+    public Dialog dialog;
+    public AlertDialog.Builder builder;
+    public Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +67,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         addPreferencesFromResource(R.xml.pref_settings);
         sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
+        activity = this;
 
         context = this;
         alert = new Alert();
@@ -191,7 +202,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public void sync() {
         //Notification
         pref = findPreference(getResources().getString(R.string.settings_key_notification));
-        ListPreference listPref = (ListPreference) pref;
+        final ListPreference listPref = (ListPreference) pref;
         if (sharedPreferences.getInt(notificationPosition, 0) == 0) {
             listPref.setValueIndex(0);
             pref.setSummary(listPref.getEntry());
@@ -214,9 +225,28 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         }
 
         //Choose Category
-        pref = findPreference(getResources().getString(R.string.settings_key_category));
+        chooseCategory = findPreference(getResources().getString(R.string.settings_key_category));
+        chooseCategory.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                dialog = new Dialog(SettingsActivity.this);
+                dialog.setContentView(R.layout.layoutdladialogu);
+                ListView listView = (ListView)dialog.findViewById(R.id.chooseCategoryListView);
+                ChoosenCategoryAdapter choosenCategoryAdapter = new ChoosenCategoryAdapter(context,
+                        R.layout.layoutdlaadaptera, categoryRepository.getUserCategory());
+                listView.setAdapter(choosenCategoryAdapter);
 
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                lp.copyFrom(dialog.getWindow().getAttributes());
+                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
+                dialog.getWindow().setAttributes(lp);
+                dialog.show();
+
+                return false;
+            }
+        });
 
         //Version
         pref = findPreference(getResources().getString(R.string.settings_key_version));
@@ -272,5 +302,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         editor.clear();
         editor.putInt(notificationPosition, 0);
         editor.commit();
+    }
+
+    public void choosenCategory() {
+
     }
 }
