@@ -21,18 +21,13 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.AppCompatPreferenceActivity;
-import eu.qm.fiszki.CategorySpinnerRepository;
 import eu.qm.fiszki.ChoosenCategoryAdapter;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.SQL.DBAdapter;
 import eu.qm.fiszki.database.SQL.DBStatus;
-import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.FlashcardRepository;
 
@@ -230,10 +225,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 dialog = new Dialog(SettingsActivity.this);
-                dialog.setContentView(R.layout.layoutdladialogu);
+                dialog.setContentView(R.layout.layout_dialog_chose_category);
                 ListView listView = (ListView)dialog.findViewById(R.id.chooseCategoryListView);
                 ChoosenCategoryAdapter choosenCategoryAdapter = new ChoosenCategoryAdapter(context,
-                        R.layout.layoutdlaadaptera, categoryRepository.getUserCategory());
+                        R.layout.layout_adapter, categoryRepository.getUserCategory());
                 listView.setAdapter(choosenCategoryAdapter);
 
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

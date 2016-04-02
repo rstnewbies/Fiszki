@@ -10,7 +10,7 @@
         android:key="@string/settings_key_notification"
         android:entries="@array/notification_frequency"
         android:entryValues="@array/notification_frequency" />
-    <ListPreference
+    <Preference
         android:title="@string/settings_choose_category"
         android:summary="@string/settings_select_category"
         android:key="@string/settings_key_category"
