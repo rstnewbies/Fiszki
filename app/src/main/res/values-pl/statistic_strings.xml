@@ -16,7 +16,7 @@
     <string name="statistic_a1">Starasz się wogóle?</string>
     <string name="statistic_a2">Zła odpowiedź! Nie obwiniaj mnie, to Twoja wina.</string>
     <string name="statistic_a3">Jesteś Zombie czy jak?</string>
-    <string name="statistic_a4">Przestań się modlić, Bóg Ci tu w niczym nie pomoże.</string>
+    <string name="statistic_a4">Czas trochę przykuć...</string>
     <string name="statistic_a5">Po prostu nie... nieważne.</string>
     <!-- for 30-49 percent -->
     <string name="statistic_b1">Pokonała Cię taka prosta rzecz?</string>
@@ -28,7 +28,7 @@
     <string name="statistic_c1">Całkiem dobrze.</string>
     <string name="statistic_c2">Och, daj spokój. To nie był najlepszy wynik, prawda?</string>
     <string name="statistic_c3">Przestań, stary, to jest zbyt proste!</string>
-    <string name="statistic_c4">Tak po za tym to studiuję prawo...</string>
+    <string name="statistic_c4">Jest coraz lepiej, ale może być jeszcze lepiej!</string>
     <string name="statistic_c5">Nie takie łatwe, co?</string>
     <!-- for 80-94 percent -->
     <string name="statistic_d1">SUPER</string>
@@ -38,7 +38,7 @@
     <string name="statistic_d5">Never gonna run around and desert you!</string>
     <!-- for 95-100 percent -->
     <string name="statistic_e1">Podobno MENSA Cię szuka...</string>
-    <string name="statistic_e2">W końcu! Udało się (za 4 razem)</string>
+    <string name="statistic_e2">Tak trzymaj!</string>
     <string name="statistic_e3">Jestem cholernie z Ciebie dumny!</string>
     <string name="statistic_e4">Kim jesteś? Jesteś zwycięzcą!</string>
     <string name="statistic_e5">Fantastycznie!</string>
