@@ -45,7 +45,11 @@ public class ChoosenCategoryAdapter extends ArrayAdapter<Category> {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
         convertView = inflater.inflate(rLayout, parent, false);
         checkBox = (CheckBox)convertView.findViewById(R.id.checkBox);
-        checkBox.setText(category.getCategory());
+        if(category.getId()==1){
+            checkBox.setText(R.string.add_new_word_no_category);
+        }else {
+            checkBox.setText(category.getCategory());
+        }
         if (category.isChosen()){
             checkBox.setChecked(true);
         }
