@@ -43,4 +43,13 @@ public class CatcherFlashcardToAlgorithm {
         }
         return flashcardsPiorited.get(draw.drawInteger(flashcardsPiorited.size()));
     }
+
+    public ArrayList<Flashcard> getFlashcardsFromChosenCategory(){
+        ArrayList<Flashcard> flashcards = new ArrayList<Flashcard>();
+        ArrayList<Category> categories = categoryRepository.getChosenCategory();
+        for (Category category:categories) {
+            flashcards.addAll(flashcardRepository.getFlashcardsByCategoryID(category.getId()));
+        }
+        return flashcards;
+    }
 }

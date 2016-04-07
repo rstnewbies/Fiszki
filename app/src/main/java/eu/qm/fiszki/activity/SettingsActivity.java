@@ -226,9 +226,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity
             public boolean onPreferenceClick(Preference preference) {
                 dialog = new Dialog(SettingsActivity.this);
                 dialog.setContentView(R.layout.layout_dialog_chose_category);
+                dialog.setTitle(R.string.settings_choose_category);
                 ListView listView = (ListView)dialog.findViewById(R.id.chooseCategoryListView);
                 ChoosenCategoryAdapter choosenCategoryAdapter = new ChoosenCategoryAdapter(context,
-                        R.layout.layout_adapter, categoryRepository.getUserCategory());
+                        R.layout.layout_choose_category_adapter, categoryRepository.getUserCategory());
                 listView.setAdapter(choosenCategoryAdapter);
 
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

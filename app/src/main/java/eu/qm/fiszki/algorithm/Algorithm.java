@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.Random;
 
+import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 
@@ -25,10 +26,10 @@ public class Algorithm {
         catcherFlashcardToAlgorithm = new CatcherFlashcardToAlgorithm(context);
     }
 
-    public Flashcard drawCardAlgorithm(ArrayList<Flashcard> flashcardsList) {
+    public Flashcard drawCardAlgorithm() {
         Flashcard flashcard = null;
         drawer = new Drawer();
-        priorityCount = new PriorityCount(flashcardsList);
+        priorityCount = new PriorityCount(catcherFlashcardToAlgorithm.getFlashcardsFromChosenCategory());
         multiplierPoints = new MultiplierPoints(priorityCount.priorityCount());
         calculatedPriority = multiplierPoints.multipler();
 

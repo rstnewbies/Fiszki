@@ -136,7 +136,7 @@ public class ExamModeActivity extends AppCompatActivity {
             enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
             word.setText("");
 
-            flashcard = algorithm.drawCardAlgorithm(flashcardRepository.getFlashcardsByCategoryID(1));
+            flashcard = algorithm.drawCardAlgorithm();
 
             wordFromData = flashcard.getWord();
             word.append(wordFromData);

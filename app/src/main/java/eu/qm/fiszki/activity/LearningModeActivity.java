@@ -145,7 +145,7 @@ public class LearningModeActivity extends AppCompatActivity {
             }
         }, 0);
 
-        flashcard = algorithm.drawCardAlgorithm(flashcardRepository.getAllFlashcards());
+        flashcard = algorithm.drawCardAlgorithm();
 
         word.setText("");
         wordFromData = flashcard.getWord();

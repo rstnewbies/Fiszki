@@ -8,7 +8,7 @@
     <string name="settings_title_notification">Częstotliwość notyfikacji</string>
     <string name="settings_title_vibration">Wibracje</string>
     <string name="settings_title_data_base">Wyczyść bazę</string>
-    <string name="settings_summary_data_base">Usuń wszystkie słowa z bazy</string>
+    <string name="settings_summary_data_base">Usuń wszystkie słowa i kategorie z bazy</string>
     <string name="settings_title_version">Wersja</string>
     <string name="settings_choose_category">Wybierz kategorie</string>
     <string name="settings_select_category">Fiszki pokażą słowa z wybranych kategorii</string>
