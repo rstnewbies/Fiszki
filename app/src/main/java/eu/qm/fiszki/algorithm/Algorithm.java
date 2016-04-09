@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.Random;
 
+import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
@@ -26,30 +27,32 @@ public class Algorithm {
         catcherFlashcardToAlgorithm = new CatcherFlashcardToAlgorithm(context);
     }
 
-    public Flashcard drawCardAlgorithm() {
+    public Flashcard drawCardAlgorithm(ArrayList<Flashcard> flashcardPool){
         Flashcard flashcard = null;
         drawer = new Drawer();
-        priorityCount = new PriorityCount(catcherFlashcardToAlgorithm.getFlashcardsFromChosenCategory());
+        priorityCount = new PriorityCount(flashcardPool);
         multiplierPoints = new MultiplierPoints(priorityCount.priorityCount());
         calculatedPriority = multiplierPoints.multipler();
 
         int draw = drawer.drawInteger(calculatedPriority[4]);
 
         if(0<=draw && draw<=calculatedPriority[0]){
-            flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritm(1);
+            flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritmByPriority(1, flashcardPool);
         }
         if(calculatedPriority[0]<=draw && draw<=calculatedPriority[1]){
-            flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritm(2);
+            flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritmByPriority(2, flashcardPool);
         }
         if(calculatedPriority[1]<=draw && draw<=calculatedPriority[2]){
-            flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritm(3);
+            flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritmByPriority(3, flashcardPool);
         }
         if(calculatedPriority[2]<=draw && draw<=calculatedPriority[3]){
-            flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritm(4);
+            flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritmByPriority(4, flashcardPool);
         }
         if(calculatedPriority[3]<=draw && draw<=calculatedPriority[4]){
-            flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritm(5);
+            flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritmByPriority(5, flashcardPool);
         }
         return flashcard;
     }
+
+
 }

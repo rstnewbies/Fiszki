@@ -25,8 +25,8 @@ import java.util.ArrayList;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
-import eu.qm.fiszki.AppCompatPreferenceActivity;
-import eu.qm.fiszki.ChoosenCategoryAdapter;
+import eu.qm.fiszki.settings.AppCompatPreferenceActivity;
+import eu.qm.fiszki.settings.ChoosenCategoryAdapter;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.SQL.DBAdapter;
 import eu.qm.fiszki.database.SQL.DBStatus;
@@ -304,9 +304,5 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         editor.clear();
         editor.putInt(notificationPosition, 0);
         editor.commit();
-    }
-
-    public void choosenCategory() {
-
     }
 }

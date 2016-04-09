@@ -20,6 +20,7 @@ import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.algorithm.Algorithm;
 import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.algorithm.CatcherFlashcardToAlgorithm;
 import eu.qm.fiszki.database.SQL.DBAdapter;
 import eu.qm.fiszki.database.SQL.DBStatus;
 import eu.qm.fiszki.model.Flashcard;
@@ -44,7 +45,7 @@ public class CheckActivity extends AppCompatActivity {
     boolean firstTry = true;
     Flashcard flashcard;
     Checker checker;
-
+    CatcherFlashcardToAlgorithm catcherFlashcardToAlgorithm;
     MenuItem mi;
     int id;
 
@@ -59,6 +60,7 @@ public class CheckActivity extends AppCompatActivity {
         algorithm = new Algorithm(context);
         flashcardRepository = new FlashcardRepository(context);
         checker = new Checker();
+        catcherFlashcardToAlgorithm = new CatcherFlashcardToAlgorithm(context);
 
         if (flashcardRepository.countFlashcards() <= 0) {
             alert.emptyBase(context, getString(R.string.main_activity_empty_base_main_layout),
@@ -66,7 +68,8 @@ public class CheckActivity extends AppCompatActivity {
 
         } else {
 
-            flashcard = algorithm.drawCardAlgorithm();
+            flashcard = algorithm.drawCardAlgorithm
+                    (catcherFlashcardToAlgorithm.getFlashcardsFromChosenCategoryToNotification());
 
             wordFromData = flashcard.getWord();
             expectedWord = flashcard.getTranslation();

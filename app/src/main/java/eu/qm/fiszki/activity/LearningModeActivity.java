@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import eu.qm.fiszki.Alert;
@@ -21,8 +22,10 @@ import eu.qm.fiszki.algorithm.Algorithm;
 import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
+import eu.qm.fiszki.algorithm.CatcherFlashcardToAlgorithm;
 import eu.qm.fiszki.database.SQL.DBAdapter;
 import eu.qm.fiszki.database.SQL.DBStatus;
+import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 
@@ -45,6 +48,7 @@ public class LearningModeActivity extends AppCompatActivity {
     Flashcard flashcard;
     Algorithm algorithm;
     private Checker checker;
+    CatcherFlashcardToAlgorithm catcherFlashcardToAlgorithm;
 
 
     @Override
@@ -62,6 +66,7 @@ public class LearningModeActivity extends AppCompatActivity {
         word = (TextView) findViewById(R.id.textView3);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        catcherFlashcardToAlgorithm = new CatcherFlashcardToAlgorithm(context);
 
         newDraw();
         keyboardAction();
@@ -145,7 +150,9 @@ public class LearningModeActivity extends AppCompatActivity {
             }
         }, 0);
 
-        flashcard = algorithm.drawCardAlgorithm();
+        ArrayList<Category> categories = new ArrayList<Category>();
+        flashcard = algorithm.drawCardAlgorithm(catcherFlashcardToAlgorithm
+                .getFlashcardsFromChosenCategory(categories));
 
         word.setText("");
         wordFromData = flashcard.getWord();

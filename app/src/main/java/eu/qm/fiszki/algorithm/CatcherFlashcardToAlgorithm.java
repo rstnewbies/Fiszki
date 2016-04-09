@@ -25,29 +25,22 @@ public class CatcherFlashcardToAlgorithm {
         draw = new Drawer();
     }
 
-    public Flashcard getFlashcardToAlgoritm(int priority){
-        ArrayList<Flashcard> flashcardsPiorited = new ArrayList<Flashcard>();
-        ArrayList<Flashcard> categoricalFlashcards = new ArrayList<Flashcard>();
-        ArrayList<Category> categories = categoryRepository.getChosenCategory();
-        if(categories.isEmpty()){
-            return flashcardRepository.getRandomFlashcardByPririty(priority);
-        }
-        for (Category category:categories) {
-            ArrayList<Flashcard> flashcards = flashcardRepository.getFlashcardsByCategoryID(category.getId());
-            categoricalFlashcards.addAll(flashcards);
-        }
-        for (Flashcard flashcard:categoricalFlashcards) {
-            if(priority==flashcard.getPriority()){
-                flashcardsPiorited.add(flashcard);
-            }
-        }
-        return flashcardsPiorited.get(draw.drawInteger(flashcardsPiorited.size()));
+    public Flashcard getFlashcardToAlgoritmByPriority(int priority, ArrayList<Flashcard> flashcards){
+        return flashcards.get(draw.drawInteger(flashcards.size()));
     }
 
-    public ArrayList<Flashcard> getFlashcardsFromChosenCategory(){
+    public ArrayList<Flashcard> getFlashcardsFromChosenCategoryToNotification(){
         ArrayList<Flashcard> flashcards = new ArrayList<Flashcard>();
         ArrayList<Category> categories = categoryRepository.getChosenCategory();
         for (Category category:categories) {
+            flashcards.addAll(flashcardRepository.getFlashcardsByCategoryID(category.getId()));
+        }
+        return flashcards;
+    }
+
+    public ArrayList<Flashcard> getFlashcardsFromChosenCategory(ArrayList<Category> chosenCategory){
+        ArrayList<Flashcard> flashcards = new ArrayList<Flashcard>();
+        for (Category category:chosenCategory) {
             flashcards.addAll(flashcardRepository.getFlashcardsByCategoryID(category.getId()));
         }
         return flashcards;

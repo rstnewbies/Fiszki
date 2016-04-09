@@ -3,6 +3,7 @@
 
     <string name="exam_mode_title">Sprawdź co potrafisz!</string>
     <string name="exam_mode_repeat_number">Ilość powtórzeń:</string>
-
+    <string name="exam_mode_no_choose_category">Nie wybrano żadnej kategorii.</string>
+    <string name="exam_mode_no_choose_repeat">Nie wybrano ilości powtórzeń.</string>
 
 </resources>
