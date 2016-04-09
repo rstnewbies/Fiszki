@@ -228,8 +228,15 @@ public class ExamModeActivity extends AppCompatActivity {
 
         //populate chosenCategoryListview
         final ArrayList<Category> categories = new ArrayList<Category>();
-        categories.add(categoryRepository.getCategoryByID(1));
-        categories.addAll(categoryRepository.getUserCategory());
+        if(!flashcardRepository.getFlashcardsByCategoryID(1).isEmpty()) {
+            categories.add(categoryRepository.getCategoryByID(1));
+        }
+        ArrayList<Category> userCategory = categoryRepository.getUserCategory();
+        for (Category category:userCategory) {
+            if(!flashcardRepository.getFlashcardsByCategoryID(category.getId()).isEmpty()){
+                categories.add(category);
+            }
+        }
         final ShowCategoryAdapter showCategoryAdapter =
                 new ShowCategoryAdapter(context, R.layout.layout_choose_category_adapter, categories);
         chosenCategoryListview.setAdapter(showCategoryAdapter);

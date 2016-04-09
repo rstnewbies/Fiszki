@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
+import eu.qm.fiszki.model.FlashcardRepository;
 
 /**
  * Created by mBoiler on 08.04.2016.
@@ -24,17 +25,16 @@ public class ShowCategoryAdapter extends ArrayAdapter<Category> {
     Context context;
     int rLayout;
     CheckBox checkBox;
-    CategoryRepository categoryRepository;
     ArrayList<Category> choosenCategory;
+    FlashcardRepository flashcardRepository;
 
     public ShowCategoryAdapter(Context context, int resource, ArrayList<Category> arrayList) {
         super(context, resource, arrayList);
         this.arrayList = arrayList;
         this.context = context;
         this.rLayout = resource;
-        categoryRepository = new CategoryRepository(context);
         choosenCategory = new ArrayList<>();
-
+        flashcardRepository = new FlashcardRepository(context);
     }
 
     @Override

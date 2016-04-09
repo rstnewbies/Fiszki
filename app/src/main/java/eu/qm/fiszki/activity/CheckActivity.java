@@ -66,8 +66,10 @@ public class CheckActivity extends AppCompatActivity {
             alert.emptyBase(context, getString(R.string.main_activity_empty_base_main_layout),
                     getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
 
-        } else {
-
+        } else if(catcherFlashcardToAlgorithm.getFlashcardsFromChosenCategoryToNotification().isEmpty()) {
+            alert.emptyBase(context, getString(R.string.alert_empty_flashcards_pool),
+                    getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
+        }else{
             flashcard = algorithm.drawCardAlgorithm
                     (catcherFlashcardToAlgorithm.getFlashcardsFromChosenCategoryToNotification());
 

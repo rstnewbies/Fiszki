@@ -33,4 +33,6 @@
 
     <string name="alert_delete_record">Czy napewno chcesz usunąć to słowo?</string>
 
+    <string name="alert_empty_flashcards_pool">Wybrane kategorie są puste!</string>
+
 </resources>
