@@ -53,6 +53,7 @@ public class LearningModeActivity extends AppCompatActivity {
     int position = 0;
     Flashcard flashcard;
     Algorithm algorithm;
+    Menu menu;
     CatcherFlashcardToAlgorithm catcherFlashcardToAlgorithm;
     private Checker checker;
     private CategoryRepository categoryRepository;
@@ -88,7 +89,9 @@ public class LearningModeActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_exam_mode, menu);
+        menu.findItem(R.id.action_OK).setVisible(false);
         return true;
     }
 
@@ -209,6 +212,7 @@ public class LearningModeActivity extends AppCompatActivity {
                 }else{
                     chosenCategory = showCategoryAdapter.getChoosenCategory();
                     setContentView(R.layout.activity_check);
+                    menu.findItem(R.id.action_OK).setVisible(true);
                     enteredWord = (EditText) findViewById(R.id.EnteredWord);
                     word = (TextView) findViewById(R.id.textView3);
                     newDraw();

@@ -23,6 +23,7 @@ import eu.qm.fiszki.R;
 import eu.qm.fiszki.algorithm.CatcherFlashcardToAlgorithm;
 import eu.qm.fiszki.database.SQL.DBAdapter;
 import eu.qm.fiszki.database.SQL.DBStatus;
+import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 
@@ -67,11 +68,11 @@ public class CheckActivity extends AppCompatActivity {
                     getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
 
         } else if(catcherFlashcardToAlgorithm.getFlashcardsFromChosenCategoryToNotification().isEmpty()) {
-            alert.emptyBase(context, getString(R.string.alert_empty_flashcards_pool),
-                    getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
-        }else{
+            flashcard = algorithm.drawCardAlgorithm(flashcardRepository.getAllFlashcards());
+        }else {
             flashcard = algorithm.drawCardAlgorithm
                     (catcherFlashcardToAlgorithm.getFlashcardsFromChosenCategoryToNotification());
+        }
 
             wordFromData = flashcard.getWord();
             expectedWord = flashcard.getTranslation();
@@ -85,7 +86,6 @@ public class CheckActivity extends AppCompatActivity {
             enteredWord.requestFocus();
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             keyboardAction();
-        }
     }
 
     @Override

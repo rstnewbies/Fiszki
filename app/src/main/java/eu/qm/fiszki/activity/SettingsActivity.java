@@ -18,7 +18,9 @@ import android.preference.Preference;
 import android.support.v7.app.ActionBar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -230,6 +232,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 dialog = new Dialog(SettingsActivity.this);
                 dialog.setContentView(R.layout.layout_dialog_chose_category);
                 dialog.setTitle(R.string.settings_choose_category);
+                Button okButton = (Button) dialog.findViewById(R.id.chooseCategoryButton);
                 ArrayList<Category> categories = new ArrayList<Category>();
                 categories.add(categoryRepository.getCategoryByID(1));
                 categories.addAll(categoryRepository.getUserCategory());
@@ -238,6 +241,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                         R.layout.layout_choose_category_adapter, categories);
                 listView.setAdapter(choosenCategoryAdapter);
 
+                okButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
                 lp.copyFrom(dialog.getWindow().getAttributes());
                 lp.width = WindowManager.LayoutParams.MATCH_PARENT;
