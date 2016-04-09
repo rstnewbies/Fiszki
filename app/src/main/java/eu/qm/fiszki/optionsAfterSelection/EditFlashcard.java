@@ -61,7 +61,8 @@ public class EditFlashcard {
         }, 50);
         editOrginal.setSelection(editOrginal.getText().length());
 
-        categorySpinnerRepository.populate(false);
+        categorySpinnerRepository.populate(true);
+        categorySpinnerRepository.setSelectedListener(activity);
         editFlashcardsCategory.setSelection(categorySpinnerRepository.dataAdapter
                 .getPosition(categoryRepository.getCategoryByID(selectedFlashcard.getCategoryId()).getCategory()));
 
