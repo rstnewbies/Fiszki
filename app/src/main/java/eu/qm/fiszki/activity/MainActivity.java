@@ -90,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
         Apptentive.onStart(this);
         categoryRepository.addSystemCategory();
         transform = new DBTransform(myDb, context);
-        boolean shown = Apptentive.engage(this, "changelog");
+        boolean shownOnlyOnce = Apptentive.engage(this, "changelog");
+        boolean shown = Apptentive.engage(this, "notes");
     }
 
     @Override
