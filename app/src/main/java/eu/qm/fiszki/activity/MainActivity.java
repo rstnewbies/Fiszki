@@ -7,11 +7,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
@@ -80,7 +80,18 @@ public class MainActivity extends AppCompatActivity {
         selectionFlashcard();
     }
 
-
+    @Override
+    public void onBackPressed() {
+        if (selectedView != null) {
+            toolbarMainActivity.set();
+            fab.show();
+            selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
+            selectedView = null;
+        }else{
+            this.finish();
+        }
+    }
+    
     @Override
     protected void onStart() {
         super.onStart();
