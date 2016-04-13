@@ -33,7 +33,8 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/plusbutton"
-        app:backgroundTint="@color/ColorPrimary" />
+        app:backgroundTint="@color/ColorPrimary"
+        />
 
 
 </android.support.design.widget.CoordinatorLayout>

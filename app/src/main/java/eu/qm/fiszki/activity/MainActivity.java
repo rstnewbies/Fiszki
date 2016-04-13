@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 
+import com.shamanland.fab.ShowHideOnScroll;
+
+
 import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBAdapter;
@@ -76,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
         toolbarMainActivity.set();
         selectionFlashcard();
+
+        expandableListView.setOnTouchListener(new ShowHideOnScroll(fab));
     }
 
     @Override
@@ -156,8 +161,6 @@ public class MainActivity extends AppCompatActivity {
                         fab.hide();
                         listPopulate.populate(selectedFlashcard, selectedCategory);
                     }
-
-
                 }
                 return true;
             }
