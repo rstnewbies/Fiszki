@@ -7,9 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 
@@ -30,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
     static final public String typeCategory = "TYPECATEGORY";
     static final public String typeFlashcard = "TYPEFLASHCARD";
+    static public Category expandedGroup;
     static public DBAdapter myDb;
     static public DBStatus openDataBase;
     static public Context context;
     static public ExpandableListView expandableListView;
     static public FloatingActionButton fab;
-    static public View selectedView;
     static public String selectedType;
     static public Flashcard selectedFlashcard;
     static public Category selectedCategory;
@@ -82,16 +80,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (selectedView != null) {
+        if (selectedFlashcard != null || selectedCategory != null) {
             toolbarMainActivity.set();
             fab.show();
-            selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
-            selectedView = null;
-        }else{
+            listPopulate.populate(null, null);
+            selectedFlashcard = null;
+            selectedCategory = null;
+        } else {
             this.finish();
         }
+
     }
-    
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         toolbarMainActivity.set();
-        listPopulate.populate();
+        listPopulate.populate(null, null);
     }
 
     @Override
@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectionFlashcard() {
+        selectedFlashcard = null;
         expandableListView.setLongClickable(true);
         expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -120,67 +121,47 @@ public class MainActivity extends AppCompatActivity {
                     int groupPosition = ExpandableListView.getPackedPositionGroup(id);
                     int childPosition = ExpandableListView.getPackedPositionChild(id);
 
-                    selectedFlashcard =
-                            listPopulate.adapterExp.getFlashcard(groupPosition, childPosition);
-
-                    selectedType = typeFlashcard;
-
+                    if (selectedFlashcard != null && selectedFlashcard.getId() == (listPopulate.adapterExp.getFlashcard(groupPosition, childPosition)).getId()) {
+                        toolbarMainActivity.set();
+                        fab.show();
+                        listPopulate.populate(null, null);
+                        selectedFlashcard = null;
+                        selectedCategory = null;
+                        expandedGroup = null;
+                    } else {
+                        selectedFlashcard =
+                                listPopulate.adapterExp.getFlashcard(groupPosition, childPosition);
+                        selectedCategory = null;
+                        expandedGroup = listPopulate.adapterExp.getCategory(groupPosition);
+                        selectedType = typeFlashcard;
+                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate);
+                        fab.hide();
+                        listPopulate.populate(selectedFlashcard, selectedCategory);
+                    }
                 }
                 if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
                     int groupPosition = ExpandableListView.getPackedPositionGroup(id);
-
-                    selectedCategory =
-                            listPopulate.adapterExp.getCategory(groupPosition);
-                    selectedType = typeCategory;
-
-                }
-
-                if (selectedView == view) {
-                    toolbarMainActivity.set();
-                    fab.show();
-                    selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
-                    selectedView = null;
-
-                } else {
-                    if (selectedView != null) {
-                        selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
+                    if (selectedCategory != null && selectedCategory.getId() == (listPopulate.adapterExp.getCategory(groupPosition).getId())) {
+                        toolbarMainActivity.set();
+                        fab.show();
+                        listPopulate.populate(null, null);
+                        selectedCategory = null;
+                        selectedFlashcard = null;
+                    } else {
+                        selectedFlashcard = null;
+                        selectedCategory =
+                                listPopulate.adapterExp.getCategory(groupPosition);
+                        selectedType = typeCategory;
+                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate);
+                        fab.hide();
+                        listPopulate.populate(selectedFlashcard, selectedCategory);
                     }
-                    selectedView = view;
-                    selectedView.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
-                    toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, selectedView, listPopulate);
-                    fab.hide();
+
+
                 }
                 return true;
             }
         });
-
-        expandableListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (selectedView != null) {
-                    selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
-                    selectedView = null;
-                    toolbarMainActivity.set();
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-            }
-        });
-
-        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                if (selectedView != null) {
-                    selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
-                    selectedView = null;
-                    toolbarMainActivity.set();
-                }
-                return false;
-            }
-        });
-
     }
 }
 

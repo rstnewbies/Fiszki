@@ -34,7 +34,7 @@ public class DeleteCategory {
         categoryRepository.deleteCategory(deletedCategory);
         deletedFlashcards = flashcardRepository.getFlashcardsByCategoryID(deletedCategory.getId());
         flashcardRepository.deleteFlashcards(deletedFlashcards);
-        listPopulate.populate();
+        listPopulate.populate(null,null);
         Snackbar snackbar = Snackbar
                 .make(activity.findViewById(R.id.fab),
                         activity.getString(R.string.snackbar_return_category_message),
@@ -45,7 +45,7 @@ public class DeleteCategory {
                             public void onClick(View v) {
                                 categoryRepository.addCategory(deletedCategory);
                                 flashcardRepository.addFlashcards(deletedFlashcards);
-                                listPopulate.populate();
+                                listPopulate.populate(null,null);
                                 toolbarMainActivity.set();
                             }
                         });
