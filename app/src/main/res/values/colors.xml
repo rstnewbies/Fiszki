@@ -13,4 +13,5 @@
     <color name="black">#424242</color>
     <color name="likeWhite">#F1F1F1</color>
     <color name="line">#d6d6d6</color>
+    <color name="alert_button_color">#009688</color>
 </resources>
