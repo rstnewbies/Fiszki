@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 
@@ -25,6 +26,11 @@ import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 import eu.qm.fiszki.toolbar.ToolbarAfterClick;
 import eu.qm.fiszki.toolbar.ToolbarMainActivity;
+
+import com.apptentive.android.sdk.Apptentive;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -76,10 +82,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
-
         toolbarMainActivity.set();
         selectionFlashcard();
-
         expandableListView.setOnTouchListener(new ShowHideOnScroll(fab));
     }
 
@@ -100,8 +104,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Apptentive.onStart(this);
         categoryRepository.addSystemCategory();
         transform = new DBTransform(myDb, context);
+        boolean shownOnlyOnce = Apptentive.engage(this, "changelog");
+        boolean shown = Apptentive.engage(this, "notes");
     }
 
     @Override
@@ -148,23 +155,13 @@ public class MainActivity extends AppCompatActivity {
                     int groupPosition = ExpandableListView.getPackedPositionGroup(id);
                     if (selectedCategory != null && selectedCategory.getId() == (listPopulate.adapterExp.getCategory(groupPosition).getId())) {
                         toolbarMainActivity.set();
-                        fab.show();
-                        listPopulate.populate(null, null);
-                        selectedCategory = null;
-                        selectedFlashcard = null;
-                    } else {
-                        selectedFlashcard = null;
-                        selectedCategory =
-                                listPopulate.adapterExp.getCategory(groupPosition);
+                        selectedCategory = listPopulate.adapterExp.getCategory(groupPosition);
                         selectedType = typeCategory;
-                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate);
-                        fab.hide();
-                        listPopulate.populate(selectedFlashcard, selectedCategory);
                     }
                 }
                 return true;
             }
         });
     }
-}
+    }
 

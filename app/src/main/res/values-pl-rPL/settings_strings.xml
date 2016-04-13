@@ -10,6 +10,7 @@
     <string name="settings_title_data_base">Wyczyść bazę</string>
     <string name="settings_summary_data_base">Usuń wszystkie słowa z bazy</string>
     <string name="settings_title_version">Wersja</string>
-
+    <string name="settings_title_support">Pomoc</string>
+    <string name="settings_contact_us">Skontaktuj się z nami</string>
     
 </resources>
