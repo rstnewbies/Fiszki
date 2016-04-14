@@ -11,6 +11,7 @@ import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.ExamModeActivity;
 import eu.qm.fiszki.activity.LearningModeActivity;
 import eu.qm.fiszki.activity.SettingsActivity;
+import eu.qm.fiszki.activity.TutorialActivity;
 import eu.qm.fiszki.model.FlashcardRepository;
 
 /**
@@ -68,6 +69,9 @@ public class ToolbarMainActivity {
                                         activity.getString(R.string.button_action_ok),
                                         activity);
                             }
+                        } else if (id == R.id.tutorialMode) {
+                            Intent goTutorial = new Intent(activity, TutorialActivity.class);
+                            activity.startActivity(goTutorial);
                         }
                         return true;
                     }

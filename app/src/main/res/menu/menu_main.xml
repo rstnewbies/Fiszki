@@ -10,4 +10,8 @@
     <item android:id="@+id/learningMode" android:title="@string/learning_mode_title"
         android:orderInCategory="100" app:showAsAction="never"
         android:actionLayout="@layout/activity_learning_mode" />
+    <item android:id="@+id/tutorialMode" android:title="@string/tutorial_title"
+        android:orderInCategory="100" app:showAsAction="never"
+        android:actionLayout="@layout/activity_tutorial" />
+
 </menu>
