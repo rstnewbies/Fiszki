@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.percent.PercentRelativeLayout
-    android:id="@+id/rootThirdPage"
+    android:id="@+id/rootFourPage"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="ContentDescription"
-    tools:background="@color/pistachio"
+    tools:background="@color/patin"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/TutThirdImage"
+        android:id="@+id/TutFourImage"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_centerInParent="true"
 
-        android:src="@drawable/tutthird"
+        android:src="@drawable/tutfour"
 
         android:scaleType="fitCenter" />
     <TextView
@@ -28,11 +28,11 @@
 
         android:gravity="center"
 
-        android:text="@string/tutorial_ready_time"
+        android:text="@string/tutorial_grown_up"
         android:textColor="@android:color/white"
         android:textSize="55px"
 
-        app:layout_heightPercent="100%"
-        app:layout_marginBottomPercent="80%"
+        app:layout_heightPercent="50%"
+        app:layout_marginBottomPercent="50%"
         app:layout_widthPercent="100%"/>
 </android.support.percent.PercentRelativeLayout>

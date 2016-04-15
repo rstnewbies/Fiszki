@@ -3,31 +3,35 @@ package eu.qm.fiszki.tutorial;
 /**
  * Created by bgood on 2016-04-14.
  */
+
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.widget.Toast;
 
 import com.cleveroad.slidingtutorial.PageFragment;
 import com.cleveroad.slidingtutorial.SimplePagerFragment;
+
+import eu.qm.fiszki.R;
 
 public class ColorPage extends SimplePagerFragment {
 
     @Override
     protected int getPagesCount() {
-        return 6;
+        return 4;
     }
 
     @Override
     protected PageFragment getPage(int position) {
-        position %= 3;
+        position %= 4;
         if (position == 0)
             return new FirstPage();
         if (position == 1)
             return new SecondPage();
         if (position == 2)
             return new ThirdPage();
+        if (position == 3)
+            return new FourPage();
         throw new IllegalArgumentException("WHOOP WHOOP " + position);
     }
 
@@ -35,17 +39,13 @@ public class ColorPage extends SimplePagerFragment {
     @Override
     protected int getPageColor(int position) {
         if (position == 0)
-            return ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark);
+            return ContextCompat.getColor(getContext(), R.color.yellow);
         if (position == 1)
-            return ContextCompat.getColor(getContext(), android.R.color.holo_green_dark);
+            return ContextCompat.getColor(getContext(), R.color.pressed_color);
         if (position == 2)
-            return ContextCompat.getColor(getContext(), android.R.color.holo_blue_dark);
+            return ContextCompat.getColor(getContext(), R.color.pistachio);
         if (position == 3)
-            return ContextCompat.getColor(getContext(), android.R.color.holo_red_dark);
-        if (position == 4)
-            return ContextCompat.getColor(getContext(), android.R.color.holo_purple);
-        if (position == 5)
-            return ContextCompat.getColor(getContext(), android.R.color.darker_gray);
+            return ContextCompat.getColor(getContext(), R.color.patin);
         return Color.TRANSPARENT;
     }
 
@@ -56,7 +56,11 @@ public class ColorPage extends SimplePagerFragment {
 
     @Override
     protected boolean onSkipButtonClicked(View skipButton) {
-        Toast.makeText(getContext(), "WHOOP WHOOP", Toast.LENGTH_SHORT).show();
-        return true;
+        // change contentview
+        // make tutorial goes first, then mainactivity
+        // do something with lags
+        // make english version of layouts
+        // repair skipbutton or make something with replaceTutorialFragment()
+        return false; // false - return, true - dosth
     }
 }

@@ -18,7 +18,7 @@ public class SecondPage extends PageFragment {
     @Override
     protected TransformItem[] provideTransformItems() {
         return new TransformItem[]{
-
+                new TransformItem(R.id.TutSecondImage, true, 20),
         };
     }
 }

@@ -6,8 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="ContentDescription"
-    tools:background="@android:color/holo_orange_dark">
+    tools:background="@color/yellow"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ImageView
+        android:id="@+id/TutFirstImage"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerInParent="true"
+
+        android:src="@drawable/tutfirst"
+
+        android:scaleType="fitEnd" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,8 +28,11 @@
 
         android:gravity="center"
 
-        android:text="czolgi"
+        android:text="@string/tutorial_press_button"
         android:textColor="@android:color/white"
+        android:textSize="55px"
 
-        />
+        app:layout_heightPercent="25%"
+        app:layout_marginBottomPercent="11%"
+        app:layout_widthPercent="45%"/>
 </android.support.percent.PercentRelativeLayout>

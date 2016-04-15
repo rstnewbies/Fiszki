@@ -18,7 +18,7 @@ public class ThirdPage extends PageFragment {
     @Override
     protected TransformItem[] provideTransformItems() {
         return new TransformItem[]{
-
+                new TransformItem(R.id.TutThirdImage, true, 20),
         };
     }
 }
