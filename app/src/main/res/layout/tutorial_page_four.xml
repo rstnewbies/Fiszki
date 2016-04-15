@@ -17,7 +17,7 @@
 
         android:layout_centerInParent="true"
 
-        android:src="@drawable/tutfour"
+        android:src="@drawable/tutfour_pl"
 
         android:scaleType="fitCenter" />
     <TextView

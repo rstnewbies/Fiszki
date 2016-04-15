@@ -17,7 +17,7 @@
 
         android:layout_centerInParent="true"
 
-        android:src="@drawable/tutsecond"
+        android:src="@drawable/tutsecond_pl"
 
         android:scaleType="fitStart" />
     <TextView

@@ -17,9 +17,10 @@
 
         android:layout_centerInParent="true"
 
-        android:src="@drawable/tutfirst"
+        android:src="@drawable/tutfirst_pl"
 
-        android:scaleType="fitEnd" />
+        android:baselineAlignBottom="false"
+        android:scaleType="fitStart" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
