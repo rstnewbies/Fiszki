@@ -12,6 +12,7 @@
     <string name="settings_title_version">Version</string>
     <string name="settings_title_support">Support</string>
     <string name="settings_contact_us">Contact with us</string>
+    <string name="settings_tutorial_info">Check how to explore languages!</string>
 
 
     </resources>

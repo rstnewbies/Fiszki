@@ -4,6 +4,7 @@ package eu.qm.fiszki.tutorial;
  * Created by bgood on 2016-04-14.
  */
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
@@ -13,6 +14,8 @@ import com.cleveroad.slidingtutorial.PageFragment;
 import com.cleveroad.slidingtutorial.SimplePagerFragment;
 
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.activity.MainActivity;
+import eu.qm.fiszki.activity.TutorialActivity;
 
 public class ColorPage extends SimplePagerFragment {
 
@@ -56,11 +59,8 @@ public class ColorPage extends SimplePagerFragment {
 
     @Override
     protected boolean onSkipButtonClicked(View skipButton) {
-        // change contentview
-        // make tutorial goes first, then mainactivity
-        // do something with lags
-        // make english version of layouts
-        // repair skipbutton or make something with replaceTutorialFragment()
-        return false; // false - return, true - dosth
+        Intent home = new Intent(getActivity(), MainActivity.class);
+        startActivity(home);
+        return true;
     }
 }

@@ -4,9 +4,11 @@ package eu.qm.fiszki.activity;
  * Created by bgood on 2016-04-14.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.tutorial.ColorPage;
@@ -22,6 +24,16 @@ public class TutorialActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             replaceTutorialFragment();
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent home = new Intent(this, MainActivity.class);
+            startActivity(home);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void replaceTutorialFragment() {

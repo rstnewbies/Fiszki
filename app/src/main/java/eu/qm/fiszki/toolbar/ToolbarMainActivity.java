@@ -69,9 +69,6 @@ public class ToolbarMainActivity {
                                         activity.getString(R.string.button_action_ok),
                                         activity);
                             }
-                        } else if (id == R.id.tutorialMode) {
-                            Intent goTutorial = new Intent(activity, TutorialActivity.class);
-                            activity.startActivity(goTutorial);
                         }
                         return true;
                     }

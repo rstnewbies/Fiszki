@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="tutorial_title" translatable="false">Tutorial</string>
-    <string name="tutorial_press_button">Click + to add new words</string>
-    <string name="tutorial_settings_repeat">In settings select how often you want to repeat stuff</string>
-    <string name="tutorial_ready_time">Whenever you ready, check yourself!</string>
-    <string name="tutorial_grown_up">Maturate by application</string>
+    <string name="tutorial_press_button">Touch + to add new words</string>
+    <string name="tutorial_settings_repeat">To choose how often you want to practise go to settings</string>
+    <string name="tutorial_ready_time">Test yourself, whenever you\'re ready!</string>
+    <string name="tutorial_grown_up">Explore new languages with</string>
+    <string name="tutorial_introduction">Introduction</string>
 </resources>

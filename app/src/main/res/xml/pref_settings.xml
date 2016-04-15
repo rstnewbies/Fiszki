@@ -36,6 +36,15 @@
         android:title="@string/settings_contact_us"
         android:enabled="true"
         />
+    <PreferenceCategory
+        android:title="@string/tutorial_title"
+        />
+    <Preference
+        android:key="@string/settings_key_tutorial"
+        android:title="@string/tutorial_introduction"
+        android:summary="@string/settings_tutorial_info"
+        android:enabled="true"
+        />
 
 
 </PreferenceScreen>
