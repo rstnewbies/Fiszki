@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     static final public String typeCategory = "TYPECATEGORY";
     static final public String typeFlashcard = "TYPEFLASHCARD";
+    static final public String tutorialIsOn = "firstOn";
     static public Category expandedGroup;
     static public DBAdapter myDb;
     static public DBStatus openDataBase;
@@ -116,6 +117,13 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         toolbarMainActivity.set();
         listPopulate.populate(null, null);
+        if (sharedPreferences.getInt(tutorialIsOn, 0)==0){ //TUTAJ
+            editor.putInt(tutorialIsOn, 2);
+            editor.commit();
+            editor.clear();
+            Intent goTutorial = new Intent(activity, TutorialActivity.class);
+            activity.startActivity(goTutorial);
+        }
     }
 
     @Override
@@ -162,6 +170,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+    public void tutorialIsOn(){
+
     }
     }
 
