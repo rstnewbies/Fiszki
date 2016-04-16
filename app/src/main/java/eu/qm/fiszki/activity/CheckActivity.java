@@ -30,8 +30,6 @@ public class CheckActivity extends AppCompatActivity {
     Algorithm algorithm;
     TextView word;
     EditText enteredWord;
-    DBAdapter myDb = new DBAdapter(this);
-    DBStatus OpenDataBase = new DBStatus();
     Alert alert;
     Context context;
     FlashcardRepository flashcardRepository;
@@ -52,8 +50,6 @@ public class CheckActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check);
-        OpenDataBase.openDB(myDb);
-        Cursor c = myDb.getAllRows();
         alert = new Alert();
         context = this;
         algorithm = new Algorithm(context);
@@ -86,7 +82,7 @@ public class CheckActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if (myDb.getAllRows().getCount() > 0) {
+        if (flashcardRepository.countFlashcards() > 0) {
             enteredWord.setText("");
         }
     }
@@ -94,7 +90,6 @@ public class CheckActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        OpenDataBase.closeDB(myDb);
     }
 
     @Override
@@ -129,7 +124,8 @@ public class CheckActivity extends AppCompatActivity {
                 message.pass(this, randomPassString, getString(R.string.alert_title_pass), getString(R.string.button_action_ok));
 
                 if (rowPriority < 5 && firstTry) {
-                    myDb.updateFlashcardPriority(rowId, rowPriority + 1);
+                    flashcard.setPriority(flashcard.getPriority()+1);
+                    flashcardRepository.updateFlashcard(flashcard);
                 }
             } else {
                 drawFailString();
@@ -139,7 +135,8 @@ public class CheckActivity extends AppCompatActivity {
                         getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
                 firstTry = false;
 
-                myDb.updateFlashcardPriority(rowId, 1);
+                flashcard.setPriority(1);
+                flashcardRepository.updateFlashcard(flashcard);
             }
         } else if (id == android.R.id.home) {
             this.finish();

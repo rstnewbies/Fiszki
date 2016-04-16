@@ -28,6 +28,14 @@
         android:summary=" "
         android:enabled="false"
         />
+ <PreferenceCategory
+        android:title="@string/settings_title_support"
+        />
+    <Preference
+        android:key="@string/settings_key_contact"
+        android:title="@string/settings_contact_us"
+        android:enabled="true"
+        />
 
 
 </PreferenceScreen>
