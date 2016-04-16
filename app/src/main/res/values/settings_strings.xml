@@ -12,6 +12,7 @@
     <string name="settings_title_version">Version</string>
     <string name="settings_choose_category">Choose category</string>
     <string name="settings_select_category">Fiszki will show words from selected categories</string>
+    <string name="settings_add_category">You should add category first!</string>
 
 
     </resources>

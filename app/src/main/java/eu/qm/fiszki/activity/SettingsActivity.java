@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -226,38 +227,50 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
         //Choose Category
         chooseCategory = findPreference(getResources().getString(R.string.settings_key_category));
-        chooseCategory.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                dialog = new Dialog(SettingsActivity.this);
-                dialog.setContentView(R.layout.layout_dialog_chose_category);
-                dialog.setTitle(R.string.settings_choose_category);
-                Button okButton = (Button) dialog.findViewById(R.id.chooseCategoryButton);
-                ArrayList<Category> categories = new ArrayList<Category>();
-                categories.add(categoryRepository.getCategoryByID(1));
-                categories.addAll(categoryRepository.getUserCategory());
-                ListView listView = (ListView)dialog.findViewById(R.id.chooseCategoryListView);
-                ChoosenCategoryAdapter choosenCategoryAdapter = new ChoosenCategoryAdapter(context,
-                        R.layout.layout_choose_category_adapter, categories);
-                listView.setAdapter(choosenCategoryAdapter);
+        if (categoryRepository.getUserCategory().isEmpty()) {
+            chooseCategory.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Toast.makeText(getApplicationContext(), R.string.settings_add_category,
+                            Toast.LENGTH_SHORT).show();
+                    chooseCategory.setEnabled(false);
+                    return false;
+                }
+            });
+        } else {
+            chooseCategory.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    dialog = new Dialog(SettingsActivity.this);
+                    dialog.setContentView(R.layout.layout_dialog_chose_category);
+                    dialog.setTitle(R.string.settings_choose_category);
+                    Button okButton = (Button) dialog.findViewById(R.id.chooseCategoryButton);
+                    ArrayList<Category> categories = new ArrayList<Category>();
+                    categories.add(categoryRepository.getCategoryByID(1));
+                    categories.addAll(categoryRepository.getUserCategory());
+                    ListView listView = (ListView) dialog.findViewById(R.id.chooseCategoryListView);
+                    ChoosenCategoryAdapter choosenCategoryAdapter = new ChoosenCategoryAdapter(context,
+                            R.layout.layout_choose_category_adapter, categories);
+                    listView.setAdapter(choosenCategoryAdapter);
 
-                okButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-                lp.copyFrom(dialog.getWindow().getAttributes());
-                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                    okButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                    lp.copyFrom(dialog.getWindow().getAttributes());
+                    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                    lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
-                dialog.getWindow().setAttributes(lp);
-                dialog.show();
+                    dialog.getWindow().setAttributes(lp);
+                    dialog.show();
 
-                return false;
-            }
-        });
+                    return false;
+                }
+            });
+        }
 
         //Version
         pref = findPreference(getResources().getString(R.string.settings_key_version));
