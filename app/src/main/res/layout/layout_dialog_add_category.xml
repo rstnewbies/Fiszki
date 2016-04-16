@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="159dp"
-        android:background="@color/White"
-        android:layout_weight="0.05">
+    android:weightSum="1"
+    android:background="@color/White"
+    android:layout_weight="0.05">
 
         <EditText
             android:layout_width="match_parent"
@@ -32,7 +30,7 @@
             android:layout_below="@+id/categoryName"
             android:layout_alignRight="@+id/categoryName"
             android:layout_alignEnd="@+id/categoryName"
-            android:layout_toEndOf="@+id/textView8"
+            android:layout_toRightOf="@+id/textView8"
             android:layout_alignLeft="@+id/categoryName"
             android:layout_alignStart="@+id/categoryName" />
 
@@ -47,4 +45,5 @@
             android:layout_alignStart="@+id/categoryName"
             android:layout_marginTop="8dp" />
     </RelativeLayout>
-</LinearLayout>
+
+
