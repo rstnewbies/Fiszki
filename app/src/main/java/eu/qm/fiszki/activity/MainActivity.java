@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -117,12 +118,15 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         toolbarMainActivity.set();
         listPopulate.populate(null, null);
-        if (sharedPreferences.getInt(tutorialIsOn, 0)==0){ //TUTAJ
-            editor.putInt(tutorialIsOn, 2);
-            editor.commit();
-            editor.clear();
-            Intent goTutorial = new Intent(activity, TutorialActivity.class);
-            activity.startActivity(goTutorial);
+        SharedPreferences runCheck = getSharedPreferences("hasRunBefore", 0);
+        Boolean hasRun = runCheck.getBoolean("hasRun", false);
+        if (!hasRun) {
+            SharedPreferences settings = getSharedPreferences("hasRunBefore", 0);
+            SharedPreferences.Editor edit = settings.edit();
+            edit.putBoolean("hasRun", true);
+            edit.commit();
+            Intent tutorial = new Intent(MainActivity.this, TutorialActivity.class);
+            startActivity(tutorial);
         }
     }
 
