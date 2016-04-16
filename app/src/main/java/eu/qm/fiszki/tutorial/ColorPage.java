@@ -59,8 +59,7 @@ public class ColorPage extends SimplePagerFragment {
 
     @Override
     protected boolean onSkipButtonClicked(View skipButton) {
-        Intent home = new Intent(getActivity(), MainActivity.class);
-        startActivity(home);
+        getActivity().finish();
         return true;
     }
 }
