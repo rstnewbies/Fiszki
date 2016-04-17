@@ -63,16 +63,17 @@ public class CheckActivity extends AppCompatActivity {
         checker = new Checker();
         catcherFlashcardToAlgorithm = new CatcherFlashcardToAlgorithm(context);
 
-        if (flashcardRepository.countFlashcards() <= 0) {
+        if (flashcardRepository.countFlashcards() < 1) {
             alert.emptyBase(context, getString(R.string.main_activity_empty_base_main_layout),
                     getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
 
-        } else if(catcherFlashcardToAlgorithm.getFlashcardsFromChosenCategoryToNotification().isEmpty()) {
-            flashcard = algorithm.drawCardAlgorithm(flashcardRepository.getAllFlashcards());
-        }else {
-            flashcard = algorithm.drawCardAlgorithm
-                    (catcherFlashcardToAlgorithm.getFlashcardsFromChosenCategoryToNotification());
-        }
+        } else {
+            if (catcherFlashcardToAlgorithm.getFlashcardsFromChosenCategoryToNotification().isEmpty()) {
+                flashcard = algorithm.drawCardAlgorithm(flashcardRepository.getAllFlashcards());
+            } else {
+                flashcard = algorithm.drawCardAlgorithm
+                        (catcherFlashcardToAlgorithm.getFlashcardsFromChosenCategoryToNotification());
+            }
 
             wordFromData = flashcard.getWord();
             expectedWord = flashcard.getTranslation();
@@ -86,6 +87,7 @@ public class CheckActivity extends AppCompatActivity {
             enteredWord.requestFocus();
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             keyboardAction();
+        }
     }
 
     @Override
