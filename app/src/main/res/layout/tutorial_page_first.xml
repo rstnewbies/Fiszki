@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
 
         android:layout_centerInParent="true"
-
+        android:layout_marginTop="24dp"
         android:src="@drawable/tutfirst_pl"
 
         android:baselineAlignBottom="false"
