@@ -29,8 +29,6 @@ public class TutorialActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent home = new Intent(this, MainActivity.class);
-            startActivity(home);
             finish();
         }
         return super.onKeyDown(keyCode, event);

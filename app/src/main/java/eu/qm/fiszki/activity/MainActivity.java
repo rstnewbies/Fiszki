@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
     static final public String typeCategory = "TYPECATEGORY";
     static final public String typeFlashcard = "TYPEFLASHCARD";
-    static final public String tutorialIsOn = "firstOn";
     static public Category expandedGroup;
     static public DBAdapter myDb;
     static public DBStatus openDataBase;
@@ -174,9 +173,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-    }
-    public void tutorialIsOn(){
-
     }
     }
 
