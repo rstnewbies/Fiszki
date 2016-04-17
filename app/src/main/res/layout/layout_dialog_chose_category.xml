@@ -1,26 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <ListView
-        android:id="@+id/chooseCategoryListView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp" />
-
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <Button
         android:id="@+id/chooseCategoryButton"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/chooseCategoryListView"
         android:text="@string/button_action_ok"
-        android:layout_margin="8dp"
         android:gravity="center_vertical|center_horizontal"
+        android:textColor="@color/alert_button_color"
+        android:layout_gravity="right|bottom"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:textColor="@color/alert_button_color"/>
+        android:layout_alignParentEnd="true" />
+
+    <ListView
+        android:id="@+id/chooseCategoryListView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_alignRight="@+id/chooseCategoryButton"
+        android:layout_alignEnd="@+id/chooseCategoryButton"
+        android:layout_above="@+id/chooseCategoryButton"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp" />
+
 </RelativeLayout>
+</FrameLayout>
