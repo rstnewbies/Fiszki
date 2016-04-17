@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.algorithm.CatcherFlashcardToAlgorithm;
 import eu.qm.fiszki.database.SQL.DBAdapter;
 import eu.qm.fiszki.database.SQL.DBStatus;
 import eu.qm.fiszki.model.Category;
@@ -60,6 +62,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public Activity activity;
     private FlashcardRepository flashcardRepository;
     private CategoryRepository categoryRepository;
+    private CatcherFlashcardToAlgorithm catcherFlashcardToAlgorithm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         alarm = new AlarmReceiver();
         flashcardRepository = new FlashcardRepository(context);
         categoryRepository = new CategoryRepository(context);
+        catcherFlashcardToAlgorithm = new CatcherFlashcardToAlgorithm(context);
 
         sync();
         clearDataBase();
@@ -244,11 +248,24 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 ChoosenCategoryAdapter choosenCategoryAdapter = new ChoosenCategoryAdapter(context,
                         R.layout.layout_choose_category_adapter, categories);
                 listView.setAdapter(choosenCategoryAdapter);
+                if(listView.getAdapter().getCount()>=6){
+                    RelativeLayout.LayoutParams lp =
+                            (RelativeLayout.LayoutParams) listView.getLayoutParams();
+                    lp.height = 1000 ;
+                    listView.setLayoutParams(lp);
+                }
 
                 okButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.dismiss();
+                        if(catcherFlashcardToAlgorithm
+                                .getFlashcardsFromChosenCategoryToNotification().isEmpty()) {
+                            Toast.makeText(context,
+                                    getString(R.string.settings_choose_category_empty),
+                                    Toast.LENGTH_LONG).show();
+                        }else {
+                            dialog.dismiss();
+                        }
                     }
                 });
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
