@@ -108,8 +108,7 @@ public class LearningModeActivity extends AppCompatActivity {
 
         if (id == R.id.action_OK) {
             if (checker.check(expectedWord, enteredWord.getText().toString())) {
-                finish();
-                startActivity(getIntent());
+                newDraw();
             } else {
                 enteredWord.setText("");
                 drawString();
