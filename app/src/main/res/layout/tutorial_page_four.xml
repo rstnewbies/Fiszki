@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.percent.PercentRelativeLayout
-    android:id="@+id/rootFourPage"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootFourPage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="ContentDescription"
     tools:background="@color/patin"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:ignore="ContentDescription">
 
     <ImageView
         android:id="@+id/TutFourImage"
@@ -17,9 +17,10 @@
 
         android:layout_centerInParent="true"
 
-        android:src="@drawable/tutfour_pl"
+        android:scaleType="fitCenter"
 
-        android:scaleType="fitCenter" />
+        android:src="@drawable/tutfour_pl" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,5 +35,18 @@
 
         app:layout_heightPercent="50%"
         app:layout_marginBottomPercent="50%"
-        app:layout_widthPercent="100%"/>
+        app:layout_widthPercent="100%" />
+
+    <Button
+        android:fontFamily="sans-serif-light"
+        android:textSize="20sp"
+        android:textColor="@color/White"
+        android:id="@+id/tutorial_go"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/tutorial_go" />
 </android.support.percent.PercentRelativeLayout>

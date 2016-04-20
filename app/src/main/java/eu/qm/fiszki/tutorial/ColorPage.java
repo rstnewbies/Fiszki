@@ -6,6 +6,7 @@ package eu.qm.fiszki.tutorial;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.provider.CalendarContract;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.cleveroad.slidingtutorial.PageFragment;
 import com.cleveroad.slidingtutorial.SimplePagerFragment;
 
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.activity.AddWordActivity;
 import eu.qm.fiszki.activity.MainActivity;
 import eu.qm.fiszki.activity.TutorialActivity;
 
@@ -21,12 +23,12 @@ public class ColorPage extends SimplePagerFragment {
 
     @Override
     protected int getPagesCount() {
-        return 4;
+        return 6;
     }
 
     @Override
     protected PageFragment getPage(int position) {
-        position %= 4;
+        position %= 5;
         if (position == 0)
             return new FirstPage();
         if (position == 1)
@@ -35,6 +37,8 @@ public class ColorPage extends SimplePagerFragment {
             return new ThirdPage();
         if (position == 3)
             return new FourPage();
+        if (position == 4)
+            return new FivePage();
         throw new IllegalArgumentException("WHOOP WHOOP " + position);
     }
 
@@ -49,12 +53,17 @@ public class ColorPage extends SimplePagerFragment {
             return ContextCompat.getColor(getContext(), R.color.pistachio);
         if (position == 3)
             return ContextCompat.getColor(getContext(), R.color.patin);
+        if (position == 4)
+            return ContextCompat.getColor(getContext(), R.color.White);
+        if (position == 5){
+            getActivity().finish();
+        }
         return Color.TRANSPARENT;
     }
 
     @Override
     protected boolean isInfiniteScrollEnabled() {
-        return true;
+        return false;
     }
 
     @Override
