@@ -19,14 +19,14 @@
 
     <ListView
         android:layout_width="187dp"
-        android:layout_height="218dp"
+        android:layout_height="200dp"
         android:id="@+id/exam_choose_category"
         android:layout_gravity="left|top"
         android:layout_below="@+id/textView5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentEnd="false"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="16dp" />
@@ -45,14 +45,16 @@
         android:layout_marginLeft="8dp" />
 
     <Button
-        style="?android:attr/buttonStyleSmall"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="25sp"
         android:text="Start"
+        android:textColor="@color/alert_button_color"
         android:id="@+id/exam_start_button"
-        android:layout_below="@+id/numberOfRepeatThree"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/exam_choose_category"
+        android:layout_alignEnd="@+id/exam_choose_category" />
 
     <RadioButton
         android:layout_width="wrap_content"
