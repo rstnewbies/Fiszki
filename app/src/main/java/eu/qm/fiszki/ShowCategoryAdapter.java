@@ -58,6 +58,10 @@ public class ShowCategoryAdapter extends ArrayAdapter<Category> {
                 }
             }
         });
+        if(choosenCategory.contains(category))
+        {
+            checkBox.setChecked(true);
+        }
         return convertView;
     }
 
