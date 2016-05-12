@@ -1,5 +1,7 @@
 package eu.qm.fiszki.tutorial;
 
+import android.view.MotionEvent;
+
 import com.cleveroad.slidingtutorial.PageFragment;
 import com.cleveroad.slidingtutorial.TransformItem;
 
@@ -21,4 +23,5 @@ public class FourPage extends PageFragment {
                 new TransformItem(R.id.TutFourImage, true, 20),
         };
     }
+
 }

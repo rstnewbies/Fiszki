@@ -48,5 +48,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="@string/tutorial_go" />
+        android:text="@string/tutorial_go"
+        android:onClick="goButton"/>
 </android.support.percent.PercentRelativeLayout>

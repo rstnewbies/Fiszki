@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Button;
 
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.tutorial.ColorPage;
@@ -38,5 +40,9 @@ public class TutorialActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, new ColorPage());
         fragmentTransaction.commit();
+    }
+
+    public void goButton(View view) {
+        finish();
     }
 }
