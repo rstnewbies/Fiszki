@@ -11,14 +11,12 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
-
 import com.shamanland.fab.ShowHideOnScroll;
-
 
 import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.database.DBAdapter;
-import eu.qm.fiszki.database.DBStatus;
+import eu.qm.fiszki.database.SQL.DBAdapter;
+import eu.qm.fiszki.database.SQL.DBStatus;
 import eu.qm.fiszki.database.DBTransform;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;

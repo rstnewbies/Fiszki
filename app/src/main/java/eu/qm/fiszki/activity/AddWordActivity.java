@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
-import eu.qm.fiszki.CategorySpinnerRepository;
+import eu.qm.fiszki.addWord.CategorySpinnerRepository;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.model.CategoryRepository;

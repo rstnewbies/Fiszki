@@ -1,4 +1,4 @@
-package eu.qm.fiszki;
+package eu.qm.fiszki.addWord;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.qm.fiszki.R;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 
@@ -98,7 +99,8 @@ public class CategorySpinnerRepository {
                                         context.getString(R.string.add_new_category_exist),
                                         Toast.LENGTH_LONG).show();
                             }else{
-                                Category category = new Category(categoryName.getText().toString(), true);
+                                Category category = new Category(categoryName.getText().toString()
+                                ,true,false);
                                 categoryRepository.addCategory(category);
                                 Toast.makeText(context,
                                         context.getString(R.string.add_new_category_toast),

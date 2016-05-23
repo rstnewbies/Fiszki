@@ -60,7 +60,7 @@ public class ListPopulate {
             emptyDBText.setVisibility(View.INVISIBLE);
             expandableListView.setVisibility(View.VISIBLE);
             //Uncategory
-            lastCategory = new Category(lastCategoryName, false);
+            lastCategory = new Category(lastCategoryName, false, false);
             unCategoryFlashcard = flashcardRepository.getFlashcardsByCategoryID(1);
             //Categories
             categories = categoryRepository.getUserCategory();

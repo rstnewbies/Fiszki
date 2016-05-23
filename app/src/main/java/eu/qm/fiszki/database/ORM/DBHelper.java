@@ -1,9 +1,10 @@
-package eu.qm.fiszki.database;
+package eu.qm.fiszki.database.ORM;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
@@ -19,7 +20,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     public static final String uncategory = "UNCATEGORY";
     public static final String addCategoryName = "ADDNEWCATEGORY";
     private static final String DATABASE_NAME = "Flashcards.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
     private RuntimeExceptionDao<Flashcard, Integer> flashcardDao = null;
     private RuntimeExceptionDao<Category, Integer> categoryDao = null;
 
@@ -40,9 +41,8 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource,
                           int oldVersion, int newVersion) {
-        if (oldVersion < 1) {
-            onCreate(database, connectionSource);
-        }
+        onCreate(database, connectionSource);
+        getCategoryDao().executeRaw("ALTER TABLE `category` ADD COLUMN chosen BOOLEAN;");
     }
 
     public RuntimeExceptionDao<Flashcard, Integer> getFlashcardDao() {
@@ -58,5 +58,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         }
         return categoryDao;
     }
+
+
 }
 

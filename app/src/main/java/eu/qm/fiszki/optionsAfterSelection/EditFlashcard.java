@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import eu.qm.fiszki.CategorySpinnerRepository;
+import eu.qm.fiszki.addWord.CategorySpinnerRepository;
 import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.model.CategoryRepository;

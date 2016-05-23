@@ -1,4 +1,4 @@
-package eu.qm.fiszki.database;
+package eu.qm.fiszki.database.SQL;
 
 /**
  * Created by Mateusz on 2015-10-15.

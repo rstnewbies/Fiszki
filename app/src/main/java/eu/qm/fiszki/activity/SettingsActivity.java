@@ -2,8 +2,8 @@ package eu.qm.fiszki.activity;
 
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,17 +17,26 @@ import android.preference.Preference;
 import android.support.v7.app.ActionBar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.apptentive.android.sdk.Apptentive;
 
+import java.util.ArrayList;
+
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
-import eu.qm.fiszki.AppCompatPreferenceActivity;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.database.DBAdapter;
-import eu.qm.fiszki.database.DBStatus;
+import eu.qm.fiszki.algorithm.CatcherFlashcardToAlgorithm;
+import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.FlashcardRepository;
+import eu.qm.fiszki.settings.AppCompatPreferenceActivity;
+import eu.qm.fiszki.settings.ChoosenCategoryAdapter;
 
 public class SettingsActivity extends AppCompatPreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -36,16 +45,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public Preference cleanerDataBase;
     public Preference contactButton;
     public Preference pref;
+    public Preference chooseCategory;
+    public PendingIntent pendingIntent;
     public AlarmReceiver alarm;
     public Context context;
     public int time = 15;
     public Alert alert;
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
+    public Dialog dialog;
     private FlashcardRepository flashcardRepository;
     private CategoryRepository categoryRepository;
     private AlertDialog.Builder builder;
     private Activity activity;
+    private CatcherFlashcardToAlgorithm catcherFlashcardToAlgorithm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +74,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         alarm = new AlarmReceiver();
         flashcardRepository = new FlashcardRepository(context);
         categoryRepository = new CategoryRepository(context);
+        catcherFlashcardToAlgorithm = new CatcherFlashcardToAlgorithm(context);
 
         sync();
         clearDataBase();
@@ -189,7 +203,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public void sync() {
         //Notification
         pref = findPreference(getResources().getString(R.string.settings_key_notification));
-        ListPreference listPref = (ListPreference) pref;
+        final ListPreference listPref = (ListPreference) pref;
         if (sharedPreferences.getInt(notificationPosition, 0) == 0) {
             listPref.setValueIndex(0);
             pref.setSummary(listPref.getEntry());
@@ -210,6 +224,58 @@ public class SettingsActivity extends AppCompatPreferenceActivity
             listPref.setValueIndex(4);
             pref.setSummary(listPref.getEntry());
         }
+
+        //Choose Category
+        chooseCategory = findPreference(getResources().getString(R.string.settings_key_category));
+        if (categoryRepository.getUserCategory().isEmpty()) {
+            chooseCategory.setEnabled(false);
+        }
+        chooseCategory.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                dialog = new Dialog(SettingsActivity.this);
+                dialog.setContentView(R.layout.layout_dialog_chose_category);
+                dialog.setTitle(R.string.settings_choose_category);
+                Button okButton = (Button) dialog.findViewById(R.id.chooseCategoryButton);
+                ArrayList<Category> categories = new ArrayList<Category>();
+                categories.add(categoryRepository.getCategoryByID(1));
+                categories.addAll(categoryRepository.getUserCategory());
+                ListView listView = (ListView) dialog.findViewById(R.id.chooseCategoryListView);
+                ChoosenCategoryAdapter choosenCategoryAdapter = new ChoosenCategoryAdapter(context,
+                        R.layout.layout_choose_category_adapter, categories);
+                listView.setAdapter(choosenCategoryAdapter);
+                if (listView.getAdapter().getCount() >= 6) {
+                    RelativeLayout.LayoutParams lp =
+                            (RelativeLayout.LayoutParams) listView.getLayoutParams();
+                    lp.height = 1000;
+                    listView.setLayoutParams(lp);
+                }
+
+                okButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (catcherFlashcardToAlgorithm
+                                .getFlashcardsFromChosenCategoryToNotification().isEmpty()) {
+                            Toast.makeText(context,
+                                    getString(R.string.settings_choose_category_empty),
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                lp.copyFrom(dialog.getWindow().getAttributes());
+                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+                dialog.getWindow().setAttributes(lp);
+                dialog.show();
+
+                return false;
+            }
+        });
+
         //Version
         pref = findPreference(getResources().getString(R.string.settings_key_version));
         PackageManager manager = this.getPackageManager();
@@ -224,7 +290,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
         //Clear database
         cleanerDataBase = findPreference(getResources().getString(R.string.settings_key_data_base));
-        if (flashcardRepository.countFlashcards() > 0 || categoryRepository.countCategory()>2) {
+        if (flashcardRepository.countFlashcards() > 0 || categoryRepository.countCategory() > 2) {
             cleanerDataBase.setEnabled(true);
         } else {
             cleanerDataBase.setEnabled(false);
@@ -253,7 +319,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         });
     }
 
-    public void contact(){
+    public void contact() {
         contactButton = findPreference(getResources().getString(R.string.settings_key_contact));
         contactButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override

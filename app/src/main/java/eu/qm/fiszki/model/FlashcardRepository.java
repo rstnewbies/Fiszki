@@ -6,11 +6,10 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import eu.qm.fiszki.database.DBHelper;
+import eu.qm.fiszki.database.ORM.DBHelper;
 
 /**
  * Created by mBoiler on 11.02.2016.
@@ -53,14 +52,6 @@ public class FlashcardRepository {
             return flashcardList.get(0);
         } else {
             return null;
-        }
-    }
-
-    public boolean existFlashcardInCategory(String name) {
-        if (getFlashcardByName(name) != null) {
-            return true;
-        } else {
-            return false;
         }
     }
 

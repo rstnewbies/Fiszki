@@ -3,6 +3,8 @@ package eu.qm.fiszki.database;
 import android.content.Context;
 import android.database.Cursor;
 
+import eu.qm.fiszki.database.SQL.DBAdapter;
+import eu.qm.fiszki.database.SQL.DBModel;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;

@@ -9,6 +9,7 @@ public class Category implements Serializable {
     public static final String columnCategoryId =  "id";
     public static final String columnCategoryCategory =  "category";
     public static final String columnCategoryEntryByUsers =  "entryByUser";
+    public static final String columnCategoryChosen =  "chosen";
 
     @DatabaseField(generatedId = true, allowGeneratedIdInsert=true)
     private int id;
@@ -16,18 +17,22 @@ public class Category implements Serializable {
     private String category;
     @DatabaseField
     private boolean entryByUser;
+    @DatabaseField(defaultValue="false")
+    private boolean chosen;
 
     public Category() {
     }
 
-    public Category(int id, String category, boolean entryByUser) {
+    public Category(int id, String category, boolean entryByUser,boolean chosen) {
         this.id = id;
         this.category = category;
         this.entryByUser = entryByUser;
+        this.chosen = chosen;
     }
-    public Category(String category, boolean entryByUser) {
+    public Category(String category, boolean entryByUser, boolean chosen) {
         this.category = category;
         this.entryByUser = entryByUser;
+        this.chosen = chosen;
     }
 
     public int getId() {
@@ -46,5 +51,11 @@ public class Category implements Serializable {
         this.category = category;
     }
 
+    public boolean isChosen() {
+        return chosen;
+    }
 
+    public void setChosen(boolean chosen) {
+        this.chosen = chosen;
+    }
 }

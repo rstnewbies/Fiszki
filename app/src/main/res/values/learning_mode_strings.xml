@@ -3,5 +3,6 @@
 
     <string name="learning_mode_title">Learning mode</string>
     <string name="learning_mode_repeat_number">The number of repetitions:</string>
+    <string name="learning_mode_choose_category">Select category to learning.</string>
 
 </resources>

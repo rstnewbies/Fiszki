@@ -7,7 +7,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 import java.util.ArrayList;
 
-import eu.qm.fiszki.database.DBHelper;
+import eu.qm.fiszki.database.ORM.DBHelper;
 
 /**
  * Created by mBoiler on 11.02.2016.
@@ -36,9 +36,9 @@ public class CategoryRepository {
     }
 
     public void addSystemCategory() {
-        Category addCategory = new Category(2, DBHelper.addCategoryName, false);
+        Category addCategory = new Category(2, DBHelper.addCategoryName, false,false);
         categoryDao.createIfNotExists(addCategory);
-        Category firstCategory = new Category(1, DBHelper.uncategory, false);
+        Category firstCategory = new Category(1, DBHelper.uncategory, false,false);
         categoryDao.createIfNotExists(firstCategory);
     }
 
@@ -79,5 +79,9 @@ public class CategoryRepository {
         for (Category category : categories) {
             categoryDao.delete(category);
         }
+    }
+
+    public ArrayList<Category> getChosenCategory(){
+        return (ArrayList<Category>) categoryDao.queryForEq(Category.columnCategoryChosen, true);
     }
 }

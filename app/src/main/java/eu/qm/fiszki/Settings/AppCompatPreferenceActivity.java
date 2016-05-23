@@ -1,4 +1,4 @@
-package eu.qm.fiszki;
+package eu.qm.fiszki.settings;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
