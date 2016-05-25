@@ -11,24 +11,21 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+
+import com.apptentive.android.sdk.Apptentive;
 import com.shamanland.fab.ShowHideOnScroll;
 
 import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.database.DBTransform;
 import eu.qm.fiszki.database.SQL.DBAdapter;
 import eu.qm.fiszki.database.SQL.DBStatus;
-import eu.qm.fiszki.database.DBTransform;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 import eu.qm.fiszki.toolbar.ToolbarAfterClick;
 import eu.qm.fiszki.toolbar.ToolbarMainActivity;
-
-import com.apptentive.android.sdk.Apptentive;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -53,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     CategoryRepository categoryRepository;
     Activity activity;
     ListPopulate listPopulate;
+    private View selectedView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+
     public void selectionFlashcard() {
-        selectedFlashcard = null;
         expandableListView.setLongClickable(true);
         expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -131,35 +129,67 @@ public class MainActivity extends AppCompatActivity {
                     int groupPosition = ExpandableListView.getPackedPositionGroup(id);
                     int childPosition = ExpandableListView.getPackedPositionChild(id);
 
-                    if (selectedFlashcard != null && selectedFlashcard.getId() == (listPopulate.adapterExp.getFlashcard(groupPosition, childPosition)).getId()) {
-                        toolbarMainActivity.set();
-                        fab.show();
-                        listPopulate.populate(null, null);
-                        selectedFlashcard = null;
-                        selectedCategory = null;
-                        expandedGroup = null;
-                    } else {
-                        selectedFlashcard =
-                                listPopulate.adapterExp.getFlashcard(groupPosition, childPosition);
-                        selectedCategory = null;
-                        expandedGroup = listPopulate.adapterExp.getCategory(groupPosition);
-                        selectedType = typeFlashcard;
-                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate);
-                        fab.hide();
-                        listPopulate.populate(selectedFlashcard, selectedCategory);
-                    }
+                    selectedFlashcard =
+                            listPopulate.adapterExp.getFlashcard(groupPosition, childPosition);
+
+                    selectedType = typeFlashcard;
+
                 }
                 if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
                     int groupPosition = ExpandableListView.getPackedPositionGroup(id);
-                    if (selectedCategory != null && selectedCategory.getId() == (listPopulate.adapterExp.getCategory(groupPosition).getId())) {
-                        toolbarMainActivity.set();
-                        selectedCategory = listPopulate.adapterExp.getCategory(groupPosition);
-                        selectedType = typeCategory;
+
+                    selectedCategory =
+                            listPopulate.adapterExp.getCategory(groupPosition);
+                    selectedType = typeCategory;
+
+                }
+
+                if (selectedView == view) {
+                    toolbarMainActivity.set();
+                    fab.show();
+                    selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
+                    selectedView = null;
+
+                } else {
+                    if (selectedView != null) {
+                        selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
                     }
+                    selectedView = view;
+                    selectedView.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
+                    toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate);
+                    fab.hide();
                 }
                 return true;
             }
         });
+
+        expandableListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (selectedView != null) {
+                    selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
+                    selectedView = null;
+                    toolbarMainActivity.set();
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            }
+        });
+
+        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                if (selectedView != null) {
+                    selectedView.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
+                    selectedView = null;
+                    toolbarMainActivity.set();
+                }
+                return false;
+            }
+        });
+
     }
-    }
+}
 
