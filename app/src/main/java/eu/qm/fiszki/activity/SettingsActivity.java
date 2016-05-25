@@ -226,8 +226,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         }
 
         //Choose Category
+        final ArrayList<Category> noEmptyCategory = new ArrayList<Category>();
+        if(!flashcardRepository.getFlashcardsByCategoryID(1).isEmpty()) {
+            noEmptyCategory.add(categoryRepository.getCategoryByID(1));
+        }
+        ArrayList<Category> userCategory = categoryRepository.getUserCategory();
+        for (Category category:userCategory) {
+            if(!flashcardRepository.getFlashcardsByCategoryID(category.getId()).isEmpty()){
+                noEmptyCategory.add(category);
+            }
+        }
+
         chooseCategory = findPreference(getResources().getString(R.string.settings_key_category));
-        if (categoryRepository.getUserCategory().isEmpty()) {
+        if (userCategory.isEmpty() && noEmptyCategory.isEmpty() ) {
             chooseCategory.setEnabled(false);
         }
         chooseCategory.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -238,8 +249,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 dialog.setTitle(R.string.settings_choose_category);
                 Button okButton = (Button) dialog.findViewById(R.id.chooseCategoryButton);
                 ArrayList<Category> categories = new ArrayList<Category>();
-                categories.add(categoryRepository.getCategoryByID(1));
-                categories.addAll(categoryRepository.getUserCategory());
+                categories.addAll(noEmptyCategory);
                 ListView listView = (ListView) dialog.findViewById(R.id.chooseCategoryListView);
                 ChoosenCategoryAdapter choosenCategoryAdapter = new ChoosenCategoryAdapter(context,
                         R.layout.layout_choose_category_adapter, categories);
