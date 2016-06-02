@@ -238,7 +238,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         }
 
         chooseCategory = findPreference(getResources().getString(R.string.settings_key_category));
-        if (userCategory.isEmpty() && noEmptyCategory.isEmpty() ) {
+        if (noEmptyCategory.isEmpty()) {
             chooseCategory.setEnabled(false);
         }
         chooseCategory.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
