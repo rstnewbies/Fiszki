@@ -78,7 +78,9 @@ public class MainActivity extends AppCompatActivity {
         });
         toolbarMainActivity.set();
         selectionFlashcard();
-        expandableListView.setOnTouchListener(new ShowHideOnScroll(fab));
+        if (expandableListView.isScrollbarFadingEnabled()) {
+            expandableListView.setOnTouchListener(new ShowHideOnScroll(fab));
+        }
     }
 
     @Override
@@ -154,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                         selectedCategory = null;
                         selectedFlashcard = null;
                         selectedType = null;
-                    }else{
+                    } else {
                         selectedCategory = listPopulate.adapterExp.getCategory(groupPosition);
                         selectedFlashcard = null;
                         selectedType = typeCategory;
@@ -167,5 +169,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    }
+}
 
