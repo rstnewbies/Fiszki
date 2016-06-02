@@ -16,5 +16,6 @@
     <string name="settings_select_category">Fiszki pokażą słowa z wybranych kategorii</string>
     <string name="settings_add_category">Dodaj najpierw kategorie!</string>
     <string name="settings_choose_category_empty">Wybrane kategorie są puste</string>
-    
+    <string name="settings_click_unClicable">Nie ma kategorii albo są puste</string>
+
 </resources>
