@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         activity = this;
         openDataBase = new DBStatus();
         myDb = new DBAdapter(this);
@@ -78,9 +79,15 @@ public class MainActivity extends AppCompatActivity {
         });
         toolbarMainActivity.set();
         selectionFlashcard();
-        if (expandableListView.isScrollbarFadingEnabled()) {
-            expandableListView.setOnTouchListener(new ShowHideOnScroll(fab));
-        }
+
+        expandableListView.setOnTouchListener(new ShowHideOnScroll(fab){
+            @Override
+            public void onScrollUp() {
+                if(expandableListView.canScrollVertically(1)) {
+                    super.onScrollUp();
+                }
+            }
+        });
     }
 
     @Override
