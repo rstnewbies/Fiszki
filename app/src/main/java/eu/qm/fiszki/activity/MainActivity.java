@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 
 import com.apptentive.android.sdk.Apptentive;
+import com.crashlytics.android.Crashlytics;
 import com.shamanland.fab.ShowHideOnScroll;
 
 import eu.qm.fiszki.ListPopulate;
@@ -25,7 +26,7 @@ import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 import eu.qm.fiszki.toolbar.ToolbarAfterClick;
 import eu.qm.fiszki.toolbar.ToolbarMainActivity;
-
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Fabric.with(this, new Crashlytics());
 
         activity = this;
         openDataBase = new DBStatus();
