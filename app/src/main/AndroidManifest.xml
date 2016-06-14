@@ -3,6 +3,15 @@
     package="eu.qm.fiszki">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true" />
 
     <application
         android:allowBackup="true"
@@ -56,6 +65,17 @@
             android:name=".activity.LearningModeActivity"
             android:label="@string/learning_mode_title"
             android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="apptentive_api_key"
+            android:value="9764c81b1022e3e4a368d17fcaf568376435f76712f6eebbf4aad19d9a7f85fc" />
+        <activity
+            android:name="com.apptentive.android.sdk.ViewActivity"
+            android:theme="@style/ApptentiveTheme" />
+       <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="636cb55b03dfc21cb66f05fa419c44f7f89fee1b" />
     </application>
+
 
 </manifest>

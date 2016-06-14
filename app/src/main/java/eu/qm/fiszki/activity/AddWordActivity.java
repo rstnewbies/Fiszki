@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
-import eu.qm.fiszki.CategorySpinnerRepository;
+import eu.qm.fiszki.addWord.CategorySpinnerRepository;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.model.CategoryRepository;
@@ -65,7 +65,7 @@ public class AddWordActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         clickDone();
         categoryRepository.addSystemCategory();
-        categorySpinnerRepository.populate();
+        categorySpinnerRepository.populate(true);
         categorySpinnerRepository.setSelectedListener(this);
     }
 
@@ -81,8 +81,9 @@ public class AddWordActivity extends AppCompatActivity {
         if (id == R.id.action_add_new_word) {
             if (rules.addNewWordRule(inputWord, inputTranslation, this,
                     categorySpinnerRepository.getSelectedCategoryID())) {
-                Flashcard flashcard = new Flashcard(inputWord.getText().toString(),
-                        inputTranslation.getText().toString(), 1,
+                String name = inputWord.getText().toString().trim();
+                String translate = inputTranslation.getText().toString().trim();
+                Flashcard flashcard = new Flashcard(name,translate, 1,
                         categorySpinnerRepository.getSelectedCategoryID());
                 flashcardRepository.addFlashcard(flashcard);
                 if (flashcardRepository.isFirst()) {
@@ -114,8 +115,9 @@ public class AddWordActivity extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     if (rules.addNewWordRule(inputWord, inputTranslation, AddWordActivity.this,
                             categorySpinnerRepository.getSelectedCategoryID())) {
-                        Flashcard flashcard = new Flashcard(inputWord.getText().toString(),
-                                inputTranslation.getText().toString(), 1,
+                        String name = inputWord.getText().toString().trim();
+                        String translate = inputTranslation.getText().toString().trim();
+                        Flashcard flashcard = new Flashcard(name,translate, 1,
                                 categorySpinnerRepository.getSelectedCategoryID());
                         flashcardRepository.addFlashcard(flashcard);
                         if (flashcardRepository.isFirst()) {

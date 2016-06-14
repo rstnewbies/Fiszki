@@ -10,6 +10,11 @@
         android:key="@string/settings_key_notification"
         android:entries="@array/notification_frequency"
         android:entryValues="@array/notification_frequency" />
+    <Preference
+        android:title="@string/settings_choose_category"
+        android:summary="@string/settings_select_category"
+        android:key="@string/settings_key_category"
+        />
  <PreferenceCategory
         android:title="@string/settings_category_date_base"
         />
@@ -27,6 +32,14 @@
         android:title="@string/settings_title_version"
         android:summary=" "
         android:enabled="false"
+        />
+ <PreferenceCategory
+        android:title="@string/settings_title_support"
+        />
+    <Preference
+        android:key="@string/settings_key_contact"
+        android:title="@string/settings_contact_us"
+        android:enabled="true"
         />
 
 

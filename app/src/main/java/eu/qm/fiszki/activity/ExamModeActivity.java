@@ -1,10 +1,7 @@
 package eu.qm.fiszki.activity;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -17,20 +14,30 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.Random;
+
 import eu.qm.fiszki.Alert;
-import eu.qm.fiszki.Algorithm;
 import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
-import eu.qm.fiszki.database.DBAdapter;
-import eu.qm.fiszki.database.DBStatus;
+import eu.qm.fiszki.ShowCategoryAdapter;
+import eu.qm.fiszki.algorithm.Algorithm;
+import eu.qm.fiszki.algorithm.CatcherFlashcardToAlgorithm;
+import eu.qm.fiszki.model.Category;
+import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 
 public class ExamModeActivity extends AppCompatActivity {
 
+    public ArrayList<Category> chosenCategory;
     FlashcardRepository flashcardRepository;
     Algorithm algorithm;
     TextView word;
@@ -55,6 +62,8 @@ public class ExamModeActivity extends AppCompatActivity {
     Flashcard flashcard;
     Checker checker;
     TextView counter;
+    CatcherFlashcardToAlgorithm catcherFlashcardToAlgorithm;
+    CategoryRepository categoryRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +71,16 @@ public class ExamModeActivity extends AppCompatActivity {
         setContentView(R.layout.blank_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        choosePacked();
+        categoryRepository = new CategoryRepository(context);
+        catcherFlashcardToAlgorithm = new CatcherFlashcardToAlgorithm(context);
         context = this;
         message = new Alert();
         rules = new Rules();
         algorithm = new Algorithm(context);
         flashcardRepository = new FlashcardRepository(context);
         checker = new Checker();
+
+        choosePacked();
     }
 
 
@@ -81,6 +93,7 @@ public class ExamModeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_exam_mode, menu);
+        menu.findItem(R.id.action_OK).setVisible(false);
         return true;
     }
 
@@ -126,6 +139,8 @@ public class ExamModeActivity extends AppCompatActivity {
 
     public void newDraw() {
         if (repeat != numberOfRepeat) {
+            menu.findItem(R.id.action_OK).setVisible(true);
+
             enteredWord.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -134,12 +149,13 @@ public class ExamModeActivity extends AppCompatActivity {
                 }
             }, 0);
 
-            counter.setText((repeat+1) +" / "+ numberOfRepeat);
+            counter.setText((repeat + 1) + " / " + numberOfRepeat);
             enteredWord.setText("");
             enteredWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
             word.setText("");
 
-            flashcard = algorithm.drawCardAlgorithm();
+            flashcard = algorithm.drawCardAlgorithm(catcherFlashcardToAlgorithm
+                    .getFlashcardsFromChosenCategory(chosenCategory));
 
             wordFromData = flashcard.getWord();
             word.append(wordFromData);
@@ -199,42 +215,86 @@ public class ExamModeActivity extends AppCompatActivity {
     }
 
     public void choosePacked() {
-        CharSequence[] items = {"10", "20", "50"};
-        new AlertDialog.Builder(ExamModeActivity.this)
-                .setCancelable(false)
-                .setSingleChoiceItems(items, 0, null)
-                .setTitle(R.string.exam_mode_repeat_number)
-                .setPositiveButton(R.string.button_action_ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        dialog.dismiss();
-                        int selected = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
-                        if (selected == 0) { //10
-                            numberOfRepeat = 10;
-                        }
-                        if (selected == 1) { //20
-                            numberOfRepeat = 20;
-                        }
-                        if (selected == 2) { //50
-                            numberOfRepeat = 50;
-                        }
-                        setContentView(R.layout.activity_exam_mode);
-                        enteredWord = (EditText) findViewById(R.id.EnteredWord);
-                        word = (TextView) findViewById(R.id.textView3);
-                        counter = (TextView) findViewById(R.id.counter);
-                        newDraw();
-                        keyboardAction();
-                    }
-                })
-                .setNegativeButton(R.string.button_action_back, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        finish();
-                    }
-                })
-                .show();
+        setContentView(R.layout.layout_exam_mode_choosen);
+        numberOfRepeat = 0;
+        ListView chosenCategoryListview = (ListView) findViewById(R.id.exam_choose_category);
+        Button start = (Button) findViewById(R.id.exam_start_button);
+        final RadioButton numberOfRepeatOne = (RadioButton) findViewById(R.id.numberOfRepeatOne);
+        final RadioButton numberOfRepeatTwo = (RadioButton) findViewById(R.id.numberOfRepeatTwo);
+        final RadioButton numberOfRepeatThree = (RadioButton) findViewById(R.id.numberOfRepeatThree);
+        numberOfRepeatOne.setText(Integer.toString(context.getResources().getInteger(R.integer.repeatOne)));
+        numberOfRepeatTwo.setText(Integer.toString(context.getResources().getInteger(R.integer.repeatTwo)));
+        numberOfRepeatThree.setText(Integer.toString(context.getResources().getInteger(R.integer.repeatThree)));
+
+        //populate chosenCategoryListview
+        final ArrayList<Category> categories = new ArrayList<Category>();
+        if(!flashcardRepository.getFlashcardsByCategoryID(1).isEmpty()) {
+            categories.add(categoryRepository.getCategoryByID(1));
+        }
+        ArrayList<Category> userCategory = categoryRepository.getUserCategory();
+        for (Category category:userCategory) {
+            if(!flashcardRepository.getFlashcardsByCategoryID(category.getId()).isEmpty()){
+                categories.add(category);
+            }
+        }
+        final ShowCategoryAdapter showCategoryAdapter =
+                new ShowCategoryAdapter(context, R.layout.layout_choose_category_adapter, categories);
+        chosenCategoryListview.setAdapter(showCategoryAdapter);
+
+        //setSelected RadioButton
+        numberOfRepeatOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberOfRepeatTwo.setChecked(false);
+                numberOfRepeatThree.setChecked(false);
+                numberOfRepeat = context.getResources().getInteger(R.integer.repeatOne);
+            }
+        });
+        numberOfRepeatTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberOfRepeatOne.setChecked(false);
+                numberOfRepeatThree.setChecked(false);
+                numberOfRepeat = context.getResources().getInteger(R.integer.repeatTwo);
+            }
+        });
+        numberOfRepeatThree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberOfRepeatOne.setChecked(false);
+                numberOfRepeatTwo.setChecked(false);
+                numberOfRepeat = context.getResources().getInteger(R.integer.repeatThree);
+            }
+        });
+
+        //setStart Button
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(showCategoryAdapter.getChoosenCategory().isEmpty()) {
+                    Toast.makeText(context, context.getResources()
+                                    .getString(R.string.exam_mode_no_choose_category),
+                            Toast.LENGTH_LONG).show();
+                }else if(numberOfRepeat == 0) {
+                    Toast.makeText(context, context.getResources()
+                                    .getString(R.string.exam_mode_no_choose_repeat),
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    chosenCategory = showCategoryAdapter.getChoosenCategory();
+                    setContentView(R.layout.activity_exam_mode);
+                    enteredWord = (EditText) findViewById(R.id.EnteredWord);
+                    word = (TextView) findViewById(R.id.textView3);
+                    counter = (TextView) findViewById(R.id.counter);
+                    newDraw();
+                    keyboardAction();
+                }
+            }
+        });
+
     }
 
-    public void randomStringDraw(){
-        int randomIndex = new Random().nextInt(6);
+    public void randomStringDraw() {
+        int randomIndex = new Random().nextInt(5);
         int resId = strs[randomIndex];
         String randomString = getString(resId);
         subtitle.setText(randomString);

@@ -3,7 +3,7 @@
 
     <string name="alert_message_pass">Udało Ci się przetłumaczyć.</string>
 
-    <string name="alert_message_fail">Podałeś niepoprawny wyraz. Poprawnie to:</string>
+    <string name="alert_message_fail">Podałeś niepoprawny wyraz.</string>
 
     <string name="alert_title_fail">Ups!</string>
 
@@ -32,5 +32,7 @@
     <string name="alert_clear_database_settings">Czy napewno chcesz usunąć wszystkie słówka?</string>
 
     <string name="alert_delete_record">Czy napewno chcesz usunąć to słowo?</string>
+
+    <string name="alert_empty_flashcards_pool">Wybrane kategorie są puste!</string>
 
 </resources>

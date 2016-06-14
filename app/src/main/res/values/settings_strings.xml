@@ -8,8 +8,14 @@
     <string name="settings_title_notification">Frequency of notification</string>
     <string name="settings_title_vibration">Vibration</string>
     <string name="settings_title_data_base">Clear database</string>
-    <string name="settings_summary_data_base">Delete all words in data base</string>
+    <string name="settings_summary_data_base">Delete all words and category in data base</string>
     <string name="settings_title_version">Version</string>
-
+    <string name="settings_title_support">Support</string>
+    <string name="settings_contact_us">Contact with us</string>
+    <string name="settings_choose_category">Choose category</string>
+    <string name="settings_select_category">Fiszki will show words from selected categories</string>
+    <string name="settings_add_category">You should add category first!</string>
+    <string name="settings_choose_category_empty">Selected categories are empty.</string>
+    <string name="settings_click_unClicable">There are not categories or are empty.</string>
 
     </resources>
