@@ -10,6 +10,15 @@ If you need to study faster, use our 'Learning Mode' wich allows you to translat
 <h3><a href="https://play.google.com/store/apps/details?id=eu.qm.fiszki">Fiszki now available on Google Play!</a></h3>
 
 Changelog
+v1.5:
+<ul><li>Add more floating button</li>
+<li> New clever algorithm</li>
+<li>Possibility edit flashcard's category</li>
+<li>Possibility to choose categories to learning mode</li>
+<li>Possibility to choose categories to exam mode</li>
+<li> Add Crashlytics</li>
+<li> Fixed bugs</li></ul>
+
 v1.4:
 <ul><li>Introduced categories</li>
 <li>Random lines after answering</li>
@@ -22,6 +31,14 @@ v1.4:
 Dzięki aplikacji Fiszki nie trzeba spędzać ani 5 minut na naukę, ponieważ uczysz sie przez chwilę co 15 minut.
 Daje to świetne rezultaty i nie zajmuje czasu! 
 Wszystko co musisz zrobić, to wpisać słowa, których chcesz się nauczyć</p>
+Funkcje w wersji v1.5:
+<ul><li>Przycisk jest bardziej pływający</li>
+<li>Nowy mądry algorytm</li>
+<li>Możliwość edycji kategorii w fiszkach</li>
+<li>Możliwość wyboru kategorii w trybie nauki</li>
+<li>Możliwość wyboru kategorii w trybie sprawdz się</li>
+<li>Dodano Crashlytics</li>
+<li>Poprawki błędów</li></ul>
 
 Funkcje w wersji v1.4:
 <ul><li>Wprowadzenie kategorii oraz zarządzanie nimi</li>
