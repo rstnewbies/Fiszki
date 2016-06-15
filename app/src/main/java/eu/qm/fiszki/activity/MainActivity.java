@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                         selectedType = typeFlashcard;
                         toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate);
                         fab.hide();
-                        listPopulate.populate(selectedFlashcard, selectedCategory,childPosition);
+                        listPopulate.populate(selectedFlashcard, selectedCategory,position);
                     }
                 }
                 if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                         selectedType = typeCategory;
                         toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate);
                         fab.hide();
-                        listPopulate.populate(selectedFlashcard, selectedCategory,groupPosition);
+                        listPopulate.populate(selectedFlashcard, selectedCategory,position);
                     }
                 }
                 return true;
