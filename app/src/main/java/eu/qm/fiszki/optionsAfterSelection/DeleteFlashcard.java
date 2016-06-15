@@ -36,7 +36,7 @@ public class DeleteFlashcard {
         toolbarMainActivity = new ToolbarMainActivity(activity);
         deletedFlashcard = selectedFlashcard;
         flashcardRepository.deleteFlashcard(deletedFlashcard);
-        listPopulate.populate(null,null);
+        listPopulate.populate(null,null,0);
         Snackbar snackbar = Snackbar
                 .make(activity.findViewById(R.id.fab),
                         activity.getString(R.string.snackbar_return_word_message),
@@ -46,7 +46,7 @@ public class DeleteFlashcard {
                             @Override
                             public void onClick(View v) {
                                 flashcardRepository.addFlashcard(deletedFlashcard);
-                                listPopulate.populate(null,null);
+                                listPopulate.populate(null,null,0);
                                 toolbarMainActivity.set();
                                 if (flashcardRepository.isFirst()) {
                                     alarm.start(activity, 15);

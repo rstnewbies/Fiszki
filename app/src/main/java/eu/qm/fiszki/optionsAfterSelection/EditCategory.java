@@ -54,7 +54,7 @@ public class EditCategory {
                 toolbarMainActivity.set();
                 selectedCategory.setCategory(editCategory.getText().toString());
                 categoryRepository.updateCategory(selectedCategory);
-                listPopulate.populate(null,null);
+                listPopulate.populate(null,null,0);
                 dialog.dismiss();
             }
         });

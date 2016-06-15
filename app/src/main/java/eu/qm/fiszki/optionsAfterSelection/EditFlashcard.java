@@ -72,7 +72,7 @@ public class EditFlashcard {
                 selectedFlashcard.setTranslation(editTranslate.getText().toString());
                 selectedFlashcard.setCategoryId(categorySpinnerRepository.getSelectedCategoryID());
                 flashcardRepository.updateFlashcard(selectedFlashcard);
-                listPopulate.populate(null,null);
+                listPopulate.populate(null,null,0);
                 toolbarMainActivity.set();
                 dialog.dismiss();
             }
