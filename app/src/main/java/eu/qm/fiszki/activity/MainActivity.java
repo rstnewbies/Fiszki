@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                         selectedCategory = null;
                         expandedGroup = listPopulate.adapterExp.getCategory(groupPosition);
                         selectedType = typeFlashcard;
-                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate);
+                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate,position);
                         fab.hide();
                         listPopulate.populate(selectedFlashcard, selectedCategory,position);
                     }
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                         selectedCategory = listPopulate.adapterExp.getCategory(groupPosition);
                         selectedFlashcard = null;
                         selectedType = typeCategory;
-                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate);
+                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate,position);
                         fab.hide();
                         listPopulate.populate(selectedFlashcard, selectedCategory,position);
                     }

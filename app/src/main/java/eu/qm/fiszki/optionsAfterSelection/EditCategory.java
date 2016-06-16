@@ -27,7 +27,7 @@ public class EditCategory {
     ToolbarMainActivity toolbarMainActivity;
 
     public EditCategory(final Activity activity, final Category selectedCategory,
-                        final ListPopulate listPopulate) {
+                        final ListPopulate listPopulate, final int position) {
 
         dialog = new Dialog(activity);
         dialog.setContentView(R.layout.layout_dialog_edit_category);
@@ -54,7 +54,7 @@ public class EditCategory {
                 toolbarMainActivity.set();
                 selectedCategory.setCategory(editCategory.getText().toString());
                 categoryRepository.updateCategory(selectedCategory);
-                listPopulate.populate(null,null,0);
+                listPopulate.populate(null,null,position);
                 dialog.dismiss();
             }
         });

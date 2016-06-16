@@ -35,7 +35,7 @@ public class ToolbarAfterClick {
     }
 
     public void set(final Category selectedCategory, final Flashcard selectedFlashcard,
-                    final String selectedType, final ListPopulate listPopulate) {
+                    final String selectedType, final ListPopulate listPopulate, final int position) {
         fab.hide();
         toolbar.getMenu().clear();
         toolbar.setTitle(activity.getString(R.string.main_activity_title_seleced_record));
@@ -47,7 +47,7 @@ public class ToolbarAfterClick {
             public void onClick(View v) {
                 fab.show();
                 toolbarMainActivity.set();
-                listPopulate.populate(null, null,0);
+                listPopulate.populate(null, null,position);
                 MainActivity.selectedFlashcard = null;
                 MainActivity.selectedCategory = null;
                 MainActivity.expandedGroup = null;
@@ -61,10 +61,10 @@ public class ToolbarAfterClick {
                         if (id == R.id.editRecord) {
                             if (selectedType.equals(MainActivity.typeFlashcard)) {
                                 EditFlashcard editFlashcard =
-                                        new EditFlashcard(activity, selectedFlashcard,listPopulate);
+                                        new EditFlashcard(activity, selectedFlashcard,listPopulate,position);
                             } else {
                                 EditCategory editCategory =
-                                        new EditCategory(activity, selectedCategory,listPopulate);
+                                        new EditCategory(activity, selectedCategory,listPopulate,position);
                             }
                         } else if (id == R.id.deleteRecord) {
                             if (selectedType.equals(MainActivity.typeFlashcard)) {
