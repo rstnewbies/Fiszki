@@ -4,7 +4,7 @@ package eu.qm.fiszki.tutorial;
  * Created by bgood on 2016-04-14.
  */
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -13,6 +13,7 @@ import com.cleveroad.slidingtutorial.PageFragment;
 import com.cleveroad.slidingtutorial.SimplePagerFragment;
 
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.activity.MainActivity;
 
 public class ColorPage extends SimplePagerFragment {
 
@@ -64,7 +65,8 @@ public class ColorPage extends SimplePagerFragment {
 
     @Override
     protected boolean onSkipButtonClicked(View skipButton) {
-        getActivity().finish();
+        Intent myIntent = new Intent(getActivity(), MainActivity.class);
+        startActivity(myIntent);
         return true;
     }
 

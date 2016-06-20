@@ -5,17 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 
+import com.apptentive.android.sdk.Apptentive;
 import com.shamanland.fab.ShowHideOnScroll;
-
 
 import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
@@ -28,11 +25,6 @@ import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 import eu.qm.fiszki.toolbar.ToolbarAfterClick;
 import eu.qm.fiszki.toolbar.ToolbarMainActivity;
-
-import com.apptentive.android.sdk.Apptentive;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -118,16 +110,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         toolbarMainActivity.set();
         listPopulate.populate(null, null);
-        SharedPreferences runCheck = getSharedPreferences("hasRunBefore", 0);
-        Boolean hasRun = runCheck.getBoolean("hasRun", false);
-        if (!hasRun) {
-            SharedPreferences settings = getSharedPreferences("hasRunBefore", 0);
-            SharedPreferences.Editor edit = settings.edit();
-            edit.putBoolean("hasRun", true);
-            edit.commit();
-            Intent tutorial = new Intent(MainActivity.this, TutorialActivity.class);
-            startActivity(tutorial);
-        }
     }
 
     @Override

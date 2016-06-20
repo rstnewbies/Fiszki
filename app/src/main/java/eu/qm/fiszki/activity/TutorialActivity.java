@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.tutorial.ColorPage;
@@ -31,7 +30,8 @@ public class TutorialActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            finish();
+            Intent myIntent = new Intent(this, MainActivity.class);
+            startActivity(myIntent);
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -43,6 +43,7 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
     public void goButton(View view) {
-        finish();
+        Intent myIntent = new Intent(this, MainActivity.class);
+        startActivity(myIntent);
     }
 }
