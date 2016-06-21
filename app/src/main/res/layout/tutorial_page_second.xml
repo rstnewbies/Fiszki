@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.percent.PercentRelativeLayout
+<RelativeLayout
     android:id="@+id/rootSecondPage"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,26 +13,31 @@
         android:id="@+id/TutSecondImage"
 
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_centerInParent="true"
+        android:layout_height="900dp"
 
         android:src="@drawable/tutsecond_pl"
 
-        android:scaleType="fitStart" />
+        android:scaleType="fitStart"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
 
         android:gravity="center"
 
         android:text="@string/tutorial_settings_repeat"
         android:textColor="@android:color/white"
-        android:textSize="55px"
+        android:textSize="30dp"
 
         app:layout_heightPercent="35%"
         app:layout_marginBottomPercent="9%"
-        app:layout_widthPercent="100%"/>
-</android.support.percent.PercentRelativeLayout>
+        app:layout_widthPercent="100%"
+        android:layout_marginBottom="87dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

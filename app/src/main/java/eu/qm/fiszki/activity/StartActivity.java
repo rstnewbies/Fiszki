@@ -34,9 +34,11 @@ public class StartActivity extends AppCompatActivity {
                     edit.commit();
                     Intent tutorial = new Intent(StartActivity.this, TutorialActivity.class);
                     startActivity(tutorial);
+                    finish();
                 }else{
                     Intent tutorial = new Intent(StartActivity.this, MainActivity.class);
                     startActivity(tutorial);
+                    finish();
                 }
             }
         },3000);

@@ -32,6 +32,7 @@ public class TutorialActivity extends AppCompatActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             Intent myIntent = new Intent(this, MainActivity.class);
             startActivity(myIntent);
+            finish();
         }
         return super.onKeyDown(keyCode, event);
     }
