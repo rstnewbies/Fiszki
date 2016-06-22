@@ -34,7 +34,7 @@ public class EditFlashcard {
     CategorySpinnerRepository categorySpinnerRepository;
 
     public EditFlashcard(final Activity activity, final Flashcard selectedFlashcard,
-                         final ListPopulate listPopulate) {
+                         final ListPopulate listPopulate, final int position) {
 
         dialog = new Dialog(activity);
         dialog.setContentView(R.layout.layout_dialog_edit_flashcard);
@@ -72,7 +72,7 @@ public class EditFlashcard {
                 selectedFlashcard.setTranslation(editTranslate.getText().toString());
                 selectedFlashcard.setCategoryId(categorySpinnerRepository.getSelectedCategoryID());
                 flashcardRepository.updateFlashcard(selectedFlashcard);
-                listPopulate.populate(null,null);
+                listPopulate.populate(null,null,position);
                 toolbarMainActivity.set();
                 dialog.dismiss();
             }

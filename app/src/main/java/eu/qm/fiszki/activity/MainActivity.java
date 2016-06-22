@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         if (selectedFlashcard != null || selectedCategory != null) {
             toolbarMainActivity.set();
             fab.show();
-            listPopulate.populate(null, null);
+            listPopulate.populate(null, null,0);
             selectedFlashcard = null;
             selectedCategory = null;
         } else {
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         toolbarMainActivity.set();
-        listPopulate.populate(null, null);
+        listPopulate.populate(null, null,0);
     }
 
     @Override
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                     if (selectedFlashcard != null && selectedFlashcard.getId() == (listPopulate.adapterExp.getFlashcard(groupPosition, childPosition)).getId()) {
                         toolbarMainActivity.set();
                         fab.show();
-                        listPopulate.populate(null, null);
+                        listPopulate.populate(null, null, 0);
                         selectedFlashcard = null;
                         selectedCategory = null;
                         expandedGroup = null;
@@ -150,9 +150,9 @@ public class MainActivity extends AppCompatActivity {
                         selectedCategory = null;
                         expandedGroup = listPopulate.adapterExp.getCategory(groupPosition);
                         selectedType = typeFlashcard;
-                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate);
+                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate,position);
                         fab.hide();
-                        listPopulate.populate(selectedFlashcard, selectedCategory);
+                        listPopulate.populate(selectedFlashcard, selectedCategory,position);
                     }
                 }
                 if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                     if (selectedCategory != null && selectedCategory.getId() == (listPopulate.adapterExp.getCategory(groupPosition).getId())) {
                         toolbarMainActivity.set();
                         fab.show();
-                        listPopulate.populate(null, null);
+                        listPopulate.populate(null, null,0);
                         selectedCategory = null;
                         selectedFlashcard = null;
                         selectedType = null;
@@ -168,9 +168,9 @@ public class MainActivity extends AppCompatActivity {
                         selectedCategory = listPopulate.adapterExp.getCategory(groupPosition);
                         selectedFlashcard = null;
                         selectedType = typeCategory;
-                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate);
+                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate,position);
                         fab.hide();
-                        listPopulate.populate(selectedFlashcard, selectedCategory);
+                        listPopulate.populate(selectedFlashcard, selectedCategory,position);
                     }
                 }
                 return true;

@@ -53,7 +53,7 @@ public class ListPopulate {
         alarm = new AlarmReceiver();
     }
 
-    public void populate(Flashcard selectedFlashcard, Category selectedCategory) {
+    public void populate(Flashcard selectedFlashcard, Category selectedCategory, int selectedPosition) {
 
         if (flashcardRepository.countFlashcards() > 0 || categoryRepository.countCategory() > 2) {
             emptyDBImage.setVisibility(View.INVISIBLE);
@@ -96,5 +96,6 @@ public class ListPopulate {
             editor.commit();
             alarm.close(activity.getBaseContext());
         }
+        expandableListView.setSelection(selectedPosition);
     }
 }
