@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -18,14 +17,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import java.util.Random;
+
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.Algorithm;
 import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
-import eu.qm.fiszki.database.DBAdapter;
-import eu.qm.fiszki.database.DBStatus;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 
@@ -188,7 +187,7 @@ public class ExamModeActivity extends AppCompatActivity {
                 randomStringDraw();
             }
             if (percent <= 49 && percent >= 30) {
-                strs = new int[]{R.string.statistic_b1, R.string.statistic_b2, R.string.statistic_b3, R.string.statistic_b4, R.string.statistic_b5, R.string.statistic_b6};
+                strs = new int[]{R.string.statistic_b1, R.string.statistic_b2, R.string.statistic_b3, R.string.statistic_b4, R.string.statistic_b5};
                 randomStringDraw();
             }
             if (percent <= 30 && percent >= 0) {
