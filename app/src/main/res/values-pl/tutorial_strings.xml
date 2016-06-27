@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="tutorial_title" translatable="false">Tutorial</string>
+    <string name="tutorial_title">Tutorial</string>
     <string name="tutorial_press_button">Naciśnij +, aby dodać nowe słówka</string>
     <string name="tutorial_settings_repeat">W ustawieniach zdecyduj jak często chcesz powtarzać materiał</string>
     <string name="tutorial_ready_time">Kiedy będziesz gotowy, sprawdź się!</string>

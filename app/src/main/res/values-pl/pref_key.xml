@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_key_notification">settings_notification</string>
+    <string name="settings_key_vibration">settings_vibration</string>
+    <string name="settings_key_data_base">settings_database</string>
+    <string name="settings_key_version">settings_version</string>
+    <string name="settings_key_contact">settings_contact</string>
+    <string name="settings_key_tutorial">settings_tutorial</string>
+</resources>
