@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="eu.qm.fiszki">
 
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -18,7 +19,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
         <activity
             android:name=".activity.AddWordActivity"
             android:label="@string/add_new_word_title"
@@ -46,11 +48,6 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.SettingsActivity"
@@ -65,6 +62,10 @@
             android:name=".activity.LearningModeActivity"
             android:label="@string/learning_mode_title"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TutorialActivity"
+            android:label="@string/tutorial_title"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="apptentive_api_key"
@@ -75,7 +76,12 @@
        <meta-data
             android:name="com.crashlytics.ApiKey"
             android:value="636cb55b03dfc21cb66f05fa419c44f7f89fee1b" />
+        <activity android:name=".activity.StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
-
 
 </manifest>

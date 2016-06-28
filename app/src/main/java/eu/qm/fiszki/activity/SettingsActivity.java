@@ -308,6 +308,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         } else {
             cleanerDataBase.setEnabled(false);
         }
+
+        //Tutorial
+        pref = findPreference(getResources().getString(R.string.settings_key_tutorial));
+        pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent goTutorial = new Intent(activity, TutorialActivity.class);
+                activity.startActivity(goTutorial);
+                return false;
+            }
+        });
     }
 
     public void clearDataBase() {

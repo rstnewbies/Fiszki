@@ -2,11 +2,16 @@
 <resources>
 
     <string name="statistic_title">Statistic</string>
+    <string name="statistic_fantastic_answer">Fantastic!!!</string>
+    <string name="statistic_nice_answer">Wow! NICE!</string>
+    <string name="statistic_barely_answer">So close...</string>
     <string name="statistic_properly">Good answers:</string>
     <string name="statistic_wrongly">Wrong answers:</string>
     <string name="statistic_total">In total:</string>
     <string name="statistic_procent">Percent</string>
     <string name="statistic_repeat">Repeat</string>
+    <string name="statistic_needwork_answer">You must have more work</string>
+    <string name="statistic_good">Nice.</string>
     <!-- for 0-30 percent -->
     <string name="statistic_a1">Do you even trying?</string>
     <string name="statistic_a2">Wrong answer! Oh don\'t blame me it\'s your fault.</string>
@@ -19,7 +24,6 @@
     <string name="statistic_b3">Barely, barely...</string>
     <string name="statistic_b4">Maybe we should be just friends?</string>
     <string name="statistic_b5">It\'s funny cause it\'s true!</string>
-    <string name="statistic_b6">So close... to half of it.</string>
     <!-- for 50-79 percent -->
     <string name="statistic_c1">Quite good.</string>
     <string name="statistic_c2">Oh come on it\'s wasn\'t your best, wasn\'t it?</string>
