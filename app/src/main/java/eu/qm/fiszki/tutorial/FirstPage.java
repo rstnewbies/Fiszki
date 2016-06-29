@@ -9,7 +9,6 @@ import com.cleveroad.slidingtutorial.TransformItem;
 import eu.qm.fiszki.R;
 
 public class FirstPage extends PageFragment {
-
     @Override
     protected int getLayoutResId() {
         return R.layout.tutorial_page_first;
@@ -21,4 +20,5 @@ public class FirstPage extends PageFragment {
                 new TransformItem(R.id.TutFirstImage, true, 20),
         };
     }
+
 }

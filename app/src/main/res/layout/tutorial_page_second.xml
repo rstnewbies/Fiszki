@@ -31,7 +31,7 @@
 
         android:text="@string/tutorial_settings_repeat"
         android:textColor="@android:color/white"
-        android:textSize="30dp"
+        android:textSize="30sp"
 
         app:layout_heightPercent="35%"
         app:layout_marginBottomPercent="9%"

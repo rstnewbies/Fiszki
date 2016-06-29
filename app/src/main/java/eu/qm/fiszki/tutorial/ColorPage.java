@@ -24,6 +24,8 @@ public class ColorPage extends SimplePagerFragment {
 
     @Override
     protected PageFragment getPage(int position) {
+        View bskip = getActivity().findViewById(getButtonSkipResId());
+        bskip.setVisibility(View.INVISIBLE);
         position %= 4;
         if (position == 0) {
             return new FirstPage();
@@ -70,6 +72,4 @@ public class ColorPage extends SimplePagerFragment {
         getActivity().finish();
         return true;
     }
-
-
 }

@@ -18,9 +18,10 @@
         android:scaleType="fitCenter"
 
         android:src="@drawable/tutfour_pl"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/textView9"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,7 +31,7 @@
 
         android:text="@string/tutorial_grown_up"
         android:textColor="@android:color/white"
-        android:textSize="50dp"
+        android:textSize="50sp"
 
         app:layout_heightPercent="50%"
         app:layout_marginBottomPercent="50%"
@@ -38,12 +39,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/TutFourImage"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:id="@+id/textView9"
+        android:layout_marginTop="10dp" />
 
     <Button
-        android:fontFamily="sans-serif-light"
         android:textSize="20sp"
         android:textColor="@color/White"
         android:id="@+id/tutorial_go"

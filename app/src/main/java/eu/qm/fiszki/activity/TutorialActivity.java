@@ -46,5 +46,6 @@ public class TutorialActivity extends AppCompatActivity {
     public void goButton(View view) {
         Intent myIntent = new Intent(this, MainActivity.class);
         startActivity(myIntent);
+        finish();
     }
 }

@@ -67,7 +67,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         addPreferencesFromResource(R.xml.pref_settings);
         sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-
         activity = this;
         context = this;
         alert = new Alert();
@@ -288,19 +287,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 return false;
             }
         });
-
-        //Version
-        pref = findPreference(getResources().getString(R.string.settings_key_version));
-        PackageManager manager = this.getPackageManager();
-        PackageInfo info = null;
-        try {
-            info = manager.getPackageInfo(this.getPackageName(), 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        String version = info.versionName;
-        pref.setSummary(version);
-
         //Clear database
         cleanerDataBase = findPreference(getResources().getString(R.string.settings_key_data_base));
         if (flashcardRepository.countFlashcards() > 0 || categoryRepository.countCategory() > 2) {
@@ -319,6 +305,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 return false;
             }
         });
+
+        //Version
+
+        pref = findPreference(getResources().getString(R.string.settings_key_version));
+        PackageManager manager = this.getPackageManager();
+        PackageInfo info = null;
+        try {
+            info = manager.getPackageInfo(this.getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        String version = info.versionName;
+        pref.setSummary(version);
     }
 
     public void clearDataBase() {
