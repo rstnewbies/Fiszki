@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.Button;
 
 import com.cleveroad.slidingtutorial.PageFragment;
 import com.cleveroad.slidingtutorial.SimplePagerFragment;
@@ -45,16 +46,22 @@ public class ColorPage extends SimplePagerFragment {
     @ColorInt
     @Override
     protected int getPageColor(int position) {
+        Button skip = (Button) getActivity().findViewById(R.id.skip);
+
         if (position == 0) {
+            skip.setVisibility(View.INVISIBLE);
             return ContextCompat.getColor(getContext(), R.color.yellow);
         }
         if (position == 1) {
+            skip.setVisibility(View.VISIBLE);
             return ContextCompat.getColor(getContext(), R.color.pressed_color);
         }
         if (position == 2) {
+            skip.setVisibility(View.VISIBLE);
             return ContextCompat.getColor(getContext(), R.color.pistachio);
         }
         if (position == 3) {
+            skip.setVisibility(View.VISIBLE);
             return ContextCompat.getColor(getContext(), R.color.patin);
         }
         throw new IllegalArgumentException("Wrong position");
