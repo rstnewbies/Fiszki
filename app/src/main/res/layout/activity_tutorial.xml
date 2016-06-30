@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:text="@string/tutorial_skip"
         android:id="@+id/skip"
-        android:layout_gravity="left|bottom" />
+        android:layout_gravity="left|bottom"
+        android:onClick="skipButton"/>
 
 </FrameLayout>

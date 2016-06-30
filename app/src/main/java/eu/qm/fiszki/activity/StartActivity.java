@@ -36,7 +36,7 @@ public class StartActivity extends AppCompatActivity {
                     startActivity(tutorial);
                     finish();
                 }else{
-                    Intent tutorial = new Intent(StartActivity.this, TutorialActivity.class);
+                    Intent tutorial = new Intent(StartActivity.this, MainActivity.class);
                     startActivity(tutorial);
                     finish();
                 }

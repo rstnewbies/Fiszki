@@ -48,4 +48,11 @@ public class TutorialActivity extends AppCompatActivity {
         startActivity(myIntent);
         finish();
     }
+
+
+    public void skipButton(View view) {
+        Intent myIntent = new Intent(this, MainActivity.class);
+        startActivity(myIntent);
+        finish();
+    }
 }

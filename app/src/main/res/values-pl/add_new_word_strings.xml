@@ -5,12 +5,13 @@
 
     <string name="add_new_word_toast">Nowe słówko zostało dodane</string>
     <string name="add_new_word_word">Słówko</string>
-    <string name="add_new_word_info">Tłumaczenie</string>
+    <string name="add_new_word_translation">Tłumaczenie</string>
     <string name="add_new_word_category">Kategoria</string>
     <string name="add_new_word_no_category">Bez kategorii</string>
     <string name="add_new_word_add_category">Dodaj nową kategorię</string>
     <string name="add_new_category_toast">Nowa kategoria została stworzona</string>
     <string name="add_new_category_exist">Ta kategoria jest już na liście</string>
-    <string name="add_new_category_name">Nazwa</string>
+    <string name="add_new_category_name">Nazwa nowej kategori</string>
+    <string name="edit_category_name">Nowa nazwa kategori</string>
 
 </resources>
