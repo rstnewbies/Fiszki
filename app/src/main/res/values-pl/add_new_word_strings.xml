@@ -11,7 +11,7 @@
     <string name="add_new_word_add_category">Dodaj nową kategorię</string>
     <string name="add_new_category_toast">Nowa kategoria została stworzona</string>
     <string name="add_new_category_exist">Ta kategoria jest już na liście</string>
-    <string name="add_new_category_name">Nazwa nowej kategori</string>
-    <string name="edit_category_name">Nowa nazwa kategori</string>
+    <string name="add_new_category_name">Nazwa nowej kategorii</string>
+    <string name="edit_category_name">Nowa nazwa kategorii</string>
 
 </resources>

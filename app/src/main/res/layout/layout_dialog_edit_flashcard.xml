@@ -21,7 +21,7 @@
             android:layout_below="@+id/inputWord"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            app:met_floatingLabelTextSize="20dp"
+            app:met_floatingLabelTextSize="17dp"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp" />
@@ -35,7 +35,7 @@
             app:met_floatingLabel="highlight"
             app:met_singleLineEllipsis="true"
             app:met_primaryColor="@color/ColorPrimaryDark"
-            app:met_floatingLabelTextSize="20dp"
+            app:met_floatingLabelTextSize="17dp"
             android:layout_below="@+id/editOrginal"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -80,7 +80,7 @@
             android:layout_below="@+id/editTranslate"
             android:layout_alignLeft="@+id/editFlashcardSpinner"
             android:layout_alignStart="@+id/editFlashcardSpinner"
-            android:textSize="20dp" />
+            android:textSize="17dp" />
 
     </RelativeLayout>
 </LinearLayout>

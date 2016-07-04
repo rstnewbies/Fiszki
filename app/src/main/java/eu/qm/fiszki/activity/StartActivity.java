@@ -22,12 +22,12 @@ public class StartActivity extends AppCompatActivity {
 
         timer = new Timer();
 
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                SharedPreferences runCheck = getSharedPreferences("hasRunBefore", 0);
-                Boolean hasRun = runCheck.getBoolean("hasRun", false);
-                if (!hasRun) {
+        SharedPreferences runCheck = getSharedPreferences("hasRunBefore", 0);
+        Boolean hasRun = runCheck.getBoolean("hasRun", false);
+        if (!hasRun) {
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
                     SharedPreferences settings = getSharedPreferences("hasRunBefore", 0);
                     SharedPreferences.Editor edit = settings.edit();
                     edit.putBoolean("hasRun", true);
@@ -35,13 +35,18 @@ public class StartActivity extends AppCompatActivity {
                     Intent tutorial = new Intent(StartActivity.this, TutorialActivity.class);
                     startActivity(tutorial);
                     finish();
-                }else{
+                }
+            }, 3000);
+        } else {
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
                     Intent tutorial = new Intent(StartActivity.this, MainActivity.class);
                     startActivity(tutorial);
                     finish();
                 }
-            }
-        },3000);
+            },1000);
 
+        }
     }
 }
