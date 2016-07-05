@@ -13,6 +13,16 @@ import android.widget.ExpandableListView;
 
 import com.apptentive.android.sdk.Apptentive;
 import com.crashlytics.android.Crashlytics;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.shamanland.fab.ShowHideOnScroll;
 
 import eu.qm.fiszki.ListPopulate;
@@ -57,20 +67,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Fabric.with(this, new Crashlytics());
 
-        activity = this;
-        openDataBase = new DBStatus();
-        myDb = new DBAdapter(this);
-        context = this;
+        init();
+
         expandableListView = (ExpandableListView) findViewById(R.id.list);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+
+
         openDataBase.openDB(myDb);
-        flashcardRepository = new FlashcardRepository(context);
-        categoryRepository = new CategoryRepository(context);
+
         sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        toolbarAfterClick = new ToolbarAfterClick(activity);
-        toolbarMainActivity = new ToolbarMainActivity(activity);
         listPopulate = new ListPopulate(activity);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,14 +89,52 @@ public class MainActivity extends AppCompatActivity {
         toolbarMainActivity.set();
         selectionFlashcard();
 
-        expandableListView.setOnTouchListener(new ShowHideOnScroll(fab){
+        expandableListView.setOnTouchListener(new ShowHideOnScroll(fab) {
             @Override
             public void onScrollUp() {
-                if(expandableListView.canScrollVertically(1)) {
+                if (expandableListView.canScrollVertically(1)) {
                     super.onScrollUp();
                 }
             }
         });
+
+        AccountHeader headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.ic_arrow_back_white_24dp)
+                .addProfiles(
+                        new ProfileDrawerItem().withName("Mike Penz").withEmail("Kutong.com").withIcon(getResources().getDrawable(R.drawable.check))
+                )
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                        return false;
+                    }
+                })
+                .build();
+
+        Drawer result = new DrawerBuilder()
+                .withActivity(this)
+                .withAccountHeader(headerResult)
+                .addDrawerItems(
+                        new SecondaryDrawerItem().withName(R.string.app_name).withLevel(1)
+                                .withSubItems(
+                                        new PrimaryDrawerItem().withName(R.string.add_new_word_title).withLevel(2),
+                                        new PrimaryDrawerItem().withName(R.string.title_activity_learning_mode).withLevel(2)
+                                ),
+                        new PrimaryDrawerItem().withName(R.string.app_name).withLevel(1))
+                .build();
+
+    }
+
+    private void init() {
+        activity = this;
+        context = this;
+        openDataBase = new DBStatus();
+        myDb = new DBAdapter(context);
+        toolbarAfterClick = new ToolbarAfterClick(activity);
+        toolbarMainActivity = new ToolbarMainActivity(activity);
+        flashcardRepository = new FlashcardRepository(context);
+        categoryRepository = new CategoryRepository(context);
     }
 
     @Override

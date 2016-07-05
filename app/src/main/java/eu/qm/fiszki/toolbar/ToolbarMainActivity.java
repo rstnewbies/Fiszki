@@ -75,4 +75,8 @@ public class ToolbarMainActivity {
                 });
         toolbar.dismissPopupMenus();
     }
+
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
 }

@@ -40,6 +40,10 @@ dependencies {
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     testCompile 'junit:junit:4.12'
 
+    compile('com.mikepenz:materialdrawer:5.3.3@aar') {
+        transitive = true
+    }
+
     compile('com.crashlytics.sdk.android:crashlytics:2.5.6@aar') {
         transitive = true;
     }

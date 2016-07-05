@@ -10,7 +10,7 @@ import java.util.TimerTask;
 
 import eu.qm.fiszki.R;
 
-public class StartActivity extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity {
 
     Timer timer;
 
@@ -32,7 +32,7 @@ public class StartActivity extends AppCompatActivity {
                     SharedPreferences.Editor edit = settings.edit();
                     edit.putBoolean("hasRun", true);
                     edit.commit();
-                    Intent tutorial = new Intent(StartActivity.this, TutorialActivity.class);
+                    Intent tutorial = new Intent(SplashScreen.this, TutorialActivity.class);
                     startActivity(tutorial);
                     finish();
                 }
@@ -41,7 +41,7 @@ public class StartActivity extends AppCompatActivity {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    Intent tutorial = new Intent(StartActivity.this, MainActivity.class);
+                    Intent tutorial = new Intent(SplashScreen.this, MainActivity.class);
                     startActivity(tutorial);
                     finish();
                 }
