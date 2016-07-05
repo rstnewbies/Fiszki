@@ -1,4 +1,4 @@
-package eu.qm.fiszki.addWord;
+package eu.qm.fiszki.itemToAddWord;
 
 import android.app.Activity;
 import android.app.Dialog;
