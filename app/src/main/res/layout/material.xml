@@ -5,9 +5,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true" >
 
-    <ImageButton
-        android:layout_width="135dp"
-        android:layout_height="180dp"
-        android:id="@+id/imageButton"
-        android:src="@color/LearningGreen" />
+    <ImageView android:layout_height="200dp"
+        android:layout_width="200dp"
+        android:background="@color/md_red_A700"/>
 </android.support.v4.widget.DrawerLayout>

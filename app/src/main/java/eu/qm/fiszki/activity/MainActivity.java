@@ -30,6 +30,7 @@ import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.DBTransform;
 import eu.qm.fiszki.database.SQL.DBAdapter;
 import eu.qm.fiszki.database.SQL.DBStatus;
+import eu.qm.fiszki.drawer.DrawerMain;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
+/*
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.ic_arrow_back_white_24dp)
@@ -123,7 +124,9 @@ public class MainActivity extends AppCompatActivity {
                                 ),
                         new PrimaryDrawerItem().withName(R.string.app_name).withLevel(1))
                 .build();
+*/
 
+        new DrawerMain(activity,toolbarMainActivity.getToolbar()).build();
     }
 
     private void init() {
