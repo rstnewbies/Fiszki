@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="drawer_notyfication_switch_name">Notyfikacje</string>
+    <string name="drawer_notyfication_switch_toast_on">Notyfikacje włączone</string>
+    <string name="drawer_notyfication_switch_toast_off">Notyfikacje wyłączone</string>
+
+    <string name="drawer_options_name">Opcje</string>
+
+    <string name="drawer_version_ver">v</string>
+
+</resources>

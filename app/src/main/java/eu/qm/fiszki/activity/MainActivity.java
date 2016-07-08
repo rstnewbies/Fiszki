@@ -98,34 +98,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-/*
-        AccountHeader headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.ic_arrow_back_white_24dp)
-                .addProfiles(
-                        new ProfileDrawerItem().withName("Mike Penz").withEmail("Kutong.com").withIcon(getResources().getDrawable(R.drawable.check))
-                )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                        return false;
-                    }
-                })
-                .build();
-
-        Drawer result = new DrawerBuilder()
-                .withActivity(this)
-                .withAccountHeader(headerResult)
-                .addDrawerItems(
-                        new SecondaryDrawerItem().withName(R.string.app_name).withLevel(1)
-                                .withSubItems(
-                                        new PrimaryDrawerItem().withName(R.string.add_new_word_title).withLevel(2),
-                                        new PrimaryDrawerItem().withName(R.string.title_activity_learning_mode).withLevel(2)
-                                ),
-                        new PrimaryDrawerItem().withName(R.string.app_name).withLevel(1))
-                .build();
-*/
-
         new DrawerMain(activity,toolbarMainActivity.getToolbar()).build();
     }
 

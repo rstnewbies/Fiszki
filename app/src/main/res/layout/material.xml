@@ -1,11 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/material_drawer_layout"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true" >
-
-    <ImageView android:layout_height="200dp"
-        android:layout_width="200dp"
-        android:background="@color/md_red_A700"/>
+    android:layout_height="match_parent">
+    <!-- The main content view -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
 </android.support.v4.widget.DrawerLayout>
