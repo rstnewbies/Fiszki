@@ -11,4 +11,6 @@
     <string name="drawer_exit_name">Exit</string>
 
     <string name="drawer_mode_name">App Mode</string>
+
+    <string name="drawer_category_name">Your Category</string>
 </resources>

@@ -11,7 +11,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.ExamModeActivity;
 import eu.qm.fiszki.activity.LearningModeActivity;
-import eu.qm.fiszki.activity.SettingsActivity;
 
 /**
  * Created by tm on 08.07.16.
@@ -31,7 +30,8 @@ public class AppMode extends PrimaryDrawerItem {
 class LearningMode extends PrimaryDrawerItem {
     public LearningMode(final Activity activity) {
         this.withName(R.string.learning_mode_title);
-        this.withLevel(2);
+        this.withIcon(R.drawable.ic_learning_mode);
+        this.withLevel(3);
         this.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
             @Override
             public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -47,7 +47,8 @@ class LearningMode extends PrimaryDrawerItem {
 class ExamMode extends PrimaryDrawerItem {
     public ExamMode(final Activity activity) {
         this.withName(R.string.exam_mode_title);
-        this.withLevel(2);
+        this.withIcon(R.drawable.ic_pencil);
+        this.withLevel(3);
         this.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
             @Override
             public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {

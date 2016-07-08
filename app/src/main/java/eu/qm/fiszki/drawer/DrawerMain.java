@@ -25,6 +25,7 @@ import org.xmlpull.v1.sax2.Driver;
 
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.drawer.drawerItem.AppMode;
+import eu.qm.fiszki.drawer.drawerItem.Category;
 import eu.qm.fiszki.drawer.drawerItem.Exit;
 import eu.qm.fiszki.drawer.drawerItem.Options;
 import eu.qm.fiszki.drawer.drawerItem.SwitchNotyfication;
@@ -38,7 +39,7 @@ public class DrawerMain extends DrawerBuilder {
         this.withToolbar(toolbar);
         this.withAccountHeader(new DrawerHeader(activity).build());
         this.withSelectedItem(-1);
-        addCategoryItems();
+        this.addDrawerItems(new Category());
         this.addDrawerItems(new AppMode(activity));
         this.addDrawerItems(new DividerDrawerItem());
         this.addDrawerItems(new Options(activity));

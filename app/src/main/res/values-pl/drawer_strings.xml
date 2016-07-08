@@ -12,4 +12,5 @@
 
     <string name="drawer_mode_name">Tryby aplikacji</string>
 
+    <string name="drawer_category_name">Twoje Kategorie</string>
 </resources>
