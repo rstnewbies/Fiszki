@@ -24,6 +24,8 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import org.xmlpull.v1.sax2.Driver;
 
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.drawer.drawerItem.AppMode;
+import eu.qm.fiszki.drawer.drawerItem.Exit;
 import eu.qm.fiszki.drawer.drawerItem.Options;
 import eu.qm.fiszki.drawer.drawerItem.SwitchNotyfication;
 import eu.qm.fiszki.drawer.drawerItem.Version;
@@ -37,23 +39,16 @@ public class DrawerMain extends DrawerBuilder {
         this.withAccountHeader(new DrawerHeader(activity).build());
         this.withSelectedItem(-1);
         addCategoryItems();
-        addModeItems();
+        this.addDrawerItems(new AppMode(activity));
         this.addDrawerItems(new DividerDrawerItem());
         this.addDrawerItems(new Options(activity));
+        this.addDrawerItems(new Exit(activity));
         this.addDrawerItems(new Version(activity));
         this.addStickyDrawerItems(new SwitchNotyfication(activity.getBaseContext()));
     }
 
     private void addCategoryItems() {
-    }
-
-    private void addModeItems() {
 
     }
 
-    private void addOptionsItems() {
-    }
-
-    private void addVersionItems() {
-    }
 }

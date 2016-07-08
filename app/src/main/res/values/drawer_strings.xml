@@ -7,4 +7,8 @@
     <string name="drawer_options_name">Options</string>
 
     <string name="drawer_version_ver">v</string>
+
+    <string name="drawer_exit_name">Exit</string>
+
+    <string name="drawer_mode_name">App Mode</string>
 </resources>

@@ -8,4 +8,8 @@
 
     <string name="drawer_version_ver">v</string>
 
+    <string name="drawer_exit_name">Wyjście</string>
+
+    <string name="drawer_mode_name">Tryby aplikacji</string>
+
 </resources>
