@@ -10,8 +10,6 @@ import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.ExamModeActivity;
 import eu.qm.fiszki.activity.LearningModeActivity;
-import eu.qm.fiszki.activity.SettingsActivity;
-import eu.qm.fiszki.activity.TutorialActivity;
 import eu.qm.fiszki.model.FlashcardRepository;
 
 /**
@@ -46,9 +44,6 @@ public class ToolbarMainActivity {
                     public boolean onMenuItemClick(MenuItem item) {
                         int id = item.getItemId();
                         if (id == R.id.settings) {
-                            Intent goSettings = new Intent(activity, SettingsActivity.class);
-                            activity.startActivity(goSettings);
-                            activity.finish();
                         } else if (id == R.id.examMode) {
                             if (flashcardRepository.countFlashcards() > 0) {
                                 Intent goLearningMode = new Intent(activity, ExamModeActivity.class);

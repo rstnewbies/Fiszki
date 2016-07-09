@@ -1,7 +1,6 @@
 package eu.qm.fiszki.drawer.drawerItem;
 
 import android.app.Activity;
-import android.content.Context;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
@@ -9,23 +8,61 @@ import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
 import com.mikepenz.materialdrawer.model.SwitchDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import eu.qm.fiszki.AlarmReceiver;
+import eu.qm.fiszki.LocalSharedPreferences;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.model.FlashcardRepository;
 
 /**
  * Created by tm on 08.07.16.
  */
 public class SwitchNotyfication extends SwitchDrawerItem {
 
-    public SwitchNotyfication(final Context context) {
+    private AlarmReceiver alarmReceiver;
+    private LocalSharedPreferences localSharedPreferences;
+    private FlashcardRepository flashcardRepository;
+
+    public SwitchNotyfication(final Activity activity) {
+        alarmReceiver = new AlarmReceiver();
+        localSharedPreferences = new LocalSharedPreferences(activity);
+        flashcardRepository = new FlashcardRepository(activity);
+
         this.withName(R.string.drawer_notyfication_switch_name);
         this.withIcon(R.drawable.ic_notifications_black_24dp);
+        this.withCheckable(false);
+        this.withSelectable(false);
+
+        if (!flashcardRepository.getAllFlashcards().isEmpty()) {
+            this.withSwitchEnabled(true);
+        } else {
+            this.withSwitchEnabled(false);
+        }
+
+        //Sync switch position
+        if (localSharedPreferences.getNotificationStatus() == 0) {
+            this.withChecked(false);
+        } else {
+            this.withChecked(true);
+        }
+
         this.withOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(IDrawerItem drawerItem, CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Toast.makeText(context, context.getString(R.string.drawer_notyfication_switch_toast_on), Toast.LENGTH_SHORT).show();
+                    System.out.println(localSharedPreferences.getNotificationPosition());
+                    alarmReceiver.close(activity);
+                    System.out.println(localSharedPreferences.getNotificationPosition());
+                    alarmReceiver.start(activity);
+                    System.out.println(localSharedPreferences.getNotificationPosition());
+                    localSharedPreferences.setNotificationStatus(0);
+                    System.out.println(localSharedPreferences.getNotificationPosition());
+                    Toast.makeText(activity.getBaseContext(), activity.getString(R.string.drawer_notyfication_switch_toast_on), Toast.LENGTH_SHORT).show();
+                    System.out.println(localSharedPreferences.getNotificationPosition());
                 } else {
-                    Toast.makeText(context, context.getString(R.string.drawer_notyfication_switch_toast_off), Toast.LENGTH_SHORT).show();
+                    System.out.println(localSharedPreferences.getNotificationPosition());
+                    alarmReceiver.close(activity);
+                    localSharedPreferences.setNotificationStatus(0);
+                    Toast.makeText(activity.getBaseContext(), activity.getString(R.string.drawer_notyfication_switch_toast_off), Toast.LENGTH_SHORT).show();
                 }
             }
         });

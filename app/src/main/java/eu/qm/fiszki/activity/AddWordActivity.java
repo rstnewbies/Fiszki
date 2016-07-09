@@ -1,5 +1,6 @@
 package eu.qm.fiszki.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,18 +33,20 @@ public class AddWordActivity extends AppCompatActivity {
     public SharedPreferences.Editor editor;
     FlashcardRepository flashcardRepository;
     EditText inputWord, inputTranslation;
-    SettingsActivity settings = new SettingsActivity();
+
     Alert alert = new Alert();
     CategorySpinnerRepository categorySpinnerRepository;
     private Rules rules = new Rules();
     private Spinner categorySpinner;
     private CategoryRepository categoryRepository;
+    private Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_word);
 
+        activity = this;
         context = this;
         inputWord = (EditText) findViewById(R.id.inputWord);
         inputWord.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
@@ -51,7 +54,7 @@ public class AddWordActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         inputTranslation = (EditText) findViewById(R.id.inputTranslation);
         inputTranslation.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        settings.context = this;
+
         flashcardRepository = new FlashcardRepository(context);
         sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -87,10 +90,7 @@ public class AddWordActivity extends AppCompatActivity {
                         categorySpinnerRepository.getSelectedCategoryID());
                 flashcardRepository.addFlashcard(flashcard);
                 if (flashcardRepository.isFirst()) {
-                    alarm.start(context, 15);
-                    editor.clear();
-                    editor.putInt(SettingsActivity.notificationPosition, 3);
-                    editor.commit();
+                    alarm.start(this);
                     alert.buildAlert(
                             this.getString(R.string.alert_title_pass),
                             this.getString(R.string.alert_add_first_word_message),
@@ -121,10 +121,7 @@ public class AddWordActivity extends AppCompatActivity {
                                 categorySpinnerRepository.getSelectedCategoryID());
                         flashcardRepository.addFlashcard(flashcard);
                         if (flashcardRepository.isFirst()) {
-                            alarm.start(context, 15);
-                            editor.clear();
-                            editor.putInt(SettingsActivity.notificationPosition, 3);
-                            editor.commit();
+                            alarm.start(activity);
                             alert.buildAlert(
                                     AddWordActivity.this.getString(R.string.alert_title_pass),
                                     AddWordActivity.this.getString(R.string.alert_add_first_word_message),

@@ -6,4 +6,5 @@
     <string name="button_action_back">Back</string>
     <string name="button_action_add_new_word">+</string>
     <string name="button_action_add_new_category">Add</string>
+    <string name="button_action_cancel">CANCEL</string>
 </resources>

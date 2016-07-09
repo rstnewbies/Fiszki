@@ -13,16 +13,6 @@ import android.widget.ExpandableListView;
 
 import com.apptentive.android.sdk.Apptentive;
 import com.crashlytics.android.Crashlytics;
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.shamanland.fab.ShowHideOnScroll;
 
 import eu.qm.fiszki.ListPopulate;
@@ -98,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        new DrawerMain(activity,toolbarMainActivity.getToolbar()).build();
+        new DrawerMain(activity, toolbarMainActivity.getToolbar()).build();
     }
 
     private void init() {
@@ -117,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         if (selectedFlashcard != null || selectedCategory != null) {
             toolbarMainActivity.set();
             fab.show();
-            listPopulate.populate(null, null,0);
+            listPopulate.populate(null, null, 0);
             selectedFlashcard = null;
             selectedCategory = null;
         } else {
@@ -140,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         toolbarMainActivity.set();
-        listPopulate.populate(null, null,0);
+        listPopulate.populate(null, null, 0);
     }
 
     @Override
@@ -171,9 +161,9 @@ public class MainActivity extends AppCompatActivity {
                         selectedCategory = null;
                         expandedGroup = listPopulate.adapterExp.getCategory(groupPosition);
                         selectedType = typeFlashcard;
-                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate,position);
+                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate, position);
                         fab.hide();
-                        listPopulate.populate(selectedFlashcard, selectedCategory,position);
+                        listPopulate.populate(selectedFlashcard, selectedCategory, position);
                     }
                 }
                 if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
@@ -181,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                     if (selectedCategory != null && selectedCategory.getId() == (listPopulate.adapterExp.getCategory(groupPosition).getId())) {
                         toolbarMainActivity.set();
                         fab.show();
-                        listPopulate.populate(null, null,0);
+                        listPopulate.populate(null, null, 0);
                         selectedCategory = null;
                         selectedFlashcard = null;
                         selectedType = null;
@@ -189,9 +179,9 @@ public class MainActivity extends AppCompatActivity {
                         selectedCategory = listPopulate.adapterExp.getCategory(groupPosition);
                         selectedFlashcard = null;
                         selectedType = typeCategory;
-                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate,position);
+                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate, position);
                         fab.hide();
-                        listPopulate.populate(selectedFlashcard, selectedCategory,position);
+                        listPopulate.populate(selectedFlashcard, selectedCategory, position);
                     }
                 }
                 return true;

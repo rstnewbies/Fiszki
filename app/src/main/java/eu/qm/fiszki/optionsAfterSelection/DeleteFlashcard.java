@@ -9,7 +9,6 @@ import android.view.View;
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.ListPopulate;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.activity.SettingsActivity;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.model.FlashcardRepository;
 import eu.qm.fiszki.toolbar.ToolbarMainActivity;
@@ -49,10 +48,7 @@ public class DeleteFlashcard {
                                 listPopulate.populate(null,null,0);
                                 toolbarMainActivity.set();
                                 if (flashcardRepository.isFirst()) {
-                                    alarm.start(activity, 15);
-                                    editor.clear();
-                                    editor.putInt(SettingsActivity.notificationPosition, 3);
-                                    editor.commit();
+                                    alarm.start(activity);
                                 }
                             }
                         });

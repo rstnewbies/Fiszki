@@ -1,5 +1,6 @@
 package eu.qm.fiszki;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,6 +13,8 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v7.app.NotificationCompat;
 
+import java.util.IllegalFormatException;
+
 import eu.qm.fiszki.activity.CheckActivity;
 
 public class AlarmReceiver extends BroadcastReceiver {
@@ -20,7 +23,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        long[] vibrate = new long[] {0,100,0,100};
+        long[] vibrate = new long[]{0, 100, 0, 100};
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
         PendingIntent pi = PendingIntent.getActivity(context, 69, new Intent(context,
                 CheckActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
@@ -41,12 +44,12 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     }
 
-    public void start(Context context, int min) {
-        Intent alarmIntent = new Intent(context, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        long time = (1000*60*min);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+time, time , pendingIntent);
+    public void start(Activity activity) {
+        Intent alarmIntent = new Intent(activity.getBaseContext(), AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(activity.getBaseContext(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager manager = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
+        long time = (1000 * 60 * timeSetter(activity));
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + time, time, pendingIntent);
     }
 
     public void close(Context context) {
@@ -54,6 +57,21 @@ public class AlarmReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         manager.cancel(pendingIntent);
+    }
+
+    private int timeSetter(Activity activity){
+        LocalSharedPreferences localSharedPreferences= new LocalSharedPreferences(activity);
+        if (localSharedPreferences.getNotificationPosition()==1){
+            return 1;
+        }else if(localSharedPreferences.getNotificationPosition()==2){
+            return 5;
+        }else if(localSharedPreferences.getNotificationPosition()==3){
+            return 15;
+        }else if(localSharedPreferences.getNotificationPosition()==4){
+            return 30;
+        }else{
+            return 60;
+        }
     }
 
 }

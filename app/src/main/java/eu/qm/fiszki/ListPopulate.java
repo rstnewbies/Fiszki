@@ -12,7 +12,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.activity.MainActivity;
-import eu.qm.fiszki.activity.SettingsActivity;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;
@@ -91,9 +90,6 @@ public class ListPopulate {
             expandableListView.setVisibility(View.INVISIBLE);
             emptyDBImage.setVisibility(View.VISIBLE);
             emptyDBText.setVisibility(View.VISIBLE);
-            editor.clear();
-            editor.putInt(SettingsActivity.notificationPosition, 0);
-            editor.commit();
             alarm.close(activity.getBaseContext());
         }
         expandableListView.setSelection(selectedPosition);
