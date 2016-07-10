@@ -1,7 +1,9 @@
 package eu.qm.fiszki.drawer.drawerItem;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
+import android.os.Build;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -36,19 +38,19 @@ public class SelectCategory extends PrimaryDrawerItem {
         this.withDescription(R.string.drawer_select_sub);
         this.withIcon(R.drawable.checkbox_multiple_marked_outline);
         this.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                 if (flashcardRepository.getAllFlashcards().isEmpty()) {
                     Alert alert = new Alert();
                     alert.buildAlert(
-                            activity.getResources().getString(R.string.alert_no_category_to_choose_title),
-                            activity.getResources().getString(R.string.alert_no_category_to_choose_messege),
+                            activity.getResources().getString(R.string.alert_no_category_title),
+                            activity.getResources().getString(R.string.alert_no_category_messege),
                             activity.getResources().getString(R.string.button_action_ok),
                             activity);
                 } else {
                     final Dialog dialog = new Dialog(activity);
                     dialog.setContentView(R.layout.category_choose);
-
                     ArrayList<Category> categoryToPopulate = new ArrayList<Category>();
                     categoryToPopulate.add(categoryRepository.getCategoryByID(1));
                     categoryToPopulate.addAll(categoryRepository.getUserCategory());

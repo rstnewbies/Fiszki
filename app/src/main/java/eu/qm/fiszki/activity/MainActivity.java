@@ -141,8 +141,8 @@ public class MainActivity extends AppCompatActivity {
         if (flashcardRepository.getAllFlashcards().isEmpty()) {
             Alert alert = new Alert();
             alert.buildAlert(
-                    activity.getResources().getString(R.string.alert_no_category_to_choose_title),
-                    activity.getResources().getString(R.string.alert_no_category_to_choose_messege),
+                    activity.getResources().getString(R.string.alert_no_category_title),
+                    activity.getResources().getString(R.string.alert_no_category_messege),
                     activity.getResources().getString(R.string.button_action_ok),
                     activity);
         }else {
@@ -156,8 +156,8 @@ public class MainActivity extends AppCompatActivity {
         if (flashcardRepository.getAllFlashcards().isEmpty()) {
             Alert alert = new Alert();
             alert.buildAlert(
-                    activity.getResources().getString(R.string.alert_no_category_to_choose_title),
-                    activity.getResources().getString(R.string.alert_no_category_to_choose_messege),
+                    activity.getResources().getString(R.string.alert_no_category_title),
+                    activity.getResources().getString(R.string.alert_no_category_messege),
                     activity.getResources().getString(R.string.button_action_ok),
                     activity);
         }else {

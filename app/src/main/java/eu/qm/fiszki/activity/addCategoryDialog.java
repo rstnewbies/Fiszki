@@ -10,6 +10,6 @@ public class addCategoryDialog extends Dialog {
 
     public addCategoryDialog(Context context, int themeResId) {
         super(context, themeResId);
-        
+
     }
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -31,65 +32,22 @@ public class Frequenc extends PrimaryDrawerItem {
         this.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
             @Override
             public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-
-                final Dialog dialog = new Dialog(activity);
-                dialog.setContentView(R.layout.frequenc_choose);
-                RadioButton rb1 = (RadioButton) dialog.findViewById(R.id.freq_choose_1);
-                RadioButton rb2 = (RadioButton) dialog.findViewById(R.id.freq_choose_2);
-                RadioButton rb3 = (RadioButton) dialog.findViewById(R.id.freq_choose_3);
-                RadioButton rb4 = (RadioButton) dialog.findViewById(R.id.freq_choose_4);
-                Button btn = (Button) dialog.findViewById(R.id.freq_choose_btn);
-
-                System.out.println(localSharedPreferences.getNotificationPosition());
-
-                if (localSharedPreferences.getNotificationPosition() == 1) {
-                    rb1.setChecked(true);
-                } else if (localSharedPreferences.getNotificationPosition() == 2) {
-                    rb2.setChecked(true);
-                } else if (localSharedPreferences.getNotificationPosition() == 3) {
-                    rb3.setChecked(true);
-                } else if (localSharedPreferences.getNotificationPosition() == 4) {
-                    rb4.setChecked(true);
-                }
-
-                rb1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        RBClick(1, dialog, activity);
-                    }
-                });
-
-                rb2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        RBClick(2, dialog, activity);
-                    }
-                });
-
-                rb3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        RBClick(3, dialog, activity);
-                    }
-                });
-
-                rb4.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        RBClick(4, dialog, activity);
-                    }
-                });
-
-                btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
-
-                return false;
+                new MaterialDialog.Builder(activity)
+                        .title(R.string.)
+                        .items(R.array.notification_frequency)
+                        .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                            @Override
+                            public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                /**
+                                 * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
+                                 * returning false here won't allow the newly selected radio button to actually be selected.
+                                 **/
+                                return true;
+                            }
+                        })
+                        .positiveText(R.string.button_action_ok)
+                        .show();
+            return false;
             }
         });
     }
