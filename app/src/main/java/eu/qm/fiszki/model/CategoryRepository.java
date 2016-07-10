@@ -1,6 +1,7 @@
 package eu.qm.fiszki.model;
 
 import android.content.Context;
+import android.widget.ArrayAdapter;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
@@ -16,7 +17,6 @@ public class CategoryRepository {
 
     private DBHelper dbHelper;
     private RuntimeExceptionDao<Category, Integer> categoryDao;
-    private ArrayList<Category> categoryList;
 
     public CategoryRepository(Context context) {
         dbHelper = OpenHelperManager.getHelper(context, DBHelper.class);

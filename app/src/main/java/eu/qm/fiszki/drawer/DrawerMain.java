@@ -23,7 +23,7 @@ public class DrawerMain extends DrawerBuilder {
         this.withAccountHeader(new DrawerHeader(activity).build());
         this.withSelectedItem(-1);
         this.addDrawerItems(new Frequenc(activity));
-        this.addDrawerItems(new SelectCategory());
+        this.addDrawerItems(new SelectCategory(activity));
         this.addDrawerItems(new ClearDataBase(activity));
         this.addDrawerItems(new DividerDrawerItem());
         this.addDrawerItems(new Contact(activity));
@@ -32,4 +32,6 @@ public class DrawerMain extends DrawerBuilder {
         this.addDrawerItems(new Version(activity));
         this.addStickyDrawerItems(new SwitchNotyfication(activity));
     }
+
+
 }

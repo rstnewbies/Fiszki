@@ -45,21 +45,16 @@ public class SwitchNotyfication extends SwitchDrawerItem {
             this.withChecked(true);
         }
 
+        //Add event if move switch
         this.withOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(IDrawerItem drawerItem, CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    System.out.println(localSharedPreferences.getNotificationPosition());
                     alarmReceiver.close(activity);
-                    System.out.println(localSharedPreferences.getNotificationPosition());
                     alarmReceiver.start(activity);
-                    System.out.println(localSharedPreferences.getNotificationPosition());
                     localSharedPreferences.setNotificationStatus(0);
-                    System.out.println(localSharedPreferences.getNotificationPosition());
                     Toast.makeText(activity.getBaseContext(), activity.getString(R.string.drawer_notyfication_switch_toast_on), Toast.LENGTH_SHORT).show();
-                    System.out.println(localSharedPreferences.getNotificationPosition());
                 } else {
-                    System.out.println(localSharedPreferences.getNotificationPosition());
                     alarmReceiver.close(activity);
                     localSharedPreferences.setNotificationStatus(0);
                     Toast.makeText(activity.getBaseContext(), activity.getString(R.string.drawer_notyfication_switch_toast_off), Toast.LENGTH_SHORT).show();

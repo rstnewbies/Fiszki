@@ -13,6 +13,8 @@ import android.widget.ExpandableListView;
 
 import com.apptentive.android.sdk.Apptentive;
 import com.crashlytics.android.Crashlytics;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.shamanland.fab.ShowHideOnScroll;
 
 import eu.qm.fiszki.ListPopulate;
@@ -88,7 +90,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        new DrawerMain(activity, toolbarMainActivity.getToolbar()).build();
+
+        final Drawer result = new DrawerMain(activity, toolbarMainActivity.getToolbar()).build();
+        result.setOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+            @Override
+            public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                result.setSelection(-1);
+                return false;
+            }
+        });
     }
 
     private void init() {
