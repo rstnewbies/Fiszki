@@ -16,5 +16,13 @@
     <string name="main_activity_empty_group">This group is empty.</string>
     <string name="start_loading">LOADING…</string>
 
+    <string name="card_name_my_word">My words</string>
+    <string name="card_name_learning">Leaning</string>
+    <string name="card_name_exam">Exam</string>
+
+    <string name="back_press_toast">Press again to close the application</string>
+    <string name="title_activity_my_category">MyCategoryActivity</string>
+
+
 </resources>
 
