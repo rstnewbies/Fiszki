@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             mCountBackPress = 0;
         } else {
             if (mCountBackPress == 0) {
-                Toast.makeText(mActivity,R.string.back_press_toast,Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, R.string.back_press_toast, Toast.LENGTH_SHORT).show();
                 mCountBackPress++;
             } else {
                 finish();
@@ -138,13 +138,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void learningCardClick(View view) {
         if (mFlashcardRepository.getAllFlashcards().isEmpty()) {
-            Alert alert = new Alert();
-            alert.buildAlert(
-                    mActivity.getResources().getString(R.string.alert_no_category_title),
-                    mActivity.getResources().getString(R.string.alert_no_category_messege),
-                    mActivity.getResources().getString(R.string.button_action_ok),
-                    mActivity);
-        }else {
+            new Alert().addFiszkiToFeature(mActivity).show();
+        } else {
             Intent goLearningMode = new Intent(this, LearningModeActivity.class);
             startActivity(goLearningMode);
             finish();
@@ -153,13 +148,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void examCardClick(View view) {
         if (mFlashcardRepository.getAllFlashcards().isEmpty()) {
-            Alert alert = new Alert();
-            alert.buildAlert(
-                    mActivity.getResources().getString(R.string.alert_no_category_title),
-                    mActivity.getResources().getString(R.string.alert_no_category_messege),
-                    mActivity.getResources().getString(R.string.button_action_ok),
-                    mActivity);
-        }else {
+            new Alert().addFiszkiToFeature(mActivity).show();
+        } else {
             Intent goExamMode = new Intent(this, ExamModeActivity.class);
             startActivity(goExamMode);
             finish();

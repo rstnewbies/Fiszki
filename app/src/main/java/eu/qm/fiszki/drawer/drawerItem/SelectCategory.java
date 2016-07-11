@@ -42,15 +42,11 @@ public class SelectCategory extends PrimaryDrawerItem {
             @Override
             public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                 if (flashcardRepository.getAllFlashcards().isEmpty()) {
-                    Alert alert = new Alert();
-                    alert.buildAlert(
-                            activity.getResources().getString(R.string.alert_no_category_title),
-                            activity.getResources().getString(R.string.alert_no_category_messege),
-                            activity.getResources().getString(R.string.button_action_ok),
-                            activity);
+                    new Alert().addFiszkiToFeature(activity).show();
                 } else {
                     final Dialog dialog = new Dialog(activity);
                     dialog.setContentView(R.layout.category_choose);
+
                     ArrayList<Category> categoryToPopulate = new ArrayList<Category>();
                     categoryToPopulate.add(categoryRepository.getCategoryByID(1));
                     categoryToPopulate.addAll(categoryRepository.getUserCategory());
