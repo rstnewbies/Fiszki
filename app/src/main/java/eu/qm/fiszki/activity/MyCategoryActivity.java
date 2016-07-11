@@ -3,13 +3,12 @@ package eu.qm.fiszki.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.dialogs.AddCategoryDialog;
 
 public class MyCategoryActivity extends AppCompatActivity {
 
@@ -34,7 +33,7 @@ public class MyCategoryActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goMainActivity = new Intent(activity,MainActivity.class);
+                Intent goMainActivity = new Intent(activity, MainActivity.class);
                 activity.startActivity(goMainActivity);
                 activity.finish();
             }
@@ -42,6 +41,7 @@ public class MyCategoryActivity extends AppCompatActivity {
     }
 
     public void addCategoryClick(View view) {
+        new AddCategoryDialog(activity).show();
 
     }
 }

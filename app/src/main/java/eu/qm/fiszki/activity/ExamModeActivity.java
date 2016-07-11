@@ -237,7 +237,7 @@ public class ExamModeActivity extends AppCompatActivity {
             }
         }
         final ShowCategoryAdapter showCategoryAdapter =
-                new ShowCategoryAdapter(context, R.layout.layout_choose_category_adapter, categories);
+                new ShowCategoryAdapter(context, R.layout.category_choose_adapter, categories);
         chosenCategoryListview.setAdapter(showCategoryAdapter);
 
         //setSelected RadioButton

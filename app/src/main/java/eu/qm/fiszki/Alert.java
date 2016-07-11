@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Html;
 
+import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import eu.qm.fiszki.activity.MainActivity;
@@ -130,6 +131,7 @@ public class Alert {
         return new MaterialDialog.Builder(activity)
                 .title(activity.getResources().getString(R.string.alert_no_category_title))
                 .content(activity.getResources().getString(R.string.alert_no_category_messege))
-                .positiveText( activity.getResources().getString(R.string.button_action_ok));
+                .positiveText( activity.getResources().getString(R.string.button_action_ok))
+                .contentGravity(GravityEnum.START);
     }
 }

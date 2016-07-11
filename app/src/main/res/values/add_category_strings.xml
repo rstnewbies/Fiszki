@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="add_category_dialog_title">Create new category</string>
+    <string name="add_category_positive_btn_text">Create</string>
+
+    <string name="add_category_dialog_et_name">Category\'s name</string>
+    <string name="add_category_dialog_lang">Lang</string>
+
+</resources>

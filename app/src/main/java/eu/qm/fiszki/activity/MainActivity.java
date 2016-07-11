@@ -119,8 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void buildToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        mToolbar.setTitle(R.string.app_name);
+        mToolbar.setTitle(getResources().getString(R.string.app_name));
         mToolbar.setNavigationIcon(R.drawable.ic_menu_white_36px);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,8 +130,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void myWordsCardClick(View view) {
-        Intent goMyWordActivity = new Intent(this, MyCategoryActivity.class);
-        startActivity(goMyWordActivity);
+        startActivity(new Intent(this, MyCategoryActivity.class));
         finish();
     }
 
@@ -140,8 +138,7 @@ public class MainActivity extends AppCompatActivity {
         if (mFlashcardRepository.getAllFlashcards().isEmpty()) {
             new Alert().addFiszkiToFeature(mActivity).show();
         } else {
-            Intent goLearningMode = new Intent(this, LearningModeActivity.class);
-            startActivity(goLearningMode);
+            startActivity(new Intent(this, LearningModeActivity.class));
             finish();
         }
     }
@@ -150,8 +147,7 @@ public class MainActivity extends AppCompatActivity {
         if (mFlashcardRepository.getAllFlashcards().isEmpty()) {
             new Alert().addFiszkiToFeature(mActivity).show();
         } else {
-            Intent goExamMode = new Intent(this, ExamModeActivity.class);
-            startActivity(goExamMode);
+            startActivity(new Intent(this, ExamModeActivity.class));
             finish();
         }
     }

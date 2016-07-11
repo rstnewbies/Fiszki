@@ -198,7 +198,7 @@ public class LearningModeActivity extends AppCompatActivity {
             }
         }
         final ShowCategoryAdapter showCategoryAdapter =
-                new ShowCategoryAdapter(context, R.layout.layout_choose_category_adapter, categories);
+                new ShowCategoryAdapter(context, R.layout.category_choose_adapter, categories);
         learningModeChooseCategoryListView.setAdapter(showCategoryAdapter);
 
         learningModeStartButtonn.setOnClickListener(new View.OnClickListener() {
