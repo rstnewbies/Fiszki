@@ -26,17 +26,16 @@ import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
-    static private DBAdapter myDb;
-    static private DBStatus openDataBase;
+    static private DBAdapter mMyDb;
+    static private DBStatus mOpenDataBase;
 
-    private FloatingActionButton fab;
-    private Toolbar toolbar;
-    private Activity activity;
-    private CategoryRepository categoryRepository;
-    private Drawer drawer;
-    private int countBackPress;
-    private FlashcardRepository flashcardRepository;
-
+    private FloatingActionButton mFab;
+    private Toolbar mToolbar;
+    private Activity mActivity;
+    private CategoryRepository mCategoryRepository;
+    private FlashcardRepository mFlashcardRepository;
+    private Drawer mDrawer;
+    private int mCountBackPress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +50,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (drawer.isDrawerOpen()) {
-            drawer.closeDrawer();
-            countBackPress = 0;
+        if (mDrawer.isDrawerOpen()) {
+            mDrawer.closeDrawer();
+            mCountBackPress = 0;
         } else {
-            if (countBackPress == 0) {
-                Toast.makeText(activity,R.string.back_press_toast,Toast.LENGTH_SHORT).show();
-                countBackPress++;
+            if (mCountBackPress == 0) {
+                Toast.makeText(mActivity,R.string.back_press_toast,Toast.LENGTH_SHORT).show();
+                mCountBackPress++;
             } else {
                 finish();
             }
@@ -68,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Apptentive.onStart(this);
-        categoryRepository.addSystemCategory();
-        new DBTransform(myDb, activity);
+        mCategoryRepository.addSystemCategory();
+        new DBTransform(mMyDb, mActivity);
         Apptentive.engage(this, "changelog");
         Apptentive.engage(this, "notes");
     }
@@ -85,31 +84,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        activity = this;
-        categoryRepository = new CategoryRepository(activity);
-        flashcardRepository = new FlashcardRepository(activity);
+        mActivity = this;
+        mCategoryRepository = new CategoryRepository(mActivity);
+        mFlashcardRepository = new FlashcardRepository(mActivity);
 
-        openDataBase = new DBStatus();
-        myDb = new DBAdapter(activity);
-        openDataBase.openDB(myDb);
+        mOpenDataBase = new DBStatus();
+        mMyDb = new DBAdapter(mActivity);
+        mOpenDataBase.openDB(mMyDb);
 
-        countBackPress = 0;
+        mCountBackPress = 0;
     }
 
     private void buildDrawer() {
-        drawer = new DrawerMain(activity, toolbar).build();
-        drawer.setOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+        mDrawer = new DrawerMain(mActivity, mToolbar).build();
+        mDrawer.setOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
             @Override
             public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                drawer.setSelection(-1);
+                mDrawer.setSelection(-1);
                 return false;
             }
         });
     }
 
     private void buildFAB() {
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(MainActivity.this, AddWordActivity.class);
@@ -119,14 +118,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void buildToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.app_name);
-        toolbar.setNavigationIcon(R.drawable.ic_menu_white_36px);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        mToolbar.setTitle(R.string.app_name);
+        mToolbar.setNavigationIcon(R.drawable.ic_menu_white_36px);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawer.openDrawer();
+                mDrawer.openDrawer();
             }
         });
     }
@@ -138,13 +137,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void learningCardClick(View view) {
-        if (flashcardRepository.getAllFlashcards().isEmpty()) {
+        if (mFlashcardRepository.getAllFlashcards().isEmpty()) {
             Alert alert = new Alert();
             alert.buildAlert(
-                    activity.getResources().getString(R.string.alert_no_category_title),
-                    activity.getResources().getString(R.string.alert_no_category_messege),
-                    activity.getResources().getString(R.string.button_action_ok),
-                    activity);
+                    mActivity.getResources().getString(R.string.alert_no_category_title),
+                    mActivity.getResources().getString(R.string.alert_no_category_messege),
+                    mActivity.getResources().getString(R.string.button_action_ok),
+                    mActivity);
         }else {
             Intent goLearningMode = new Intent(this, LearningModeActivity.class);
             startActivity(goLearningMode);
@@ -153,13 +152,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void examCardClick(View view) {
-        if (flashcardRepository.getAllFlashcards().isEmpty()) {
+        if (mFlashcardRepository.getAllFlashcards().isEmpty()) {
             Alert alert = new Alert();
             alert.buildAlert(
-                    activity.getResources().getString(R.string.alert_no_category_title),
-                    activity.getResources().getString(R.string.alert_no_category_messege),
-                    activity.getResources().getString(R.string.button_action_ok),
-                    activity);
+                    mActivity.getResources().getString(R.string.alert_no_category_title),
+                    mActivity.getResources().getString(R.string.alert_no_category_messege),
+                    mActivity.getResources().getString(R.string.button_action_ok),
+                    mActivity);
         }else {
             Intent goExamMode = new Intent(this, ExamModeActivity.class);
             startActivity(goExamMode);

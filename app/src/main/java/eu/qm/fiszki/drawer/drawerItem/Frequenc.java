@@ -1,10 +1,7 @@
 package eu.qm.fiszki.drawer.drawerItem;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.view.View;
-import android.widget.Button;
-import android.widget.RadioButton;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.mikepenz.materialdrawer.Drawer;
@@ -33,31 +30,43 @@ public class Frequenc extends PrimaryDrawerItem {
             @Override
             public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                 new MaterialDialog.Builder(activity)
-                        .title(R.string.)
+                        .title(R.string.settings_choose_category)
                         .items(R.array.notification_frequency)
-                        .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                        .itemsCallbackSingleChoice(getSelectedFreq(), new MaterialDialog.ListCallbackSingleChoice() {
                             @Override
-                            public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                /**
-                                 * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
-                                 * returning false here won't allow the newly selected radio button to actually be selected.
-                                 **/
-                                return true;
+                            public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                                RBClick(which+1, activity);
+                                return false;
                             }
                         })
                         .positiveText(R.string.button_action_ok)
+                        .cancelable(false)
                         .show();
-            return false;
+                return false;
             }
         });
     }
 
-    private void RBClick(int id, Dialog dialog, Activity activity) {
+    private void RBClick(int id, Activity activity) {
         alarmReceiver.close(activity);
         localSharedPreferences.setNotificationPosition(id);
         if (localSharedPreferences.getNotificationStatus() == 1) {
             alarmReceiver.start(activity);
         }
-        dialog.dismiss();
+    }
+
+    private int getSelectedFreq() {
+        switch (localSharedPreferences.getNotificationPosition()) {
+            case 1:
+                return 0;
+            case 2:
+                return 1;
+            case 3:
+                return 2;
+            case 4:
+                return 3;
+            default:
+                return -1;
+        }
     }
 }
