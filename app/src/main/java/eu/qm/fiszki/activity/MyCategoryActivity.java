@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ListView;
 
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.dialogs.AddCategoryDialog;
@@ -13,6 +14,7 @@ import eu.qm.fiszki.dialogs.AddCategoryDialog;
 public class MyCategoryActivity extends AppCompatActivity {
 
     private Activity activity;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,7 @@ public class MyCategoryActivity extends AppCompatActivity {
 
     private void init() {
         activity = this;
+        listView = (ListView) findViewById(R.id.category_listview);
     }
 
     private void buildToolbar() {
@@ -42,6 +45,9 @@ public class MyCategoryActivity extends AppCompatActivity {
 
     public void addCategoryClick(View view) {
         new AddCategoryDialog(activity).show();
+    }
+
+    public void populateListView(){
 
     }
 }

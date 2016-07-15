@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -54,6 +55,7 @@ public class AddCategoryDialog extends MaterialDialog.Builder{
             @Override
             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                 //todo save to DataBase
+                Toast.makeText(context,R.string.add_category_toast,Toast.LENGTH_SHORT).show();
             }
         };
     }

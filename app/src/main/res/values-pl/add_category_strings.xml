@@ -7,4 +7,6 @@
     <string name="add_category_dialog_et_name">Nazwa kategorii</string>
     <string name="add_category_dialog_lang">Jezyk</string>
 
+    <string name="add_category_toast">Dodano nową kategorię</string>
+
 </resources>
