@@ -4,6 +4,8 @@ apply plugin: 'io.fabric'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    maven { url 'http://dl.bintray.com/dodola/maven'}
+    maven { url "https://jitpack.io" }
 }
 
 android {
@@ -39,6 +41,8 @@ dependencies {
     compile "com.android.support:percent:23.1.1"
     compile 'com.afollestad.material-dialogs:core:0.8.6.1'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
+    compile 'com.dodola:listviewext:1.0'
+    compile 'com.github.dexafree:MaterialList:v3.2.2'
     testCompile 'junit:junit:4.12'
 
     compile('com.mikepenz:materialdrawer:5.3.3@aar') {

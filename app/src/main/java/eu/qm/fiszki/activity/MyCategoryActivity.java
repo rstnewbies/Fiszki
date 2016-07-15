@@ -8,13 +8,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
 
+import com.dexafree.materialList.card.Card;
+import com.dexafree.materialList.card.CardProvider;
+import com.dexafree.materialList.view.MaterialListView;
+
+import java.util.ArrayList;
+
+import eu.qm.fiszki.CategoryShowAdapter;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.dialogs.AddCategoryDialog;
+import eu.qm.fiszki.model.Category;
 
 public class MyCategoryActivity extends AppCompatActivity {
 
-    private Activity activity;
-    private ListView listView;
+    private Activity mActivity;
+    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +30,12 @@ public class MyCategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_category);
         init();
         buildToolbar();
+        populateListView();
     }
 
     private void init() {
-        activity = this;
-        listView = (ListView) findViewById(R.id.category_listview);
+        mActivity = this;
+        mListView = (ListView) findViewById(R.id.category_listview);
     }
 
     private void buildToolbar() {
@@ -36,18 +45,32 @@ public class MyCategoryActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goMainActivity = new Intent(activity, MainActivity.class);
-                activity.startActivity(goMainActivity);
-                activity.finish();
+                Intent goMainActivity = new Intent(mActivity, MainActivity.class);
+                mActivity.startActivity(goMainActivity);
+                mActivity.finish();
             }
         });
     }
 
     public void addCategoryClick(View view) {
-        new AddCategoryDialog(activity).show();
+        new AddCategoryDialog(mActivity).show();
     }
 
-    public void populateListView(){
+    public void populateListView() {
+        ArrayList<Category> arrayList = new ArrayList<>();
+        Category one = new Category("", false, false);
 
+        arrayList.add(one);
+        arrayList.add(one);
+        arrayList.add(one);
+        arrayList.add(one);
+        arrayList.add(one);
+        arrayList.add(one);
+        arrayList.add(one);
+        arrayList.add(one);
+        arrayList.add(one);
+
+        CategoryShowAdapter adapter = new CategoryShowAdapter(this,R.layout.category_show_adapter,arrayList);
+        mListView.setAdapter(adapter);
     }
 }
