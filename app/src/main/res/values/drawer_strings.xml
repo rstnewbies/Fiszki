@@ -10,7 +10,7 @@
 
     <string name="drawer_tutorial_name">Tutorial</string>
 
-    <string name="drawer_contact_name">Contact with us</string>
+    <string name="drawer_contact_name">Send opinion</string>
 
     <string name="drawer_clear_name">Clear database</string>
     <string name="drawer_clear_sub">Delete all words and category in data base</string>

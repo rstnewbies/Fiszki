@@ -1,28 +1,28 @@
-package eu.qm.fiszki.activity;
+package eu.qm.fiszki.myCategory;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ListView;
-
-import com.dexafree.materialList.card.Card;
-import com.dexafree.materialList.card.CardProvider;
-import com.dexafree.materialList.view.MaterialListView;
+import android.view.animation.OvershootInterpolator;
 
 import java.util.ArrayList;
 
-import eu.qm.fiszki.CategoryShowAdapter;
+import eu.qm.fiszki.activity.MainActivity;
+import eu.qm.fiszki.myCategory.CategoryShowAdapter;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.dialogs.AddCategoryDialog;
 import eu.qm.fiszki.model.Category;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 
 public class MyCategoryActivity extends AppCompatActivity {
 
     private Activity mActivity;
-    private ListView mListView;
+    private RecyclerView mRecycleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class MyCategoryActivity extends AppCompatActivity {
 
     private void init() {
         mActivity = this;
-        mListView = (ListView) findViewById(R.id.category_listview);
+        mRecycleView = (RecyclerView) findViewById(R.id.category_listview);
     }
 
     private void buildToolbar() {
@@ -57,20 +57,21 @@ public class MyCategoryActivity extends AppCompatActivity {
     }
 
     public void populateListView() {
+
         ArrayList<Category> arrayList = new ArrayList<>();
-        Category one = new Category("", false, false);
+        Category button = new Category("", false, false);
 
-        arrayList.add(one);
-        arrayList.add(one);
-        arrayList.add(one);
-        arrayList.add(one);
-        arrayList.add(one);
-        arrayList.add(one);
-        arrayList.add(one);
-        arrayList.add(one);
-        arrayList.add(one);
+        arrayList.add(button);
+        arrayList.add(button);
+        arrayList.add(button);
+        arrayList.add(button);
+        arrayList.add(button);
 
-        CategoryShowAdapter adapter = new CategoryShowAdapter(this,R.layout.category_show_adapter,arrayList);
-        mListView.setAdapter(adapter);
+        StaggeredGridLayoutManager mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        mRecycleView.setLayoutManager(mStaggeredLayoutManager);
+
+        CategoryShowAdapter adapter = new CategoryShowAdapter(this,arrayList);
+
+        mRecycleView.setAdapter(adapter);
     }
 }

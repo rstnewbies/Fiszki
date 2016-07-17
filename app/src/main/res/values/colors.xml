@@ -11,13 +11,14 @@
     <color name="seleced_Adapter">#F44336</color>
     <color name="edit_button">#FF6D00</color>
     <color name="black">#424242</color>
-    <color name="likeWhite">#F1F1F1</color>
+    <color name="likeWhite">#e6e6e6</color>
     <color name="line">#d6d6d6</color>
     <color name="alert_button_color">#009688</color>
     <color name="yellow">#ffc400</color>
     <color name="patin">#009688</color>
     <color name="pistachio">#36A165</color>
     <color name="shadow">#c6c6c6</color>
-
+    <color name="bg_cards">#e6e6e6</color>
     <color name="addCotegoryCard">#68a72c</color>
+    <color name="category_count">#2e9100</color>
 </resources>

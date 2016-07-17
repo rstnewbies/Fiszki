@@ -22,6 +22,7 @@ import eu.qm.fiszki.database.SQL.DBStatus;
 import eu.qm.fiszki.drawer.DrawerMain;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.FlashcardRepository;
+import eu.qm.fiszki.myCategory.MyCategoryActivity;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
