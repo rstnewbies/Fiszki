@@ -1,4 +1,4 @@
-package eu.qm.fiszki.myCategory;
+package eu.qm.fiszki.activity.myCategory;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,16 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.animation.OvershootInterpolator;
 
 import java.util.ArrayList;
 
 import eu.qm.fiszki.activity.MainActivity;
-import eu.qm.fiszki.myCategory.CategoryShowAdapter;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.dialogs.AddCategoryDialog;
 import eu.qm.fiszki.model.Category;
-import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 
 public class MyCategoryActivity extends AppCompatActivity {
 
@@ -33,6 +30,12 @@ public class MyCategoryActivity extends AppCompatActivity {
         populateListView();
     }
 
+    @Override
+    public void onBackPressed() {
+        mActivity.startActivity(new Intent(this, MainActivity.class));
+        mActivity.finish();
+    }
+
     private void init() {
         mActivity = this;
         mRecycleView = (RecyclerView) findViewById(R.id.category_listview);
@@ -45,8 +48,7 @@ public class MyCategoryActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goMainActivity = new Intent(mActivity, MainActivity.class);
-                mActivity.startActivity(goMainActivity);
+                mActivity.startActivity(new Intent(mActivity, MainActivity.class));
                 mActivity.finish();
             }
         });

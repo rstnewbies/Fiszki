@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Slide;
+import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,7 +25,7 @@ import eu.qm.fiszki.database.SQL.DBStatus;
 import eu.qm.fiszki.drawer.DrawerMain;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.FlashcardRepository;
-import eu.qm.fiszki.myCategory.MyCategoryActivity;
+import eu.qm.fiszki.activity.myCategory.MyCategoryActivity;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
@@ -112,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(MainActivity.this, AddWordActivity.class);
+                Intent myIntent = new Intent(MainActivity.this, CategoryFragment.class);
                 startActivity(myIntent);
             }
         });
@@ -136,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void learningCardClick(View view) {
-        if (mFlashcardRepository.getAllFlashcards().isEmpty()) {
+        if (mFlashcardRepository.countFlashcards()==0) {
             new Alert().addFiszkiToFeature(mActivity).show();
         } else {
             startActivity(new Intent(this, LearningModeActivity.class));
@@ -145,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void examCardClick(View view) {
-        if (mFlashcardRepository.getAllFlashcards().isEmpty()) {
+        if (mFlashcardRepository.countFlashcards()==0) {
             new Alert().addFiszkiToFeature(mActivity).show();
         } else {
             startActivity(new Intent(this, ExamModeActivity.class));

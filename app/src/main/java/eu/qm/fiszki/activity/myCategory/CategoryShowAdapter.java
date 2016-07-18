@@ -1,4 +1,4 @@
-package eu.qm.fiszki.myCategory;
+package eu.qm.fiszki.activity.myCategory;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;

@@ -3,7 +3,6 @@ package eu.qm.fiszki.dialogs;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -25,10 +24,10 @@ public class AddCategoryDialog extends MaterialDialog.Builder{
 
     public AddCategoryDialog(@NonNull Activity activity) {
         super(activity);
-        this.title(R.string.add_category_dialog_title);
+        this.title(R.string.category_dialog_title);
         this.icon(context.getResources().getDrawable(R.drawable.ic_category_add));
         this.customView(R.layout.category_add_dialog, false);
-        this.positiveText(R.string.add_category_positive_btn_text);
+        this.positiveText(R.string.category_positive_btn_text);
         init();
         setAdapterToLang();
         this.onPositive(addCategory());
@@ -55,7 +54,7 @@ public class AddCategoryDialog extends MaterialDialog.Builder{
             @Override
             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                 //todo save to DataBase
-                Toast.makeText(context,R.string.add_category_toast,Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,R.string.category_toast,Toast.LENGTH_SHORT).show();
             }
         };
     }
