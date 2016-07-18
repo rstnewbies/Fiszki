@@ -1,4 +1,4 @@
-package eu.qm.fiszki.activity.myCategory;
+package eu.qm.fiszki.activity.myWords.myCategory;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,8 +11,8 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-import eu.qm.fiszki.activity.MainActivity;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.activity.MainActivity;
 import eu.qm.fiszki.dialogs.AddCategoryDialog;
 import eu.qm.fiszki.model.Category;
 
@@ -43,7 +43,6 @@ public class MyCategoryActivity extends AppCompatActivity {
 
     private void buildToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,4 +1,4 @@
-package eu.qm.fiszki.activity.myCategory;
+package eu.qm.fiszki.activity.myWords.myCategory;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
@@ -20,12 +20,10 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
 
     private final ArrayList<Category> arrayList;
     private final Activity activity;
-    private boolean first;
 
     public CategoryShowAdapter(Activity activity, ArrayList<Category> arrayList) {
         this.arrayList = arrayList;
         this.activity = activity;
-        first = true;
     }
 
     @Override
@@ -42,7 +40,6 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-
     }
 
     @Override

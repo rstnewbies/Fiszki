@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Slide;
-import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,13 +16,14 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.activity.myWords.myCategory.MyCategoryActivity;
+import eu.qm.fiszki.activity.myWords.myFlashcards.MyFlashcardsActivity;
 import eu.qm.fiszki.database.DBTransform;
 import eu.qm.fiszki.database.SQL.DBAdapter;
 import eu.qm.fiszki.database.SQL.DBStatus;
 import eu.qm.fiszki.drawer.DrawerMain;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.FlashcardRepository;
-import eu.qm.fiszki.activity.myCategory.MyCategoryActivity;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
@@ -115,8 +113,9 @@ public class MainActivity extends AppCompatActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(MainActivity.this, CategoryFragment.class);
+                Intent myIntent = new Intent(MainActivity.this, AddWordActivity.class);
                 startActivity(myIntent);
+                finish();
             }
         });
     }
@@ -134,12 +133,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void myWordsCardClick(View view) {
-        startActivity(new Intent(this, MyCategoryActivity.class));
+        startActivity(new Intent(this, MyFlashcardsActivity.class));
         finish();
     }
 
     public void learningCardClick(View view) {
-        if (mFlashcardRepository.countFlashcards()==0) {
+        if (mFlashcardRepository.countFlashcards() == 0) {
             new Alert().addFiszkiToFeature(mActivity).show();
         } else {
             startActivity(new Intent(this, LearningModeActivity.class));
@@ -148,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void examCardClick(View view) {
-        if (mFlashcardRepository.countFlashcards()==0) {
+        if (mFlashcardRepository.countFlashcards() == 0) {
             new Alert().addFiszkiToFeature(mActivity).show();
         } else {
             startActivity(new Intent(this, ExamModeActivity.class));

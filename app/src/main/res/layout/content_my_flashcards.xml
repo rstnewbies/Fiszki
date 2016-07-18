@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activity.myWords.myCategory.MyCategoryActivity"
-    tools:showIn="@layout/activity_my_category">
+    tools:context=".activity.myWords.myFlashcards.MyFlashcardsActivity"
+    tools:showIn="@layout/activity_my_flashcards">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/category_listview"
+        android:id="@+id/flashcards_listview"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:divider="@android:color/transparent"
@@ -20,6 +20,5 @@
         android:background="@color/likeWhite"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true" />
-
 
 </RelativeLayout>
