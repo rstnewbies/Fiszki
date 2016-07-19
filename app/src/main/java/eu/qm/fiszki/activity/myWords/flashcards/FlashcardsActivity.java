@@ -1,4 +1,4 @@
-package eu.qm.fiszki.activity.myWords.myFlashcards;
+package eu.qm.fiszki.activity.myWords.flashcards;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,20 +12,19 @@ import android.view.View;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.activity.myWords.myCategory.CategoryShowAdapter;
 import eu.qm.fiszki.activity.MainActivity;
-import eu.qm.fiszki.dialogs.AddCategoryDialog;
+import eu.qm.fiszki.activity.myWords.category.CategoryActivity;
 import eu.qm.fiszki.model.Category;
 
-public class MyFlashcardsActivity extends AppCompatActivity {
+public class FlashcardsActivity extends AppCompatActivity {
 
     private Activity mActivity;
     private RecyclerView mRecycleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        overridePendingTransition(R.anim.right_in,R.anim.left_out);
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_my_flashcards);
         init();
         buildToolbar();
@@ -34,8 +33,9 @@ public class MyFlashcardsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        mActivity.startActivity(new Intent(this, MainActivity.class));
-        mActivity.finish();
+        mActivity.startActivity(new Intent(mActivity, CategoryActivity.class));
+
+        mActivity.overridePendingTransition(R.anim.right_out,R.anim.left_in);
     }
 
     private void init() {
@@ -50,8 +50,7 @@ public class MyFlashcardsActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mActivity.finish();
-                overridePendingTransition(R.anim.left_in,R.anim.right_out);
+               onBackPressed();
             }
         });
     }

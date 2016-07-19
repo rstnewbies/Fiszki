@@ -5,15 +5,25 @@ package eu.qm.fiszki.activity.myWords;
  */
 public class CategoryChange {
 
+    public static int clickedCategoryID;
+
     private static CategoryChange ourInstance = new CategoryChange();
+
+    private CategoryChange() {
+
+    }
 
     public static CategoryChange getInstance() {
         return ourInstance;
     }
 
-    public static int clickedCategoryID;
-
-    private CategoryChange() {
-
+    public static int get() {
+        return clickedCategoryID;
     }
+
+    public static void set(int clickedCategoryID) {
+        CategoryChange.clickedCategoryID = clickedCategoryID;
+    }
+
+
 }

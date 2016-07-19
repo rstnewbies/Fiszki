@@ -1,4 +1,4 @@
-package eu.qm.fiszki.activity.myWords.myCategory;
+package eu.qm.fiszki.activity.myWords.category;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import eu.qm.fiszki.activity.MainActivity;
 import eu.qm.fiszki.dialogs.AddCategoryDialog;
 import eu.qm.fiszki.model.Category;
 
-public class MyCategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends AppCompatActivity {
 
     private Activity mActivity;
     private RecyclerView mRecycleView;
@@ -43,12 +43,12 @@ public class MyCategoryActivity extends AppCompatActivity {
 
     private void buildToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.category_activity_title);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mActivity.startActivity(new Intent(mActivity, MainActivity.class));
-                mActivity.finish();
+               onBackPressed();
             }
         });
     }
@@ -72,7 +72,6 @@ public class MyCategoryActivity extends AppCompatActivity {
         mRecycleView.setLayoutManager(mStaggeredLayoutManager);
 
         CategoryShowAdapter adapter = new CategoryShowAdapter(this,arrayList);
-
         mRecycleView.setAdapter(adapter);
     }
 }

@@ -16,12 +16,13 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.activity.myWords.myCategory.MyCategoryActivity;
-import eu.qm.fiszki.activity.myWords.myFlashcards.MyFlashcardsActivity;
+import eu.qm.fiszki.activity.myWords.category.CategoryActivity;
+import eu.qm.fiszki.activity.myWords.flashcards.FlashcardsActivity;
 import eu.qm.fiszki.database.DBTransform;
 import eu.qm.fiszki.database.SQL.DBAdapter;
 import eu.qm.fiszki.database.SQL.DBStatus;
 import eu.qm.fiszki.drawer.DrawerMain;
+import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.FlashcardRepository;
 import io.fabric.sdk.android.Fabric;
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void myWordsCardClick(View view) {
-        startActivity(new Intent(this, MyFlashcardsActivity.class));
+        startActivity(new Intent(this, CategoryActivity.class));
         finish();
     }
 

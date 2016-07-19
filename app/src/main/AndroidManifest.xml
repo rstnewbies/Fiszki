@@ -82,17 +82,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.myWords.myCategory.MyCategoryActivity"
+            android:name=".activity.myWords.category.CategoryActivity"
             android:label="@string/category_activity_title"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.categoryjes.Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.myWords.myFlashcards.MyFlashcardsActivity"
+            android:name=".activity.myWords.flashcards.FlashcardsActivity"
             android:label="@string/title_activity_my_flashcards"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
