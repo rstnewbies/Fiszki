@@ -56,8 +56,8 @@ public class MyFlashcardsActivity extends AppCompatActivity {
         });
     }
 
-    public void addCategoryClick(View view) {
-        new AddCategoryDialog(mActivity).show();
+    public void addFlashcardsClick(View view) {
+
     }
 
     public void populateListView() {
@@ -74,9 +74,8 @@ public class MyFlashcardsActivity extends AppCompatActivity {
         StaggeredGridLayoutManager mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecycleView.setLayoutManager(mStaggeredLayoutManager);
 
-        CategoryShowAdapter adapter = new CategoryShowAdapter(this,arrayList);
+        FlashcardShowAdapter adapter = new FlashcardShowAdapter(this,arrayList);
 
         mRecycleView.setAdapter(adapter);
     }
-
 }

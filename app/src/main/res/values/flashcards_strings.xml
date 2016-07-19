@@ -3,4 +3,6 @@
 
     <string name="flashcards_activity_title"></string>
 
+    <string name="flashcards_add_button">Add new flashcards</string>
+
 </resources>
