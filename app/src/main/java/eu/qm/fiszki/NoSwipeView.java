@@ -1,0 +1,26 @@
+package eu.qm.fiszki;
+
+import android.content.Context;
+import android.support.v4.view.ViewPager;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+
+/**
+ * Created by Siusiacz on 23.07.2016.
+ */
+public class NoSwipeView extends ViewPager {
+
+    public NoSwipeView(Context context, AttributeSet attrs) {
+        super(context,attrs);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return false;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        return false;
+    }
+}

@@ -16,8 +16,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.activity.myWords.category.CategoryActivity;
-import eu.qm.fiszki.activity.myWords.flashcards.FlashcardsActivity;
 import eu.qm.fiszki.database.DBTransform;
 import eu.qm.fiszki.database.SQL.DBAdapter;
 import eu.qm.fiszki.database.SQL.DBStatus;
@@ -134,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void myWordsCardClick(View view) {
-        startActivity(new Intent(this, CategoryActivity.class));
+        startActivity(new Intent(this, MyWordsActivity.class));
         finish();
     }
 
