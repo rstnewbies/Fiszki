@@ -24,8 +24,8 @@ import eu.qm.fiszki.model.Category;
 public class MyWordsActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private NoSwipeView mViewPager;
-    private Activity mActivity;
+    private static NoSwipeView mViewPager;
+    private static Activity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +97,7 @@ public class MyWordsActivity extends AppCompatActivity {
             StaggeredGridLayoutManager mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
             mRecycleView.setLayoutManager(mStaggeredLayoutManager);
 
-            CategoryShowAdapter adapter = new CategoryShowAdapter(MyWordsActivity.this, arrayList);
+            CategoryShowAdapter adapter = new CategoryShowAdapter(mActivity, arrayList, mViewPager);
             mRecycleView.setAdapter(adapter);
         }
     }
@@ -122,9 +122,9 @@ public class MyWordsActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "Category";
                 case 1:
-                    return "SECTION 2";
+                    return "Flashcards";
             }
             return null;
         }

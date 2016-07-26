@@ -19,10 +19,12 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
 
     private final ArrayList<Category> arrayList;
     private final Activity activity;
+    private final NoSwipeView mViewPager;
 
-    public CategoryShowAdapter(Activity activity, ArrayList<Category> arrayList) {
+    public CategoryShowAdapter(Activity activity, ArrayList<Category> arrayList, NoSwipeView viewPager) {
         this.arrayList = arrayList;
         this.activity = activity;
+        mViewPager = viewPager;
     }
 
     @Override
@@ -38,7 +40,15 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        if(position!=0) {
+            holder.main.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mViewPager.setCurrentItem(2);
+                }
+            });
+        }
     }
 
     @Override
@@ -54,10 +64,10 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private RelativeLayout main;
-        private ImageView category_icon;
 
         public ViewHolder(View itemView) {
             super(itemView);
+                main = (RelativeLayout) itemView.findViewById(R.id.mainCard);
         }
     }
 }
