@@ -20,7 +20,6 @@ import eu.qm.fiszki.database.DBTransform;
 import eu.qm.fiszki.database.SQL.DBAdapter;
 import eu.qm.fiszki.database.SQL.DBStatus;
 import eu.qm.fiszki.drawer.DrawerMain;
-import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.FlashcardRepository;
 import io.fabric.sdk.android.Fabric;

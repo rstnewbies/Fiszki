@@ -1,4 +1,4 @@
-package eu.qm.fiszki;
+package eu.qm.fiszki.myWords.Category;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import eu.qm.fiszki.myWords.Flashcards.FlashcardFragment;
+import eu.qm.fiszki.myWords.Flashcards.FlashcardShowAdapter;
+import eu.qm.fiszki.myWords.NoSwipeView;
+import eu.qm.fiszki.R;
 import eu.qm.fiszki.model.Category;
 
 /**
@@ -21,7 +25,7 @@ public class CategoryFragment extends Fragment {
 
     private RecyclerView mRecycleView;
     private Activity mActivity;
-    private NoSwipeView mViewPager;
+    private NoSwipeView viewPager;
 
     public CategoryFragment() {
     }
@@ -32,8 +36,7 @@ public class CategoryFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_my_words, container, false);
         mRecycleView = (RecyclerView) rootView.findViewById(R.id.listview);
         mActivity = (Activity) inflater.getContext();
-        mViewPager = (NoSwipeView) container;
-
+        viewPager = (NoSwipeView) container;
         populateListView();
         return rootView;
     }
@@ -52,7 +55,7 @@ public class CategoryFragment extends Fragment {
         StaggeredGridLayoutManager mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecycleView.setLayoutManager(mStaggeredLayoutManager);
 
-        CategoryShowAdapter adapter = new CategoryShowAdapter(mActivity, arrayList, mViewPager);
+        CategoryShowAdapter adapter = new CategoryShowAdapter(arrayList,viewPager);
         mRecycleView.setAdapter(adapter);
     }
 }

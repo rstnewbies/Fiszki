@@ -10,11 +10,11 @@ import android.content.SharedPreferences;
 public class LocalSharedPreferences {
 
     private static String notificationPosition = "notification_time";
-    private static String notificationStatus = "notification_status";
-
     private SharedPreferences notificationPositionPreferences;
-    private SharedPreferences notificationStatusPreferences;
     private SharedPreferences.Editor notificationPositionEditor;
+
+    private static String notificationStatus = "notification_status";
+    private SharedPreferences notificationStatusPreferences;
     private SharedPreferences.Editor notificationStatusEditor;
 
     public LocalSharedPreferences(Activity activity) {

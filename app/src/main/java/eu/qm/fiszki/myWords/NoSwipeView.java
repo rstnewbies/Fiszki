@@ -1,4 +1,4 @@
-package eu.qm.fiszki;
+package eu.qm.fiszki.myWords;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

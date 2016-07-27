@@ -7,21 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
-import eu.qm.fiszki.CategoryShowAdapter;
-import eu.qm.fiszki.CategoryFragment;
-import eu.qm.fiszki.FlashcardFragment;
-import eu.qm.fiszki.NoSwipeView;
+import eu.qm.fiszki.myWords.Category.CategoryFragment;
+import eu.qm.fiszki.myWords.Flashcards.FlashcardFragment;
+import eu.qm.fiszki.myWords.NoSwipeView;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.model.Category;
 
 public class MyWordsActivity extends AppCompatActivity {
 
@@ -43,10 +35,16 @@ public class MyWordsActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
     }
 
+
+
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(mActivity, MainActivity.class));
-        finish();
+        if(mViewPager.getCurrentItem()==0) {
+            startActivity(new Intent(mActivity, MainActivity.class));
+            finish();
+        }else{
+            mViewPager.setCurrentItem(0);
+        }
     }
 
     private void buildToolbar() {
@@ -74,10 +72,8 @@ public class MyWordsActivity extends AppCompatActivity {
                 case 1:
                     return new FlashcardFragment();
                 default:
-                    throw new IllegalArgumentException("Wrong fragment postion!!!");
+                    throw new IllegalArgumentException("Wrong position");
             }
-
-
         }
 
         @Override
