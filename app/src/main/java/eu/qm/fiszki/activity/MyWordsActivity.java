@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.CategoryShowAdapter;
+import eu.qm.fiszki.CategoryFragment;
+import eu.qm.fiszki.FlashcardFragment;
 import eu.qm.fiszki.NoSwipeView;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.model.Category;
@@ -58,50 +60,6 @@ public class MyWordsActivity extends AppCompatActivity {
         });
     }
 
-    public static class PlaceholderFragment extends Fragment {
-
-        private static final String ARG_SECTION_NUMBER = "section_number";
-        private RecyclerView mRecycleView;
-
-        public PlaceholderFragment() {
-        }
-
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_my_words, container, false);
-            mRecycleView = (RecyclerView) rootView.findViewById(R.id.listview);
-            populateListView();
-            return rootView;
-        }
-
-        private void populateListView() {
-
-            ArrayList<Category> arrayList = new ArrayList<>();
-            Category button = new Category("", false, false);
-
-            arrayList.add(button);
-            arrayList.add(button);
-            arrayList.add(button);
-            arrayList.add(button);
-            arrayList.add(button);
-
-            StaggeredGridLayoutManager mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-            mRecycleView.setLayoutManager(mStaggeredLayoutManager);
-
-            CategoryShowAdapter adapter = new CategoryShowAdapter(mActivity, arrayList, mViewPager);
-            mRecycleView.setAdapter(adapter);
-        }
-    }
-
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -110,7 +68,16 @@ public class MyWordsActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position){
+                case 0:
+                    return new CategoryFragment();
+                case 1:
+                    return new FlashcardFragment();
+                default:
+                    throw new IllegalArgumentException("Wrong fragment postion!!!");
+            }
+
+
         }
 
         @Override
