@@ -18,10 +18,10 @@ import eu.qm.fiszki.myWords.NoSwipeView;
  */
 public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdapter.ViewHolder> {
 
-    private ArrayList<Category> mArrayList;
+    private ArrayList<Flashcard> mArrayList;
     private NoSwipeView mView;
 
-    public FlashcardShowAdapter(ArrayList<Category> arrayList, NoSwipeView view) {
+    public FlashcardShowAdapter(ArrayList<Flashcard> arrayList, NoSwipeView view) {
         mArrayList = arrayList;
         mView = view;
     }
@@ -30,10 +30,10 @@ public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdap
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         if (viewType == 0) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_add_button, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.flashacards_add_button, parent, false);
             return new ViewHolder(view);
         } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_show_adapter, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.flashcards_show_adapter, parent, false);
             return new ViewHolder(view);
         }
     }

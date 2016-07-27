@@ -1,9 +1,7 @@
 package eu.qm.fiszki.myWords.Flashcards;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -14,7 +12,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.model.Category;
+import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.myWords.NoSwipeView;
 
 /**
@@ -40,8 +38,8 @@ public class FlashcardFragment extends Fragment {
 
     private void populateListView() {
 
-        ArrayList<Category> arrayList = new ArrayList<>();
-        Category button = new Category("", false, false);
+        ArrayList<Flashcard> arrayList = new ArrayList<>();
+        Flashcard button = new Flashcard("","",0,0);
 
         arrayList.add(button);
         arrayList.add(button);

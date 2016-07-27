@@ -35,8 +35,6 @@ public class MyWordsActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
     }
 
-
-
     @Override
     public void onBackPressed() {
         if(mViewPager.getCurrentItem()==0) {
