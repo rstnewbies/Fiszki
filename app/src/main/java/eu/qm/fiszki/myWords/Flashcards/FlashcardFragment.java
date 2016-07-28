@@ -8,11 +8,13 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.model.Flashcard;
+import eu.qm.fiszki.myWords.CategoryManager;
 import eu.qm.fiszki.myWords.NoSwipeView;
 
 /**
@@ -36,7 +38,11 @@ public class FlashcardFragment extends Fragment {
         return rootView;
     }
 
+
+
     private void populateListView() {
+
+        Toast.makeText(getContext(),""+ CategoryManager.getClickedCategoryId(),Toast.LENGTH_SHORT).show();
 
         ArrayList<Flashcard> arrayList = new ArrayList<>();
         Flashcard button = new Flashcard("","",0,0);

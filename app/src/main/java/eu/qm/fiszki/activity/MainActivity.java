@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Slide;
+import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,6 +18,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.activity.myWords.ScrollingActivity;
 import eu.qm.fiszki.database.DBTransform;
 import eu.qm.fiszki.database.SQL.DBAdapter;
 import eu.qm.fiszki.database.SQL.DBStatus;
@@ -131,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void myWordsCardClick(View view) {
-        startActivity(new Intent(this, MyWordsActivity.class));
+        startActivity(new Intent(this, ScrollingActivity.class));
         finish();
     }
 

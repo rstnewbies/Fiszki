@@ -44,18 +44,17 @@ public class CategoryFragment extends Fragment {
     private void populateListView() {
 
         ArrayList<Category> arrayList = new ArrayList<>();
-        Category button = new Category("", false, false);
-
-        arrayList.add(button);
-        arrayList.add(button);
-        arrayList.add(button);
-        arrayList.add(button);
-        arrayList.add(button);
+        Category one = new Category(1,"", false, false);
+        Category two = new Category(2,"", false, false);
+        Category three = new Category(3,"", false, false);
+        arrayList.add(one);
+        arrayList.add(two);
+        arrayList.add(three);
 
         StaggeredGridLayoutManager mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecycleView.setLayoutManager(mStaggeredLayoutManager);
 
-        CategoryShowAdapter adapter = new CategoryShowAdapter(arrayList,viewPager);
+        CategoryShowAdapter adapter = new CategoryShowAdapter(arrayList);
         mRecycleView.setAdapter(adapter);
     }
 }

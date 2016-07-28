@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.model.Category;
+import eu.qm.fiszki.myWords.CategoryManager;
 import eu.qm.fiszki.myWords.NoSwipeView;
 
 /**
@@ -20,8 +21,7 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
     private ArrayList<Category> mArrayList;
     private NoSwipeView mView;
 
-    public CategoryShowAdapter(ArrayList<Category> arrayList,NoSwipeView view) {
-        mView = view;
+    public CategoryShowAdapter(ArrayList<Category> arrayList) {
         mArrayList = arrayList;
     }
 
@@ -43,6 +43,7 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
             holder.main.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    CategoryManager.setClickedCategoryId(mArrayList.get(position).getId());
                     mView.setCurrentItem(1);
                 }
             });

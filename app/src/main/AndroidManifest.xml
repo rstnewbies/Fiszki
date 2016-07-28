@@ -92,6 +92,11 @@
         <activity
             android:name=".activity.MyWordsActivity"
             android:label="@string/title_activity_my_words"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.myWords.CategoryActivity" />
+        <activity
+            android:name=".activity.myWords.ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
