@@ -134,8 +134,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void myWordsCardClick(View view) {
-        startActivity(new Intent(this, ScrollingActivity.class));
-        finish();
+        mActivity.startActivity(new Intent(this, ScrollingActivity.class));
+        mActivity.finish();
+        mActivity.overridePendingTransition(R.anim.right_out,R.anim.left_in);
     }
 
     public void learningCardClick(View view) {
