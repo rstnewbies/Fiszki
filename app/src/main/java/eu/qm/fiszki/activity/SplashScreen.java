@@ -9,6 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.tutorial.TutorialActivity;
 
 public class SplashScreen extends AppCompatActivity {
 

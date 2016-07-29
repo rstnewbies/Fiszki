@@ -1,4 +1,4 @@
-package eu.qm.fiszki.activity.myWords;
+package eu.qm.fiszki.myWords.flashcards;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,9 +16,11 @@ import java.util.ArrayList;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.MainActivity;
 import eu.qm.fiszki.model.Category;
-import eu.qm.fiszki.myWords.Category.CategoryShowAdapter;
+import eu.qm.fiszki.model.Flashcard;
+import eu.qm.fiszki.myWords.category.CategoryActivity;
+import eu.qm.fiszki.myWords.category.CategoryShowAdapter;
 
-public class ScrollingActivity extends AppCompatActivity {
+public class FlashcardsActivity extends AppCompatActivity {
 
     private Activity mActivity;
 
@@ -39,20 +41,33 @@ public class ScrollingActivity extends AppCompatActivity {
         });
 
 
-        ArrayList<Category> arrayList = new ArrayList<>();
-        Category one = new Category(1, "", false, false);
-        Category two = new Category(2, "", false, false);
-        Category three = new Category(3, "", false, false);
+        ArrayList<Flashcard> arrayList = new ArrayList<>();
+        Flashcard one = new Flashcard();
+        Flashcard two = new Flashcard();
+        Flashcard three = new Flashcard();
         arrayList.add(one);
+
         arrayList.add(two);
+        arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);
+
+
+
+
 
         RecyclerView mRecycleView = (RecyclerView) findViewById(R.id.listview);
 
         StaggeredGridLayoutManager mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecycleView.setLayoutManager(mStaggeredLayoutManager);
 
-        CategoryShowAdapter adapter = new CategoryShowAdapter(arrayList);
+        FlashcardShowAdapter adapter = new FlashcardShowAdapter(mActivity,arrayList);
         mRecycleView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        mActivity.startActivity(new Intent(mActivity,CategoryActivity.class));
+        mActivity.finish();
+        mActivity.overridePendingTransition(R.anim.right_out,R.anim.left_in);
     }
 
     private void buildToolbar(){
@@ -62,9 +77,7 @@ public class ScrollingActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mActivity.startActivity(new Intent(mActivity,MainActivity.class));
-                mActivity.finish();
-                mActivity.overridePendingTransition(R.anim.right_in,R.anim.left_out);
+                onBackPressed();
             }
         });
     }

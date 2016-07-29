@@ -9,7 +9,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.activity.TutorialActivity;
+import eu.qm.fiszki.tutorial.TutorialActivity;
 
 /**
  * Created by Siusiacz on 09.07.2016.

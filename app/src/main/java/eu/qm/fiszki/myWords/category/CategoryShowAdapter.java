@@ -1,5 +1,7 @@
-package eu.qm.fiszki.myWords.Flashcards;
+package eu.qm.fiszki.myWords.category;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,32 +10,34 @@ import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
-import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.model.Category;
+import eu.qm.fiszki.model.Flashcard;
+import eu.qm.fiszki.myWords.CategoryManager;
 import eu.qm.fiszki.myWords.NoSwipeView;
+import eu.qm.fiszki.myWords.flashcards.FlashcardsActivity;
 
 /**
  * Created by tm on 15.07.16.
  */
-public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdapter.ViewHolder> {
+public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapter.ViewHolder> {
 
-    private ArrayList<Flashcard> mArrayList;
-    private NoSwipeView mView;
+    private ArrayList<Category> mArrayList;
+    private Activity mActivity;
 
-    public FlashcardShowAdapter(ArrayList<Flashcard> arrayList, NoSwipeView view) {
+    public CategoryShowAdapter(Activity activity,ArrayList<Category> arrayList) {
         mArrayList = arrayList;
-        mView = view;
+        mActivity = activity;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         if (viewType == 0) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.flashacards_add_button, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_add_button, parent, false);
             return new ViewHolder(view);
         } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.flashcards_show_adapter, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_show_adapter, parent, false);
             return new ViewHolder(view);
         }
     }
@@ -44,6 +48,10 @@ public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdap
             holder.main.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    CategoryManager.setClickedCategoryId(mArrayList.get(position).getId());
+                    mActivity.startActivity(new Intent(mActivity,FlashcardsActivity.class));
+                    mActivity.finish();
+                    mActivity.overridePendingTransition(R.anim.right_in,R.anim.left_out);
                 }
             });
         }

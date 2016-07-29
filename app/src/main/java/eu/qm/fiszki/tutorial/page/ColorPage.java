@@ -1,4 +1,4 @@
-package eu.qm.fiszki.tutorial;
+package eu.qm.fiszki.tutorial.page;
 
 /**
  * Created by bgood on 2016-04-14.

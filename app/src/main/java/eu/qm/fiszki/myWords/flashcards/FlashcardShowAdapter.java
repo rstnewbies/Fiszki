@@ -1,5 +1,6 @@
-package eu.qm.fiszki.myWords.Category;
+package eu.qm.fiszki.myWords.flashcards;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,31 +9,31 @@ import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
+import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.model.Category;
-import eu.qm.fiszki.myWords.CategoryManager;
 import eu.qm.fiszki.myWords.NoSwipeView;
 
 /**
  * Created by tm on 15.07.16.
  */
-public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapter.ViewHolder> {
+public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdapter.ViewHolder> {
 
-    private ArrayList<Category> mArrayList;
-    private NoSwipeView mView;
+    private ArrayList<Flashcard> mArrayList;
+    private Activity mActivity;
 
-    public CategoryShowAdapter(ArrayList<Category> arrayList) {
+    public FlashcardShowAdapter(Activity activity,ArrayList<Flashcard> arrayList) {
         mArrayList = arrayList;
+        mActivity = activity;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         if (viewType == 0) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_add_button, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.flashacards_add_button, parent, false);
             return new ViewHolder(view);
         } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_show_adapter, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.flashcards_show_adapter, parent, false);
             return new ViewHolder(view);
         }
     }
@@ -43,8 +44,6 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
             holder.main.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    CategoryManager.setClickedCategoryId(mArrayList.get(position).getId());
-                    mView.setCurrentItem(1);
                 }
             });
         }

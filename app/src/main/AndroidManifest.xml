@@ -22,7 +22,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:label">
         <activity
-            android:name=".activity.AddWordActivity"
+            android:name=".addWord.AddWordActivity"
             android:label="@string/add_new_word_title"
             android:screenOrientation="portrait" />
         <activity
@@ -58,7 +58,7 @@
             android:label="@string/learning_mode_title"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.TutorialActivity"
+            android:name=".tutorial.TutorialActivity"
             android:label="@string/tutorial_title"
             android:screenOrientation="portrait" />
 
@@ -82,22 +82,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.myWords.category.CategoryActivity"
+            android:name=".myWords.category.CategoryActivity"
             android:label="@string/category_activity_title"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.myWords.flashcards.FlashcardsActivity"
+            android:name=".myWords.flashcards.FlashcardsActivity"
             android:label="@string/title_activity_my_flashcards"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.MyWordsActivity"
-            android:label="@string/title_activity_my_words"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.myWords.CategoryActivity" />
-        <activity
-            android:name=".activity.myWords.ScrollingActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

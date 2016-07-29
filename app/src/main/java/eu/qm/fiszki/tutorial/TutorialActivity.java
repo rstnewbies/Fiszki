@@ -1,4 +1,4 @@
-package eu.qm.fiszki.activity;
+package eu.qm.fiszki.tutorial;
 
 /**
  * Created by bgood on 2016-04-14.
@@ -12,7 +12,8 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.tutorial.ColorPage;
+import eu.qm.fiszki.activity.MainActivity;
+import eu.qm.fiszki.tutorial.page.ColorPage;
 
 public class TutorialActivity extends AppCompatActivity {
 
