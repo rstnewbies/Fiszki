@@ -25,19 +25,10 @@ public class CategoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scrolling);
+        setContentView(R.layout.category_activity);
         mActivity = this;
         buildToolbar();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
+        buildFAB();
 
         ArrayList<Category> arrayList = new ArrayList<>();
         Category one = new Category(1, "", false, false);
@@ -59,6 +50,17 @@ public class CategoryActivity extends AppCompatActivity {
     public void onBackPressed() {
         mActivity.startActivity(new Intent(mActivity, FlashcardsActivity.class));
         mActivity.finish();
+    }
+
+    private void buildFAB() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
     }
 
     private void buildToolbar(){

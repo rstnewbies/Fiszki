@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.myWords.NoSwipeView;
 
 /**
  * Created by tm on 15.07.16.
@@ -30,7 +29,7 @@ public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdap
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         if (viewType == 0) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.flashacards_add_button, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.flashcards_add_button, parent, false);
             return new ViewHolder(view);
         } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.flashcards_show_adapter, parent, false);

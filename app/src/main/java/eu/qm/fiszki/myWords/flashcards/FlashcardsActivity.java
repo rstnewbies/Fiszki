@@ -14,11 +14,8 @@ import android.view.View;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.activity.MainActivity;
-import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.myWords.category.CategoryActivity;
-import eu.qm.fiszki.myWords.category.CategoryShowAdapter;
 
 public class FlashcardsActivity extends AppCompatActivity {
 
@@ -27,19 +24,10 @@ public class FlashcardsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scrolling);
+        setContentView(R.layout.flashcards_activity);
         mActivity = this;
         buildToolbar();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
+        buildFAB();
 
         ArrayList<Flashcard> arrayList = new ArrayList<>();
         Flashcard one = new Flashcard();
@@ -49,10 +37,6 @@ public class FlashcardsActivity extends AppCompatActivity {
 
         arrayList.add(two);
         arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);
-
-
-
-
 
         RecyclerView mRecycleView = (RecyclerView) findViewById(R.id.listview);
 
@@ -68,6 +52,17 @@ public class FlashcardsActivity extends AppCompatActivity {
         mActivity.startActivity(new Intent(mActivity,CategoryActivity.class));
         mActivity.finish();
         mActivity.overridePendingTransition(R.anim.right_out,R.anim.left_in);
+    }
+
+    private void buildFAB() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
     }
 
     private void buildToolbar(){
