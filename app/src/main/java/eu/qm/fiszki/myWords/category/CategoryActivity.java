@@ -10,17 +10,20 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.MainActivity;
+import eu.qm.fiszki.dialogs.AddCategoryDialog;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.myWords.flashcards.FlashcardsActivity;
 
 public class CategoryActivity extends AppCompatActivity {
 
     private Activity mActivity;
+    RecyclerView mRecycleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,36 +32,28 @@ public class CategoryActivity extends AppCompatActivity {
         mActivity = this;
         buildToolbar();
         buildFAB();
+        buildList();
+    }
 
-        ArrayList<Category> arrayList = new ArrayList<>();
-        Category one = new Category(1, "", false, false);
-        Category two = new Category(2, "", false, false);
-        Category three = new Category(3, "", false, false);
-        arrayList.add(one);
-        arrayList.add(two);
-
-        RecyclerView mRecycleView = (RecyclerView) findViewById(R.id.listview);
-
-        StaggeredGridLayoutManager mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        mRecycleView.setLayoutManager(mStaggeredLayoutManager);
-
-        CategoryShowAdapter adapter = new CategoryShowAdapter(mActivity,arrayList);
-        mRecycleView.setAdapter(adapter);
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if(hasFocus){
+            updateList();
+        }
     }
 
     @Override
     public void onBackPressed() {
-        mActivity.startActivity(new Intent(mActivity, FlashcardsActivity.class));
+        mActivity.startActivity(new Intent(mActivity, MainActivity.class));
         mActivity.finish();
     }
 
     private void buildFAB() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addFAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                new AddCategoryDialog(mActivity).show();
             }
         });
     }
@@ -70,9 +65,22 @@ public class CategoryActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mActivity.startActivity(new Intent(mActivity,MainActivity.class));
-                mActivity.finish();
+                onBackPressed();
             }
         });
+    }
+
+    private void buildList() {
+        mRecycleView = (RecyclerView) findViewById(R.id.listview);
+        StaggeredGridLayoutManager mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        mRecycleView.setLayoutManager(mStaggeredLayoutManager);
+    }
+
+    private void updateList() {
+        ArrayList<Category> arrayList = new ArrayList<>();
+        Category one = new Category(1, "", false, false);
+        arrayList.add(one);
+        CategoryShowAdapter adapter = new CategoryShowAdapter(mActivity,arrayList);
+        mRecycleView.swapAdapter(adapter,false);
     }
 }

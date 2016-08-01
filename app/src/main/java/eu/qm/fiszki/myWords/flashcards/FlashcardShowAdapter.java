@@ -9,8 +9,8 @@ import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
-import eu.qm.fiszki.model.Flashcard;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.model.Flashcard;
 
 /**
  * Created by tm on 15.07.16.
@@ -20,32 +20,24 @@ public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdap
     private ArrayList<Flashcard> mArrayList;
     private Activity mActivity;
 
-    public FlashcardShowAdapter(Activity activity,ArrayList<Flashcard> arrayList) {
+    public FlashcardShowAdapter(Activity activity, ArrayList<Flashcard> arrayList) {
         mArrayList = arrayList;
         mActivity = activity;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        if (viewType == 0) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.flashcards_add_button, parent, false);
-            return new ViewHolder(view);
-        } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.flashcards_show_adapter, parent, false);
-            return new ViewHolder(view);
-        }
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.flashcards_show_adapter, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        if(position!=0) {
-            holder.main.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                }
-            });
-        }
+        holder.main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
     }
 
     @Override
@@ -64,7 +56,7 @@ public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdap
 
         public ViewHolder(View itemView) {
             super(itemView);
-                main = (RelativeLayout) itemView.findViewById(R.id.mainCard);
+            main = (RelativeLayout) itemView.findViewById(R.id.mainCard);
         }
     }
 }

@@ -20,6 +20,7 @@ import eu.qm.fiszki.myWords.category.CategoryActivity;
 public class FlashcardsActivity extends AppCompatActivity {
 
     private Activity mActivity;
+    private RecyclerView mRecycleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,23 +29,15 @@ public class FlashcardsActivity extends AppCompatActivity {
         mActivity = this;
         buildToolbar();
         buildFAB();
+        buildListView();
 
-        ArrayList<Flashcard> arrayList = new ArrayList<>();
-        Flashcard one = new Flashcard();
-        Flashcard two = new Flashcard();
-        Flashcard three = new Flashcard();
-        arrayList.add(one);
+    }
 
-        arrayList.add(two);
-        arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);arrayList.add(two);
-
-        RecyclerView mRecycleView = (RecyclerView) findViewById(R.id.listview);
-
-        StaggeredGridLayoutManager mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        mRecycleView.setLayoutManager(mStaggeredLayoutManager);
-
-        FlashcardShowAdapter adapter = new FlashcardShowAdapter(mActivity,arrayList);
-        mRecycleView.setAdapter(adapter);
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if(hasFocus){
+            updateListView();
+        }
     }
 
     @Override
@@ -56,11 +49,10 @@ public class FlashcardsActivity extends AppCompatActivity {
 
     private void buildFAB() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setImageResource(R.drawable.plusbutton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
     }
@@ -75,5 +67,21 @@ public class FlashcardsActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+    }
+
+    private void buildListView() {
+        mRecycleView = (RecyclerView) findViewById(R.id.listview);
+        StaggeredGridLayoutManager mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        mRecycleView.setLayoutManager(mStaggeredLayoutManager);
+    }
+
+    private void updateListView() {
+        ArrayList<Flashcard> arrayList = new ArrayList<>();
+        Flashcard one = new Flashcard();
+        Flashcard two = new Flashcard();
+        arrayList.add(one);
+        arrayList.add(two);
+        FlashcardShowAdapter adapter = new FlashcardShowAdapter(mActivity,arrayList);
+        mRecycleView.swapAdapter(adapter,false);
     }
 }
