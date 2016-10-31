@@ -10,9 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import eu.qm.fiszki.activity.MainActivity;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.Flashcard;
 
@@ -66,6 +64,13 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             }
             textTranslation.setText(flashcards.get(childPosition).getTranslation());
             textWord.setText(flashcards.get(childPosition).getWord());
+            if(flashcards.get(childPosition).getPriority()==5){
+                textTranslation.setTextColor(activity.getResources().getColor(R.color.shadow));
+                textWord.setTextColor(activity.getResources().getColor(R.color.shadow));
+            }else{
+                textTranslation.setTextColor(activity.getResources().getColor(R.color.black));
+                textWord.setTextColor(activity.getResources().getColor(R.color.black));
+            }
             convertView.setClickable(false);
 
         }

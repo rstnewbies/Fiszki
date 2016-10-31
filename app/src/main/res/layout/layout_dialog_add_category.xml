@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,17 +8,22 @@
     android:background="@color/White"
     android:layout_weight="0.05">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/categoryName"
-            android:maxLines="1"
-            android:inputType="textImeMultiLine"
-            android:layout_below="@+id/textView8"
-            android:layout_centerHorizontal="true"
-            android:layout_marginRight="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginBottom="20dp" />
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/categoryName"
+        android:hint="@string/add_new_category_name"
+        app:met_floatingLabel="highlight"
+        app:met_singleLineEllipsis="true"
+        app:met_primaryColor="@color/ColorPrimaryDark"
+        app:met_floatingLabelTextSize="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -30,20 +35,9 @@
             android:layout_below="@+id/categoryName"
             android:layout_alignRight="@+id/categoryName"
             android:layout_alignEnd="@+id/categoryName"
-            android:layout_toRightOf="@+id/textView8"
             android:layout_alignLeft="@+id/categoryName"
             android:layout_alignStart="@+id/categoryName" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/add_new_category_name"
-            android:id="@+id/textView8"
-            android:layout_alignParentTop="true"
-            android:layout_alignLeft="@+id/categoryName"
-            android:layout_alignStart="@+id/categoryName"
-            android:layout_marginTop="8dp" />
     </RelativeLayout>
 
 

@@ -14,6 +14,7 @@
     <string name="main_activity_title_seleced_record">Selected</string>
     <string name="title_activity_learning_mode">LearningModeActivity</string>
     <string name="main_activity_empty_group">This group is empty.</string>
+    <string name="start_loading">LOADING…</string>
 
 </resources>
 

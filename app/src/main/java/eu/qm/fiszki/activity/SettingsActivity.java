@@ -67,7 +67,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         addPreferencesFromResource(R.xml.pref_settings);
         sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-
         activity = this;
         context = this;
         alert = new Alert();
@@ -288,8 +287,27 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 return false;
             }
         });
+        //Clear database
+        cleanerDataBase = findPreference(getResources().getString(R.string.settings_key_data_base));
+        if (flashcardRepository.countFlashcards() > 0 || categoryRepository.countCategory() > 2) {
+            cleanerDataBase.setEnabled(true);
+        } else {
+            cleanerDataBase.setEnabled(false);
+        }
+
+        //Tutorial
+        pref = findPreference(getResources().getString(R.string.settings_key_tutorial));
+        pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent goTutorial = new Intent(activity, TutorialActivity.class);
+                activity.startActivity(goTutorial);
+                return false;
+            }
+        });
 
         //Version
+
         pref = findPreference(getResources().getString(R.string.settings_key_version));
         PackageManager manager = this.getPackageManager();
         PackageInfo info = null;
@@ -300,14 +318,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         }
         String version = info.versionName;
         pref.setSummary(version);
-
-        //Clear database
-        cleanerDataBase = findPreference(getResources().getString(R.string.settings_key_data_base));
-        if (flashcardRepository.countFlashcards() > 0 || categoryRepository.countCategory() > 2) {
-            cleanerDataBase.setEnabled(true);
-        } else {
-            cleanerDataBase.setEnabled(false);
-        }
     }
 
     public void clearDataBase() {

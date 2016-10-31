@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:weightSum="1">
 
     <RelativeLayout
@@ -9,33 +10,37 @@
         android:layout_height="327dp"
         android:background="@color/White">
 
-        <EditText
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editOrginal"
-            android:maxLines="1"
-            android:inputType="textImeMultiLine"
-            android:layout_above="@+id/textView6"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginLeft="24dp" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/editTranslate"
-            android:text=""
-            android:maxLines="1"
-            android:inputType="textImeMultiLine"
-            android:layout_above="@+id/textView5"
-            android:layout_marginBottom="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
+            android:hint="@string/add_new_word_word"
+            app:met_floatingLabel="highlight"
+            app:met_singleLineEllipsis="true"
+            app:met_primaryColor="@color/ColorPrimaryDark"
+            android:layout_below="@+id/inputWord"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginRight="24dp"
-            android:layout_marginLeft="24dp" />
+            app:met_floatingLabelTextSize="17dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
+
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTranslate"
+            android:hint="@string/add_new_word_translation"
+            app:met_floatingLabel="highlight"
+            app:met_singleLineEllipsis="true"
+            app:met_primaryColor="@color/ColorPrimaryDark"
+            app:met_floatingLabelTextSize="17dp"
+            android:layout_below="@+id/editOrginal"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -44,25 +49,27 @@
             style="?android:attr/borderlessButtonStyle"
             android:textSize="20sp"
             android:id="@+id/editButton"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="8dp"
+            android:layout_below="@+id/editFlashcardSpinner"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginRight="24dp"
-            android:layout_marginLeft="24dp" />
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp" />
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/editFlashcardSpinner"
-            android:layout_above="@+id/editButton"
-            android:layout_marginBottom="20dp"
-            android:layout_alignRight="@+id/editButton"
-            android:layout_alignEnd="@+id/editButton"
-            android:layout_alignLeft="@+id/editButton"
-            android:layout_alignStart="@+id/editButton" />
+            android:layout_below="@+id/textView5"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -70,29 +77,10 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/add_new_word_category"
             android:id="@+id/textView5"
-            android:layout_above="@+id/editFlashcardSpinner"
+            android:layout_below="@+id/editTranslate"
             android:layout_alignLeft="@+id/editFlashcardSpinner"
-            android:layout_alignStart="@+id/editFlashcardSpinner" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/add_new_word_info"
-            android:id="@+id/textView6"
-            android:layout_above="@+id/editTranslate"
-            android:layout_alignLeft="@+id/editTranslate"
-            android:layout_alignStart="@+id/editTranslate" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/add_new_word_word"
-            android:id="@+id/textView7"
-            android:layout_above="@+id/editOrginal"
-            android:layout_alignLeft="@+id/editOrginal"
-            android:layout_alignStart="@+id/editOrginal" />
+            android:layout_alignStart="@+id/editFlashcardSpinner"
+            android:textSize="17dp" />
 
     </RelativeLayout>
 </LinearLayout>

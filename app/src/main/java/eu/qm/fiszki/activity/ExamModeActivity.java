@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -204,7 +203,7 @@ public class ExamModeActivity extends AppCompatActivity {
                 randomStringDraw();
             }
             if (percent <= 49 && percent >= 30) {
-                strs = new int[]{R.string.statistic_b1, R.string.statistic_b2, R.string.statistic_b3, R.string.statistic_b4, R.string.statistic_b5, R.string.statistic_b6};
+                strs = new int[]{R.string.statistic_b1, R.string.statistic_b2, R.string.statistic_b3, R.string.statistic_b4, R.string.statistic_b5};
                 randomStringDraw();
             }
             if (percent <= 30 && percent >= 0) {

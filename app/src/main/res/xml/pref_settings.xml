@@ -25,6 +25,20 @@
         android:enabled="false"
         />
  <PreferenceCategory
+        android:title="@string/settings_title_support"
+        />
+    <Preference
+        android:key="@string/settings_key_tutorial"
+        android:title="@string/tutorial_introduction"
+        android:summary="@string/settings_tutorial_info"
+        android:enabled="true"
+        />
+    <Preference
+        android:key="@string/settings_key_contact"
+        android:title="@string/settings_contact_us"
+        android:enabled="true"
+        />
+    <PreferenceCategory
         android:title="@string/settings_category_about"
         />
     <EditTextPreference
@@ -32,14 +46,6 @@
         android:title="@string/settings_title_version"
         android:summary=" "
         android:enabled="false"
-        />
- <PreferenceCategory
-        android:title="@string/settings_title_support"
-        />
-    <Preference
-        android:key="@string/settings_key_contact"
-        android:title="@string/settings_contact_us"
-        android:enabled="true"
         />
 
 

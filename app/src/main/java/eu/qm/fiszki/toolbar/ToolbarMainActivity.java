@@ -11,6 +11,7 @@ import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.ExamModeActivity;
 import eu.qm.fiszki.activity.LearningModeActivity;
 import eu.qm.fiszki.activity.SettingsActivity;
+import eu.qm.fiszki.activity.TutorialActivity;
 import eu.qm.fiszki.model.FlashcardRepository;
 
 /**
