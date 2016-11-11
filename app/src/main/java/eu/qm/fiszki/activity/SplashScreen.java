@@ -19,35 +19,23 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-        getSupportActionBar().hide();
 
         timer = new Timer();
 
         SharedPreferences runCheck = getSharedPreferences("hasRunBefore", 0);
         Boolean hasRun = runCheck.getBoolean("hasRun", false);
         if (!hasRun) {
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    SharedPreferences settings = getSharedPreferences("hasRunBefore", 0);
-                    SharedPreferences.Editor edit = settings.edit();
-                    edit.putBoolean("hasRun", true);
-                    edit.commit();
-                    Intent tutorial = new Intent(SplashScreen.this, TutorialActivity.class);
-                    startActivity(tutorial);
-                    finish();
-                }
-            }, 3000);
+            SharedPreferences settings = getSharedPreferences("hasRunBefore", 0);
+            SharedPreferences.Editor edit = settings.edit();
+            edit.putBoolean("hasRun", true);
+            edit.commit();
+            Intent tutorial = new Intent(SplashScreen.this, TutorialActivity.class);
+            startActivity(tutorial);
+            finish();
         } else {
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Intent tutorial = new Intent(SplashScreen.this, MainActivity.class);
-                    startActivity(tutorial);
-                    finish();
-                }
-            },1000);
-
+            Intent tutorial = new Intent(SplashScreen.this, MainActivity.class);
+            startActivity(tutorial);
+            finish();
         }
     }
 }

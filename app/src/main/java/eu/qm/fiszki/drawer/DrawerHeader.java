@@ -13,6 +13,6 @@ public class DrawerHeader extends AccountHeaderBuilder {
 
     public DrawerHeader(Activity activity) {
         this.withActivity(activity);
-        this.withHeaderBackground(R.color.ColorPrimary);
+        this.withHeaderBackground(R.drawable.header_background);
     }
 }

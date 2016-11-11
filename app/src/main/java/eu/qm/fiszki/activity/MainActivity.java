@@ -18,18 +18,12 @@ import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.addWord.AddWordActivity;
 import eu.qm.fiszki.myWords.category.CategoryActivity;
-import eu.qm.fiszki.database.DBTransform;
-import eu.qm.fiszki.database.SQL.DBAdapter;
-import eu.qm.fiszki.database.SQL.DBStatus;
 import eu.qm.fiszki.drawer.DrawerMain;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.FlashcardRepository;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
-
-    static private DBAdapter mMyDb;
-    static private DBStatus mOpenDataBase;
 
     private FloatingActionButton mFab;
     private Toolbar mToolbar;
@@ -70,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         Apptentive.onStart(this);
         mCategoryRepository.addSystemCategory();
-        new DBTransform(mMyDb, mActivity);
         Apptentive.engage(this, "changelog");
         Apptentive.engage(this, "notes");
     }
@@ -89,10 +82,6 @@ public class MainActivity extends AppCompatActivity {
         mActivity = this;
         mCategoryRepository = new CategoryRepository(mActivity);
         mFlashcardRepository = new FlashcardRepository(mActivity);
-
-        mOpenDataBase = new DBStatus();
-        mMyDb = new DBAdapter(mActivity);
-        mOpenDataBase.openDB(mMyDb);
 
         mCountBackPress = 0;
     }

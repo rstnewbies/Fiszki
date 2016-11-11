@@ -28,8 +28,6 @@ import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.ShowCategoryAdapter;
 import eu.qm.fiszki.algorithm.Algorithm;
 import eu.qm.fiszki.algorithm.CatcherFlashcardToAlgorithm;
-import eu.qm.fiszki.database.SQL.DBAdapter;
-import eu.qm.fiszki.database.SQL.DBStatus;
 import eu.qm.fiszki.model.Category;
 import eu.qm.fiszki.model.CategoryRepository;
 import eu.qm.fiszki.model.Flashcard;
@@ -39,18 +37,13 @@ public class LearningModeActivity extends AppCompatActivity {
 
     TextView word;
     EditText enteredWord;
-    DBAdapter myDb = new DBAdapter(this);
-    DBStatus OpenDataBase = new DBStatus();
     FlashcardRepository flashcardRepository;
     String wordFromData;
     String expectedWord;
     Rules rules = new Rules();
     String randomString;
-    Checker check;
     Alert message;
     Context context;
-    Cursor c;
-    int position = 0;
     Flashcard flashcard;
     Algorithm algorithm;
     Menu menu;

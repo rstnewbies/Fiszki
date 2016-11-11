@@ -74,7 +74,8 @@
             android:name="com.crashlytics.ApiKey"
             android:value="636cb55b03dfc21cb66f05fa419c44f7f89fee1b" />
 
-        <activity android:name=".activity.SplashScreen">
+        <activity android:name=".activity.SplashScreen"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
