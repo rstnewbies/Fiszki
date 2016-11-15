@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="add_new_word_title">Add new word:</string>
+    <string name="add_new_word_title">Add new flashcard: </string>
+    <string name="add_fast_new_flashcard">Add quickly new flashcard: </string>
 
-    <string name="add_new_word_toast">New word has been added</string>
-    <string name="add_new_word_word">Word</string>
-    <string name="add_new_word_translation">Translation</string>
-    <string name="add_new_word_category">Category</string>
-    <string name="add_new_word_no_category">No Category</string>
-    <string name="add_new_word_add_category">Add new category</string>
+    <string name="add_new_flashcard_toast">New word has been added</string>
+    <string name="add_new_flashcard_word">Word</string>
+    <string name="add_new_flashcard_translation">Translation</string>
+    <string name="add_new_flashcard_category">Category</string>
+    <string name="add_new_flashcard_no_category">No Category</string>
+    <string name="add_new_category">Add new category</string>
     <string name="add_new_category_toast">New category has been created</string>
     <string name="add_new_category_exist">This category is already in the list.</string>
     <string name="add_new_category_name">New category\'s name</string>
+    <string name="add_new_flashcard_btn">Create</string>
     <string name="edit_category_name">Category\'s new name</string>
 
 

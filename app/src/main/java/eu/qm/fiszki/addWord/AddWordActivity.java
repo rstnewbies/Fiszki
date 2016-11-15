@@ -19,9 +19,9 @@ import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.Rules;
-import eu.qm.fiszki.model.CategoryRepository;
-import eu.qm.fiszki.model.Flashcard;
-import eu.qm.fiszki.model.FlashcardRepository;
+import eu.qm.fiszki.model.category.CategoryRepository;
+import eu.qm.fiszki.model.flashcard.Flashcard;
+import eu.qm.fiszki.model.flashcard.FlashcardRepository;
 
 
 public class AddWordActivity extends AppCompatActivity {
@@ -32,7 +32,6 @@ public class AddWordActivity extends AppCompatActivity {
     public SharedPreferences.Editor editor;
     FlashcardRepository flashcardRepository;
     EditText inputWord, inputTranslation;
-
     Alert alert = new Alert();
     CategorySpinnerRepository categorySpinnerRepository;
     private Rules rules = new Rules();
@@ -81,12 +80,11 @@ public class AddWordActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_add_new_word) {
-            if (rules.addNewWordRule(inputWord, inputTranslation, this,
+            if (rules.addNewFlashcardRule(inputWord, inputTranslation, this,
                     categorySpinnerRepository.getSelectedCategoryID())) {
                 String name = inputWord.getText().toString().trim();
                 String translate = inputTranslation.getText().toString().trim();
-                Flashcard flashcard = new Flashcard(name,translate, 1,
-                        categorySpinnerRepository.getSelectedCategoryID());
+                Flashcard flashcard = new Flashcard();
                 flashcardRepository.addFlashcard(flashcard);
                 if (flashcardRepository.isFirst()) {
                     alarm.start(this);
@@ -112,12 +110,11 @@ public class AddWordActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    if (rules.addNewWordRule(inputWord, inputTranslation, AddWordActivity.this,
+                    if (rules.addNewFlashcardRule(inputWord, inputTranslation, AddWordActivity.this,
                             categorySpinnerRepository.getSelectedCategoryID())) {
                         String name = inputWord.getText().toString().trim();
                         String translate = inputTranslation.getText().toString().trim();
-                        Flashcard flashcard = new Flashcard(name,translate, 1,
-                                categorySpinnerRepository.getSelectedCategoryID());
+                        Flashcard flashcard = new Flashcard();
                         flashcardRepository.addFlashcard(flashcard);
                         if (flashcardRepository.isFirst()) {
                             alarm.start(activity);

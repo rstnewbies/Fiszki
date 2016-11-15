@@ -12,8 +12,8 @@ import android.widget.CompoundButton;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.model.Category;
-import eu.qm.fiszki.model.CategoryRepository;
+import eu.qm.fiszki.model.category.Category;
+import eu.qm.fiszki.model.category.CategoryRepository;
 
 /**
  * Created by bgood on 2016-04-03.
@@ -46,7 +46,7 @@ public class ChoosenCategoryAdapter extends ArrayAdapter<Category> {
         convertView = inflater.inflate(rLayout, parent, false);
         checkBox = (CheckBox)convertView.findViewById(R.id.checkBox);
         if(category.getId()==1){
-            checkBox.setText(R.string.add_new_word_no_category);
+            checkBox.setText(R.string.add_new_flashcard_no_category);
         }else {
             checkBox.setText(category.getCategory());
         }

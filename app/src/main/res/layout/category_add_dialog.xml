@@ -24,7 +24,7 @@
         app:met_primaryColor="@color/ColorPrimaryDark"
         app:met_singleLineEllipsis="true" />
 
-
+<!--
     <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
         android:id="@+id/add_category_dialog_lang"
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
         app:met_floatingLabelTextSize="20dp"
         app:met_primaryColor="@color/ColorPrimaryDark"
         app:met_singleLineEllipsis="true" />
-
+-->
 </RelativeLayout>
 
 

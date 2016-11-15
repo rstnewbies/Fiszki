@@ -1,13 +1,13 @@
-package eu.qm.fiszki.model;
+package eu.qm.fiszki.model.category;
 
 import android.content.Context;
-import android.widget.ArrayAdapter;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 import java.util.ArrayList;
 
+import eu.qm.fiszki.R;
 import eu.qm.fiszki.database.ORM.DBHelper;
 
 /**
@@ -15,10 +15,12 @@ import eu.qm.fiszki.database.ORM.DBHelper;
  */
 public class CategoryRepository {
 
+    private Context mContext;
     private DBHelper dbHelper;
     private RuntimeExceptionDao<Category, Integer> categoryDao;
 
     public CategoryRepository(Context context) {
+        this.mContext = context;
         dbHelper = OpenHelperManager.getHelper(context, DBHelper.class);
         categoryDao = dbHelper.getCategoryDao();
     }
@@ -36,10 +38,14 @@ public class CategoryRepository {
     }
 
     public void addSystemCategory() {
-        Category addCategory = new Category(2, DBHelper.addCategoryName, false,false);
-        categoryDao.createIfNotExists(addCategory);
-        Category firstCategory = new Category(1, DBHelper.uncategory, false,false);
+        Category firstCategory = new Category();
+        firstCategory.setId(1);
+        firstCategory.setCategory(mContext.getResources().getString(R.string.uncategory));
+        firstCategory.setEntryByUser(false);
         categoryDao.createIfNotExists(firstCategory);
+        if(!getCategoryByID(1).getCategoryDB().equals(firstCategory.getCategoryDB())){
+            updateCategory(firstCategory);
+        }
     }
 
     public Category getCategoryByName(String name) {
@@ -51,7 +57,6 @@ public class CategoryRepository {
             return null;
         }
     }
-
 
     public Category getCategoryByID(int id) {
         ArrayList<Category> arrayList =

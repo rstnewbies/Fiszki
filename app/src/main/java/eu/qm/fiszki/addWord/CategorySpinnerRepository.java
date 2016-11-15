@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.model.Category;
-import eu.qm.fiszki.model.CategoryRepository;
+import eu.qm.fiszki.model.category.Category;
+import eu.qm.fiszki.model.category.CategoryRepository;
 
 /**
  * Created by mBoiler on 19.02.2016.
@@ -53,9 +53,9 @@ public class CategorySpinnerRepository {
         int x = 0;
         do {
             if (categories.get(x).getId() == 1) {
-                list.add(context.getString(R.string.add_new_word_no_category));
+                list.add(context.getString(R.string.add_new_flashcard_no_category));
             } else if (categories.get(x).getId() == 2 && possibilityAdded) {
-                list.add(context.getString(R.string.add_new_word_add_category));
+                list.add(context.getString(R.string.add_new_category));
             } else if(categories.get(x).getId() != 2){
                 list.add(categories.get(x).getCategory());
             }
@@ -73,7 +73,7 @@ public class CategorySpinnerRepository {
                     spinner.setSelection(0);
                     final Dialog dialog = new Dialog(context);
                     dialog.setContentView(R.layout.category_add_dialog);
-                    dialog.setTitle(R.string.add_new_word_add_category);
+                    dialog.setTitle(R.string.add_new_category);
 
                     categoryName = (EditText) dialog.findViewById(R.id.add_category_dialog_et_name);
 
@@ -98,8 +98,7 @@ public class CategorySpinnerRepository {
                                         context.getString(R.string.add_new_category_exist),
                                         Toast.LENGTH_LONG).show();
                             }else{
-                                Category category = new Category(categoryName.getText().toString()
-                                ,true,false);
+                                Category category = new Category();
                                 categoryRepository.addCategory(category);
                                 Toast.makeText(context,
                                         context.getString(R.string.add_new_category_toast),

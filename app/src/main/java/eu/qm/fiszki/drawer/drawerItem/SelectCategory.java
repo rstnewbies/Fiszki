@@ -4,10 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -17,10 +14,9 @@ import java.util.ArrayList;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.dialogs.SelectCategoryDialog;
-import eu.qm.fiszki.model.Category;
-import eu.qm.fiszki.model.CategoryRepository;
-import eu.qm.fiszki.model.FlashcardRepository;
-import eu.qm.fiszki.settings.ChoosenCategoryAdapter;
+import eu.qm.fiszki.model.category.Category;
+import eu.qm.fiszki.model.category.CategoryRepository;
+import eu.qm.fiszki.model.flashcard.FlashcardRepository;
 
 /**
  * Created by Siusiacz on 09.07.2016.

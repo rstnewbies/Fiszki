@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="uncategory">No category</string>
 
-    <string name="category_activity_title">My words</string>
-
+    <string name="category_activity_title">Category</string>
     <string name="category_dialog_title">Create new category</string>
     <string name="category_positive_btn_text">Create</string>
-
     <string name="category_dialog_et_name">Category\'s name</string>
     <string name="category_dialog_lang">Lang</string>
-
     <string name="category_toast">Added new category</string>
 
 </resources>

@@ -3,7 +3,7 @@ package eu.qm.fiszki;
 import org.junit.Before;
 import org.junit.Test;
 
-import eu.qm.fiszki.model.Flashcard;
+import eu.qm.fiszki.model.flashcard.Flashcard;
 
 import static org.junit.Assert.*;
 

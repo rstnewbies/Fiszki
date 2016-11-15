@@ -3,6 +3,10 @@
 
     <string name="flashcards_activity_title"></string>
 
-    <string name="flashcards_add_button">Add new flashcards</string>
-
+    <string name="flashcard_add_button">Add new flashcard</string>
+    <string name="flashcard_edit_title">Edit flashcard</string>
+    <string name="flashcard_delete_btn">DELETE</string>
+    <string name="flashcard_edit_done">Done</string>
+    <string name="flashcard_edit_toast">Have edited flashcard</string>
+    <string name="flashcard_delete_message">Are you sure you want to delete this flashcard?</string>
 </resources>

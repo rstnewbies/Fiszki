@@ -1,7 +1,6 @@
 package eu.qm.fiszki.activity;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -28,10 +27,10 @@ import eu.qm.fiszki.Rules;
 import eu.qm.fiszki.ShowCategoryAdapter;
 import eu.qm.fiszki.algorithm.Algorithm;
 import eu.qm.fiszki.algorithm.CatcherFlashcardToAlgorithm;
-import eu.qm.fiszki.model.Category;
-import eu.qm.fiszki.model.CategoryRepository;
-import eu.qm.fiszki.model.Flashcard;
-import eu.qm.fiszki.model.FlashcardRepository;
+import eu.qm.fiszki.model.category.Category;
+import eu.qm.fiszki.model.category.CategoryRepository;
+import eu.qm.fiszki.model.flashcard.Flashcard;
+import eu.qm.fiszki.model.flashcard.FlashcardRepository;
 
 public class LearningModeActivity extends AppCompatActivity {
 

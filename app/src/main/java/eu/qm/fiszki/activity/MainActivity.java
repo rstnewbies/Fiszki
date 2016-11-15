@@ -16,11 +16,11 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.addWord.AddWordActivity;
+import eu.qm.fiszki.dialogs.QuicklyAddFlashcardDialog;
 import eu.qm.fiszki.myWords.category.CategoryActivity;
 import eu.qm.fiszki.drawer.DrawerMain;
-import eu.qm.fiszki.model.CategoryRepository;
-import eu.qm.fiszki.model.FlashcardRepository;
+import eu.qm.fiszki.model.category.CategoryRepository;
+import eu.qm.fiszki.model.flashcard.FlashcardRepository;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         mActivity = this;
         mCategoryRepository = new CategoryRepository(mActivity);
         mFlashcardRepository = new FlashcardRepository(mActivity);
-
         mCountBackPress = 0;
     }
 
@@ -102,9 +101,7 @@ public class MainActivity extends AppCompatActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(MainActivity.this, AddWordActivity.class);
-                startActivity(myIntent);
-                finish();
+                new QuicklyAddFlashcardDialog(mActivity).show();
             }
         });
     }
@@ -123,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void myWordsCardClick(View view) {
         mActivity.startActivity(new Intent(this, CategoryActivity.class));
-        mActivity.finish();
     }
 
     public void learningCardClick(View view) {
@@ -131,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
             new Alert().addFiszkiToFeature(mActivity).show();
         } else {
             startActivity(new Intent(this, LearningModeActivity.class));
-            finish();
         }
     }
 
@@ -140,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
             new Alert().addFiszkiToFeature(mActivity).show();
         } else {
             startActivity(new Intent(this, ExamModeActivity.class));
-            finish();
         }
     }
 }

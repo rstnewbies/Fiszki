@@ -10,7 +10,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.model.Category;
+import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.settings.ChoosenCategoryAdapter;
 
 /**

@@ -2,20 +2,20 @@ package eu.qm.fiszki.myWords.category;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.model.Category;
-import eu.qm.fiszki.model.Flashcard;
+import eu.qm.fiszki.database.ORM.DBHelper;
+import eu.qm.fiszki.dialogs.EditAndDeleteCategoryDialog;
+import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.myWords.CategoryManager;
 import eu.qm.fiszki.myWords.flashcards.FlashcardsActivity;
 
@@ -26,12 +26,10 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
 
     private ArrayList<Category> mArrayList;
     private Activity mActivity;
-    private FloatingActionButton fab;
 
     public CategoryShowAdapter(Activity activity, ArrayList<Category> arrayList) {
         mArrayList = arrayList;
         mActivity = activity;
-        fab = (FloatingActionButton) activity.findViewById(R.id.deleteFAB);
     }
 
     @Override
@@ -42,20 +40,24 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.main.setOnClickListener(new View.OnClickListener() {
+        final Category category = mArrayList.get(position);
+
+        holder.mName.setText(category.getCategory());
+
+        holder.mMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CategoryManager.setClickedCategoryId(mArrayList.get(position).getId());
+                CategoryManager.setClickedCategoryId(category.getId());
                 mActivity.startActivity(new Intent(mActivity, FlashcardsActivity.class));
                 mActivity.finish();
                 mActivity.overridePendingTransition(R.anim.right_in, R.anim.left_out);
             }
         });
-        holder.main.setOnLongClickListener(new View.OnLongClickListener() {
+
+        holder.mEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                fab.show();
-                return true;
+            public void onClick(View view) {
+                new EditAndDeleteCategoryDialog(mActivity, category).show();
             }
         });
     }
@@ -72,11 +74,15 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private CardView main;
+        private CardView mMain;
+        private TextView mName;
+        private ImageButton mEditBtn;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            main = (CardView) itemView.findViewById(R.id.placeCard);
+            mMain = (CardView) itemView.findViewById(R.id.placeCard);
+            mName = (TextView) itemView.findViewById(R.id.category_name);
+            mEditBtn = (ImageButton) itemView.findViewById(R.id.editBtn);
         }
     }
 }

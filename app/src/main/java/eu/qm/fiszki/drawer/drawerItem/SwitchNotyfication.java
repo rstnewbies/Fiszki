@@ -11,7 +11,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import eu.qm.fiszki.AlarmReceiver;
 import eu.qm.fiszki.LocalSharedPreferences;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.model.FlashcardRepository;
+import eu.qm.fiszki.model.flashcard.FlashcardRepository;
 
 /**
  * Created by tm on 08.07.16.
