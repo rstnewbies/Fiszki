@@ -85,7 +85,7 @@ public class FlashcardsActivity extends AppCompatActivity {
     }
 
     private void buildListView() {
-        mRecycleView = (RecyclerView) findViewById(R.id.listview_category);
+        mRecycleView = (RecyclerView) findViewById(R.id.listview_flashcard);
         StaggeredGridLayoutManager mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecycleView.setLayoutManager(mStaggeredLayoutManager);
     }
