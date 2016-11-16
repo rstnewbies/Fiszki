@@ -104,9 +104,9 @@ public class EditAndDeleteCategoryDialog extends MaterialDialog.Builder {
     }
 
     private void deleteCategoryWithFlashcards() {
-        if (!mFlashcardRepository.getFlashcardsByCategoryID(mCategory.getId()).isEmpty()) {
+        mFlashcards = mFlashcardRepository.getFlashcardsByCategoryID(mCategory.getId());
+        if (!mFlashcards.isEmpty()) {
             mFlashcardRepository.deleteFlashcards(mFlashcards);
-            mFlashcards = mFlashcardRepository.getFlashcardsByCategoryID(mCategory.getId());
         }
         mCategoryRepository.deleteCategory(mCategory);
     }

@@ -9,4 +9,6 @@
     <string name="category_dialog_lang">Jezyk</string>
     <string name="category_toast">Dodano nową kategorię</string>
 
+    <string name="category_empty_text">Nie masz jeszcze żadnych kategori.</string>
+
 </resources>

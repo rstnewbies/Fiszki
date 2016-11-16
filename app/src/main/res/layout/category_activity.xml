@@ -44,4 +44,10 @@
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end" />
 
+    <TextView
+        android:id="@+id/empty_word_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/category_empty_text" />
 </android.support.design.widget.CoordinatorLayout>
