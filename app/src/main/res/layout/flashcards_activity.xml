@@ -35,11 +35,31 @@
     <include layout="@layout/flashcards_activity_content" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
+        android:src="@drawable/plusbutton"
+        app:layout_anchorGravity="bottom|end"
+        app:backgroundTint="@color/addCotegoryCard"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/plusbutton"
+        android:visibility="gone"
+        app:backgroundTint="@color/ColorPrimary"
+        app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end" />
 
+    <TextView
+        android:id="@+id/empty_category_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/flashcard_empty_text"
+        android:textStyle="normal|bold" />
 </android.support.design.widget.CoordinatorLayout>

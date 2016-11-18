@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -15,10 +16,13 @@ import eu.qm.fiszki.R;
 import eu.qm.fiszki.dialogs.AddCategoryDialog;
 import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
+import eu.qm.fiszki.model.flashcard.Flashcard;
+import eu.qm.fiszki.model.flashcard.FlashcardRepository;
 
 public class CategoryActivity extends AppCompatActivity {
 
     private Activity mActivity;
+    private TextView mEmptyText;
     private RecyclerView mRecycleView;
     private CategoryRepository mCategoryRepository;
 
@@ -30,12 +34,12 @@ public class CategoryActivity extends AppCompatActivity {
         buildToolbar();
         buildFAB();
         buildList();
-
     }
 
     private void init() {
         mActivity = this;
         mCategoryRepository = new CategoryRepository(mActivity);
+        mEmptyText = (TextView) mActivity.findViewById(R.id.empty_word_text);
     }
 
     @Override
@@ -80,8 +84,18 @@ public class CategoryActivity extends AppCompatActivity {
 
     private void updateList() {
         ArrayList<Category> categories = new ArrayList<Category>();
-        categories.add(mCategoryRepository.getCategoryByID(1));
+        ArrayList<Flashcard> uncategoryFlashcards = new FlashcardRepository(mActivity).getFlashcardsByCategoryID(1);
+
+        if (!uncategoryFlashcards.isEmpty()) {
+            categories.add(mCategoryRepository.getCategoryByID(1));
+        }
         categories.addAll(mCategoryRepository.getUserCategory());
+
+        if (categories.isEmpty()) {
+            mEmptyText.setVisibility(View.VISIBLE);
+        } else {
+            mEmptyText.setVisibility(View.INVISIBLE);
+        }
 
         CategoryShowAdapter adapter = new CategoryShowAdapter(mActivity, categories);
         mRecycleView.swapAdapter(adapter, false);

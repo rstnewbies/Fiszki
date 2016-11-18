@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="flashcard_add_button">Dodaj nową fiszkę</string>
+    <string name="flashcard_add_title">Dodaj nową fiszkę</string>
     <string name="flashcard_edit_title">Edytuj fiszkę</string>
     <string name="flashcard_delete_btn">USUŃ</string>
     <string name="flashcard_edit_done">Zatwierdź</string>
     <string name="flashcard_edit_toast">Edytowano fiszkę</string>
     <string name="flashcard_delete_message">Czy napewno chcesz usunąć tą fiszkę?</string>
-
+    <string name="flashcard_empty_text">Nie masz fiszek w tej kategori.</string>
 </resources>

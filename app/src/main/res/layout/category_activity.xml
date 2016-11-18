@@ -49,5 +49,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="@string/category_empty_text" />
+        android:text="@string/category_empty_text"
+        android:textStyle="normal|bold" />
 </android.support.design.widget.CoordinatorLayout>

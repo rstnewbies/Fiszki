@@ -45,6 +45,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if(hasFocus){
+            buildDrawer();
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         if (mDrawer.isDrawerOpen()) {
             mDrawer.closeDrawer();
@@ -97,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void buildFAB() {
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab = (FloatingActionButton) findViewById(R.id.fab_add);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -28,7 +28,7 @@ public class AddFlashcardDialog extends MaterialDialog.Builder {
     public AddFlashcardDialog(@NonNull Activity activity, int categoryId) {
         super(activity);
         this.categoryId = categoryId;
-        this.title(R.string.add_new_word_title);
+        this.title(R.string.flashcard_add_title);
         this.customView(R.layout.flashcard_add_dialog, false);
         this.positiveText(R.string.add_new_flashcard_btn);
         this.positiveColor(activity.getResources().getColor(R.color.ColorPrimaryDark));

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="uncategory">Bez kategorii</string>
+    <string name="uncategory">Bez kategori</string>
 
     <string name="category_activity_title">Kategorie</string>
     <string name="category_dialog_title">Stwórz nową kategorię</string>

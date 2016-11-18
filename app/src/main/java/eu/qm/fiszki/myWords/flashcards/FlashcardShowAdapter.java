@@ -1,6 +1,7 @@
 package eu.qm.fiszki.myWords.flashcards;
 
 import android.app.Activity;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.dialogs.EditAndDeleteFlashcardDialog;
+import eu.qm.fiszki.listeners.FlashcardClick;
+import eu.qm.fiszki.listeners.FlashcardLongClick;
 import eu.qm.fiszki.model.flashcard.Flashcard;
 
 /**
@@ -41,18 +44,8 @@ public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdap
         holder.mWord.setText(flashcard.getWord());
         holder.mTranslation.setText(flashcard.getTranslation());
 
-        holder.mEditBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new EditAndDeleteFlashcardDialog(mActivity,flashcard).show();
-            }
-        });
-
-        holder.mMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+        holder.mMain.setOnClickListener(new FlashcardClick(mActivity,flashcard));
+        holder.mMain.setOnLongClickListener(new FlashcardLongClick(mActivity,flashcard));
     }
 
     @Override
@@ -65,19 +58,27 @@ public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdap
         return position;
     }
 
+    private View.OnLongClickListener onLongClick(){
+        return new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                view.setBackgroundColor(mActivity.getResources().getColor(R.color.SelecteddColor));
+                return true;
+            }
+        };
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private RelativeLayout mMain;
         private TextView mTranslation;
         private TextView mWord;
-        private ImageButton mEditBtn;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mMain = (RelativeLayout) itemView.findViewById(R.id.mainCard);
             mTranslation = (TextView) itemView.findViewById(R.id.flashcard_translate);
             mWord = (TextView) itemView.findViewById(R.id.flashcard_word);
-            mEditBtn = (ImageButton) itemView.findViewById(R.id.editBtn);
         }
     }
 }

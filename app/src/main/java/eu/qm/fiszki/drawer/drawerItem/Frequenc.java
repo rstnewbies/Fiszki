@@ -30,7 +30,7 @@ public class Frequenc extends PrimaryDrawerItem {
             @Override
             public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                 new MaterialDialog.Builder(activity)
-                        .title(R.string.settings_choose_category)
+                        .title(R.string.drawer_freqenc_name)
                         .items(R.array.notification_frequency)
                         .itemsCallbackSingleChoice(getSelectedFreq(), new MaterialDialog.ListCallbackSingleChoice() {
                             @Override

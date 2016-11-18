@@ -40,7 +40,7 @@ public class EditAndDeleteCategoryDialog extends MaterialDialog.Builder {
         this.mCategory = category;
         this.mActivity = activity;
         this.title(R.string.edit_category_title);
-        this.icon(activity.getResources().getDrawable(R.drawable.ic_mode_edit_black_24px));
+        this.icon(activity.getResources().getDrawable(R.drawable.ic_pencil_black));
         this.customView(R.layout.category_add_dialog, false);
         this.autoDismiss(false);
         this.positiveText(R.string.edit_category_done);

@@ -9,24 +9,26 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.SelectedFlashcardsSingleton;
 import eu.qm.fiszki.dialogs.AddFlashcardDialog;
 import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
 import eu.qm.fiszki.model.flashcard.Flashcard;
 import eu.qm.fiszki.model.flashcard.FlashcardRepository;
-import eu.qm.fiszki.myWords.CategoryManager;
+import eu.qm.fiszki.myWords.CategoryManagerSingleton;
 import eu.qm.fiszki.myWords.category.CategoryActivity;
 
 public class FlashcardsActivity extends AppCompatActivity {
 
+    private TextView mEmptyFlashcard;
     private Activity mActivity;
     private RecyclerView mRecycleView;
     private Category mCurrentCategory;
-    private CategoryRepository mCategoryRepository;
     private FlashcardRepository mFlashcardRepository;
 
     @Override
@@ -42,9 +44,9 @@ public class FlashcardsActivity extends AppCompatActivity {
 
     private void init() {
         this.mActivity = this;
-        mCategoryRepository = new CategoryRepository(mActivity);
         mFlashcardRepository = new FlashcardRepository(mActivity);
-        mCurrentCategory = mCategoryRepository.getCategoryByID(CategoryManager.getClickedCategoryId());
+        mEmptyFlashcard = (TextView) mActivity.findViewById(R.id.empty_category_text);
+        mCurrentCategory = new CategoryRepository(mActivity).getCategoryByID(CategoryManagerSingleton.getClickedCategoryId());
     }
 
     @Override
@@ -56,13 +58,14 @@ public class FlashcardsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        SelectedFlashcardsSingleton.clearFlashcards();
         mActivity.startActivity(new Intent(mActivity,CategoryActivity.class));
         mActivity.finish();
         mActivity.overridePendingTransition(R.anim.right_out,R.anim.left_in);
     }
 
     private void buildFAB() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add);
         fab.setImageResource(R.drawable.plusbutton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +95,13 @@ public class FlashcardsActivity extends AppCompatActivity {
 
     private void updateListView() {
         ArrayList<Flashcard> flashcards = mFlashcardRepository.getFlashcardsByCategoryID(mCurrentCategory.getId());
+
+        if(flashcards.isEmpty()){
+            mEmptyFlashcard.setVisibility(View.VISIBLE);
+        }else{
+            mEmptyFlashcard.setVisibility(View.INVISIBLE);
+        }
+
         FlashcardShowAdapter adapter = new FlashcardShowAdapter(mActivity,flashcards);
         mRecycleView.swapAdapter(adapter,false);
     }

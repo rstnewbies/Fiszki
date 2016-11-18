@@ -13,10 +13,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.database.ORM.DBHelper;
 import eu.qm.fiszki.dialogs.EditAndDeleteCategoryDialog;
 import eu.qm.fiszki.model.category.Category;
-import eu.qm.fiszki.myWords.CategoryManager;
+import eu.qm.fiszki.myWords.CategoryManagerSingleton;
 import eu.qm.fiszki.myWords.flashcards.FlashcardsActivity;
 
 /**
@@ -47,7 +46,7 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
         holder.mMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CategoryManager.setClickedCategoryId(category.getId());
+                CategoryManagerSingleton.setClickedCategoryId(category.getId());
                 mActivity.startActivity(new Intent(mActivity, FlashcardsActivity.class));
                 mActivity.finish();
                 mActivity.overridePendingTransition(R.anim.right_in, R.anim.left_out);

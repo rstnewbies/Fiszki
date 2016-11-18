@@ -36,7 +36,7 @@ public class EditAndDeleteFlashcardDialog extends MaterialDialog.Builder {
         this.mFlashcard = flashcard;
         this.title(R.string.flashcard_edit_title);
         this.customView(R.layout.flashcard_edit_dialog, false);
-        this.icon(context.getResources().getDrawable(R.drawable.ic_mode_edit_black_24px));
+        this.icon(context.getResources().getDrawable(R.drawable.ic_pencil_black));
         this.autoDismiss(false);
         this.neutralText(R.string.flashcard_delete_btn);
         this.neutralColor(context.getResources().getColor(R.color.md_red_A700));

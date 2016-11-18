@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     card_view:cardCornerRadius="2dp"
-    card_view:cardElevation="8dp">
+    card_view:cardElevation="8dp"
+    card_view:cardBackgroundColor="@color/White">
 
     <!-- Used for the ripple effect on touch -->
     <RelativeLayout
@@ -16,16 +17,6 @@
         android:background="?android:selectableItemBackground"
         android:elevation="8dp"
         android:padding="12dp">
-
-        <ImageButton
-            android:id="@+id/editBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="@color/apptentive_transparency"
-            card_view:srcCompat="@drawable/ic_mode_edit_black_24px" />
 
         <TextView
             android:id="@+id/flashcard_word"
@@ -54,6 +45,7 @@
             android:singleLine="true"
             android:text="Medium Text"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

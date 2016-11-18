@@ -60,7 +60,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:background="@color/apptentive_transparency"
-            android:src="@drawable/ic_mode_edit_black_24px" />
+            android:src="@drawable/ic_pencil" />
 
     </RelativeLayout>
 

@@ -3,17 +3,17 @@ package eu.qm.fiszki.myWords;
 /**
  * Created by tm on 28.07.16.
  */
-public class CategoryManager {
+public class CategoryManagerSingleton {
 
-    private static CategoryManager ourInstance = new CategoryManager();
+    private static CategoryManagerSingleton ourInstance = new CategoryManagerSingleton();
 
-    public static CategoryManager getInstance() {
+    public static CategoryManagerSingleton getInstance() {
         return ourInstance;
     }
 
     public static int clickedCategoryId;
 
-    private CategoryManager() {
+    private CategoryManagerSingleton() {
     }
 
     public static int getClickedCategoryId() {
@@ -21,6 +21,6 @@ public class CategoryManager {
     }
 
     public static void setClickedCategoryId(int clickedCategoryId) {
-        CategoryManager.clickedCategoryId = clickedCategoryId;
+        CategoryManagerSingleton.clickedCategoryId = clickedCategoryId;
     }
 }

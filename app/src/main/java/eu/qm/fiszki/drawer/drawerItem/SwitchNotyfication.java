@@ -52,7 +52,11 @@ public class SwitchNotyfication extends SwitchDrawerItem {
                 if (isChecked) {
                     alarmReceiver.close(activity);
                     alarmReceiver.start(activity);
-                    localSharedPreferences.setNotificationStatus(0);
+                    localSharedPreferences.setNotificationStatus(1);
+                    if(localSharedPreferences.getNotificationPosition()==0){
+                        localSharedPreferences.setNotificationPosition(3);
+                    }
+
                     Toast.makeText(activity.getBaseContext(), activity.getString(R.string.drawer_notyfication_switch_toast_on), Toast.LENGTH_SHORT).show();
                 } else {
                     alarmReceiver.close(activity);
