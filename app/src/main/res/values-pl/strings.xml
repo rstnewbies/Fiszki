@@ -2,7 +2,6 @@
 <resources>
     <string name="hello_world">Witaj świecie!</string>
 
-    <string name="title_activity_learning_mode">LearningModeActivity</string>
 
     <string name="card_name_my_word">Moje słówka</string>
     <string name="card_name_learning">Nauka</string>

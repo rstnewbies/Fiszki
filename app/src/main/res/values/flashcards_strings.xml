@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="flashcards_activity_title"></string>
-
     <string name="flashcard_add_title">Add new flashcard</string>
 
     <string name="flashcard_edit_title">Edit flashcard</string>

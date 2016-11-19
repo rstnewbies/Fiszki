@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="support_lang">
+        <item>@string/lang_English</item>
+        <item>@string/lang_German</item>
+        <item>@string/lang_French</item>
+        <item>@string/lang_Italian</item>
+        <item>@string/lang_Spanish</item>
+        <item>@string/lang_Polish</item>
+        <item>@string/lang_Dutch</item>
+        <item>@string/lang_Swedish</item>
+        <item>@string/lang_Greek</item>
+        <item>@string/lang_Romanian</item>
+        <item>@string/lang_Czech</item>
+        <item>@string/lang_Portuguese</item>
+        <item>@string/lang_Bulgarian</item>
+        <item>@string/lang_Hungarian</item>
+        <item>@string/lang_Danish</item>
+        <item>@string/lang_Slovak</item>
+        <item>@string/lang_Finnish</item>
+        <item>@string/lang_Lithuanian</item>
+        <item>@string/lang_Latvian</item>
+        <item>@string/lang_Estonian</item>
+        <item>@string/lang_Slovak</item>
+        <item>@string/lang_Irish</item>
+        <item>@string/lang_Maltese</item>
+        <item>@string/lang_Croatian</item>
+    </string-array>
+</resources>

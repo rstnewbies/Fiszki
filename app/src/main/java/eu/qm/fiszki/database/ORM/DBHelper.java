@@ -16,10 +16,8 @@ import eu.qm.fiszki.model.flashcard.Flashcard;
 
 public class DBHelper extends OrmLiteSqliteOpenHelper {
 
-    public static final String uncategory = "UNCATEGORY";
-    public static final String addCategoryName = "ADDNEWCATEGORY";
     private static final String DATABASE_NAME = "Flashcards.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private RuntimeExceptionDao<Flashcard, Integer> flashcardDao = null;
     private RuntimeExceptionDao<Category, Integer> categoryDao = null;
 
@@ -40,10 +38,14 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource,
                           int oldVersion, int newVersion) {
-        
         onCreate(database, connectionSource);
-        getCategoryDao().executeRaw("ALTER TABLE `category` ADD COLUMN chosen BOOLEAN;");
-        getCategoryDao().executeRaw("ALTER TABLE `category` ADD COLUMN langFrom VARCHAR(255);");
+        if(newVersion==3) {
+            getCategoryDao().executeRaw("ALTER TABLE `category` ADD COLUMN chosen BOOLEAN;");
+        }
+        if(newVersion==4){
+            getCategoryDao().executeRaw("ALTER TABLE `category` ADD COLUMN langFrom VARCHAR(255);");
+            getCategoryDao().executeRaw("ALTER TABLE `category` ADD COLUMN langOn VARCHAR(255);");
+        }
     }
 
     public RuntimeExceptionDao<Flashcard, Integer> getFlashcardDao() {

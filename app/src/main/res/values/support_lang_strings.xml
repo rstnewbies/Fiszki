@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="lang_English">English</string>
+    <string name="lang_German">German</string>
+    <string name="lang_French">French</string>
+    <string name="lang_Italian">Italian</string>
+    <string name="lang_Spanish">Spanish</string>
+    <string name="lang_Polish">Polish</string>
+    <string name="lang_Dutch">Dutch</string>
+    <string name="lang_Swedish">Swedish</string>
+    <string name="lang_Greek">Greek</string>
+    <string name="lang_Romanian">Romanian</string>
+    <string name="lang_Czech">Czech</string>
+    <string name="lang_Portuguese">Portuguese</string>
+    <string name="lang_Bulgarian">Bulgarian</string>
+    <string name="lang_Hungarian">Hungarian</string>
+    <string name="lang_Danish">Danish</string>
+    <string name="lang_Slovak">Slovak</string>
+    <string name="lang_Finnish">Finnish</string>
+    <string name="lang_Lithuanian">Lithuanian</string>
+    <string name="lang_Latvian">Latvian</string>
+    <string name="lang_Estonian">Estonian</string>
+    <string name="lang_Slovene">Slovene</string>
+    <string name="lang_Irish">Irish</string>
+    <string name="lang_Maltese">Maltese</string>
+    <string name="lang_Croatian">Croatian</string>
+</resources>

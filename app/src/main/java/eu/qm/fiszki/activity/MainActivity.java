@@ -17,6 +17,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.dialogs.QuicklyAddFlashcardDialog;
+import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.myWords.category.CategoryActivity;
 import eu.qm.fiszki.drawer.DrawerMain;
 import eu.qm.fiszki.model.category.CategoryRepository;

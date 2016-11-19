@@ -24,24 +24,37 @@
         app:met_primaryColor="@color/ColorPrimaryDark"
         app:met_singleLineEllipsis="true" />
 
-<!--
     <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
-        android:id="@+id/add_category_dialog_lang"
+        android:id="@+id/add_category_dialog_lang_from"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/add_category_dialog_et_name"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="-14dp"
         android:hint="@string/category_dialog_lang"
         android:imeOptions="actionDone"
         app:met_floatingLabel="highlight"
         app:met_floatingLabelTextSize="20dp"
         app:met_primaryColor="@color/ColorPrimaryDark"
-        app:met_singleLineEllipsis="true" />
--->
+        app:met_singleLineEllipsis="true"
+        android:layout_below="@+id/add_category_dialog_et_name"
+        android:layout_alignLeft="@+id/add_category_dialog_et_name"
+        android:layout_alignStart="@+id/add_category_dialog_et_name"
+        android:layout_alignRight="@+id/add_category_dialog_et_name"
+        android:layout_alignEnd="@+id/add_category_dialog_et_name" />
+
+    <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+        android:id="@+id/add_category_dialog_lang_on"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/category_dialog_lang"
+        android:imeOptions="actionDone"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelTextSize="20dp"
+        app:met_primaryColor="@color/ColorPrimaryDark"
+        app:met_singleLineEllipsis="true"
+        android:layout_below="@+id/add_category_dialog_lang_from"
+        android:layout_alignRight="@+id/add_category_dialog_lang_from"
+        android:layout_alignEnd="@+id/add_category_dialog_lang_from"
+        android:layout_alignLeft="@+id/add_category_dialog_lang_from"
+        android:layout_alignStart="@+id/add_category_dialog_lang_from" />
 </RelativeLayout>
 
 

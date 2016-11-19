@@ -65,4 +65,20 @@ public class Category implements Serializable {
     public void setChosen(boolean chosen) {
         this.chosen = chosen;
     }
+
+    public String getLangOn() {
+        return langOn;
+    }
+
+    public void setLangOn(String langOn) {
+        this.langOn = langOn;
+    }
+
+    public String getLangFrom() {
+        return langFrom;
+    }
+
+    public void setLangFrom(String langFrom) {
+        this.langFrom = langFrom;
+    }
 }
