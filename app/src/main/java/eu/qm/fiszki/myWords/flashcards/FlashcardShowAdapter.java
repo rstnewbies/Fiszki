@@ -1,19 +1,16 @@
 package eu.qm.fiszki.myWords.flashcards;
 
 import android.app.Activity;
-import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.dialogs.EditAndDeleteFlashcardDialog;
 import eu.qm.fiszki.listeners.FlashcardClick;
 import eu.qm.fiszki.listeners.FlashcardLongClick;
 import eu.qm.fiszki.model.flashcard.Flashcard;
@@ -44,8 +41,10 @@ public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdap
         holder.mWord.setText(flashcard.getWord());
         holder.mTranslation.setText(flashcard.getTranslation());
 
-        holder.mMain.setOnClickListener(new FlashcardClick(mActivity,flashcard));
-        holder.mMain.setOnLongClickListener(new FlashcardLongClick(mActivity,flashcard));
+        holder.mMain.setOnClickListener(new FlashcardClick(mActivity, flashcard));
+        holder.mMain.setOnLongClickListener(new FlashcardLongClick(mActivity, flashcard));
+
+        holder.mMain.setBackgroundColor(mActivity.getResources().getColor(R.color.White));
     }
 
     @Override
@@ -56,16 +55,6 @@ public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdap
     @Override
     public int getItemViewType(int position) {
         return position;
-    }
-
-    private View.OnLongClickListener onLongClick(){
-        return new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                view.setBackgroundColor(mActivity.getResources().getColor(R.color.SelecteddColor));
-                return true;
-            }
-        };
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

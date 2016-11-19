@@ -55,7 +55,7 @@ public class AddFlashcardDialog extends MaterialDialog.Builder {
                 flashcard.setCategoryID(categoryId);
                 flashcard.setPriority(1);
 
-                if (mValidationFlashcards.validate(flashcard)) {
+                if (mValidationFlashcards.validateAdd(flashcard)) {
                     mFlashcardRepository.addFlashcard(flashcard);
                     Toast.makeText(context, R.string.add_new_flashcard_toast, Toast.LENGTH_LONG).show();
                     mTranslateEt.setText(null);

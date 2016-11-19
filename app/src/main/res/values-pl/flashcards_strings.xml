@@ -2,10 +2,18 @@
 <resources>
 
     <string name="flashcard_add_title">Dodaj nową fiszkę</string>
+
     <string name="flashcard_edit_title">Edytuj fiszkę</string>
-    <string name="flashcard_delete_btn">USUŃ</string>
     <string name="flashcard_edit_done">Zatwierdź</string>
     <string name="flashcard_edit_toast">Edytowano fiszkę</string>
+
+    <string name="flashcard_delete_btn">USUŃ</string>
     <string name="flashcard_delete_message">Czy napewno chcesz usunąć tą fiszkę?</string>
+    <string name="flashcards_delete_message">Czy napewno chcesz usunąć wybrane fiszki?</string>
+
     <string name="flashcard_empty_text">Nie masz fiszek w tej kategori.</string>
+
+    <string name="flashcard_transform_title">Zmień kategorie</string>
+    <string name="flashcard_transform_button">Zmień</string>
+    <string name="flashcard_transform_button_empty_message">Nie możesz przenieść tej fiszki, ponieważ nie masz jeszcze żadnych swoich kategori.</string>
 </resources>

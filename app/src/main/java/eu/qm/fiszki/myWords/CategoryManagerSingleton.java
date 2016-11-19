@@ -11,16 +11,16 @@ public class CategoryManagerSingleton {
         return ourInstance;
     }
 
-    public static int clickedCategoryId;
+    private static int currentCategoryId;
 
     private CategoryManagerSingleton() {
     }
 
-    public static int getClickedCategoryId() {
-        return clickedCategoryId;
+    public static int getCurrentCategoryId() {
+        return currentCategoryId;
     }
 
-    public static void setClickedCategoryId(int clickedCategoryId) {
-        CategoryManagerSingleton.clickedCategoryId = clickedCategoryId;
+    public static void setCurrentCategoryId(int currentCategoryId) {
+        CategoryManagerSingleton.currentCategoryId = currentCategoryId;
     }
 }

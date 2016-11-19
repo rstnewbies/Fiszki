@@ -1,16 +1,12 @@
 package eu.qm.fiszki.listeners;
 
 import android.app.Activity;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 
-import java.util.ArrayList;
-
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.SelectedFlashcardsSingleton;
+import eu.qm.fiszki.myWords.flashcards.SelectedFlashcardsSingleton;
 import eu.qm.fiszki.model.flashcard.Flashcard;
+import eu.qm.fiszki.myWords.flashcards.SelectedFabManager;
 
 /**
  * Created by mBoiler on 18.11.2016.
@@ -20,22 +16,21 @@ public class FlashcardLongClick implements View.OnLongClickListener {
 
     private Activity mActivity;
     private Flashcard mFlashcard;
-    private FloatingActionButton mFabAdd;
-    private FloatingActionButton mFabDelete;
+    private SelectedFabManager mFabManager;
 
-    public FlashcardLongClick(Activity activity,Flashcard flashcard) {
+
+    public FlashcardLongClick(Activity activity, Flashcard flashcard) {
         this.mActivity = activity;
         this.mFlashcard = flashcard;
-        this.mFabAdd = (FloatingActionButton) mActivity.findViewById(R.id.fab_add);
-        this.mFabDelete = (FloatingActionButton) mActivity.findViewById(R.id.fab_delete);
+        this.mFabManager = new SelectedFabManager(activity);
     }
 
     @Override
     public boolean onLongClick(View view) {
-        if(SelectedFlashcardsSingleton.findFlashcard(mFlashcard)){
+        if (SelectedFlashcardsSingleton.findFlashcard(mFlashcard)) {
             SelectedFlashcardsSingleton.removeFlashcard(mFlashcard);
             view.setBackgroundColor(mActivity.getResources().getColor(R.color.White));
-        }else{
+        } else {
             SelectedFlashcardsSingleton.addFlashcards(mFlashcard);
             view.setBackgroundColor(mActivity.getResources().getColor(R.color.SelecteddColor));
         }
@@ -43,18 +38,16 @@ public class FlashcardLongClick implements View.OnLongClickListener {
         return true;
     }
 
-    public void checkStatus(){
-        if(SelectedFlashcardsSingleton.getStatus()==SelectedFlashcardsSingleton.STATUS_ON){
-            if(SelectedFlashcardsSingleton.getFlashcards().isEmpty()){
+    private void checkStatus() {
+        if (SelectedFlashcardsSingleton.getStatus() == SelectedFlashcardsSingleton.STATUS_ON) {
+            if (SelectedFlashcardsSingleton.getFlashcards().isEmpty()) {
                 SelectedFlashcardsSingleton.setStatuOff();
-                mFabAdd.show();
-                mFabDelete.hide();
+                mFabManager.hideAll();
             }
-        }else{
-            if(SelectedFlashcardsSingleton.getFlashcards().size()==1){
+        } else {
+            if (SelectedFlashcardsSingleton.getFlashcards().size() == 1) {
                 SelectedFlashcardsSingleton.setStatuOn();
-                mFabAdd.hide();
-                mFabDelete.show();
+                mFabManager.showAll();
             }
         }
     }

@@ -42,7 +42,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/plusbutton"
         app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end" />
+        app:layout_anchorGravity="bottom|end"/>
 
     <TextView
         android:id="@+id/empty_word_text"

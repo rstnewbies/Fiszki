@@ -12,45 +12,11 @@
     <RelativeLayout
         android:id="@+id/mainCard"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="88dp"
         android:background="?android:selectableItemBackground"
         android:elevation="8dp"
         android:padding="12dp">
 
-
-        <TextView
-            android:id="@+id/category_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/textView2"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/category_icon"
-            android:layout_toEndOf="@+id/category_icon"
-            android:layout_toRightOf="@+id/category_icon"
-            android:singleLine="true"
-            android:text=""
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <ImageView
-            android:id="@+id/category_icon"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="12dp"
-            android:background="@drawable/ge" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/category_icon"
-            android:layout_toEndOf="@+id/category_icon"
-            android:layout_toRightOf="@+id/category_icon"
-            android:text="Angielski"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <ImageButton
             android:id="@+id/editBtn"
@@ -61,6 +27,29 @@
             android:layout_alignParentRight="true"
             android:background="@color/apptentive_transparency"
             android:src="@drawable/ic_pencil" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Angielski"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/editBtn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/category_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="asdasd"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/editBtn" />
 
     </RelativeLayout>
 

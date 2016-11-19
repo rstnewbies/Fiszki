@@ -8,14 +8,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.SelectedFlashcardsSingleton;
-import eu.qm.fiszki.dialogs.AddFlashcardDialog;
+import eu.qm.fiszki.listeners.FlashcardAddFab;
+import eu.qm.fiszki.listeners.FlashcardCancelFab;
+import eu.qm.fiszki.listeners.FlashcardDeleteFab;
+import eu.qm.fiszki.listeners.FlashcardTransformFab;
 import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
 import eu.qm.fiszki.model.flashcard.Flashcard;
@@ -25,6 +28,11 @@ import eu.qm.fiszki.myWords.category.CategoryActivity;
 
 public class FlashcardsActivity extends AppCompatActivity {
 
+    private FloatingActionButton mFabCancel;
+    private FloatingActionButton mFabAdd;
+    private FloatingActionButton mFabTransform;
+    private FloatingActionButton mFabDelete;
+    private SelectedFabManager mFabManager;
     private TextView mEmptyFlashcard;
     private Activity mActivity;
     private RecyclerView mRecycleView;
@@ -37,45 +45,49 @@ public class FlashcardsActivity extends AppCompatActivity {
         setContentView(R.layout.flashcards_activity);
         init();
         buildToolbar();
-        buildFAB();
         buildListView();
-
+        buildFabs();
     }
 
     private void init() {
         this.mActivity = this;
+        mFabManager = new SelectedFabManager(mActivity);
         mFlashcardRepository = new FlashcardRepository(mActivity);
         mEmptyFlashcard = (TextView) mActivity.findViewById(R.id.empty_category_text);
-        mCurrentCategory = new CategoryRepository(mActivity).getCategoryByID(CategoryManagerSingleton.getClickedCategoryId());
+        mFabAdd = (FloatingActionButton) mActivity.findViewById(R.id.fab_add_flashcard);
+        mFabCancel = (FloatingActionButton) mActivity.findViewById(R.id.fab_cancel_flashcard);
+        mFabDelete = (FloatingActionButton) mActivity.findViewById(R.id.fab_delete_flashcard);
+        mFabTransform = (FloatingActionButton) mActivity.findViewById(R.id.fab_transform_flashcard);
+        mCurrentCategory = new CategoryRepository(mActivity)
+                .getCategoryByID(CategoryManagerSingleton.getCurrentCategoryId());
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        if(hasFocus){
+        if (hasFocus) {
             updateListView();
+            mFabManager.hideAll();
+            SelectedFlashcardsSingleton.clearFlashcards();
         }
     }
 
     @Override
     public void onBackPressed() {
         SelectedFlashcardsSingleton.clearFlashcards();
-        mActivity.startActivity(new Intent(mActivity,CategoryActivity.class));
+        mFabManager.hideAll();
+        mActivity.startActivity(new Intent(mActivity, CategoryActivity.class));
         mActivity.finish();
-        mActivity.overridePendingTransition(R.anim.right_out,R.anim.left_in);
+        mActivity.overridePendingTransition(R.anim.right_out, R.anim.left_in);
     }
 
-    private void buildFAB() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add);
-        fab.setImageResource(R.drawable.plusbutton);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new AddFlashcardDialog(mActivity,mCurrentCategory.getId()).show();
-            }
-        });
+    private void buildFabs() {
+        mFabAdd.setOnClickListener(new FlashcardAddFab(mActivity));
+        mFabCancel.setOnClickListener(new FlashcardCancelFab(mActivity));
+        mFabDelete.setOnClickListener(new FlashcardDeleteFab(mActivity));
+        mFabTransform.setOnClickListener(new FlashcardTransformFab(mActivity));
     }
 
-    private void buildToolbar(){
+    private void buildToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.md_nav_back);
         toolbar.setTitle(mCurrentCategory.getCategory());
@@ -85,6 +97,7 @@ public class FlashcardsActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        toolbar.inflateMenu(R.menu.menu_flashcard);
     }
 
     private void buildListView() {
@@ -96,13 +109,17 @@ public class FlashcardsActivity extends AppCompatActivity {
     private void updateListView() {
         ArrayList<Flashcard> flashcards = mFlashcardRepository.getFlashcardsByCategoryID(mCurrentCategory.getId());
 
-        if(flashcards.isEmpty()){
+        if (flashcards.isEmpty()) {
             mEmptyFlashcard.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             mEmptyFlashcard.setVisibility(View.INVISIBLE);
         }
 
-        FlashcardShowAdapter adapter = new FlashcardShowAdapter(mActivity,flashcards);
-        mRecycleView.swapAdapter(adapter,false);
+        FlashcardShowAdapter adapter = new FlashcardShowAdapter(mActivity, flashcards);
+        mRecycleView.swapAdapter(adapter, false);
+    }
+
+    public void menuInfo(MenuItem item) {
+
     }
 }

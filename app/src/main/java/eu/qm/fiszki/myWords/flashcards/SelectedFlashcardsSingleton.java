@@ -1,4 +1,4 @@
-package eu.qm.fiszki;
+package eu.qm.fiszki.myWords.flashcards;
 
 import java.util.ArrayList;
 
@@ -34,10 +34,11 @@ public class SelectedFlashcardsSingleton {
 
     public static void clearFlashcards(){
         getFlashcards().clear();
+        setStatuOff();
     }
 
     public static boolean findFlashcard(Flashcard flashcard){
-        for (Flashcard card:getFlashcards()) {
+        for (Flashcard card:mFlashcards) {
             if(card.equals(flashcard)){
                 return true;
             }

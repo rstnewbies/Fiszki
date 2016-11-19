@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void buildFAB() {
-        mFab = (FloatingActionButton) findViewById(R.id.fab_add);
+        mFab = (FloatingActionButton) findViewById(R.id.fab_add_flashcard);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

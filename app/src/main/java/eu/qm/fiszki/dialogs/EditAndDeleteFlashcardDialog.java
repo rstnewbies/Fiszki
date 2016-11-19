@@ -67,7 +67,7 @@ public class EditAndDeleteFlashcardDialog extends MaterialDialog.Builder {
                 flashcard.setWord(mWordET.getText().toString().trim());
                 flashcard.setTranslation(mTranslateET.getText().toString().trim());
 
-                if (mValidationFlashcards.validate(flashcard)) {
+                if (mValidationFlashcards.validateAdd(flashcard)) {
                     mFlashcardRepository.updateFlashcard(flashcard);
                     Toast.makeText(context, R.string.flashcard_edit_toast, Toast.LENGTH_LONG).show();
                     dialog.dismiss();
@@ -84,19 +84,19 @@ public class EditAndDeleteFlashcardDialog extends MaterialDialog.Builder {
                 final MaterialDialog editDialog = dialog;
 
                 builder.setMessage(R.string.flashcard_delete_message)
-                        .setPositiveButton(R.string.button_action_yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                mindfulSnackbar();
-                                mFlashcardRepository.deleteFlashcard(mFlashcard);
-                                editDialog.dismiss();
-                            }
-                        })
-                        .setNegativeButton(R.string.button_action_no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                            }
-                        }).show();
-            }
-        };
+                .setPositiveButton(R.string.button_action_yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        mindfulSnackbar();
+                        mFlashcardRepository.deleteFlashcard(mFlashcard);
+                        editDialog.dismiss();
+                    }
+                })
+                .setNegativeButton(R.string.button_action_no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                }).show();
+    }
+};
     }
 
     private void mindfulSnackbar() {

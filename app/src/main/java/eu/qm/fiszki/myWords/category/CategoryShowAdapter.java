@@ -46,7 +46,7 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
         holder.mMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CategoryManagerSingleton.setClickedCategoryId(category.getId());
+                CategoryManagerSingleton.setCurrentCategoryId(category.getId());
                 mActivity.startActivity(new Intent(mActivity, FlashcardsActivity.class));
                 mActivity.finish();
                 mActivity.overridePendingTransition(R.anim.right_in, R.anim.left_out);

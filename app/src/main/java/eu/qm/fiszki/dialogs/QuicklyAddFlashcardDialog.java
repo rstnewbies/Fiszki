@@ -55,7 +55,7 @@ public class QuicklyAddFlashcardDialog extends MaterialDialog.Builder {
                 flashcard.setTranslation(mFlashcardTranslationET.getText().toString().trim());
                 flashcard.setCategoryID(1);
 
-                if (mValidationFlashcards.validate(flashcard)) {
+                if (mValidationFlashcards.validateAdd(flashcard)) {
                     mFlashcardRepository.addFlashcard(flashcard);
                     Toast.makeText(context, R.string.add_new_flashcard_toast, Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
