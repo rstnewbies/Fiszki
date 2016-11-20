@@ -22,14 +22,14 @@
             android:id="@+id/editBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignBottom="@+id/textView2"
+            android:layout_alignBottom="@+id/category_lang"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:background="@color/apptentive_transparency"
             android:src="@drawable/ic_pencil" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/category_lang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Angielski"

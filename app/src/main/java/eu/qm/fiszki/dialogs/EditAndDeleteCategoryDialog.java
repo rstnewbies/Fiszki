@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.ArrayList;
@@ -27,13 +28,15 @@ import eu.qm.fiszki.model.flashcard.FlashcardRepository;
 
 public class EditAndDeleteCategoryDialog extends MaterialDialog.Builder {
 
+    private Activity mActivity;
+    private Category mCategory;
+    private ArrayList<Flashcard> mFlashcards;
     private MaterialEditText mCategoryNameET;
     private ValidationCategory mValidationCategory;
     private CategoryRepository mCategoryRepository;
     private FlashcardRepository mFlashcardRepository;
-    private Category mCategory;
-    private Activity mActivity;
-    private ArrayList<Flashcard> mFlashcards;
+    private MaterialAutoCompleteTextView mCategoryLangOn;
+    private MaterialAutoCompleteTextView mCategoryLangFrom;
 
     public EditAndDeleteCategoryDialog(@NonNull Activity activity, Category category) {
         super(activity);
@@ -54,10 +57,19 @@ public class EditAndDeleteCategoryDialog extends MaterialDialog.Builder {
         init();
 
         mCategoryNameET.setText(mCategory.getCategory());
+        if(mCategoryLangFrom!=null || mCategoryLangOn!=null) {
+            mCategoryLangFrom.setText(mCategory.getLangFrom());
+            mCategoryLangOn.setText(mCategory.getLangOn());
+        }else{
+            mCategoryLangFrom.setText("");
+            mCategoryLangOn.setText("");
+        }
     }
 
     public void init() {
         mCategoryNameET = (MaterialEditText) customView.findViewById(R.id.add_category_dialog_et_name);
+        mCategoryLangFrom = (MaterialAutoCompleteTextView) customView.findViewById(R.id.add_category_dialog_lang_from);
+        mCategoryLangOn = (MaterialAutoCompleteTextView) customView.findViewById(R.id.add_category_dialog_lang_on);
         mValidationCategory = new ValidationCategory(context);
         mCategoryRepository = new CategoryRepository(context);
         mFlashcardRepository = new FlashcardRepository(mActivity);
@@ -69,6 +81,8 @@ public class EditAndDeleteCategoryDialog extends MaterialDialog.Builder {
             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                 Category category = mCategory;
                 category.setCategory(mCategoryNameET.getText().toString().trim());
+                category.setLangFrom(mCategoryLangFrom.getText().toString().trim());
+                category.setLangOn(mCategoryLangOn.getText().toString().trim());
 
                 if (mValidationCategory.validate(category)) {
                     mCategoryRepository.updateCategory(category);

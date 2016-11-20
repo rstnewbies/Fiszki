@@ -61,8 +61,15 @@ public class TransformFlashcardDialog extends MaterialDialog.Builder {
             }
             spinnerCategories.add(cat.getCategory());
         }
+
+        //zabezpieczenie przed FC; Kiedy przenosimy z braku kategori
+        if(!findPosition){
+            cuntPosition=0;
+        }
+
         mSpinner = (MaterialSpinner) customView.findViewById(R.id.transform_spinner);
         mSpinner.setItems(spinnerCategories);
+        System.out.println(categories);
         mSpinner.setSelectedIndex(cuntPosition);
         mSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override

@@ -66,19 +66,30 @@ public class Category implements Serializable {
         this.chosen = chosen;
     }
 
-    public String getLangOn() {
+    public String getLangOnDB() {
         return langOn;
     }
 
-    public void setLangOn(String langOn) {
-        this.langOn = langOn;
+    public String getLangOn() {
+        return langOn.replace("%sq%","'");
     }
 
-    public String getLangFrom() {
+    public void setLangOn(String langOn) {
+        this.langOn = langOn.replace("'","%sq%");
+    }
+
+    public String getLangFromDB() {
         return langFrom;
     }
 
+    public String getLangFrom() {
+        if(langFrom == null){
+            return langFrom;
+        }
+        return langFrom.replace("%sq%","'");
+    }
+
     public void setLangFrom(String langFrom) {
-        this.langFrom = langFrom;
+        this.langFrom = langFrom.replace("'","%sq%");;
     }
 }

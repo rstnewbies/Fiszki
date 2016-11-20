@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
@@ -43,6 +45,12 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
 
         holder.mName.setText(category.getCategory());
 
+        if(category.getLangFrom()==null || category.getLangOn()==null) {
+            holder.mLang.setText(R.string.category_no_lang);
+        }else{
+            holder.mLang.setText(category.getLangFrom()+" - "+category.getLangOn());
+        }
+
         holder.mMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +67,8 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
                 new EditAndDeleteCategoryDialog(mActivity, category).show();
             }
         });
+
+
     }
 
     @Override
@@ -75,11 +85,13 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
 
         private CardView mMain;
         private TextView mName;
+        private TextView mLang;
         private ImageButton mEditBtn;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mMain = (CardView) itemView.findViewById(R.id.placeCard);
+            mLang =(TextView) itemView.findViewById(R.id.category_lang);
             mName = (TextView) itemView.findViewById(R.id.category_name);
             mEditBtn = (ImageButton) itemView.findViewById(R.id.editBtn);
         }

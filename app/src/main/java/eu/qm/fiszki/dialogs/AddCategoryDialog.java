@@ -1,9 +1,7 @@
 package eu.qm.fiszki.dialogs;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -24,7 +22,8 @@ public class AddCategoryDialog extends MaterialDialog.Builder {
 
     private CategoryRepository mCategoryRepository;
     private MaterialEditText mCategoryNameET;
-    private MaterialAutoCompleteTextView mCategoryLangACET;
+    private MaterialAutoCompleteTextView mCategoryLangFrom;
+    private MaterialAutoCompleteTextView mCategoryLangOn;
     private Activity mActivity;
     private ValidationCategory mValidationCategory;
 
@@ -39,20 +38,23 @@ public class AddCategoryDialog extends MaterialDialog.Builder {
         this.onPositive(addCategory());
         init();
         autoDismiss(false);
+        setAdapterToLang();
     }
 
     private void init() {
         mCategoryNameET = (MaterialEditText) customView.findViewById(R.id.add_category_dialog_et_name);
-        //mCategoryLangACET = (MaterialAutoCompleteTextView) customView.findViewById(R.id.add_category_dialog_lang);
+        mCategoryLangFrom = (MaterialAutoCompleteTextView) customView.findViewById(R.id.add_category_dialog_lang_from);
+        mCategoryLangOn = (MaterialAutoCompleteTextView) customView.findViewById(R.id.add_category_dialog_lang_on);
         mCategoryRepository = new CategoryRepository(mActivity);
         mValidationCategory = new ValidationCategory(mActivity);
     }
 
     private void setAdapterToLang() {
-        String[] countries = context.getResources().getStringArray(R.array.notification_frequency);
+        String[] countries = context.getResources().getStringArray(R.array.support_lang);
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(context, android.R.layout.simple_selectable_list_item, countries);
-        mCategoryLangACET.setAdapter(adapter);
+        mCategoryLangFrom.setAdapter(adapter);
+        mCategoryLangOn.setAdapter(adapter);
     }
 
     private MaterialDialog.SingleButtonCallback addCategory() {
@@ -62,6 +64,8 @@ public class AddCategoryDialog extends MaterialDialog.Builder {
                 Category category = new Category();
                 category.setCategory(mCategoryNameET.getText().toString().trim());
                 category.setEntryByUser(true);
+                category.setLangOn(mCategoryLangOn.getText().toString().trim());
+                category.setLangFrom(mCategoryLangFrom.getText().toString().trim());
 
                 if (mValidationCategory.validate(category)) {
                     mCategoryRepository.addCategory(category);

@@ -6,8 +6,11 @@
     <string name="category_dialog_title">Stwórz nową kategorię</string>
     <string name="category_positive_btn_text">Stwórz</string>
     <string name="category_dialog_et_name">Nazwa kategorii</string>
-    <string name="category_dialog_lang">Jezyk</string>
+    <string name="category_dialog_lang_on">Na język</string>
+    <string name="category_dialog_lang_from">Z języka</string>
     <string name="category_toast">Dodano nową kategorię</string>
+
+    <string name="category_no_lang">Nie ustawiono języka</string>
 
     <string name="category_empty_text">Nie masz jeszcze żadnych kategori.</string>
 
