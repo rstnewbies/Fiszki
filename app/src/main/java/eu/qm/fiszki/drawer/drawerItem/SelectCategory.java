@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.dialogs.SelectCategoryDialog;
+import eu.qm.fiszki.dialogs.category.SelectCategoryDialog;
 import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
 import eu.qm.fiszki.model.flashcard.FlashcardRepository;

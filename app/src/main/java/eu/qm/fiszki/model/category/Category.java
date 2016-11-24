@@ -71,6 +71,9 @@ public class Category implements Serializable {
     }
 
     public String getLangOn() {
+        if(langOn == null){
+            return langOn;
+        }
         return langOn.replace("%sq%","'");
     }
 

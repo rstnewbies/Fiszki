@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Handler;
 import android.view.View;
 
-import eu.qm.fiszki.dialogs.EditAndDeleteFlashcardDialog;
+import eu.qm.fiszki.dialogs.flashcard.EditAndDeleteFlashcardDialog;
 import eu.qm.fiszki.model.flashcard.Flashcard;
 
 /**

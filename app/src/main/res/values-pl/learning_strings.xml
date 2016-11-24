@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="learning_toolbar_title">Wybierz zakres nauki:</string>
+
+    <string name="learning_card_all_name">Wszystko</string>
+    <string name="learning_card_category_name">Po kategoriach</string>
+    <string name="learning_card_lang_name">Po językach</string>
+
+    <string name="learning_by_category_dialog_title">Wybierz kategorie do nauki</string>
+    <string name="learning_by_category_dialog_btn_to_learning">Do nauki!</string>
+    <string name="learning_by_category_dialog_btn_back">Wroć</string>
+    <string name="learning_by_category_tost_no_chose">Nie wybrałeś żadnej kategori</string>
+    <string name="learning_by_category_tost_empty_category">Wybrane kategorie są puste</string>
+
+    <string name="learning_by_lang_dialog_title">Wybierz język do nauki</string>
+    <string name="learning_by_lang_dialog_from_text">Z:</string>
+    <string name="learning_by_lang_dialog_on_text">Na:</string>
+    <string name="learning_by_lang_whichever">Którykolwiek</string>
+    <string name="learning_by_lang_tost_empty_chose">Taka konfiguracja nie istnieje lub jest pusta.</string>
+
+    <string name="learning_check_toolbar_title">Nauka</string>
+    <string name="learning_check_lang_translate">Przetłumacz</string>
+    <string name="learning_check_lang_translate_1">Przetłumacz z</string>
+    <string name="learning_check_lang_translate_2">na</string>
+    <string name="learning_check_dialog_bad_answer_1">Zła odpowiedź. Poprawnie to:</string>
+    <string name="learning_check_dialog_bad_answer_2">Wpisz ponownie.</string>
+
+
+</resources>

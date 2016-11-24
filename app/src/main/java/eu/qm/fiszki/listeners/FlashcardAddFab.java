@@ -3,7 +3,7 @@ package eu.qm.fiszki.listeners;
 import android.app.Activity;
 import android.view.View;
 
-import eu.qm.fiszki.dialogs.AddFlashcardDialog;
+import eu.qm.fiszki.dialogs.flashcard.AddFlashcardDialog;
 import eu.qm.fiszki.myWords.CategoryManagerSingleton;
 
 /**

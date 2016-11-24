@@ -1,4 +1,4 @@
-package eu.qm.fiszki.activity;
+package eu.qm.fiszki.old;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -54,7 +54,7 @@ public class LearningModeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check);
+        setContentView(R.layout.activity_check_old);
 
         context = this;
         categoryRepository = new CategoryRepository(context);
@@ -202,7 +202,7 @@ public class LearningModeActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }else{
                     chosenCategory = showCategoryAdapter.getChoosenCategory();
-                    setContentView(R.layout.activity_check);
+                    setContentView(R.layout.activity_check_old);
                     menu.findItem(R.id.action_OK).setVisible(true);
                     enteredWord = (EditText) findViewById(R.id.EnteredWord);
                     word = (TextView) findViewById(R.id.textView3);

@@ -28,6 +28,8 @@
     <string name="title_activity_my_flashcards" translatable="false">MyFlashcardsActivity</string>
     <string name="title_activity_my_words" translatable="false">MyWordsActivity</string>
     <string name="title_activity_scrolling" translatable="false">ScrollingActivity</string>
+    <string name="title_activity_learning">LearningActivity</string>
+    <string name="title_activity_check">CheckActivity</string>
 
 
 </resources>

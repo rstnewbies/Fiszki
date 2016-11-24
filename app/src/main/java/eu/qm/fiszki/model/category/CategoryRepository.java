@@ -15,6 +15,8 @@ import eu.qm.fiszki.database.ORM.DBHelper;
  */
 public class CategoryRepository {
 
+    public static final String addCategoryName = "ADDNEWCATEGORY";
+
     private Context mContext;
     private DBHelper dbHelper;
     private RuntimeExceptionDao<Category, Integer> categoryDao;
@@ -45,6 +47,11 @@ public class CategoryRepository {
         categoryDao.createIfNotExists(firstCategory);
         if(!getCategoryByID(1).getCategoryDB().equals(firstCategory.getCategoryDB())){
             updateCategory(firstCategory);
+        }
+        //delete addCategory from version<1.7
+        Category addCategory = categoryDao.queryForId(2);
+        if(addCategory!=null && addCategory.getCategory().equals(addCategoryName) && !addCategory.isEntryByUser()){
+            categoryDao.delete(addCategory);
         }
     }
 
@@ -88,5 +95,24 @@ public class CategoryRepository {
 
     public ArrayList<Category> getChosenCategory(){
         return (ArrayList<Category>) categoryDao.queryForEq(Category.columnCategoryChosen, true);
+    }
+
+    public ArrayList<Category> getCategoryByLang(String langFrom,String langOn){
+        ArrayList<Category> categories = new ArrayList<>();
+        ArrayList<Category> categoryFrom = (ArrayList<Category>) categoryDao.queryForEq(Category.columnCategoryLangFrom,langFrom);
+        for (Category cat:categoryFrom){
+            if(cat.getLangOn()!=null && cat.getLangOn().equals(langOn)){
+                categories.add(cat);
+            }
+        }
+        return categories;
+    }
+
+    public ArrayList<Category> getCategoryByLangFrom(String langFrom){
+        return (ArrayList<Category>) categoryDao.queryForEq(Category.columnCategoryLangFrom, langFrom);
+    }
+
+    public ArrayList<Category> getCategoryByLangOn(String langOn){
+        return (ArrayList<Category>) categoryDao.queryForEq(Category.columnCategoryLangOn, langOn);
     }
 }

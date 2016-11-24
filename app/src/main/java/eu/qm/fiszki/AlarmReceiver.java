@@ -13,9 +13,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v7.app.NotificationCompat;
 
-import java.util.IllegalFormatException;
-
-import eu.qm.fiszki.activity.CheckActivity;
+import eu.qm.fiszki.old.CheckActivity;
 
 public class AlarmReceiver extends BroadcastReceiver {
 

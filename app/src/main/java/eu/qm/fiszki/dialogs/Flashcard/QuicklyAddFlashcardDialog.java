@@ -1,4 +1,4 @@
-package eu.qm.fiszki.dialogs;
+package eu.qm.fiszki.dialogs.flashcard;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -53,6 +53,7 @@ public class QuicklyAddFlashcardDialog extends MaterialDialog.Builder {
                 Flashcard flashcard = new Flashcard();
                 flashcard.setWord(mFlashcardWordET.getText().toString().trim());
                 flashcard.setTranslation(mFlashcardTranslationET.getText().toString().trim());
+                flashcard.setPriority(1);
                 flashcard.setCategoryID(1);
 
                 if (mValidationFlashcards.validateAdd(flashcard)) {

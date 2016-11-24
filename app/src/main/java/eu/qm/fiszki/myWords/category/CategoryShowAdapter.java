@@ -10,12 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.dialogs.EditAndDeleteCategoryDialog;
+import eu.qm.fiszki.dialogs.category.EditAndDeleteCategoryDialog;
 import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.myWords.CategoryManagerSingleton;
 import eu.qm.fiszki.myWords.flashcards.FlashcardsActivity;
@@ -45,11 +43,7 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
 
         holder.mName.setText(category.getCategory());
 
-        if(category.getLangFrom()==null || category.getLangOn()==null) {
-            holder.mLang.setText(R.string.category_no_lang);
-        }else{
-            holder.mLang.setText(category.getLangFrom()+" - "+category.getLangOn());
-        }
+        setLanguageText(holder, category);
 
         holder.mMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,8 +61,27 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
                 new EditAndDeleteCategoryDialog(mActivity, category).show();
             }
         });
+    }
 
+    private void setLanguageText(ViewHolder holder, Category category) {
+        String langFrom = category.getLangFrom();
+        String langOn = category.getLangOn();
 
+        if (langFrom == null && langOn == null) {
+            holder.mLang.setText(R.string.category_no_lang);
+        } else {
+            if (langFrom.isEmpty() && langOn.isEmpty()) {
+                holder.mLang.setText(R.string.category_no_lang);
+            } else {
+                if (langFrom.isEmpty()) {
+                    langFrom = mActivity.getString(R.string.category_no_lang);
+                }
+                if (langOn.isEmpty()) {
+                    langOn = mActivity.getString(R.string.category_no_lang);
+                }
+                holder.mLang.setText(langFrom + " -> " + langOn);
+            }
+        }
     }
 
     @Override
@@ -91,7 +104,7 @@ public class CategoryShowAdapter extends RecyclerView.Adapter<CategoryShowAdapte
         public ViewHolder(View itemView) {
             super(itemView);
             mMain = (CardView) itemView.findViewById(R.id.placeCard);
-            mLang =(TextView) itemView.findViewById(R.id.category_lang);
+            mLang = (TextView) itemView.findViewById(R.id.category_lang);
             mName = (TextView) itemView.findViewById(R.id.category_name);
             mEditBtn = (ImageButton) itemView.findViewById(R.id.editBtn);
         }

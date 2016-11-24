@@ -1,4 +1,4 @@
-package eu.qm.fiszki.dialogs;
+package eu.qm.fiszki.dialogs.flashcard;
 
 import android.app.Activity;
 import android.content.DialogInterface;

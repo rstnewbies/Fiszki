@@ -1,4 +1,4 @@
-package eu.qm.fiszki.dialogs;
+package eu.qm.fiszki.dialogs.flashcard;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -10,12 +10,12 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.myWords.flashcards.SelectedFlashcardsSingleton;
 import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
 import eu.qm.fiszki.model.flashcard.Flashcard;
 import eu.qm.fiszki.model.flashcard.FlashcardRepository;
 import eu.qm.fiszki.myWords.CategoryManagerSingleton;
+import eu.qm.fiszki.myWords.flashcards.SelectedFlashcardsSingleton;
 
 
 /**
@@ -63,13 +63,12 @@ public class TransformFlashcardDialog extends MaterialDialog.Builder {
         }
 
         //zabezpieczenie przed FC; Kiedy przenosimy z braku kategori
-        if(!findPosition){
-            cuntPosition=0;
+        if (!findPosition) {
+            cuntPosition = 0;
         }
 
         mSpinner = (MaterialSpinner) customView.findViewById(R.id.transform_spinner);
         mSpinner.setItems(spinnerCategories);
-        System.out.println(categories);
         mSpinner.setSelectedIndex(cuntPosition);
         mSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
@@ -85,6 +84,11 @@ public class TransformFlashcardDialog extends MaterialDialog.Builder {
             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                 FlashcardRepository flashcardRepository = new FlashcardRepository(mActivity);
                 ArrayList<Flashcard> flashcards = SelectedFlashcardsSingleton.getFlashcards();
+
+                //zabezpieczenie przec FC; Gdy jest jedna kategoria i nie trzeba wybierać;
+                if (seletedCategory == null) {
+                    seletedCategory = mCategoryRepository.getUserCategory().get(0);
+                }
 
                 for (Flashcard card : flashcards) {
                     card.setCategoryID(seletedCategory.getId());

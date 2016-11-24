@@ -93,5 +93,4 @@ public class FlashcardRepository {
     public ArrayList<Flashcard> getFlashcardsByCategoryID(int CategoryID) {
         return (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnFlashcardCategoryID, CategoryID);
     }
-
 }

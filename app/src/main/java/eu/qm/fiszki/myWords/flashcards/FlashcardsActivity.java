@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.dialogs.information.InformationFlashcardDialog;
 import eu.qm.fiszki.listeners.FlashcardAddFab;
 import eu.qm.fiszki.listeners.FlashcardCancelFab;
 import eu.qm.fiszki.listeners.FlashcardDeleteFab;
@@ -91,13 +92,17 @@ public class FlashcardsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.md_nav_back);
         toolbar.setTitle(mCurrentCategory.getCategory());
+        toolbar.inflateMenu(R.menu.menu_flashcard);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-        toolbar.inflateMenu(R.menu.menu_flashcard);
+    }
+
+    public void menuInfo(MenuItem item) {
+        new InformationFlashcardDialog(mActivity).show();
     }
 
     private void buildListView() {
@@ -117,9 +122,5 @@ public class FlashcardsActivity extends AppCompatActivity {
 
         FlashcardShowAdapter adapter = new FlashcardShowAdapter(mActivity, flashcards);
         mRecycleView.swapAdapter(adapter, false);
-    }
-
-    public void menuInfo(MenuItem item) {
-
     }
 }

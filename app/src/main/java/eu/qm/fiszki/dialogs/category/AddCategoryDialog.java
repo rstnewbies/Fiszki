@@ -1,4 +1,4 @@
-package eu.qm.fiszki.dialogs;
+package eu.qm.fiszki.dialogs.category;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -15,9 +15,6 @@ import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
 import eu.qm.fiszki.model.category.ValidationCategory;
 
-/**
- * Created by tm on 11.07.16.
- */
 public class AddCategoryDialog extends MaterialDialog.Builder {
 
     private CategoryRepository mCategoryRepository;

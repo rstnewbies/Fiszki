@@ -1,4 +1,4 @@
-package eu.qm.fiszki.dialogs;
+package eu.qm.fiszki.dialogs.category;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -17,6 +17,7 @@ import eu.qm.fiszki.settings.ChoosenCategoryAdapter;
  * Created by tm on 11.07.16.
  */
 public class SelectCategoryDialog extends MaterialDialog.Builder {
+
 
     public SelectCategoryDialog(@NonNull Context context, ArrayList<Category> categoryToPopulate) {
         super(context);

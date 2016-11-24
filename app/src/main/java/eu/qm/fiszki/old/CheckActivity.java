@@ -1,4 +1,4 @@
-package eu.qm.fiszki.activity;
+package eu.qm.fiszki.old;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -47,7 +47,7 @@ public class CheckActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check);
+        setContentView(R.layout.activity_check_old);
         alert = new Alert();
         context = this;
         algorithm = new Algorithm(context);

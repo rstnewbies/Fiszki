@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import android.view.View;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.dialogs.TransformFlashcardDialog;
+import eu.qm.fiszki.dialogs.flashcard.TransformFlashcardDialog;
 import eu.qm.fiszki.model.category.CategoryRepository;
 
 /**

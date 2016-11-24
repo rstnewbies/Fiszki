@@ -1,4 +1,4 @@
-package eu.qm.fiszki.dialogs;
+package eu.qm.fiszki.dialogs.category;
 
 import android.app.Activity;
 import android.app.AlertDialog;

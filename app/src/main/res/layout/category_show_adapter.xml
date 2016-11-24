@@ -32,19 +32,21 @@
             android:id="@+id/category_lang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Angielski"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/editBtn"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:singleLine="true"
+            />
 
         <TextView
             android:id="@+id/category_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:text="asdasd"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
