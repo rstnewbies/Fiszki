@@ -54,10 +54,6 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".old.LearningModeActivity"
-            android:label="@string/learning_mode_title"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".tutorial.TutorialActivity"
             android:label="@string/tutorial_title"
             android:screenOrientation="portrait" />

@@ -22,7 +22,8 @@
         android:onClick="onAllClick">
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/lerning_all_card" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,9 +49,10 @@
         android:layout_alignEnd="@+id/learning_all_card">
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/lerning_category_card" >
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -75,9 +77,10 @@
         android:layout_alignEnd="@+id/learning_category_card">
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/lerning_lang_card" >
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

@@ -31,8 +31,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/card_name_my_word"
-                android:textSize="30dp"
-                android:textStyle="bold|italic" />
+                android:typeface="sans"
+                android:textSize="30sp"
+                android:textStyle="normal|bold|italic"
+                android:textColor="@color/black"/>
         </FrameLayout>
     </android.support.v7.widget.CardView>
 
@@ -52,7 +54,8 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/learning_card">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -61,7 +64,8 @@
                 android:text="@string/card_name_learning"
                 android:textSize="30dp"
                 android:textStyle="bold|italic"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                />
         </FrameLayout>
     </android.support.v7.widget.CardView>
 
@@ -81,7 +85,8 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/exam_card">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -89,7 +94,8 @@
                 android:layout_gravity="center"
                 android:text="@string/card_name_exam"
                 android:textSize="30dp"
-                android:textStyle="bold|italic" />
+                android:textStyle="bold|italic"
+                android:textColor="@color/black"/>
         </FrameLayout>
     </android.support.v7.widget.CardView>
 

@@ -26,13 +26,13 @@ import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FloatingActionButton mFab;
+    private Drawer mDrawer;
     private Toolbar mToolbar;
     private Activity mActivity;
+    private int mCountBackPress;
+    private FloatingActionButton mFab;
     private CategoryRepository mCategoryRepository;
     private FlashcardRepository mFlashcardRepository;
-    private Drawer mDrawer;
-    private int mCountBackPress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
             mCountBackPress = 0;
         } else {
             if (mCountBackPress == 0) {
-                Toast.makeText(mActivity, R.string.back_press_toast, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity,
+                        R.string.back_press_toast, Toast.LENGTH_SHORT).show();
                 mCountBackPress++;
             } else {
                 finish();
@@ -88,9 +89,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         mActivity = this;
+        mCountBackPress = 0;
         mCategoryRepository = new CategoryRepository(mActivity);
         mFlashcardRepository = new FlashcardRepository(mActivity);
-        mCountBackPress = 0;
     }
 
     private void buildDrawer() {

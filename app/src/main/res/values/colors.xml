@@ -2,6 +2,7 @@
 <resources>
     <color name="ColorPrimary">#FFC400</color>
     <color name="ColorPrimaryDark">#FFAB00</color>
+    <color name="ColorPrimaryText">#E59A00</color>
     <color name="SelecteddColor">#b0bec5</color>
     <color name="TheBlackestBlack">#FFF</color>
     <color name="White">#ffffff</color>
@@ -11,7 +12,7 @@
     <color name="default_color">#ffffff</color>
     <color name="seleced_Adapter">#F44336</color>
     <color name="edit_button">#FF6D00</color>
-    <color name="black">#424242</color>
+    <color name="black">#303030</color>
     <color name="likeWhite">#e6e6e6</color>
     <color name="line">#d6d6d6</color>
     <color name="alert_button_color">#009688</color>
