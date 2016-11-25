@@ -11,6 +11,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.activity.ChangeActivityManager;
 import eu.qm.fiszki.dialogs.learning.ByCategoryLearningDialog;
 import eu.qm.fiszki.dialogs.learning.ByLanguageLearningDialog;
 import eu.qm.fiszki.model.flashcard.Flashcard;
@@ -49,12 +50,7 @@ public class LearningActivity extends AppCompatActivity {
     }
 
     public void onAllClick(View view) {
-        ArrayList<Flashcard> flashcards = mFlashcardRepository.getAllFlashcards();
-        Intent goLearning = new Intent(this,new LearningCheckActivity().getClass());
-        goLearning.putExtra("flashcards",flashcards);
-        this.startActivity(goLearning);
-        this.finish();
-        this.overridePendingTransition(R.anim.right_in, R.anim.left_out);
+        new ChangeActivityManager(this).goToLearningCheck(mFlashcardRepository.getAllFlashcards());
     }
 
     public void onCategoryClick(View view) {

@@ -17,6 +17,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.dialogs.flashcard.QuicklyAddFlashcardDialog;
+import eu.qm.fiszki.exam.ExamActivity;
 import eu.qm.fiszki.learning.LearningActivity;
 import eu.qm.fiszki.myWords.category.CategoryActivity;
 import eu.qm.fiszki.drawer.DrawerMain;
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         if (mFlashcardRepository.countFlashcards() == 0) {
             new Alert().addFiszkiToFeature(mActivity).show();
         } else {
-            startActivity(new Intent(this, ExamModeActivity.class));
+            startActivity(new Intent(this, ExamActivity.class));
         }
     }
 }

@@ -65,4 +65,13 @@ public class SelectedFlashcardsSingleton {
     public static void setStatuOff(){
         setStatus(STATUS_OFF);
     }
+
+    public static boolean isFlashcard(Flashcard flashcard) {
+        for (Flashcard card : mFlashcards) {
+            if (card.getId() == flashcard.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

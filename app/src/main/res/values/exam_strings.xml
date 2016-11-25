@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="exam_card_repeat_title">The number of repetitions</string>
+    <string name="exam_card_range_title">Range to learning</string>
+
+    <string name="exam_toolbar_title">Configure exam</string>
+
+    <string name="exam_range_dialog_title">Chose category to exam:</string>
+    <string name="exam_repeat_dialog_title">Chose the number of repetitions:</string>
+
+    <string name="exam_range_empty_toast">Chosen category is empty</string>
+
+</resources>

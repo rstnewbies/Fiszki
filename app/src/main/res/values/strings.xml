@@ -30,6 +30,8 @@
     <string name="title_activity_scrolling" translatable="false">ScrollingActivity</string>
     <string name="title_activity_learning">LearningActivity</string>
     <string name="title_activity_check">CheckActivity</string>
+    <string name="title_activity_exam">ExamActivity</string>
+    <string name="title_activity_exam_check">ExamCheckActivity</string>
 
 
 </resources>

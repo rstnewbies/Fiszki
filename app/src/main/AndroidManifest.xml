@@ -40,7 +40,7 @@
         </receiver>
 
         <activity
-            android:name=".activity.ExamModeActivity"
+            android:name=".old.ExamModeActivity"
             android:label="@string/exam_mode_title"
             android:screenOrientation="portrait" />
         <activity
@@ -94,6 +94,14 @@
         <activity
             android:name=".learning.LearningCheckActivity"
             android:label="@string/title_activity_check"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".exam.ExamActivity"
+            android:label="@string/title_activity_exam"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".listeners.exam.ExamCheckActivity"
+            android:label="@string/title_activity_exam_check"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

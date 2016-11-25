@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="exam_card_repeat_title">Ilość powtórzeń</string>
+    <string name="exam_card_range_title">Zakres nauki</string>
+
+    <string name="exam_toolbar_title">Skonfiguruj egzamin</string>
+
+    <string name="exam_range_dialog_title">Wybierz kategorie do egzaminu:</string>
+    <string name="exam_repeat_dialog_title">Wynierz ilość powtórzeń:</string>
+
+    <string name="exam_range_empty_toast">Wybrana kategoria jest pusta</string>
+</resources>

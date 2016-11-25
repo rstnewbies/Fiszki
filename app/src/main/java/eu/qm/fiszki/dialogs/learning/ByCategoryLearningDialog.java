@@ -1,7 +1,6 @@
 package eu.qm.fiszki.dialogs.learning;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
@@ -11,7 +10,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.learning.LearningCheckActivity;
+import eu.qm.fiszki.activity.ChangeActivityManager;
 import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
 import eu.qm.fiszki.model.flashcard.Flashcard;
@@ -69,9 +68,12 @@ public class ByCategoryLearningDialog extends MaterialDialog.Builder {
                 } else {
                     getCategoryFromList(which);
                     setFlashcards();
-                    if (checkEmptiness()) {
+                    if (mFlashcards.isEmpty()) {
+                        Toast.makeText(context, R.string.learning_by_category_tost_empty_category,
+                                Toast.LENGTH_LONG).show();
+                    } else {
                         dialog.dismiss();
-                        goToLerning();
+                        new ChangeActivityManager(mActivity).goToLearningCheck(mFlashcards);
                     }
                 }
                 return false;
@@ -90,24 +92,6 @@ public class ByCategoryLearningDialog extends MaterialDialog.Builder {
         for (Category cat : mChoseCategories) {
             mFlashcards.addAll(mFlashcardRepository.getFlashcardsByCategoryID(cat.getId()));
         }
-    }
-
-    private boolean checkEmptiness() {
-        if (mFlashcards.isEmpty()) {
-            Toast.makeText(context, R.string.learning_by_category_tost_empty_category,
-                    Toast.LENGTH_LONG).show();
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private void goToLerning() {
-        Intent goLearning = new Intent(mActivity, new LearningCheckActivity().getClass());
-        goLearning.putExtra("flashcards",mFlashcards);
-        mActivity.startActivity(goLearning);
-        mActivity.finish();
-        mActivity.overridePendingTransition(R.anim.right_in, R.anim.left_out);
     }
 
     private MaterialDialog.SingleButtonCallback closeDialog() {

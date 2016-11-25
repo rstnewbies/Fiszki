@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.dialogs.information.InformationFlashcardDialog;
-import eu.qm.fiszki.listeners.FlashcardAddFab;
-import eu.qm.fiszki.listeners.FlashcardCancelFab;
-import eu.qm.fiszki.listeners.FlashcardDeleteFab;
-import eu.qm.fiszki.listeners.FlashcardTransformFab;
+import eu.qm.fiszki.listeners.flashcard.FlashcardAddFab;
+import eu.qm.fiszki.listeners.flashcard.FlashcardCancelFab;
+import eu.qm.fiszki.listeners.flashcard.FlashcardDeleteFab;
+import eu.qm.fiszki.listeners.flashcard.FlashcardTransformFab;
 import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
 import eu.qm.fiszki.model.flashcard.Flashcard;

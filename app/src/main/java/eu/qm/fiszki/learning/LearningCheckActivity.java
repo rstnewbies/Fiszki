@@ -16,6 +16,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.activity.ChangeActivityManager;
 import eu.qm.fiszki.algorithm.Algorithm;
 import eu.qm.fiszki.dialogs.learning.BadAnswerLearnigDialog;
 import eu.qm.fiszki.model.category.Category;
@@ -49,9 +50,7 @@ public class LearningCheckActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        mActivity.startActivity(new Intent(mActivity, LearningActivity.class));
-        mActivity.finish();
-        mActivity.overridePendingTransition(R.anim.right_out, R.anim.left_in);
+        new ChangeActivityManager(mActivity).exitLearningCheck();
     }
 
     private void init() {
@@ -63,7 +62,8 @@ public class LearningCheckActivity extends AppCompatActivity {
         mWord = (TextView) mActivity.findViewById(R.id.learning_check_word_text);
         mCategory = (TextView) mActivity.findViewById(R.id.learning_check_category_text);
         mTranslate = (MaterialEditText) mActivity.findViewById(R.id.learning_check_edit_text);
-        mFlashcardsPool = (ArrayList<Flashcard>) this.getIntent().getSerializableExtra("flashcards");
+        mFlashcardsPool = (ArrayList<Flashcard>) this.getIntent()
+                .getSerializableExtra(ChangeActivityManager.FLASHCARDS_KEY_INTENT);
     }
 
     private void buildToolbar() {
@@ -101,9 +101,9 @@ public class LearningCheckActivity extends AppCompatActivity {
 
     private void setLangText() {
         if (mDrawnCategory.getLangFrom() == null || mDrawnCategory.getLangFrom().isEmpty() ||
-        mDrawnCategory.getLangOn() == null || mDrawnCategory.getLangOn().isEmpty()){
+                mDrawnCategory.getLangOn() == null || mDrawnCategory.getLangOn().isEmpty()) {
             mLang.setText(mActivity.getResources().getString(R.string.learning_check_lang_translate));
-        }else{
+        } else {
             mLang.setText(mActivity.getResources().getString(R.string.learning_check_lang_translate_1) +
                     " " +
                     mDrawnCategory.getLangFrom() +
@@ -128,7 +128,7 @@ public class LearningCheckActivity extends AppCompatActivity {
             mTranslate.setText("");
             drawFlashcard();
         } else {
-            new BadAnswerLearnigDialog(mActivity,mDrawnFlashcard).show();
+            new BadAnswerLearnigDialog(mActivity, mDrawnFlashcard).show();
         }
     }
 }

@@ -1,4 +1,4 @@
-package eu.qm.fiszki.listeners;
+package eu.qm.fiszki.listeners.flashcard;
 
 import android.app.Activity;
 import android.app.AlertDialog;

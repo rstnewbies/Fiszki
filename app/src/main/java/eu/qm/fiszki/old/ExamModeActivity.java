@@ -1,4 +1,4 @@
-package eu.qm.fiszki.activity;
+package eu.qm.fiszki.old;
 
 import android.content.Context;
 import android.content.Intent;

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_check"
+    android:id="@+id/content_exam_check"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -10,51 +10,52 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="eu.qm.fiszki.learning.LearningCheckActivity"
-    tools:showIn="@layout/activity_learning_check">
+    tools:context="eu.qm.fiszki.listeners.exam.ExamCheckActivity"
+    tools:showIn="@layout/activity_exam_check">
 
     <TextView
-        android:text=""
+        android:text="Pytanie 1 z 10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:id="@+id/learning_check_lang_text"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textAlignment="center"
-        android:textSize="18sp" />
+        android:id="@+id/textView10"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text=""
+        android:text="Hause"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/learning_check_lang_text"
-        android:id="@+id/learning_check_word_text"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:id="@+id/fawfa"
+        android:textAlignment="center"
         android:textStyle="normal|bold"
-        android:textAlignment="center"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:layout_below="@+id/textView10"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text=""
+        android:text="(Angielski -> Francuski)"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/learning_check_category_text"
-        android:layout_below="@+id/learning_check_word_text"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/fawfa"
+        android:id="@+id/textView14"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textAlignment="center" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/learning_check_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="32sp"
-        android:layout_below="@+id/learning_check_category_text"
+        android:layout_below="@+id/textView14"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:singleLine="true" />
+        android:textSize="35sp" />
+
 </RelativeLayout>

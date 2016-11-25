@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.activity.ChangeActivityManager;
 import eu.qm.fiszki.learning.LearningCheckActivity;
 import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
@@ -100,12 +101,12 @@ public class ByLanguageLearningDialog extends MaterialDialog.Builder {
                     Toast.makeText(context, R.string.learning_by_lang_tost_empty_chose, Toast.LENGTH_LONG).show();
                 } else {
                     setFlashcard();
-                    dialog.dismiss();
-                    Intent goLearning = new Intent(mActivity,new LearningCheckActivity().getClass());
-                    goLearning.putExtra("flashcards",mLearningFlashcards);
-                    mActivity.startActivity(goLearning);
-                    mActivity.finish();
-                    mActivity.overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                    if (mLearningFlashcards.isEmpty()) {
+                        Toast.makeText(context, R.string.learning_by_lang_tost_empty_chose, Toast.LENGTH_LONG).show();
+                    } else {
+                        dialog.dismiss();
+                        new ChangeActivityManager(mActivity).goToLearningCheck(mLearningFlashcards);
+                    }
                 }
             }
         };
