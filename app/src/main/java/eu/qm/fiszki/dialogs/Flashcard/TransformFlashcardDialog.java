@@ -14,8 +14,8 @@ import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
 import eu.qm.fiszki.model.flashcard.Flashcard;
 import eu.qm.fiszki.model.flashcard.FlashcardRepository;
-import eu.qm.fiszki.myWords.CategoryManagerSingleton;
-import eu.qm.fiszki.myWords.flashcards.SelectedFlashcardsSingleton;
+import eu.qm.fiszki.activity.myWords.CategoryManagerSingleton;
+import eu.qm.fiszki.activity.myWords.flashcards.SelectedFlashcardsSingleton;
 
 
 /**

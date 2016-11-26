@@ -1,4 +1,4 @@
-package eu.qm.fiszki.myWords.category;
+package eu.qm.fiszki.activity.myWords.category;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.dialogs.category.EditAndDeleteCategoryDialog;
 import eu.qm.fiszki.model.category.Category;
-import eu.qm.fiszki.myWords.CategoryManagerSingleton;
-import eu.qm.fiszki.myWords.flashcards.FlashcardsActivity;
+import eu.qm.fiszki.activity.myWords.CategoryManagerSingleton;
+import eu.qm.fiszki.activity.myWords.flashcards.FlashcardsActivity;
 
 /**
  * Created by tm on 15.07.16.

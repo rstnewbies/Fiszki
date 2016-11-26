@@ -1,4 +1,4 @@
-package eu.qm.fiszki.myWords.category;
+package eu.qm.fiszki.activity.myWords.category;
 
 import android.app.Activity;
 import android.os.Bundle;

@@ -1,7 +1,6 @@
 package eu.qm.fiszki.listeners.exam;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,8 +9,6 @@ import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.ChangeActivityManager;
-import eu.qm.fiszki.learning.LearningCheckActivity;
-import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
 import eu.qm.fiszki.model.flashcard.Flashcard;
 import eu.qm.fiszki.model.flashcard.FlashcardRepository;
@@ -57,11 +54,11 @@ public class ExamGoExaming implements View.OnClickListener {
 
     private boolean checkChosen() {
         if (mRangeText.equals(mActivity.getResources().getString(R.string.exam_card_range_title))) {
-            Toast.makeText(mActivity, "siusiak", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, R.string.exam_no_chosen_range, Toast.LENGTH_SHORT).show();
             return false;
         }
         if (mRepeatText.equals(mActivity.getResources().getString(R.string.exam_card_repeat_title))) {
-            Toast.makeText(mActivity, "cipuszka", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, R.string.exam_no_chosen_repeat, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

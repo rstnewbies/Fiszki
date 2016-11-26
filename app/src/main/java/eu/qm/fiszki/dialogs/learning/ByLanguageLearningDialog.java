@@ -1,7 +1,6 @@
 package eu.qm.fiszki.dialogs.learning;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
@@ -15,7 +14,6 @@ import java.util.Set;
 
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.ChangeActivityManager;
-import eu.qm.fiszki.learning.LearningCheckActivity;
 import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
 import eu.qm.fiszki.model.flashcard.Flashcard;

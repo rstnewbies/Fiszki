@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:divider="@android:color/transparent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".myWords.category.CategoryActivity"
+    tools:context=".activity.myWords.category.CategoryActivity"
     tools:showIn="@layout/flashcards_activity">
 
 

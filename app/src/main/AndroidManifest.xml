@@ -22,10 +22,6 @@
         android:theme="@style/AppTheme"
         tools:replace="android:label">
         <activity
-            android:name=".addWord.AddWordActivity"
-            android:label="@string/add_new_word_title"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".old.CheckActivity"
             android:label="@string/check_activity_title"
             android:launchMode="singleInstance"
@@ -64,6 +60,7 @@
 
         <activity
             android:name="com.apptentive.android.sdk.ViewActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/ApptentiveTheme" />
 
         <meta-data
@@ -72,6 +69,7 @@
 
         <activity
             android:name=".activity.SplashScreen"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -80,29 +78,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".myWords.category.CategoryActivity"
+            android:name=".activity.myWords.category.CategoryActivity"
             android:label="@string/category_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".myWords.flashcards.FlashcardsActivity"
+            android:name=".activity.myWords.flashcards.FlashcardsActivity"
             android:label="@string/title_activity_my_flashcards"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".learning.LearningActivity"
+            android:name=".activity.learning.LearningActivity"
             android:label="@string/title_activity_learning"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".learning.LearningCheckActivity"
+            android:name=".activity.learning.LearningCheckActivity"
             android:label="@string/title_activity_check"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".exam.ExamActivity"
+            android:name=".activity.exam.ExamActivity"
             android:label="@string/title_activity_exam"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".listeners.exam.ExamCheckActivity"
+            android:name=".activity.exam.ExamCheckActivity"
             android:label="@string/title_activity_exam_check"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.exam.ExamBadAnswerActivity"
+            android:label="@string/title_activity_exam_bad_answer"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

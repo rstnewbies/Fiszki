@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.view.View;
 
 import eu.qm.fiszki.dialogs.flashcard.AddFlashcardDialog;
-import eu.qm.fiszki.myWords.CategoryManagerSingleton;
+import eu.qm.fiszki.activity.myWords.CategoryManagerSingleton;
 
 /**
  * Created by mBoiler on 19.11.2016.

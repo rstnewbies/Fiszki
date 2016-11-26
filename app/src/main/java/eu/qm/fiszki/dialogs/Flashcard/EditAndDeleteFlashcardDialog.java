@@ -80,9 +80,9 @@ public class EditAndDeleteFlashcardDialog extends MaterialDialog.Builder {
         return new MaterialDialog.SingleButtonCallback() {
             @Override
             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 final MaterialDialog editDialog = dialog;
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setMessage(R.string.flashcard_delete_message)
                 .setPositiveButton(R.string.button_action_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -95,7 +95,7 @@ public class EditAndDeleteFlashcardDialog extends MaterialDialog.Builder {
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 }).show();
-    }
+            }
 };
     }
 

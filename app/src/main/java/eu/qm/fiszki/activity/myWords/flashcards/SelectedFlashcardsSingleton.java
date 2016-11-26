@@ -1,4 +1,4 @@
-package eu.qm.fiszki.myWords.flashcards;
+package eu.qm.fiszki.activity.myWords.flashcards;
 
 import java.util.ArrayList;
 

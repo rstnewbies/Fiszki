@@ -1,4 +1,4 @@
-package eu.qm.fiszki.myWords.flashcards;
+package eu.qm.fiszki.activity.myWords.flashcards;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -24,8 +24,8 @@ import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
 import eu.qm.fiszki.model.flashcard.Flashcard;
 import eu.qm.fiszki.model.flashcard.FlashcardRepository;
-import eu.qm.fiszki.myWords.CategoryManagerSingleton;
-import eu.qm.fiszki.myWords.category.CategoryActivity;
+import eu.qm.fiszki.activity.myWords.CategoryManagerSingleton;
+import eu.qm.fiszki.activity.myWords.category.CategoryActivity;
 
 public class FlashcardsActivity extends AppCompatActivity {
 

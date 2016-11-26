@@ -2,7 +2,7 @@
 <resources>
 
     <string name="exam_card_repeat_title">Ilość powtórzeń</string>
-    <string name="exam_card_range_title">Zakres nauki</string>
+    <string name="exam_card_range_title">Zakres egzaminu</string>
 
     <string name="exam_toolbar_title">Skonfiguruj egzamin</string>
 
@@ -10,4 +10,24 @@
     <string name="exam_repeat_dialog_title">Wynierz ilość powtórzeń:</string>
 
     <string name="exam_range_empty_toast">Wybrana kategoria jest pusta</string>
+    <string name="exam_no_chosen_range">Nie wybrano zakresu</string>
+    <string name="exam_no_chosen_repeat">Nie wybrano ilości powtórzeń</string>
+
+    <string name="exam_check_toolbar_title">Egzamin</string>
+    <string name="exam_check_repeat_qustion_1">Pytanie </string>
+    <string name="exam_check_repeat_qustion_2">z </string>
+
+    <string name="exam_check_exit_question">Czy chcesz przerwać egzamin?</string>
+
+    <string name="exam_check_end_dialog_title">Wyniki egzaminu</string>
+    <string name="exam_check_end_dialog_bad_answer_btn">Pokaż błędne odpowiedzi</string>
+    <string name="exam_check_end_dialog_content_1">Poprawne odpowiedzi:</string>
+    <string name="exam_check_end_dialog_content_2">Złe odpowiedzi:</string>
+    <string name="exam_check_end_dialog_content_3">Wynik:</string>
+
+    <string name="exam_bad_answer_toolbar_title">Niepoprawe odpowiedzi</string>
+    <string name="exam_bad_answer_cunt">z</string>
+    <string name="exam_bad_answer_flashcard">Fiszka:</string>
+    <string name="exam_bad_answer_your_answer">Twoja odpowiedź:</string>
+    <string name="exam_bad_answer_correct">Poprawnie:</string>
 </resources>

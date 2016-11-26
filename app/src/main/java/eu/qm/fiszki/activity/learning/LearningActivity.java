@@ -1,22 +1,15 @@
-package eu.qm.fiszki.learning;
+package eu.qm.fiszki.activity.learning;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-
-import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.ChangeActivityManager;
 import eu.qm.fiszki.dialogs.learning.ByCategoryLearningDialog;
 import eu.qm.fiszki.dialogs.learning.ByLanguageLearningDialog;
-import eu.qm.fiszki.model.flashcard.Flashcard;
 import eu.qm.fiszki.model.flashcard.FlashcardRepository;
-import eu.qm.fiszki.myWords.flashcards.FlashcardsActivity;
 
 public class LearningActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package eu.qm.fiszki.myWords;
+package eu.qm.fiszki.activity.myWords;
 
 /**
  * Created by tm on 28.07.16.

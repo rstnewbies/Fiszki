@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.view.View;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.myWords.flashcards.SelectedFlashcardsSingleton;
+import eu.qm.fiszki.activity.myWords.flashcards.SelectedFlashcardsSingleton;
 import eu.qm.fiszki.model.flashcard.Flashcard;
-import eu.qm.fiszki.myWords.flashcards.SelectedFabManager;
+import eu.qm.fiszki.activity.myWords.flashcards.SelectedFabManager;
 
 /**
  * Created by mBoiler on 18.11.2016.

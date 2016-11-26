@@ -32,6 +32,8 @@
     <string name="title_activity_check">CheckActivity</string>
     <string name="title_activity_exam">ExamActivity</string>
     <string name="title_activity_exam_check">ExamCheckActivity</string>
+    <string name="title_activity_exam_results">ExamResultsActivity</string>
+    <string name="title_activity_exam_bad_answer">ExamBadAnswerActivity</string>
 
 
 </resources>
