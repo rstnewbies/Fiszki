@@ -30,12 +30,17 @@ public class EndExamDialog extends MaterialDialog.Builder {
         this.title(R.string.exam_check_end_dialog_title);
         this.cancelable(false);
         this.content(Html.fromHtml(setContent()));
-        this.positiveColor(activity.getResources().getColor(R.color.ColorPrimaryDark));
-        this.positiveText(R.string.button_action_ok);
-        this.neutralColor(activity.getResources().getColor(R.color.md_red_A700));
-        this.neutralText(R.string.exam_check_end_dialog_bad_answer_btn);
         this.onPositive(exitExamCheck());
         this.onNeutral(goToExamBadAnswer());
+        this.positiveColor(activity.getResources().getColor(R.color.ColorPrimaryDark));
+
+        if(mBadAnswer.size()>=1) {
+            this.positiveText(R.string.button_action_ok);
+            this.neutralColor(activity.getResources().getColor(R.color.md_red_A700));
+            this.neutralText(R.string.exam_check_end_dialog_bad_answer_btn);
+        }else{
+            this.positiveText(R.string.exam_check_end_dialog_hurra_btn);
+        }
     }
 
     private String setContent() {

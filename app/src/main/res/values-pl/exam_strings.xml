@@ -21,6 +21,7 @@
 
     <string name="exam_check_end_dialog_title">Wyniki egzaminu</string>
     <string name="exam_check_end_dialog_bad_answer_btn">Pokaż błędne odpowiedzi</string>
+    <string name="exam_check_end_dialog_hurra_btn">Hurra!</string>
     <string name="exam_check_end_dialog_content_1">Poprawne odpowiedzi:</string>
     <string name="exam_check_end_dialog_content_2">Złe odpowiedzi:</string>
     <string name="exam_check_end_dialog_content_3">Wynik:</string>

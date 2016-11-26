@@ -2,6 +2,7 @@ package eu.qm.fiszki.dialogs.information;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -16,7 +17,7 @@ public class InformationFlashcardDialog extends MaterialDialog.Builder {
     public InformationFlashcardDialog(@NonNull Context context) {
         super(context);
         this.title(R.string.button_action_info);
-        this.icon(context.getResources().getDrawable(R.drawable.ic_info_black_24dp));
+       // this.icon(ContextCompat.getDrawable(context,R.drawable.ic_info_black_24dp));
         this.content(R.string.info_flashcard);
         this.positiveText(R.string.button_action_ok);
         this.positiveColor(context.getResources().getColor(R.color.ColorPrimaryDark));

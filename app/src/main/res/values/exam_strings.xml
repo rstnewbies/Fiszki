@@ -20,6 +20,7 @@
 
     <string name="exam_check_end_dialog_title">Exam results</string>
     <string name="exam_check_end_dialog_bad_answer_btn">Show bad answer</string>
+    <string name="exam_check_end_dialog_hurra_btn">Hurra!</string>
     <string name="exam_check_end_dialog_content_1">Correct answer:</string>
     <string name="exam_check_end_dialog_content_2">Wrong answer:</string>
     <string name="exam_check_end_dialog_content_3">Score:</string>
