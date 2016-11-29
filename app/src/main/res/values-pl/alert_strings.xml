@@ -39,4 +39,6 @@
     <string name="alert_no_category_messege">Jeszcze nie dodałeś żadnego słówka.
         Aby móc korzystać z tej funkcji dodaj przynajmniej jedno słowo.</string>
 
+    <string name="alert_empty_selected_category">Wybrane kategorie są pustę, więc nauka będzie z całej puli twoich fiszek.</string>
+
 </resources>

@@ -20,11 +20,11 @@ import eu.qm.fiszki.model.flashcard.FlashcardRepository;
  */
 public class ClearDataBase extends PrimaryDrawerItem {
 
-    private final Activity activity;
+    private final Activity mActivity;
     private LocalSharedPreferences localSharedPreferences;
 
     public ClearDataBase(final Activity activity) {
-        this.activity = activity;
+        this.mActivity = activity;
         localSharedPreferences = new LocalSharedPreferences(activity);
 
         this.withName(R.string.drawer_clear_name);
@@ -38,6 +38,7 @@ public class ClearDataBase extends PrimaryDrawerItem {
                         .setPositiveButton(R.string.button_action_yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 deleteDbRows();
+                                new CategoryRepository(mActivity).addSystemCategory();
                             }
                         })
                         .setNegativeButton(R.string.button_action_no, new DialogInterface.OnClickListener() {
@@ -50,14 +51,15 @@ public class ClearDataBase extends PrimaryDrawerItem {
     }
 
     private void deleteDbRows() {
-        FlashcardRepository flashcardRepository = new FlashcardRepository(activity.getBaseContext());
-        CategoryRepository categoryRepository = new CategoryRepository(activity.getBaseContext());
+        FlashcardRepository flashcardRepository = new FlashcardRepository(mActivity.getBaseContext());
+        CategoryRepository categoryRepository = new CategoryRepository(mActivity.getBaseContext());
         AlarmReceiver alarm = new AlarmReceiver();
 
         flashcardRepository.deleteFlashcards(flashcardRepository.getAllFlashcards());
         categoryRepository.deleteCategories(categoryRepository.getAllCategory());
-        alarm.close(activity.getBaseContext());
+        alarm.close(mActivity.getBaseContext());
         localSharedPreferences.setNotificationPosition(0);
+        localSharedPreferences.setNotificationStatus(0);
     }
 }
 

@@ -92,7 +92,6 @@ public class FlashcardsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.md_nav_back);
         toolbar.setTitle(mCurrentCategory.getCategory());
-        toolbar.inflateMenu(R.menu.menu_flashcard);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,11 +99,7 @@ public class FlashcardsActivity extends AppCompatActivity {
             }
         });
     }
-
-    public void menuInfo(MenuItem item) {
-        new InformationFlashcardDialog(mActivity).show();
-    }
-
+    
     private void buildListView() {
         mRecycleView = (RecyclerView) findViewById(R.id.listview_flashcard);
         StaggeredGridLayoutManager mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);

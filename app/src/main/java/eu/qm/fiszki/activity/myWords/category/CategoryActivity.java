@@ -70,17 +70,12 @@ public class CategoryActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.md_nav_back);
         toolbar.setTitle(R.string.category_activity_title);
-        toolbar.inflateMenu(R.menu.menu_category);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-    }
-
-    public void menuInfo(MenuItem item) {
-        Toast.makeText(mActivity,"siusiak",Toast.LENGTH_LONG).show();
     }
 
     private void buildList() {
