@@ -4,6 +4,7 @@ buildscript {
     repositories {
         mavenCentral()
         maven { url 'https://maven.fabric.io/public' }
+        maven { url 'http://dl.bintray.com/dodola/maven'}
         jcenter()
     }
     dependencies {

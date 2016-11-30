@@ -38,4 +38,10 @@
 
     <string name="alert_empty_flashcards_pool">Selected category are empty!</string>
 
+    <string name="alert_no_category_title">Attention</string>
+    <string name="alert_no_category_messege">You haven\'t added word yet.
+        To use this feature, add a word.</string>
+
+    <string name="alert_empty_selected_category">Selected categories are empty, so learning will be of the entire pool of your flashcards.</string>
+
 </resources>

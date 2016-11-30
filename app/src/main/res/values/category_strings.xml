@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="uncategory">No category</string>
+
+    <string name="category_activity_title">Category</string>
+    <string name="category_dialog_title">Create new category</string>
+    <string name="category_positive_btn_text">Create</string>
+    <string name="category_dialog_et_name">Category\'s name</string>
+    <string name="category_dialog_lang_on">Into language</string>
+    <string name="category_dialog_lang_from">From language</string>
+    <string name="category_toast">Added new category</string>
+
+    <string name="category_no_lang">Don\'t set the language</string>
+
+    <string name="category_empty_text">You have any category!</string>
+
+</resources>

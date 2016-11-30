@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="snackbar_return_word_message">Usunięto słowo.</string>
+    <string name="snackbar_return_word_message">Usunięto fiszkę.</string>
     <string name="snackbar_return_category_message">Usunięto kategorie.</string>
     <string name="snackbar_return_word_button">Cofnij</string>
 

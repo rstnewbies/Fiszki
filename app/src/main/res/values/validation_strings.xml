@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="validation_flashcard_empty">Field can not be empty.</string>
+    <string name="validation_flashcard_same">This flashcard already exists.</string>
+
+    <string name="validation_category_empty">Field can not be empty.</string>
+    <string name="validation_category_same">This category already exists.</string>
+</resources>

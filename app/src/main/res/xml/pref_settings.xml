@@ -6,7 +6,7 @@
     <ListPreference
         android:title="@string/settings_title_notification"
         android:summary="%s"
-        android:defaultValue="@string/frequency_0"
+        android:defaultValue="@string/frequency_1"
         android:key="@string/settings_key_notification"
         android:entries="@array/notification_frequency"
         android:entryValues="@array/notification_frequency" />
