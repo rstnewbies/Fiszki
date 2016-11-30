@@ -3,14 +3,18 @@ package eu.qm.fiszki.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.apptentive.android.sdk.Apptentive;
 import com.crashlytics.android.Crashlytics;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crash.FirebaseCrash;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
@@ -26,6 +30,8 @@ import eu.qm.fiszki.model.flashcard.FlashcardRepository;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     private Drawer mDrawer;
     private Toolbar mToolbar;
@@ -44,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         buildDrawer();
         buildFAB();
         buildToolbar();
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
 
     @Override
@@ -112,6 +119,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new QuicklyAddFlashcardDialog(mActivity).show();
+                Bundle bundle = new Bundle();
+                bundle.putString("click_quickly", "click");
+                mFirebaseAnalytics.logEvent("clicking", bundle);
             }
         });
     }
