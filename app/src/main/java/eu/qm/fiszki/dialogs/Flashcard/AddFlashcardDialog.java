@@ -8,6 +8,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import eu.qm.fiszki.FirebaseManager;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.model.flashcard.Flashcard;
 import eu.qm.fiszki.model.flashcard.FlashcardRepository;
@@ -19,15 +20,17 @@ import eu.qm.fiszki.model.flashcard.ValidationFlashcards;
 
 public class AddFlashcardDialog extends MaterialDialog.Builder {
 
-    private int categoryId;
+    private int mCategoryId;
+    private Activity mActivity;
     private MaterialEditText mWordEt;
     private MaterialEditText mTranslateEt;
     private FlashcardRepository mFlashcardRepository;
     private ValidationFlashcards mValidationFlashcards;
 
-    public AddFlashcardDialog(@NonNull Activity activity, int categoryId) {
+    public AddFlashcardDialog(@NonNull Activity activity, int mCategoryId) {
         super(activity);
-        this.categoryId = categoryId;
+        this.mActivity = activity;
+        this.mCategoryId = mCategoryId;
         this.title(R.string.flashcard_add_title);
         this.customView(R.layout.flashcard_add_dialog, false);
         this.positiveText(R.string.add_new_flashcard_btn);
@@ -52,11 +55,12 @@ public class AddFlashcardDialog extends MaterialDialog.Builder {
                 Flashcard flashcard = new Flashcard();
                 flashcard.setWord(mWordEt.getText().toString().trim());
                 flashcard.setTranslation(mTranslateEt.getText().toString().trim());
-                flashcard.setCategoryID(categoryId);
+                flashcard.setCategoryID(mCategoryId);
                 flashcard.setPriority(1);
 
                 if (mValidationFlashcards.validateAdd(flashcard)) {
                     mFlashcardRepository.addFlashcard(flashcard);
+                    new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.ADD_FLASHCARD);
                     Toast.makeText(context, R.string.add_new_flashcard_toast, Toast.LENGTH_LONG).show();
                     mTranslateEt.setText(null);
                     mWordEt.setText(null);

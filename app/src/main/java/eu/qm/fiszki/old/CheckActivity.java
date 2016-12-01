@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.Random;
 
 import eu.qm.fiszki.Alert;
+import eu.qm.fiszki.FirebaseManager;
 import eu.qm.fiszki.algorithm.Algorithm;
 import eu.qm.fiszki.Checker;
 import eu.qm.fiszki.R;
@@ -128,7 +129,7 @@ public class CheckActivity extends AppCompatActivity {
             if (check.check(expectedWord, enteredWord.getText().toString())) {
                 drawPassString();
                 message.pass(this, randomPassString, getString(R.string.alert_title_pass), getString(R.string.button_action_ok));
-
+                new FirebaseManager(this).sendEvent(FirebaseManager.Params.NOTYFI_PASS);
                 if (rowPriority < 5 && firstTry) {
                     flashcard.setPriority(flashcard.getPriority()+1);
                     flashcardRepository.updateFlashcard(flashcard);
@@ -139,8 +140,8 @@ public class CheckActivity extends AppCompatActivity {
                 enteredWord.requestFocus();
                 message.fail(this, expectedWord, randomFailString, getString(R.string.alert_message_correctis),
                         getString(R.string.alert_message_tryagain), getString(R.string.alert_title_fail), getString(R.string.button_action_ok));
+                new FirebaseManager(this).sendEvent(FirebaseManager.Params.NOTYFI_WRONG);
                 firstTry = false;
-
                 flashcard.setPriority(1);
                 flashcardRepository.updateFlashcard(flashcard);
             }

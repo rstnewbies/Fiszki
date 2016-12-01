@@ -3,18 +3,23 @@ package eu.qm.fiszki.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.apptentive.android.sdk.Apptentive;
 import com.crashlytics.android.Crashlytics;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crash.FirebaseCrash;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import eu.qm.fiszki.Alert;
+import eu.qm.fiszki.FirebaseManager;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.dialogs.flashcard.QuicklyAddFlashcardDialog;
 import eu.qm.fiszki.activity.exam.ExamActivity;
@@ -26,6 +31,8 @@ import eu.qm.fiszki.model.flashcard.FlashcardRepository;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     private Drawer mDrawer;
     private Toolbar mToolbar;
@@ -39,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        new FirebaseManager(this);
         Fabric.with(this, new Crashlytics());
         init();
         buildDrawer();
@@ -111,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.QUICK_ADD_BTN);
                 new QuicklyAddFlashcardDialog(mActivity).show();
             }
         });
@@ -129,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void myWordsCardClick(View view) {
+        new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.MYWORDS);
         mActivity.startActivity(new Intent(this, CategoryActivity.class));
     }
 
@@ -136,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         if (mFlashcardRepository.countFlashcards() == 0) {
             new Alert().addFiszkiToFeature(mActivity).show();
         } else {
+            new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.LEARNING);
             startActivity(new Intent(this, LearningActivity.class));
         }
     }
@@ -144,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
         if (mFlashcardRepository.countFlashcards() == 0) {
             new Alert().addFiszkiToFeature(mActivity).show();
         } else {
+            new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.EXAM);
             startActivity(new Intent(this, ExamActivity.class));
         }
     }

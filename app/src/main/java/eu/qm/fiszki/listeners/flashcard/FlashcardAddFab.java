@@ -3,6 +3,7 @@ package eu.qm.fiszki.listeners.flashcard;
 import android.app.Activity;
 import android.view.View;
 
+import eu.qm.fiszki.FirebaseManager;
 import eu.qm.fiszki.dialogs.flashcard.AddFlashcardDialog;
 import eu.qm.fiszki.activity.myWords.CategoryManagerSingleton;
 
@@ -20,6 +21,7 @@ public class FlashcardAddFab implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.ADD_FLASHCARD_BTN);
         new AddFlashcardDialog(mActivity, CategoryManagerSingleton.getCurrentCategoryId()).show();
     }
 }

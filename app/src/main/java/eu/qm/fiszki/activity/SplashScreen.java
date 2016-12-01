@@ -5,22 +5,22 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import java.util.Timer;
-import java.util.TimerTask;
 
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.tutorial.TutorialActivity;
 
 public class SplashScreen extends AppCompatActivity {
 
-    Timer timer;
+    private Timer mTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-
-        timer = new Timer();
+        mTimer = new Timer();
 
         SharedPreferences runCheck = getSharedPreferences("hasRunBefore", 0);
         Boolean hasRun = runCheck.getBoolean("hasRun", false);

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import eu.qm.fiszki.FirebaseManager;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.ChangeActivityManager;
 import eu.qm.fiszki.model.category.Category;
@@ -103,6 +104,7 @@ public class ByLanguageLearningDialog extends MaterialDialog.Builder {
                         Toast.makeText(context, R.string.learning_by_lang_tost_empty_chose, Toast.LENGTH_LONG).show();
                     } else {
                         dialog.dismiss();
+                        new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.LEARNING_LANG);
                         new ChangeActivityManager(mActivity).goToLearningCheck(mLearningFlashcards);
                     }
                 }

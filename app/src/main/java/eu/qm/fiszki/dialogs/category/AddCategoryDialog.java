@@ -10,6 +10,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import eu.qm.fiszki.FirebaseManager;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
@@ -66,6 +67,7 @@ public class AddCategoryDialog extends MaterialDialog.Builder {
 
                 if (mValidationCategory.validate(category)) {
                     mCategoryRepository.addCategory(category);
+                    new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.ADD_CATEGORY);
                     Toast.makeText(context, R.string.category_toast, Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
