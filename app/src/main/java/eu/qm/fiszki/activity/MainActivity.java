@@ -19,6 +19,7 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import eu.qm.fiszki.Alert;
+import eu.qm.fiszki.FirebaseManager;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.dialogs.flashcard.QuicklyAddFlashcardDialog;
 import eu.qm.fiszki.activity.exam.ExamActivity;
@@ -45,12 +46,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        new FirebaseManager(this);
         Fabric.with(this, new Crashlytics());
         init();
         buildDrawer();
         buildFAB();
         buildToolbar();
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
 
     @Override
@@ -118,10 +119,8 @@ public class MainActivity extends AppCompatActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.QUICK_ADD_BTN);
                 new QuicklyAddFlashcardDialog(mActivity).show();
-                Bundle bundle = new Bundle();
-                bundle.putString("click_quickly", "click");
-                mFirebaseAnalytics.logEvent("clicking", bundle);
             }
         });
     }
@@ -139,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void myWordsCardClick(View view) {
+        new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.MYWORDS);
         mActivity.startActivity(new Intent(this, CategoryActivity.class));
     }
 
@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         if (mFlashcardRepository.countFlashcards() == 0) {
             new Alert().addFiszkiToFeature(mActivity).show();
         } else {
+            new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.LEARNING);
             startActivity(new Intent(this, LearningActivity.class));
         }
     }
@@ -154,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
         if (mFlashcardRepository.countFlashcards() == 0) {
             new Alert().addFiszkiToFeature(mActivity).show();
         } else {
+            new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.EXAM);
             startActivity(new Intent(this, ExamActivity.class));
         }
     }

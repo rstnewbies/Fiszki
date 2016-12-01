@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import eu.qm.fiszki.FirebaseManager;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.ChangeActivityManager;
 import eu.qm.fiszki.dialogs.learning.ByCategoryLearningDialog;
@@ -43,6 +44,7 @@ public class LearningActivity extends AppCompatActivity {
     }
 
     public void onAllClick(View view) {
+        new FirebaseManager(this).sendEvent(FirebaseManager.Params.LEARNING_ALL);
         new ChangeActivityManager(this).goToLearningCheck(mFlashcardRepository.getAllFlashcards());
     }
 
