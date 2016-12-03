@@ -7,16 +7,16 @@
     <string name="learning_card_category_name">By category</string>
     <string name="learning_card_lang_name">By language</string>
 
-    <string name="learning_by_category_dialog_title">Select categories to learning</string>
-    <string name="learning_by_category_dialog_btn_to_learning">To learn!</string>
+    <string name="learning_by_category_dialog_title">Select categories to learn</string>
+    <string name="learning_by_category_dialog_btn_to_learning">Let\'s go!</string>
     <string name="learning_by_category_dialog_btn_back">Back</string>
     <string name="learning_by_category_tost_no_chose">You did not select any category</string>
     <string name="learning_by_category_tost_empty_category">Selected categories are empty</string>
 
-    <string name="learning_by_lang_dialog_title">Select language to learning</string>
+    <string name="learning_by_lang_dialog_title">Select language to learn</string>
     <string name="learning_by_lang_dialog_from_text">From:</string>
     <string name="learning_by_lang_dialog_on_text">On:</string>
-    <string name="learning_by_lang_whichever">Whichever</string>
+    <string name="learning_by_lang_whichever">Any</string>
     <string name="learning_by_lang_tost_empty_chose">This configuration does not exist or is empty.</string>
 
     <string name="learning_check_toolbar_title">Learning</string>

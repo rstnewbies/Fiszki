@@ -2,8 +2,8 @@
 <resources>
     <string name="edit_category_title">Edit category :</string>
     <string name="edit_category_done">Done</string>
-    <string name="edit_category_delete">DELETE</string>
-    <string name="edit_category_toast">Have edited category.</string>
+    <string name="edit_category_delete">Delete</string>
+    <string name="edit_category_toast">Category edited</string>
     <string name="edit_category_delete_message">Are you sure you want to delete this category?</string>
 
 </resources>
