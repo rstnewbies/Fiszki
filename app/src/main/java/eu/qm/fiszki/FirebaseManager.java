@@ -13,15 +13,18 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 public class FirebaseManager {
 
     private FirebaseAnalytics mFirebaseAnalytics;
+    private static final boolean DEVELOP = true;
 
     public FirebaseManager(@NonNull Context context) {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
     }
 
     public void sendEvent(@NonNull String name) {
-        Bundle bundle = new Bundle();
-        bundle.putString(name,name);
-        mFirebaseAnalytics.logEvent(name, bundle);
+        if(!DEVELOP) {
+            Bundle bundle = new Bundle();
+            bundle.putString(name, name);
+            mFirebaseAnalytics.logEvent(name, bundle);
+        }
     }
 
     public static class Params {
