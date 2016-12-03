@@ -12,6 +12,6 @@
 
     <string name="category_no_lang">Don\'t set the language</string>
 
-    <string name="category_empty_text">You have any category!</string>
+    <string name="category_empty_text">You don\'t have any category!</string>
 
 </resources>
