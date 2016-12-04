@@ -1,0 +1,51 @@
+package eu.qm.fiszki;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
+
+/**
+ * Created by mBoiler on 01.12.2016.
+ */
+
+public class FirebaseManager {
+
+    private FirebaseAnalytics mFirebaseAnalytics;
+    private static final boolean DEVELOP = true;
+
+    public FirebaseManager(@NonNull Context context) {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+    }
+
+    public void sendEvent(@NonNull String name) {
+        if(!DEVELOP) {
+            Bundle bundle = new Bundle();
+            bundle.putString(name, name);
+            mFirebaseAnalytics.logEvent(name, bundle);
+        }
+    }
+
+    public static class Params {
+        public final static String NOTYFI_ON = "NOTYFI_ON";
+        public final static String NOTYFI_OFF = "NOTYFI_OFF";
+        public final static String MYWORDS = "MYWORDS_CLICK";
+        public final static String LEARNING = "LEARNING_CLICK";
+        public final static String LEARNING_ALL = "LEARNING_ALL_CLICK";
+        public final static String LEARNING_CAT = "LEARNING_CATEGORY_CLICK";
+        public final static String LEARNING_LANG = "LEARNING_LANG_CLICK";
+        public final static String EXAM = "EXAM_CLICK";
+        public final static String QUICK_ADD_BTN = "QUICK_ADD";
+        public final static String ADD_CATEGORY = "ADD_CATEGORY";
+        public final static String ADD_CATEGORY_BTN = "ADD_CATEGORY_BTN";
+        public final static String ADD_FLASHCARD = "ADD_FLASHCARD";
+        public final static String ADD_FLASHCARD_BTN = "ADD_FLASHCARD_BTN";
+        public final static String EXAM_SHOW_BAD = "EXAM_SHOW_BAD_ANSWER";
+        public final static String EXAM_OK_BTN = "EXAM_OK_BTN";
+        public final static String NOTYFI_PASS = "NOTYFICATION_PASS";
+        public final static String NOTYFI_WRONG = "NOTYFICATION_WRONG";
+    }
+}
+
+

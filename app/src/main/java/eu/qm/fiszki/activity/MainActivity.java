@@ -1,125 +1,94 @@
 package eu.qm.fiszki.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import com.apptentive.android.sdk.Apptentive;
 import com.crashlytics.android.Crashlytics;
-import com.shamanland.fab.ShowHideOnScroll;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crash.FirebaseCrash;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import eu.qm.fiszki.ListPopulate;
+import eu.qm.fiszki.Alert;
+import eu.qm.fiszki.FirebaseManager;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.database.DBTransform;
-import eu.qm.fiszki.database.SQL.DBAdapter;
-import eu.qm.fiszki.database.SQL.DBStatus;
-import eu.qm.fiszki.model.Category;
-import eu.qm.fiszki.model.CategoryRepository;
-import eu.qm.fiszki.model.Flashcard;
-import eu.qm.fiszki.model.FlashcardRepository;
-import eu.qm.fiszki.toolbar.ToolbarAfterClick;
-import eu.qm.fiszki.toolbar.ToolbarMainActivity;
+import eu.qm.fiszki.dialogs.flashcard.QuicklyAddFlashcardDialog;
+import eu.qm.fiszki.activity.exam.ExamActivity;
+import eu.qm.fiszki.activity.learning.LearningActivity;
+import eu.qm.fiszki.activity.myWords.category.CategoryActivity;
+import eu.qm.fiszki.drawer.DrawerMain;
+import eu.qm.fiszki.model.category.CategoryRepository;
+import eu.qm.fiszki.model.flashcard.FlashcardRepository;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
-    static final public String typeCategory = "TYPECATEGORY";
-    static final public String typeFlashcard = "TYPEFLASHCARD";
-    static public Category expandedGroup;
-    static public DBAdapter myDb;
-    static public DBStatus openDataBase;
-    static public Context context;
-    static public ExpandableListView expandableListView;
-    static public FloatingActionButton fab;
-    static public String selectedType;
-    static public Flashcard selectedFlashcard;
-    static public Category selectedCategory;
-    public SharedPreferences sharedPreferences;
-    public SharedPreferences.Editor editor;
-    ToolbarAfterClick toolbarAfterClick;
-    ToolbarMainActivity toolbarMainActivity;
-    FlashcardRepository flashcardRepository;
-    DBTransform transform;
-    CategoryRepository categoryRepository;
-    Activity activity;
-    ListPopulate listPopulate;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
+    private Drawer mDrawer;
+    private Toolbar mToolbar;
+    private Activity mActivity;
+    private int mCountBackPress;
+    private FloatingActionButton mFab;
+    private CategoryRepository mCategoryRepository;
+    private FlashcardRepository mFlashcardRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        new FirebaseManager(this);
         Fabric.with(this, new Crashlytics());
+        init();
+        buildDrawer();
+        buildFAB();
+        buildToolbar();
+    }
 
-        activity = this;
-        openDataBase = new DBStatus();
-        myDb = new DBAdapter(this);
-        context = this;
-        expandableListView = (ExpandableListView) findViewById(R.id.list);
-        openDataBase.openDB(myDb);
-        flashcardRepository = new FlashcardRepository(context);
-        categoryRepository = new CategoryRepository(context);
-        sharedPreferences = getSharedPreferences("eu.qm.fiszki.activity", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        toolbarAfterClick = new ToolbarAfterClick(activity);
-        toolbarMainActivity = new ToolbarMainActivity(activity);
-        listPopulate = new ListPopulate(activity);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(MainActivity.this, AddWordActivity.class);
-                startActivity(myIntent);
-            }
-        });
-        toolbarMainActivity.set();
-        selectionFlashcard();
-
-        expandableListView.setOnTouchListener(new ShowHideOnScroll(fab){
-            @Override
-            public void onScrollUp() {
-                if(expandableListView.canScrollVertically(1)) {
-                    super.onScrollUp();
-                }
-            }
-        });
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if(hasFocus){
+            buildDrawer();
+        }
     }
 
     @Override
     public void onBackPressed() {
-        if (selectedFlashcard != null || selectedCategory != null) {
-            toolbarMainActivity.set();
-            fab.show();
-            listPopulate.populate(null, null,0);
-            selectedFlashcard = null;
-            selectedCategory = null;
+        if (mDrawer.isDrawerOpen()) {
+            mDrawer.closeDrawer();
+            mCountBackPress = 0;
         } else {
-            this.finish();
+            if (mCountBackPress == 0) {
+                Toast.makeText(mActivity,
+                        R.string.back_press_toast, Toast.LENGTH_SHORT).show();
+                mCountBackPress++;
+            } else {
+                finish();
+            }
         }
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         Apptentive.onStart(this);
-        categoryRepository.addSystemCategory();
-        transform = new DBTransform(myDb, context);
-        boolean shownOnlyOnce = Apptentive.engage(this, "changelog");
-        boolean shown = Apptentive.engage(this, "notes");
+        mCategoryRepository.addSystemCategory();
+        Apptentive.engage(this, "changelog");
+        Apptentive.engage(this, "notes");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        toolbarMainActivity.set();
-        listPopulate.populate(null, null,0);
     }
 
     @Override
@@ -127,55 +96,68 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public void selectionFlashcard() {
-        selectedFlashcard = null;
-        expandableListView.setLongClickable(true);
-        expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
-                    int groupPosition = ExpandableListView.getPackedPositionGroup(id);
-                    int childPosition = ExpandableListView.getPackedPositionChild(id);
+    private void init() {
+        mActivity = this;
+        mCountBackPress = 0;
+        mCategoryRepository = new CategoryRepository(mActivity);
+        mFlashcardRepository = new FlashcardRepository(mActivity);
+    }
 
-                    if (selectedFlashcard != null && selectedFlashcard.getId() == (listPopulate.adapterExp.getFlashcard(groupPosition, childPosition)).getId()) {
-                        toolbarMainActivity.set();
-                        fab.show();
-                        listPopulate.populate(null, null, 0);
-                        selectedFlashcard = null;
-                        selectedCategory = null;
-                        expandedGroup = null;
-                    } else {
-                        selectedFlashcard =
-                                listPopulate.adapterExp.getFlashcard(groupPosition, childPosition);
-                        selectedCategory = null;
-                        expandedGroup = listPopulate.adapterExp.getCategory(groupPosition);
-                        selectedType = typeFlashcard;
-                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate,position);
-                        fab.hide();
-                        listPopulate.populate(selectedFlashcard, selectedCategory,position);
-                    }
-                }
-                if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
-                    int groupPosition = ExpandableListView.getPackedPositionGroup(id);
-                    if (selectedCategory != null && selectedCategory.getId() == (listPopulate.adapterExp.getCategory(groupPosition).getId())) {
-                        toolbarMainActivity.set();
-                        fab.show();
-                        listPopulate.populate(null, null,0);
-                        selectedCategory = null;
-                        selectedFlashcard = null;
-                        selectedType = null;
-                    } else {
-                        selectedCategory = listPopulate.adapterExp.getCategory(groupPosition);
-                        selectedFlashcard = null;
-                        selectedType = typeCategory;
-                        toolbarAfterClick.set(selectedCategory, selectedFlashcard, selectedType, listPopulate,position);
-                        fab.hide();
-                        listPopulate.populate(selectedFlashcard, selectedCategory,position);
-                    }
-                }
-                return true;
+    private void buildDrawer() {
+        mDrawer = new DrawerMain(mActivity, mToolbar).build();
+        mDrawer.setOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+            @Override
+            public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                mDrawer.setSelection(-1);
+                return false;
             }
         });
+    }
+
+    private void buildFAB() {
+        mFab = (FloatingActionButton) findViewById(R.id.fab_add_flashcard);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.QUICK_ADD_BTN);
+                new QuicklyAddFlashcardDialog(mActivity).show();
+            }
+        });
+    }
+
+    private void buildToolbar() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle(getResources().getString(R.string.app_name));
+        mToolbar.setNavigationIcon(R.drawable.ic_menu_white_36px);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawer.openDrawer();
+            }
+        });
+    }
+
+    public void myWordsCardClick(View view) {
+        new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.MYWORDS);
+        mActivity.startActivity(new Intent(this, CategoryActivity.class));
+    }
+
+    public void learningCardClick(View view) {
+        if (mFlashcardRepository.countFlashcards() == 0) {
+            new Alert().addFiszkiToFeature(mActivity).show();
+        } else {
+            new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.LEARNING);
+            startActivity(new Intent(this, LearningActivity.class));
+        }
+    }
+
+    public void examCardClick(View view) {
+        if (mFlashcardRepository.countFlashcards() == 0) {
+            new Alert().addFiszkiToFeature(mActivity).show();
+        } else {
+            new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.EXAM);
+            startActivity(new Intent(this, ExamActivity.class));
+        }
     }
 }
 

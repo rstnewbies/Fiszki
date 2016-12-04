@@ -1,0 +1,77 @@
+package eu.qm.fiszki.dialogs.category;
+
+import android.app.Activity;
+import android.support.annotation.NonNull;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
+import com.rengwuxian.materialedittext.MaterialEditText;
+
+import eu.qm.fiszki.FirebaseManager;
+import eu.qm.fiszki.R;
+import eu.qm.fiszki.model.category.Category;
+import eu.qm.fiszki.model.category.CategoryRepository;
+import eu.qm.fiszki.model.category.ValidationCategory;
+
+public class AddCategoryDialog extends MaterialDialog.Builder {
+
+    private CategoryRepository mCategoryRepository;
+    private MaterialEditText mCategoryNameET;
+    private MaterialAutoCompleteTextView mCategoryLangFrom;
+    private MaterialAutoCompleteTextView mCategoryLangOn;
+    private Activity mActivity;
+    private ValidationCategory mValidationCategory;
+
+    public AddCategoryDialog(@NonNull Activity activity) {
+        super(activity);
+        this.mActivity = activity;
+        this.title(R.string.category_dialog_title);
+        this.icon(context.getResources().getDrawable(R.drawable.ic_category_add));
+        this.customView(R.layout.category_add_dialog, false);
+        this.positiveText(R.string.category_positive_btn_text);
+        this.positiveColor(mActivity.getResources().getColor(R.color.ColorPrimaryDark));
+        this.onPositive(addCategory());
+        init();
+        autoDismiss(false);
+        setAdapterToLang();
+    }
+
+    private void init() {
+        mCategoryNameET = (MaterialEditText) customView.findViewById(R.id.add_category_dialog_et_name);
+        mCategoryLangFrom = (MaterialAutoCompleteTextView) customView.findViewById(R.id.add_category_dialog_lang_from);
+        mCategoryLangOn = (MaterialAutoCompleteTextView) customView.findViewById(R.id.add_category_dialog_lang_on);
+        mCategoryRepository = new CategoryRepository(mActivity);
+        mValidationCategory = new ValidationCategory(mActivity);
+    }
+
+    private void setAdapterToLang() {
+        String[] countries = context.getResources().getStringArray(R.array.support_lang);
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(context, android.R.layout.simple_selectable_list_item, countries);
+        mCategoryLangFrom.setAdapter(adapter);
+        mCategoryLangOn.setAdapter(adapter);
+    }
+
+    private MaterialDialog.SingleButtonCallback addCategory() {
+        return new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                Category category = new Category();
+                category.setCategory(mCategoryNameET.getText().toString().trim());
+                category.setEntryByUser(true);
+                category.setLangOn(mCategoryLangOn.getText().toString().trim());
+                category.setLangFrom(mCategoryLangFrom.getText().toString().trim());
+
+                if (mValidationCategory.validate(category)) {
+                    mCategoryRepository.addCategory(category);
+                    new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.ADD_CATEGORY);
+                    Toast.makeText(context, R.string.category_toast, Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            }
+        };
+    }
+}

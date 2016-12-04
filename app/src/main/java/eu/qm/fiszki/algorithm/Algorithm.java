@@ -3,12 +3,9 @@ package eu.qm.fiszki.algorithm;
 import android.content.Context;
 
 import java.util.ArrayList;
-import java.util.Random;
 
-import eu.qm.fiszki.model.Category;
-import eu.qm.fiszki.model.CategoryRepository;
-import eu.qm.fiszki.model.Flashcard;
-import eu.qm.fiszki.model.FlashcardRepository;
+import eu.qm.fiszki.model.flashcard.Flashcard;
+import eu.qm.fiszki.model.flashcard.FlashcardRepository;
 
 /**
  * Created by mBoiler on 11.02.2016.

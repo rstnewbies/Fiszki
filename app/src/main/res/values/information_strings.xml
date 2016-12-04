@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="info_flashcard">
+        Here are flashcards from chosen category. \n
+        In orger to: \n
+        <b>add new flashcard</b> - click on the green button \n
+        <b>edit flashcard</b> - double click on the flashcard \n
+        <b>choose flashcard</b> - long press on the flashcard \n
+    </string>
+</resources>
+
+

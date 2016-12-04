@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="snackbar_return_word_message">Deleted word.</string>
+    <string name="snackbar_return_word_message">Deleted flashcard.</string>
     <string name="snackbar_return_category_message">Deleted category.</string>
     <string name="snackbar_return_word_button">Undo</string>
 

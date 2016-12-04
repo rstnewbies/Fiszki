@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="edit_category_title">Edytuj kategorię: </string>
+    <string name="edit_category_done">Zatwierdź</string>
+    <string name="edit_category_delete">USUŃ</string>
+    <string name="edit_category_toast">Edytowano kategorię.</string>
+    <string name="edit_category_delete_message">Czy napewno chcesz usunąć tą kategrię?</string>
+</resources>

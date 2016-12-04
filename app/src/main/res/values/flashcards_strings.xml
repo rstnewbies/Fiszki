@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="flashcard_add_title">Add new flashcard</string>
+
+    <string name="flashcard_edit_title">Edit flashcard</string>
+    <string name="flashcard_edit_done">Done</string>
+    <string name="flashcard_edit_toast">Flashcard edited</string>
+
+    <string name="flashcard_delete_btn">Delete</string>
+    <string name="flashcard_delete_message">Are you sure you want to delete this flashcard?</string>
+    <string name="flashcards_delete_message">Are you sure you want to delete chosen flashcards?</string>
+
+    <string name="flashcard_empty_text">You don\'t have any flashcards here!</string>
+
+    <string name="flashcard_transform_title">Change category</string>
+    <string name="flashcard_transform_button">Change</string>
+    <string name="flashcard_transform_button_empty_message">You can\'t change category, because you don\'t have connected category</string>
+
+</resources>

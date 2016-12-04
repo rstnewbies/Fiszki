@@ -6,7 +6,7 @@
     android:weightSum="1">
 
     <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/categoryName"
+        android:id="@+id/add_category_dialog_et_name"
         android:layout_width="313dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"

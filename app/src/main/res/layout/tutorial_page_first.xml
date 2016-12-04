@@ -41,5 +41,6 @@
         android:layout_marginBottom="45dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:textIsSelectable="false" />
+        android:textIsSelectable="false"
+        android:fontFamily="sans-serif" />
 </RelativeLayout>
