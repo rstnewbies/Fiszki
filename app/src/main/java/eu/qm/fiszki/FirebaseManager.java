@@ -13,7 +13,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 public class FirebaseManager {
 
     private FirebaseAnalytics mFirebaseAnalytics;
-    private static final boolean DEVELOP = true;
+    private static final boolean DEVELOP = false;
 
     public FirebaseManager(@NonNull Context context) {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
