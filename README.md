@@ -10,6 +10,16 @@ If you need to study faster, use our 'Learning Mode' wich allows you to translat
 <h3><a href="https://play.google.com/store/apps/details?id=eu.qm.fiszki">Fiszki now available on Google Play!</a></h3>
 
 Changelog
+v1.7:
+<ul><li>New layout</li>
+<li>Add languages to categories </li>
+<li>Choose language to learn</li>
+<li>See mistakes after exam </li>
+<li>Fixed bugs </li>
+<li>New,  awesome animations </li>
+<li>Got rid of previous menu</li>
+<li>Added burger menu </li></ul>
+
 v1.5:
 <ul><li>Add more floating button</li>
 <li> New clever algorithm</li>
@@ -31,6 +41,17 @@ v1.4:
 Dzięki aplikacji Fiszki nie trzeba spędzać ani 5 minut na naukę, ponieważ uczysz sie przez chwilę co 15 minut.
 Daje to świetne rezultaty i nie zajmuje czasu! 
 Wszystko co musisz zrobić, to wpisać słowa, których chcesz się nauczyć</p>
+
+v1.7:
+<ul><li>Nowy wygląd</li>
+<li>Możliwość dodawania języków do kategorii</li>
+<li>Możliwość nauki po językach</li>
+<li>Możliwość wyświetlenia błędnych odpowiedzi po egzaminie</li>
+<li>Naprawa znaczących błędów</li>
+<li>Dodanie animacji przechodzenia między widokami</li>
+<li>Dodanie bocznego menu</li>
+<li>Usunięcie menu standardowego</li></ul>
+
 Funkcje w wersji v1.5:
 <ul><li>Przycisk jest bardziej pływający</li>
 <li>Nowy mądry algorytm</li>
