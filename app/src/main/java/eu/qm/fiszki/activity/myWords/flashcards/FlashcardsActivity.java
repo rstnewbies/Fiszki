@@ -91,7 +91,11 @@ public class FlashcardsActivity extends AppCompatActivity {
     private void buildToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.md_nav_back);
-        toolbar.setTitle(mCurrentCategory.getCategory());
+        if(mCurrentCategory.getCategory()==null) {
+            toolbar.setTitle(R.string.flashcard_toolbar_null_category);
+        }else{
+            toolbar.setTitle(mCurrentCategory.getCategory());
+        }
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

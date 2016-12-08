@@ -3,6 +3,8 @@
 
     <string name="flashcard_add_title">Add new flashcard</string>
 
+    <string name="flashcard_toolbar_null_category">Error loading</string>
+
     <string name="flashcard_edit_title">Edit flashcard</string>
     <string name="flashcard_edit_done">Done</string>
     <string name="flashcard_edit_toast">Flashcard edited</string>

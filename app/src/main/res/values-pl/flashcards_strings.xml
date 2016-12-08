@@ -3,6 +3,8 @@
 
     <string name="flashcard_add_title">Dodaj nową fiszkę</string>
 
+    <string name="flashcard_toolbar_null_category">Błąd wczytywania</string>
+
     <string name="flashcard_edit_title">Edytuj fiszkę</string>
     <string name="flashcard_edit_done">Zatwierdź</string>
     <string name="flashcard_edit_toast">Edytowano fiszkę</string>
