@@ -2,6 +2,9 @@ package eu.qm.fiszki.dialogs.flashcard;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -39,6 +42,20 @@ public class AddFlashcardDialog extends MaterialDialog.Builder {
         this.onPositive(addFlashcardBtn());
 
         init();
+        keyBoardAction();
+    }
+
+    private void keyBoardAction() {
+        mTranslateEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if ((keyEvent != null && (keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER))
+                        || (i == EditorInfo.IME_ACTION_DONE)) {
+                    addFlashcard();
+                }
+                return false;
+            }
+        });
     }
 
     private void init() {
@@ -52,21 +69,25 @@ public class AddFlashcardDialog extends MaterialDialog.Builder {
         return new MaterialDialog.SingleButtonCallback() {
             @Override
             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                Flashcard flashcard = new Flashcard();
-                flashcard.setWord(mWordEt.getText().toString().trim());
-                flashcard.setTranslation(mTranslateEt.getText().toString().trim());
-                flashcard.setCategoryID(mCategoryId);
-                flashcard.setPriority(1);
-
-                if (mValidationFlashcards.validateAdd(flashcard)) {
-                    mFlashcardRepository.addFlashcard(flashcard);
-                    new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.ADD_FLASHCARD);
-                    Toast.makeText(context, R.string.add_new_flashcard_toast, Toast.LENGTH_LONG).show();
-                    mTranslateEt.setText(null);
-                    mWordEt.setText(null);
-                    mWordEt.requestFocus();
-                }
+                addFlashcard();
             }
         };
+    }
+
+    private void addFlashcard() {
+        Flashcard flashcard = new Flashcard();
+        flashcard.setWord(mWordEt.getText().toString().trim());
+        flashcard.setTranslation(mTranslateEt.getText().toString().trim());
+        flashcard.setCategoryID(mCategoryId);
+        flashcard.setPriority(1);
+
+        if (mValidationFlashcards.validateAdd(flashcard)) {
+            mFlashcardRepository.addFlashcard(flashcard);
+            new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.ADD_FLASHCARD);
+            Toast.makeText(context, R.string.add_new_flashcard_toast, Toast.LENGTH_LONG).show();
+            mTranslateEt.setText(null);
+            mWordEt.setText(null);
+        }
+        mWordEt.requestFocus();
     }
 }
