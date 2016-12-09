@@ -42,10 +42,10 @@ public class AddFlashcardDialog extends MaterialDialog.Builder {
         this.onPositive(addFlashcardBtn());
 
         init();
-        keyBoardAction();
+        keyboardAction();
     }
 
-    private void keyBoardAction() {
+    private void keyboardAction() {
         mTranslateEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
