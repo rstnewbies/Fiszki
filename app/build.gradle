@@ -14,7 +14,7 @@ android {
         applicationId "eu.qm.fiszki"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 6
+        versionCode 7
         versionName "1.7.1"
 
     }
