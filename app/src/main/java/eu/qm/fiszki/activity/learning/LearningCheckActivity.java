@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.ArrayList;
 
+import eu.qm.fiszki.FirebaseManager;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.ChangeActivityManager;
 import eu.qm.fiszki.algorithm.Algorithm;
@@ -132,5 +134,11 @@ public class LearningCheckActivity extends AppCompatActivity {
         } else {
             new BadAnswerLearnigDialog(mActivity, mDrawnFlashcard, this).show();
         }
+    }
+
+    public void skipFlashcard(View view) {
+        drawFlashcard();
+        new FirebaseManager(this).sendEvent(FirebaseManager.Params.LEARNING_MENU_SKIP);
+        Toast.makeText(this,R.string.learning_check_menu_skip_toast,Toast.LENGTH_SHORT).show();
     }
 }
