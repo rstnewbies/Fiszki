@@ -45,6 +45,8 @@ public class FirebaseManager {
         public final static String EXAM_OK_BTN = "EXAM_OK_BTN";
         public final static String NOTYFI_PASS = "NOTYFICATION_PASS";
         public final static String NOTYFI_WRONG = "NOTYFICATION_WRONG";
+        public final static String LEARNING_DIALOG_SKIP= "LEARNING SKIP";
+
     }
 }
 

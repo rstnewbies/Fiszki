@@ -92,12 +92,13 @@ public class LearningCheckActivity extends AppCompatActivity {
         });
     }
 
-    private void drawFlashcard() {
+    public void drawFlashcard() {
         mDrawnFlashcard = mAlgorithm.drawCardAlgorithm(mFlashcardsPool);
         mDrawnCategory = mCategoryRepository.getCategoryByID(mDrawnFlashcard.getCategoryID());
         setLangText();
         setCategoryText();
         setWordText();
+        mTranslate.setText("");
     }
 
     private void setLangText() {
@@ -129,7 +130,7 @@ public class LearningCheckActivity extends AppCompatActivity {
             mTranslate.setText("");
             drawFlashcard();
         } else {
-            new BadAnswerLearnigDialog(mActivity, mDrawnFlashcard).show();
+            new BadAnswerLearnigDialog(mActivity, mDrawnFlashcard, this).show();
         }
     }
 }
