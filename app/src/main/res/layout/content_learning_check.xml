@@ -56,6 +56,5 @@
         android:layout_below="@+id/learning_check_category_text"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:inputType="textNoSuggestions"
         android:singleLine="true" />
 </RelativeLayout>

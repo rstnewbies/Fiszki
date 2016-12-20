@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -61,6 +62,7 @@ public class LearningCheckActivity extends AppCompatActivity {
         mWord = (TextView) mActivity.findViewById(R.id.learning_check_word_text);
         mCategory = (TextView) mActivity.findViewById(R.id.learning_check_category_text);
         mTranslate = (MaterialEditText) mActivity.findViewById(R.id.learning_check_edit_text);
+        mTranslate.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         mFlashcardsPool = (ArrayList<Flashcard>) this.getIntent()
                 .getSerializableExtra(ChangeActivityManager.FLASHCARDS_KEY_INTENT);
     }
