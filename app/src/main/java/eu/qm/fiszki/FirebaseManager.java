@@ -13,14 +13,12 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 public class FirebaseManager {
 
     private FirebaseAnalytics mFirebaseAnalytics;
-    private static final boolean DEVELOP = true;
-
     public FirebaseManager(@NonNull Context context) {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
     }
 
     public void sendEvent(@NonNull String name) {
-        if(!DEVELOP) {
+        if(!Params.DEVELOP) {
             Bundle bundle = new Bundle();
             bundle.putString(name, name);
             mFirebaseAnalytics.logEvent(name, bundle);
@@ -28,6 +26,9 @@ public class FirebaseManager {
     }
 
     public static class Params {
+
+        public static final boolean DEVELOP = true;
+
         public final static String NOTYFI_ON = "NOTYFI_ON";
         public final static String NOTYFI_OFF = "NOTYFI_OFF";
         public final static String MYWORDS = "MYWORDS_CLICK";

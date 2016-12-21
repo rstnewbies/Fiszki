@@ -40,7 +40,7 @@ public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdap
 
         holder.mWord.setText(flashcard.getWord());
         holder.mTranslation.setText(flashcard.getTranslation());
-        holder.mProcent.setText(""+flashcard.getStaticPass());
+        holder.mProcent.setText(makeProcent(flashcard));
 
         holder.mMain.setOnClickListener(new FlashcardClick(mActivity, flashcard));
         holder.mMain.setOnLongClickListener(new FlashcardLongClick(mActivity, flashcard));
@@ -61,6 +61,16 @@ public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdap
     @Override
     public int getItemViewType(int position) {
         return position;
+    }
+
+    private String makeProcent(Flashcard flashcard){
+        int sum = flashcard.getStaticPass() + flashcard.getStaticFail();
+        if(sum==0){
+            return "0%";
+        }else{
+            float procent = flashcard.getStaticPass()*100.0f / sum;
+            return procent+"%";
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
