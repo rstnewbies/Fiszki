@@ -22,6 +22,11 @@ public class Flashcard implements Serializable {
     private int priority;
     @DatabaseField
     private int categoryID;
+    @DatabaseField
+    private int staticFail;
+    @DatabaseField
+    private int staticPass;
+
 
     public Flashcard() {
     }
@@ -72,6 +77,22 @@ public class Flashcard implements Serializable {
 
     public void setCategoryID(int categoryID) {
         this.categoryID = categoryID;
+    }
+
+    public int getStaticFail() {
+        return staticFail;
+    }
+
+    public void upStaticFail() {
+        this.staticFail++;
+    }
+
+    public int getStaticPass() {
+        return staticPass;
+    }
+
+    public void upStaticPass() {
+        this.staticPass++;
     }
 }
 

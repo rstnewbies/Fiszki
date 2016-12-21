@@ -40,6 +40,7 @@ public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdap
 
         holder.mWord.setText(flashcard.getWord());
         holder.mTranslation.setText(flashcard.getTranslation());
+        holder.mProcent.setText(""+flashcard.getStaticPass());
 
         holder.mMain.setOnClickListener(new FlashcardClick(mActivity, flashcard));
         holder.mMain.setOnLongClickListener(new FlashcardLongClick(mActivity, flashcard));
@@ -67,12 +68,14 @@ public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdap
         private RelativeLayout mMain;
         private TextView mTranslation;
         private TextView mWord;
+        private TextView mProcent;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mMain = (RelativeLayout) itemView.findViewById(R.id.mainCard);
-            mTranslation = (TextView) itemView.findViewById(R.id.flashcard_translate);
             mWord = (TextView) itemView.findViewById(R.id.flashcard_word);
+            mProcent = (TextView) itemView.findViewById(R.id.flashcard_procent);
+            mTranslation = (TextView) itemView.findViewById(R.id.flashcard_translate);
         }
     }
 }
