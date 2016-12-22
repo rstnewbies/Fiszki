@@ -1,3 +1,12 @@
+v1.8:
+<ul>
+<li>Add statistic to flashcards</li>
+<li>More adding fun</li>
+<li>Added possibility of skip flashcards</li>
+<li>Upgrade design in notification layout</li>
+</ul>
+<br>
+
 v1.7:
 <ul>
 <li>New layout</li>

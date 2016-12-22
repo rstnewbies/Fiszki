@@ -1,3 +1,12 @@
+v1.8:
+<ul>
+<li>Dodanie statystyk fiszek</li>
+<li>Dodanie ulatwienia wpisywania fiszek</li>
+<li>Dodanie mo¿liwoœci pominiêcia fiszki w trybie nauki</li>
+<li>Ulepszony wygl¹d okna notyfikacji</li>
+</ul>
+<br>
+
 v1.7:
 <ul>
 <li>Nowy wygl¹d</li>
