@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
@@ -128,10 +127,14 @@ public class LearningCheckActivity extends AppCompatActivity {
 
     private void check() {
         if (mTranslate.getText().toString().trim().equals(mDrawnFlashcard.getTranslation())) {
-            Toast.makeText(mActivity, R.string.alert_message_pass, Toast.LENGTH_LONG).show();
+            Toast.makeText(mActivity, R.string.alert_message_pass, Toast.LENGTH_SHORT).show();
+            mFlashcardRepository.upFlashcardPassStatistic(mDrawnFlashcard);
+            mFlashcardRepository.upFlashcardPriority(mDrawnFlashcard);
             mTranslate.setText("");
             drawFlashcard();
         } else {
+            mFlashcardRepository.upFlashcardFailStatistic(mDrawnFlashcard);
+            mFlashcardRepository.downFlashcardPriority(mDrawnFlashcard);
             new BadAnswerLearnigDialog(mActivity, mDrawnFlashcard, this).show();
         }
     }
@@ -141,4 +144,6 @@ public class LearningCheckActivity extends AppCompatActivity {
         new FirebaseManager(this).sendEvent(FirebaseManager.Params.LEARNING_MENU_SKIP);
         Toast.makeText(this,R.string.learning_check_menu_skip_toast,Toast.LENGTH_SHORT).show();
     }
+
+
 }

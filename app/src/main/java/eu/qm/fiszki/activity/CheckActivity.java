@@ -2,8 +2,6 @@ package eu.qm.fiszki.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -11,7 +9,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -24,7 +21,6 @@ import eu.qm.fiszki.dialogs.check.EmptyDBCheckDialog;
 import eu.qm.fiszki.dialogs.check.EmptySelectedCheckDialog;
 import eu.qm.fiszki.dialogs.check.FailCheckDialog;
 import eu.qm.fiszki.dialogs.check.PassCheckDialog;
-import eu.qm.fiszki.dialogs.learning.BadAnswerLearnigDialog;
 import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
 import eu.qm.fiszki.model.flashcard.Flashcard;
@@ -144,8 +140,12 @@ public class CheckActivity extends AppCompatActivity {
 
     private void check() {
         if (mTranslate.getText().toString().trim().equals(mDrawnFlashcard.getTranslation())) {
+            mFlashcardRepository.upFlashcardPassStatistic(mDrawnFlashcard);
+            mFlashcardRepository.upFlashcardPriority(mDrawnFlashcard);
             new PassCheckDialog(this).show();
         } else {
+            mFlashcardRepository.upFlashcardFailStatistic(mDrawnFlashcard);
+            mFlashcardRepository.downFlashcardPriority(mDrawnFlashcard);
             new FailCheckDialog(this,mDrawnFlashcard).show();
         }
     }

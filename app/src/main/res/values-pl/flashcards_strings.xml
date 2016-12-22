@@ -18,4 +18,10 @@
     <string name="flashcard_transform_title">Zmień kategorie</string>
     <string name="flashcard_transform_button">Zmień</string>
     <string name="flashcard_transform_button_empty_message">Nie możesz przenieść tej fiszki, ponieważ nie masz jeszcze żadnych swoich kategori.</string>
+
+    <string name="flashcard_statistic_dialog_title">Statystyki fiszki</string>
+    <string name="flashcard_statistic_dialog_pass">Poprawne odpowiedzi:</string>
+    <string name="flashcard_statistic_dialog_fail">Niepoprawne odpowiedzi:</string>
+    <string name="flashcard_statistic_dialog_reset">WYZERUJ</string>
+
 </resources>

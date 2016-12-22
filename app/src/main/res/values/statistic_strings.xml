@@ -31,16 +31,16 @@
     <string name="statistic_c4">You haven\'t shown the best of you!</string>
     <string name="statistic_c5">It\'s not that simple, huh?</string>
     <!-- for 80-94 percent -->
-    <string name="statistic_d1">SUPER</string>
-    <string name="statistic_d2">Wow! Nice!</string>
-    <string name="statistic_d3">Yeah, just keep trying!</string>
-    <string name="statistic_d4">Do it! Don\'t let your dreams be dreams!</string>
-    <string name="statistic_d5">Never gonna run around and desert you!</string>
+    <string name="statistic_0">SUPER</string>
+    <string name="statistic_1">Wow! Nice!</string>
+    <string name="statistic_2">Yeah, just keep trying!</string>
+    <string name="statistic_3">Do it! Don\'t let your dreams be dreams!</string>
+    <string name="statistic_4">Never gonna run around and desert you!</string>
     <!-- for 95-100 percent -->
-    <string name="statistic_e1">MENSA is looking for you...</string>
-    <string name="statistic_e2">Yaaas!</string>
-    <string name="statistic_e3">I\'m so freakin\' proud of you!</string>
-    <string name="statistic_e4">Who are you? You\'re a winner!</string>
-    <string name="statistic_e5">Fantastic!</string>
+    <string name="statistic_5">MENSA is looking for you...</string>
+    <string name="statistic_6">Yaaas!</string>
+    <string name="statistic_7">I\'m so freakin\' proud of you!</string>
+    <string name="statistic_8">Who are you? You\'re a winner!</string>
+    <string name="statistic_9">Fantastic!</string>
 
 </resources>

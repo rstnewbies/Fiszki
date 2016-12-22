@@ -13,14 +13,12 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 public class FirebaseManager {
 
     private FirebaseAnalytics mFirebaseAnalytics;
-    private static final boolean DEVELOP = true;
-
     public FirebaseManager(@NonNull Context context) {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
     }
 
     public void sendEvent(@NonNull String name) {
-        if(!DEVELOP) {
+        if(!Params.DEVELOP) {
             Bundle bundle = new Bundle();
             bundle.putString(name, name);
             mFirebaseAnalytics.logEvent(name, bundle);
@@ -28,6 +26,9 @@ public class FirebaseManager {
     }
 
     public static class Params {
+
+        public static final boolean DEVELOP = true;
+
         public final static String NOTYFI_ON = "NOTYFI_ON";
         public final static String NOTYFI_OFF = "NOTYFI_OFF";
         public final static String MYWORDS = "MYWORDS_CLICK";
@@ -47,6 +48,8 @@ public class FirebaseManager {
         public final static String NOTYFI_WRONG = "NOTYFICATION_WRONG";
         public final static String LEARNING_DIALOG_SKIP = "LEARNING DIALOG SKIP";
         public final static String LEARNING_MENU_SKIP = "LEARNING MENU SKIP";
+        public final static String FLASHCARD_STATISTIC_CLICK = "FLASHCARD STATISTIC CLICK";
+        public final static String FLASHCARD_STATISTIC_RESET = "FLASHCARD STATISTIC RESET";
 
     }
 }

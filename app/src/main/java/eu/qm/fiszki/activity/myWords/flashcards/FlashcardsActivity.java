@@ -8,14 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.dialogs.information.InformationFlashcardDialog;
+import eu.qm.fiszki.activity.myWords.CategoryManagerSingleton;
+import eu.qm.fiszki.activity.myWords.category.CategoryActivity;
 import eu.qm.fiszki.listeners.flashcard.FlashcardAddFab;
 import eu.qm.fiszki.listeners.flashcard.FlashcardCancelFab;
 import eu.qm.fiszki.listeners.flashcard.FlashcardDeleteFab;
@@ -24,20 +24,18 @@ import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
 import eu.qm.fiszki.model.flashcard.Flashcard;
 import eu.qm.fiszki.model.flashcard.FlashcardRepository;
-import eu.qm.fiszki.activity.myWords.CategoryManagerSingleton;
-import eu.qm.fiszki.activity.myWords.category.CategoryActivity;
 
 public class FlashcardsActivity extends AppCompatActivity {
 
-    private FloatingActionButton mFabCancel;
-    private FloatingActionButton mFabAdd;
-    private FloatingActionButton mFabTransform;
-    private FloatingActionButton mFabDelete;
-    private SelectedFabManager mFabManager;
-    private TextView mEmptyFlashcard;
     private Activity mActivity;
+    private TextView mEmptyFlashcard;
     private RecyclerView mRecycleView;
     private Category mCurrentCategory;
+    private FloatingActionButton mFabAdd;
+    private SelectedFabManager mFabManager;
+    private FloatingActionButton mFabDelete;
+    private FloatingActionButton mFabCancel;
+    private FloatingActionButton mFabTransform;
     private FlashcardRepository mFlashcardRepository;
 
     @Override
@@ -91,9 +89,9 @@ public class FlashcardsActivity extends AppCompatActivity {
     private void buildToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.md_nav_back);
-        if(mCurrentCategory.getCategory()==null) {
+        if (mCurrentCategory.getCategory() == null) {
             toolbar.setTitle(R.string.flashcard_toolbar_null_category);
-        }else{
+        } else {
             toolbar.setTitle(mCurrentCategory.getCategory());
         }
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -106,12 +104,14 @@ public class FlashcardsActivity extends AppCompatActivity {
 
     private void buildListView() {
         mRecycleView = (RecyclerView) findViewById(R.id.listview_flashcard);
-        StaggeredGridLayoutManager mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        mRecycleView.setLayoutManager(mStaggeredLayoutManager);
+        StaggeredGridLayoutManager staggeredLayoutManager =
+                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        mRecycleView.setLayoutManager(staggeredLayoutManager);
     }
 
     private void updateListView() {
-        ArrayList<Flashcard> flashcards = mFlashcardRepository.getFlashcardsByCategoryID(mCurrentCategory.getId());
+        ArrayList<Flashcard> flashcards =
+                mFlashcardRepository.getFlashcardsByCategoryID(mCurrentCategory.getId());
 
         if (flashcards.isEmpty()) {
             mEmptyFlashcard.setVisibility(View.VISIBLE);
