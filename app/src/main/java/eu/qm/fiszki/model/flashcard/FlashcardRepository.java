@@ -114,4 +114,9 @@ public class FlashcardRepository {
         flashcardDao.update(flashcard);
     }
 
+    public void resetFlashcardStatistic(Flashcard flashcard){
+        flashcard.resetStatictic();
+        flashcardDao.update(flashcard);
+    }
+
 }

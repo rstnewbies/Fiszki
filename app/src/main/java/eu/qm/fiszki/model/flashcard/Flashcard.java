@@ -96,11 +96,24 @@ public class Flashcard implements Serializable {
     }
 
     public void upPriority(){
-        this.priority++;
+        if(this.priority<=5) {
+            this.priority++;
+        }else{
+            this.priority = 5;
+        }
     }
 
     public void downPriority(){
-        this.priority--;
+        if(this.priority>0) {
+            this.priority--;
+        }else{
+            this.priority = 0;
+        }
+    }
+
+    public void resetStatictic(){
+        this.staticFail = 0;
+        this.staticPass = 0;
     }
 }
 

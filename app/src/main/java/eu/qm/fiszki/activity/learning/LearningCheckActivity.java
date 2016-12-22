@@ -127,7 +127,7 @@ public class LearningCheckActivity extends AppCompatActivity {
 
     private void check() {
         if (mTranslate.getText().toString().trim().equals(mDrawnFlashcard.getTranslation())) {
-            Toast.makeText(mActivity, R.string.alert_message_pass, Toast.LENGTH_LONG).show();
+            Toast.makeText(mActivity, R.string.alert_message_pass, Toast.LENGTH_SHORT).show();
             mFlashcardRepository.upFlashcardPassStatistic(mDrawnFlashcard);
             mFlashcardRepository.upFlashcardPriority(mDrawnFlashcard);
             mTranslate.setText("");

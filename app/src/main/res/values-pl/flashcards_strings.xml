@@ -22,5 +22,6 @@
     <string name="flashcard_statistic_dialog_title">Statystyki fiszki</string>
     <string name="flashcard_statistic_dialog_pass">Poprawne odpowiedzi:</string>
     <string name="flashcard_statistic_dialog_fail">Niepoprawne odpowiedzi:</string>
+    <string name="flashcard_statistic_dialog_reset">WYZERUJ</string>
 
 </resources>
