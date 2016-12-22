@@ -13,7 +13,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v7.app.NotificationCompat;
 
-import eu.qm.fiszki.old.CheckActivity;
+import eu.qm.fiszki.activity.CheckActivity;
 
 public class AlarmReceiver extends BroadcastReceiver {
 

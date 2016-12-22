@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="check_title">One-word learning</string>
+    <string name="check_dialog_emptyDB">You didn\'t have any flashcards. Add few to use this feature.</string>
+    <string name="check_dialog_empty_selected">Selected categories are empty, so learning will be of the entire pool of your flashcards</string>
+
+</resources>

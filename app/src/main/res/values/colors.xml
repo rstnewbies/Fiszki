@@ -23,4 +23,8 @@
     <color name="bg_cards">#e6e6e6</color>
     <color name="addCotegoryCard">#68a72c</color>
     <color name="category_count">#2e9100</color>
+
+    <color name="statistic_100_65">#63d471</color>
+    <color name="statistic_65_35">#ffdb3a</color>
+    <color name="statistic_35_0">#d7263d</color>
 </resources>

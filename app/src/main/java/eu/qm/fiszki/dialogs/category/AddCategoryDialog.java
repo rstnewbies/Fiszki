@@ -1,6 +1,7 @@
 package eu.qm.fiszki.dialogs.category;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.support.annotation.NonNull;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -33,7 +34,7 @@ public class AddCategoryDialog extends MaterialDialog.Builder {
         this.customView(R.layout.category_add_dialog, false);
         this.positiveText(R.string.category_positive_btn_text);
         this.positiveColor(mActivity.getResources().getColor(R.color.ColorPrimaryDark));
-        this.onPositive(addCategory());
+        this.onPositive(addCategoryBtn());
         init();
         autoDismiss(false);
         setAdapterToLang();
@@ -55,23 +56,27 @@ public class AddCategoryDialog extends MaterialDialog.Builder {
         mCategoryLangOn.setAdapter(adapter);
     }
 
-    private MaterialDialog.SingleButtonCallback addCategory() {
+    private MaterialDialog.SingleButtonCallback addCategoryBtn() {
         return new MaterialDialog.SingleButtonCallback() {
             @Override
             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                Category category = new Category();
-                category.setCategory(mCategoryNameET.getText().toString().trim());
-                category.setEntryByUser(true);
-                category.setLangOn(mCategoryLangOn.getText().toString().trim());
-                category.setLangFrom(mCategoryLangFrom.getText().toString().trim());
-
-                if (mValidationCategory.validate(category)) {
-                    mCategoryRepository.addCategory(category);
-                    new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.ADD_CATEGORY);
-                    Toast.makeText(context, R.string.category_toast, Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                }
+                addCategory(dialog);
             }
         };
+    }
+
+    private void addCategory(Dialog dialog){
+        Category category = new Category();
+        category.setCategory(mCategoryNameET.getText().toString().trim());
+        category.setEntryByUser(true);
+        category.setLangOn(mCategoryLangOn.getText().toString().trim());
+        category.setLangFrom(mCategoryLangFrom.getText().toString().trim());
+
+        if (mValidationCategory.validate(category)) {
+            mCategoryRepository.addCategory(category);
+            new FirebaseManager(mActivity).sendEvent(FirebaseManager.Params.ADD_CATEGORY);
+            Toast.makeText(context, R.string.category_toast, Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+        }
     }
 }

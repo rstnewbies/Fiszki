@@ -1,4 +1,4 @@
-package eu.qm.fiszki.dialogs.learning;
+package eu.qm.fiszki.dialogs.check;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -16,11 +16,10 @@ import eu.qm.fiszki.model.flashcard.Flashcard;
  * Created by mBoiler on 24.11.2016.
  */
 
-public class BadAnswerLearnigDialog extends MaterialDialog.Builder {
+public class FailCheckDialog extends MaterialDialog.Builder {
 
-    public BadAnswerLearnigDialog(@NonNull Context context,
-                                  @NonNull Flashcard flashcard,
-                                  @NonNull LearningCheckActivity lca) {
+    public FailCheckDialog(@NonNull Context context,
+                           @NonNull Flashcard flashcard) {
         super(context);
         this.title(R.string.alert_title_fail);
         this.content(Html.fromHtml(
@@ -30,13 +29,8 @@ public class BadAnswerLearnigDialog extends MaterialDialog.Builder {
 
         this.positiveText(R.string.button_action_ok);
         this.positiveColor(context.getResources().getColor(R.color.ColorPrimaryDark));
-
-        this.neutralText(R.string.learning_check_dialog_skip_btn);
-        this.neutralColor(context.getResources().getColor(R.color.ColorPrimaryDark));
-
         this.autoDismiss(false);
         this.onPositive(okClick());
-        this.onNeutral(skipClick(lca));
 
     }
 
@@ -45,17 +39,6 @@ public class BadAnswerLearnigDialog extends MaterialDialog.Builder {
             @Override
             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                 dialog.dismiss();
-            }
-        };
-    }
-
-    private MaterialDialog.SingleButtonCallback skipClick(final LearningCheckActivity lca) {
-        return new MaterialDialog.SingleButtonCallback() {
-            @Override
-            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                lca.drawFlashcard();
-                dialog.dismiss();
-                new FirebaseManager(context).sendEvent(FirebaseManager.Params.LEARNING_DIALOG_SKIP);
             }
         };
     }

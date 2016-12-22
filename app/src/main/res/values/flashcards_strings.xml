@@ -19,4 +19,10 @@
     <string name="flashcard_transform_button">Change</string>
     <string name="flashcard_transform_button_empty_message">You can\'t change category, because you don\'t have connected category</string>
 
+    <string name="flashcard_statistic_dialog_title">Flashcard\'s statistics</string>
+    <string name="flashcard_statistic_dialog_pass">Correct answer:</string>
+    <string name="flashcard_statistic_dialog_fail">Wrong answer:</string>
+    <string name="flashcard_statistic_dialog_reset">RESET</string>
+
+
 </resources>

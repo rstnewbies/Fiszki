@@ -22,29 +22,45 @@
             android:id="@+id/flashcard_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:minLines="1"
             android:singleLine="true"
             android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_toLeftOf="@+id/flashcard_procent"
+            android:layout_toStartOf="@+id/flashcard_procent" />
 
         <TextView
             android:id="@+id/flashcard_translate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/flashcard_word"
             android:minLines="1"
             android:singleLine="true"
             android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_toLeftOf="@+id/flashcard_procent"
+            android:layout_toStartOf="@+id/flashcard_procent" />
+
+        <TextView
+            android:text="100%"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/flashcard_procent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textStyle="normal|italic"
+            android:textAllCaps="false"
+            android:fontFamily="serif" />
 
     </RelativeLayout>
 

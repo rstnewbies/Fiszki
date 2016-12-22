@@ -1,4 +1,4 @@
-package eu.qm.fiszki.activity.learning;
+package eu.qm.fiszki.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,49 +9,62 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.ArrayList;
 
-import eu.qm.fiszki.FirebaseManager;
 import eu.qm.fiszki.R;
-import eu.qm.fiszki.activity.ChangeActivityManager;
 import eu.qm.fiszki.algorithm.Algorithm;
-import eu.qm.fiszki.dialogs.learning.BadAnswerLearnigDialog;
+import eu.qm.fiszki.algorithm.CatcherFlashcardToAlgorithm;
+import eu.qm.fiszki.dialogs.check.EmptyDBCheckDialog;
+import eu.qm.fiszki.dialogs.check.EmptySelectedCheckDialog;
+import eu.qm.fiszki.dialogs.check.FailCheckDialog;
+import eu.qm.fiszki.dialogs.check.PassCheckDialog;
 import eu.qm.fiszki.model.category.Category;
 import eu.qm.fiszki.model.category.CategoryRepository;
 import eu.qm.fiszki.model.flashcard.Flashcard;
 import eu.qm.fiszki.model.flashcard.FlashcardRepository;
 
-public class LearningCheckActivity extends AppCompatActivity {
+public class CheckActivity extends AppCompatActivity {
 
+    private Activity mActivity;
+    private Algorithm mAlgorithm;
+    private CategoryRepository mCategoryRepository;
+    private FlashcardRepository mFlashcardRepository;
     private TextView mLang;
     private TextView mWord;
     private TextView mCategory;
-    private Activity mActivity;
-    private Algorithm mAlgorithm;
-    private Category mDrawnCategory;
-    private Flashcard mDrawnFlashcard;
     private MaterialEditText mTranslate;
-    private ArrayList<Flashcard> mFlashcardsPool;
-    private CategoryRepository mCategoryRepository;
-    private FlashcardRepository mFlashcardRepository;
+    private Flashcard mDrawnFlashcard;
+    private Category mDrawnCategory;
+    private ArrayList<Flashcard> mPool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_learning_check);
+        setContentView(R.layout.activity_check);
+        setToolbar();
         init();
-        buildToolbar();
         buildDoneKey();
         drawFlashcard();
     }
 
     @Override
     public void onBackPressed() {
-        new ChangeActivityManager(mActivity).exitLearningCheck();
+        finish();
+    }
+
+    public void setToolbar(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.check_title);
+        toolbar.setNavigationIcon(R.drawable.ic_exit_to_app_24px);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     private void init() {
@@ -59,25 +72,12 @@ public class LearningCheckActivity extends AppCompatActivity {
         mAlgorithm = new Algorithm(mActivity);
         mCategoryRepository = new CategoryRepository(mActivity);
         mFlashcardRepository = new FlashcardRepository(mActivity);
-        mLang = (TextView) mActivity.findViewById(R.id.learning_check_lang_text);
-        mWord = (TextView) mActivity.findViewById(R.id.learning_check_word_text);
-        mCategory = (TextView) mActivity.findViewById(R.id.learning_check_category_text);
-        mTranslate = (MaterialEditText) mActivity.findViewById(R.id.learning_check_edit_text);
+        mLang = (TextView) mActivity.findViewById(R.id.check_lang_text);
+        mWord = (TextView) mActivity.findViewById(R.id.check_word_text);
+        mCategory = (TextView) mActivity.findViewById(R.id.check_category_text);
+        mTranslate = (MaterialEditText) mActivity.findViewById(R.id.check_edit_text);
         mTranslate.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        mFlashcardsPool = (ArrayList<Flashcard>) this.getIntent()
-                .getSerializableExtra(ChangeActivityManager.FLASHCARDS_KEY_INTENT);
-    }
-
-    private void buildToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.learning_check_toolbar_title);
-        toolbar.setNavigationIcon(mActivity.getResources().getDrawable(R.drawable.md_nav_back));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        mPool = new CatcherFlashcardToAlgorithm(mActivity).getFlashcardsFromChosenCategoryToNotification();
     }
 
     private void buildDoneKey() {
@@ -94,12 +94,25 @@ public class LearningCheckActivity extends AppCompatActivity {
     }
 
     public void drawFlashcard() {
-        mDrawnFlashcard = mAlgorithm.drawCardAlgorithm(mFlashcardsPool);
-        mDrawnCategory = mCategoryRepository.getCategoryByID(mDrawnFlashcard.getCategoryID());
-        setLangText();
-        setCategoryText();
-        setWordText();
-        mTranslate.setText("");
+        if(isCondition()) {
+            mDrawnFlashcard = mAlgorithm.drawCardAlgorithm(mPool);
+            mDrawnCategory = mCategoryRepository.getCategoryByID(mDrawnFlashcard.getCategoryID());
+            setLangText();
+            setCategoryText();
+            setWordText();
+            mTranslate.setText("");
+        }
+    }
+
+    private boolean isCondition() {
+        if(mFlashcardRepository.getAllFlashcards().isEmpty()){
+            new EmptyDBCheckDialog(this).show();
+            return false;
+        }else if(mPool.isEmpty()){
+            new EmptySelectedCheckDialog(this).show();
+            mPool = mFlashcardRepository.getAllFlashcards();
+        }
+        return true;
     }
 
     private void setLangText() {
@@ -127,22 +140,14 @@ public class LearningCheckActivity extends AppCompatActivity {
 
     private void check() {
         if (mTranslate.getText().toString().trim().equals(mDrawnFlashcard.getTranslation())) {
-            Toast.makeText(mActivity, R.string.alert_message_pass, Toast.LENGTH_SHORT).show();
             mFlashcardRepository.upFlashcardPassStatistic(mDrawnFlashcard);
             mFlashcardRepository.upFlashcardPriority(mDrawnFlashcard);
-            mTranslate.setText("");
-            drawFlashcard();
+            new PassCheckDialog(this).show();
         } else {
             mFlashcardRepository.upFlashcardFailStatistic(mDrawnFlashcard);
             mFlashcardRepository.downFlashcardPriority(mDrawnFlashcard);
-            new BadAnswerLearnigDialog(mActivity, mDrawnFlashcard, this).show();
+            new FailCheckDialog(this,mDrawnFlashcard).show();
         }
-    }
-
-    public void skipFlashcard(View view) {
-        drawFlashcard();
-        new FirebaseManager(this).sendEvent(FirebaseManager.Params.LEARNING_MENU_SKIP);
-        Toast.makeText(this,R.string.learning_check_menu_skip_toast,Toast.LENGTH_SHORT).show();
     }
 
 

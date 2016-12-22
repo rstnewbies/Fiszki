@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -76,6 +77,7 @@ public class ExamCheckActivity extends AppCompatActivity {
         this.mLang = (TextView) mActivity.findViewById(R.id.exam_check_lang);
         this.mWord = (TextView) mActivity.findViewById(R.id.exam_check_word);
         this.mTranslate = (MaterialEditText) mActivity.findViewById(R.id.exam_check_edit_text);
+        this.mTranslate.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
     }
 
     private void buildToolbar() {

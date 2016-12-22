@@ -31,16 +31,16 @@
     <string name="statistic_c4">Jest coraz lepiej, ale może być jeszcze lepiej!</string>
     <string name="statistic_c5">Nie takie łatwe, co?</string>
     <!-- for 80-94 percent -->
-    <string name="statistic_d1">SUPER</string>
-    <string name="statistic_d2">Wow! Nieźle!</string>
-    <string name="statistic_d3">Yeah, próbuj dalej!</string>
-    <string name="statistic_d4">Zrób to! Nie pozwól żeby marzenia były tylko snem!</string>
-    <string name="statistic_d5">Never gonna run around and desert you!</string>
+    <string name="statistic_0">SUPER</string>
+    <string name="statistic_1">Wow! Nieźle!</string>
+    <string name="statistic_2">Yeah, próbuj dalej!</string>
+    <string name="statistic_3">Zrób to! Nie pozwól żeby marzenia były tylko snem!</string>
+    <string name="statistic_4">Never gonna run around and desert you!</string>
     <!-- for 95-100 percent -->
-    <string name="statistic_e1">Podobno MENSA Cię szuka...</string>
-    <string name="statistic_e2">Tak trzymaj!</string>
-    <string name="statistic_e3">Jestem cholernie z Ciebie dumny!</string>
-    <string name="statistic_e4">Kim jesteś? Jesteś zwycięzcą!</string>
-    <string name="statistic_e5">Fantastycznie!</string>
+    <string name="statistic_5">Podobno MENSA Cię szuka...</string>
+    <string name="statistic_6">Tak trzymaj!</string>
+    <string name="statistic_7">Jestem cholernie z Ciebie dumny!</string>
+    <string name="statistic_8">Kim jesteś? Jesteś zwycięzcą!</string>
+    <string name="statistic_9">Fantastycznie!</string>
 
 </resources>
