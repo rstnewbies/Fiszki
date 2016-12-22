@@ -7,33 +7,9 @@ First, add list of words you need to learn. Then it will show up notification ev
 Thanks to our algorithm notification will show you words with less probability that you know that word.
 If you need to study faster, use our 'Learning Mode' wich allows you to translate every single word.</p>
 
-<h3><a href="https://play.google.com/store/apps/details?id=eu.qm.fiszki">Fiszki now available on Google Play!</a></h3>
-
-Changelog
-v1.7:
-<ul><li>New layout</li>
-<li>Add languages to categories </li>
-<li>Choose language to learn</li>
-<li>See mistakes after exam </li>
-<li>Fixed bugs </li>
-<li>New,  awesome animations </li>
-<li>Got rid of previous menu</li>
-<li>Added burger menu </li></ul>
-
-v1.5:
-<ul><li>Add more floating button</li>
-<li> New clever algorithm</li>
-<li>Possibility edit flashcard's category</li>
-<li>Possibility to choose categories to learning mode</li>
-<li>Possibility to choose categories to exam mode</li>
-<li> Add Crashlytics</li>
-<li> Fixed bugs</li></ul>
-
-v1.4:
-<ul><li>Introduced categories</li>
-<li>Random lines after answering</li>
-<li>Algorithm improvements</li>
-<li>Fixed bugs</li></ul>
+<h2><a href="https://play.google.com/store/apps/details?id=eu.qm.fiszki">Fiszki now available on Google Play!</a></h2>
+<br>
+<h3><a href="/changelog_en">Changelog<a></h3>
 
 <h2>Polski:</h2>
 <h3>Ucz się słówek szybciej niż kiedykolwiek!</h3>
@@ -42,61 +18,8 @@ Dzięki aplikacji Fiszki nie trzeba spędzać ani 5 minut na naukę, ponieważ u
 Daje to świetne rezultaty i nie zajmuje czasu! 
 Wszystko co musisz zrobić, to wpisać słowa, których chcesz się nauczyć</p>
 
-v1.7:
-<ul><li>Nowy wygląd</li>
-<li>Możliwość dodawania języków do kategorii</li>
-<li>Możliwość nauki po językach</li>
-<li>Możliwość wyświetlenia błędnych odpowiedzi po egzaminie</li>
-<li>Naprawa znaczących błędów</li>
-<li>Dodanie animacji przechodzenia między widokami</li>
-<li>Dodanie bocznego menu</li>
-<li>Usunięcie menu standardowego</li></ul>
-
-Funkcje w wersji v1.5:
-<ul><li>Przycisk jest bardziej pływający</li>
-<li>Nowy mądry algorytm</li>
-<li>Możliwość edycji kategorii w fiszkach</li>
-<li>Możliwość wyboru kategorii w trybie nauki</li>
-<li>Możliwość wyboru kategorii w trybie sprawdz się</li>
-<li>Dodano Crashlytics</li>
-<li>Poprawki błędów</li></ul>
-
-Funkcje w wersji v1.4:
-<ul><li>Wprowadzenie kategorii oraz zarządzanie nimi</li>
-<li>Losowo wyświetlane alerty odpowiedzi</li>
-<li>Poprawki błędów</li>
-<li>Usprawnienie algorytmu</li></ul>
-
-Funkcje w wersji <a href="http://d-h.st/xl0u">v1.3</a>:
-<ul><li>Edycja wprowadzonych słówek</li>
-<li>Usuwanie pojedynczych słówek</li>
-<li>Nowy tryb - "Sprawdź się!" wraz ze statystykami poprawności odpowiedzi</li>
-<li>Poprawka błędów i małe usprawnienia</li></ul>
-
-Funkcje w wersji <a href="http://d-h.st/pfRl">v1.2</a>:
-<ul><li>Wprowadzenie algorytmu ułatwiającego naukę</li>
-<li>Nowy wygląd ustawień</li>
-<li>Poprawki błędów</li>
-<li>Dodawanie słówka enterem</li>
-<li>Usuwanie całej bazy słowek</li>
-</ul>
-
-Funckje w wersji <a href="http://d-h.st/kjhc">v1.1.1</a>:
-<ul><li>Poprawiono poważny błąd z nagłym zatrzymaniem aplikacji</li></ul>
-
-Funkcje w wersji v1.1:
-<ul><li>Zmiana algorytmu wybierania słówek z bazy danych</li>
-<li>Dodano "Tryb nauki"</li>
-<li>Nowy wygląd, Floating Button na każdej wersji Androida</li>
-<li>Wybór częstotliwośći powiadomień</li>
-<li>Poprawki błędów</li>
-</ul>
-
-Funkcje w wersji v1.0:
-<ul><li>Wyświetlanie powiadomień co 15 minut, nawet przy wyłączonej aplikacji</li>
-<li>Losowe wyświetlanie się słów (fiszek)</li>
-<li>Włącz/wyłącz powiadomienia</li>
-<li>Wygląd zgodny ze standardami Material Desing</li>
-<li>Brak autokorekty podczas wpisywaniu słów</li></ul>
+<h2><a href="https://play.google.com/store/apps/details?id=eu.qm.fiszki">GooglePlay</a></h2>
+<br>
+<h3><a href="/changelog_pl">Changelog<a></h3>
 
 Wymagania: Android 4.0.4
