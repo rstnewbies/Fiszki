@@ -129,10 +129,12 @@ public class LearningCheckActivity extends AppCompatActivity {
     private void check() {
         if (mTranslate.getText().toString().trim().equals(mDrawnFlashcard.getTranslation())) {
             Toast.makeText(mActivity, R.string.alert_message_pass, Toast.LENGTH_LONG).show();
+            mFlashcardRepository.upFlashcardsPassStatistic(mDrawnFlashcard);
             mTranslate.setText("");
             drawFlashcard();
         } else {
             new BadAnswerLearnigDialog(mActivity, mDrawnFlashcard, this).show();
+            mFlashcardRepository.upFlashcardsFailStatistic(mDrawnFlashcard);
         }
     }
 
@@ -141,4 +143,6 @@ public class LearningCheckActivity extends AppCompatActivity {
         new FirebaseManager(this).sendEvent(FirebaseManager.Params.LEARNING_MENU_SKIP);
         Toast.makeText(this,R.string.learning_check_menu_skip_toast,Toast.LENGTH_SHORT).show();
     }
+
+
 }

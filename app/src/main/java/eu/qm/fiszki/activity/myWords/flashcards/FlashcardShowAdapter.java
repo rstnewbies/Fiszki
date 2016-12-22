@@ -40,7 +40,7 @@ public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdap
 
         holder.mWord.setText(flashcard.getWord());
         holder.mTranslation.setText(flashcard.getTranslation());
-        holder.mProcent.setText(makeProcent(flashcard));
+        setStatistic(holder,flashcard);
 
         holder.mMain.setOnClickListener(new FlashcardClick(mActivity, flashcard));
         holder.mMain.setOnLongClickListener(new FlashcardLongClick(mActivity, flashcard));
@@ -63,13 +63,24 @@ public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdap
         return position;
     }
 
-    private String makeProcent(Flashcard flashcard){
+    private void setStatistic(ViewHolder holder,Flashcard flashcard){
+        int procent = makeProcent(flashcard);
+        holder.mProcent.setText(procent+"%");
+        if(procent<=100 && procent>=65){
+            holder.mProcent.setTextColor(mActivity.getResources().getColor(R.color.statistic_100_65));
+        }else if (procent<65 && procent>=35){
+            holder.mProcent.setTextColor(mActivity.getResources().getColor(R.color.statistic_65_35));
+        }else{
+            holder.mProcent.setTextColor(mActivity.getResources().getColor(R.color.statistic_35_0));
+        }
+    }
+
+    private int makeProcent(Flashcard flashcard){
         int sum = flashcard.getStaticPass() + flashcard.getStaticFail();
         if(sum==0){
-            return "0%";
+            return 0;
         }else{
-            float procent = flashcard.getStaticPass()*100.0f / sum;
-            return procent+"%";
+            return (int)((flashcard.getStaticPass()*100f) / sum);
         }
     }
 
