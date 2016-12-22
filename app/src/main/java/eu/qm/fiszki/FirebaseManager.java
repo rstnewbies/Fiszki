@@ -48,6 +48,7 @@ public class FirebaseManager {
         public final static String NOTYFI_WRONG = "NOTYFICATION_WRONG";
         public final static String LEARNING_DIALOG_SKIP = "LEARNING DIALOG SKIP";
         public final static String LEARNING_MENU_SKIP = "LEARNING MENU SKIP";
+        public final static String FLASHCARD_STATISTIC_CLICK = "FLASHCARD STATISTIC CLICK";
 
     }
 }

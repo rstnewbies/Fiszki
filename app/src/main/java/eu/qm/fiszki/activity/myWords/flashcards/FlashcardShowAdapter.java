@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.listeners.flashcard.FlashcardClick;
 import eu.qm.fiszki.listeners.flashcard.FlashcardLongClick;
+import eu.qm.fiszki.listeners.flashcard.FlashcardStatisticClick;
 import eu.qm.fiszki.model.flashcard.Flashcard;
 
 /**
@@ -44,6 +45,7 @@ public class FlashcardShowAdapter extends RecyclerView.Adapter<FlashcardShowAdap
 
         holder.mMain.setOnClickListener(new FlashcardClick(mActivity, flashcard));
         holder.mMain.setOnLongClickListener(new FlashcardLongClick(mActivity, flashcard));
+        holder.mProcent.setOnClickListener(new FlashcardStatisticClick(mActivity,flashcard));
 
         if (SelectedFlashcardsSingleton.isFlashcard(flashcard)){
             holder.mMain.setBackgroundColor(mActivity.getResources().getColor(R.color.SelecteddColor));
