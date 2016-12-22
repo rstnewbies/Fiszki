@@ -94,6 +94,14 @@ public class Flashcard implements Serializable {
     public void upStaticPass() {
         this.staticPass++;
     }
+
+    public void upPriority(){
+        this.priority++;
+    }
+
+    public void downPriority(){
+        this.priority--;
+    }
 }
 
 

@@ -94,13 +94,23 @@ public class FlashcardRepository {
         return (ArrayList<Flashcard>) flashcardDao.queryForEq(Flashcard.columnFlashcardCategoryID, CategoryID);
     }
 
-    public void upFlashcardsFailStatistic(Flashcard flashcard){
+    public void upFlashcardFailStatistic(Flashcard flashcard){
         flashcard.upStaticFail();
         flashcardDao.update(flashcard);
     }
 
-    public void upFlashcardsPassStatistic(Flashcard flashcard){
+    public void upFlashcardPassStatistic(Flashcard flashcard){
         flashcard.upStaticPass();
+        flashcardDao.update(flashcard);
+    }
+
+    public void upFlashcardPriority(Flashcard flashcard){
+        flashcard.upPriority();
+        flashcardDao.update(flashcard);
+    }
+
+    public void downFlashcardPriority(Flashcard flashcard){
+        flashcard.downPriority();
         flashcardDao.update(flashcard);
     }
 
