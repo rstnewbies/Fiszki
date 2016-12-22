@@ -9,7 +9,7 @@ If you need to study faster, use our 'Learning Mode' wich allows you to translat
 
 <h2><a href="https://play.google.com/store/apps/details?id=eu.qm.fiszki">Fiszki now available on Google Play!</a></h2>
 <br>
-<h3><a href="/changelog_en">Changelog<a></h3>
+<h3><a href="/changelog_en.txt">Changelog<a></h3>
 
 <h2>Polski:</h2>
 <h3>Ucz się słówek szybciej niż kiedykolwiek!</h3>
@@ -20,6 +20,6 @@ Wszystko co musisz zrobić, to wpisać słowa, których chcesz się nauczyć</p>
 
 <h2><a href="https://play.google.com/store/apps/details?id=eu.qm.fiszki">GooglePlay</a></h2>
 <br>
-<h3><a href="/changelog_pl">Changelog<a></h3>
+<h3><a href="/changelog_pl.txt">Changelog<a></h3>
 
 Wymagania: Android 4.0.4
