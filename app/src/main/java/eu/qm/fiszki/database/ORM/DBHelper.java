@@ -39,14 +39,14 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource,
                           int oldVersion, int newVersion) {
         onCreate(database, connectionSource);
-        if(newVersion==3) {
+        if(newVersion>=3 && oldVersion<3) {
             getCategoryDao().executeRaw("ALTER TABLE `category` ADD COLUMN chosen BOOLEAN;");
         }
-        if(newVersion==4){
+        if(newVersion>=4 && oldVersion<4){
             getCategoryDao().executeRaw("ALTER TABLE `category` ADD COLUMN langFrom VARCHAR(255);");
             getCategoryDao().executeRaw("ALTER TABLE `category` ADD COLUMN langOn VARCHAR(255);");
         }
-        if(newVersion==5){
+        if(newVersion>=5 && oldVersion<5){
             getFlashcardDao()
                     .executeRaw("ALTER TABLE `flashcard` ADD COLUMN staticFail INT(255) DEFAULT '0';");
             getFlashcardDao()
