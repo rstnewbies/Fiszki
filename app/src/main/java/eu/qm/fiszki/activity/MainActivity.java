@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.apptentive.android.sdk.Apptentive;
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 import com.mikepenz.materialdrawer.Drawer;
@@ -41,11 +43,20 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton mFab;
     private CategoryRepository mCategoryRepository;
     private FlashcardRepository mFlashcardRepository;
+    private AdView mAdView1;
+    private AdView mAdView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAdView1 = (AdView) findViewById(R.id.adView1);
+        mAdView2 = (AdView) findViewById(R.id.adView2);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView1.loadAd(adRequest);
+        mAdView2.loadAd(adRequest);
+
         if(!FirebaseManager.Params.DEVELOP) {
             new FirebaseManager(this);
             Fabric.with(this, new Crashlytics());
