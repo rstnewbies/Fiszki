@@ -25,7 +25,5 @@
     <string name="title_activity_exam_bad_answer" translatable="false">ExamBadAnswerActivity</string>
 
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-8148281006844656/7625653527</string>
-
-    <string name="com.appsee.apikey" translatable="false">a286f4d453454c728b0680b662c2173d</string>
 </resources>
 

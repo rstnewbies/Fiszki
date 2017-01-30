@@ -5,9 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.appsee.Appsee;
-import com.google.firebase.analytics.FirebaseAnalytics;
-
 import io.fabric.sdk.android.Fabric;
 import java.util.Timer;
 
@@ -21,8 +18,6 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this);
-        Appsee.start(getString(R.string.com_appsee_apikey));
         setContentView(R.layout.splash_screen);
         mTimer = new Timer();
 
