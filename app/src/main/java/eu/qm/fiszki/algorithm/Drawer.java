@@ -1,7 +1,6 @@
 package eu.qm.fiszki.algorithm;
 
 import java.util.Random;
-
 /**
  * Created by mBoiler on 31.03.2016.
  */

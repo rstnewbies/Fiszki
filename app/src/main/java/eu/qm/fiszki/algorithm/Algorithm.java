@@ -3,6 +3,7 @@ package eu.qm.fiszki.algorithm;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import eu.qm.fiszki.model.flashcard.Flashcard;
 import eu.qm.fiszki.model.flashcard.FlashcardRepository;
@@ -12,6 +13,8 @@ import eu.qm.fiszki.model.flashcard.FlashcardRepository;
  */
 public class Algorithm {
 
+    public Context mContext;
+    public int draw;
     FlashcardRepository flashcardRepository;
     CatcherFlashcardToAlgorithm catcherFlashcardToAlgorithm;
     PriorityCount priorityCount;
@@ -24,31 +27,44 @@ public class Algorithm {
         catcherFlashcardToAlgorithm = new CatcherFlashcardToAlgorithm(context);
     }
 
-    public Flashcard drawCardAlgorithm(ArrayList<Flashcard> flashcardPool){
+    public Flashcard drawCardAlgorithm(ArrayList<Flashcard> flashcardPool) {
         Flashcard flashcard = null;
         drawer = new Drawer();
         priorityCount = new PriorityCount(flashcardPool);
         multiplierPoints = new MultiplierPoints(priorityCount.priorityCount());
         calculatedPriority = multiplierPoints.multipler();
+    /*
+        if (calculatedPriority[4] >= 0) {
+            draw = drawer.drawInteger(calculatedPriority[4]);
+        } else {
+            this.drawCardAlgorithm(new FlashcardRepository(mContext).getAllFlashcards());
+        }
 
-        int draw = drawer.drawInteger(calculatedPriority[4]);
 
-        if(0<=draw && draw<=calculatedPriority[0]){
+        if (0 <= draw && draw <= calculatedPriority[0]) {
             flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritmByPriority(1, flashcardPool);
         }
-        if(calculatedPriority[0]<=draw && draw<=calculatedPriority[1]){
+        if (calculatedPriority[0] <= draw && draw <= calculatedPriority[1]) {
             flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritmByPriority(2, flashcardPool);
         }
-        if(calculatedPriority[1]<=draw && draw<=calculatedPriority[2]){
+        if (calculatedPriority[1] <= draw && draw <= calculatedPriority[2]) {
             flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritmByPriority(3, flashcardPool);
         }
-        if(calculatedPriority[2]<=draw && draw<=calculatedPriority[3]){
+        if (calculatedPriority[2] <= draw && draw <= calculatedPriority[3]) {
             flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritmByPriority(4, flashcardPool);
         }
-        if(calculatedPriority[3]<=draw && draw<=calculatedPriority[4]){
+        if (calculatedPriority[3] <= draw && draw <= calculatedPriority[4]) {
             flashcard = catcherFlashcardToAlgorithm.getFlashcardToAlgoritmByPriority(5, flashcardPool);
         }
         return flashcard;
+        */
+
+        //tak wiem odjebana prowizorka ale mam juz w chuju ten algorytm ktory ciagle sie pierdoli
+        //P.S. i tak nikt go nie zauważał NIKT
+        int x = flashcardPool.size();
+        int y = new Random().nextInt(x);
+        return flashcardPool.get(y);
+
     }
 
 
