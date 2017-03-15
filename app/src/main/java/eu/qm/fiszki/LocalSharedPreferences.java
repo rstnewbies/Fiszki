@@ -10,18 +10,26 @@ import android.content.SharedPreferences;
 public class LocalSharedPreferences {
 
     private static final String NOTIFICATION_POSITION = "notification_time";
+    private static final String NOTIFICATION_STATUS = "notification_status";
+    private static final String NIGHTMODE_STATUS = "nightmode_status";
     private SharedPreferences mNotificationPositionPreferences;
     private SharedPreferences.Editor mNotificationPositionEditor;
-
-    private static final String NOTIFICATION_STATUS = "notification_status";
     private SharedPreferences mNotificationStatusPreferences;
     private SharedPreferences.Editor mNotificationStatusEditor;
+    private SharedPreferences mNightModePreferences;
+    private SharedPreferences.Editor mNightModeEditor;
 
     public LocalSharedPreferences(Activity activity) {
         mNotificationStatusPreferences = activity.getSharedPreferences(NOTIFICATION_POSITION, Context.MODE_PRIVATE);
         mNotificationPositionPreferences = activity.getSharedPreferences(NOTIFICATION_STATUS, Context.MODE_PRIVATE);
+        mNightModePreferences = activity.getSharedPreferences(NIGHTMODE_STATUS, Context.MODE_PRIVATE);
         mNotificationPositionEditor = mNotificationStatusPreferences.edit();
         mNotificationStatusEditor = mNotificationPositionPreferences.edit();
+        mNightModeEditor = mNotificationPositionPreferences.edit();
+    }
+
+    public int getNotificationPosition() {
+        return mNotificationStatusPreferences.getInt(NOTIFICATION_POSITION, 0);
     }
 
     public void setNotificationPosition(int volume) {
@@ -30,19 +38,29 @@ public class LocalSharedPreferences {
         mNotificationPositionEditor.commit();
     }
 
-    public int getNotificationPosition(){
-        return mNotificationStatusPreferences.getInt(NOTIFICATION_POSITION,0);
+    /*
+     *status 1 - notyfication on
+     *status 0 - notyfication off
+     */
+    public int getNightModeStatus() {
+        return mNotificationPositionPreferences.getInt(NOTIFICATION_STATUS, 0);
+    }
+
+    public void setNightModeStatus(int volume) {
+        mNotificationStatusEditor.clear();
+        mNotificationStatusEditor.putInt(NOTIFICATION_STATUS, volume);
+        mNotificationStatusEditor.commit();
     }
 
     /*
      *status 1 - notyfication on
      *status 0 - notyfication off
      */
-    public int getNotificationStatus(){
-        return mNotificationPositionPreferences.getInt(NOTIFICATION_STATUS,0);
+    public int getNotificationStatus() {
+        return mNotificationPositionPreferences.getInt(NOTIFICATION_STATUS, 0);
     }
 
-    public void setNotificationStatus(int volume){
+    public void setNotificationStatus(int volume) {
         mNotificationStatusEditor.clear();
         mNotificationStatusEditor.putInt(NOTIFICATION_STATUS, volume);
         mNotificationStatusEditor.commit();

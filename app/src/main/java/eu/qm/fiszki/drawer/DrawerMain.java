@@ -10,6 +10,7 @@ import eu.qm.fiszki.drawer.drawerItem.ClearDataBase;
 import eu.qm.fiszki.drawer.drawerItem.Contact;
 import eu.qm.fiszki.drawer.drawerItem.Exit;
 import eu.qm.fiszki.drawer.drawerItem.Frequenc;
+import eu.qm.fiszki.drawer.drawerItem.NightMode;
 import eu.qm.fiszki.drawer.drawerItem.SelectCategory;
 import eu.qm.fiszki.drawer.drawerItem.SwitchNotyfication;
 import eu.qm.fiszki.drawer.drawerItem.Tutorial;
@@ -25,6 +26,8 @@ public class DrawerMain extends DrawerBuilder {
         this.addDrawerItems(new Frequenc(activity));
         this.addDrawerItems(new SelectCategory(activity));
         this.addDrawerItems(new ClearDataBase(activity));
+        this.addDrawerItems(new DividerDrawerItem());
+        this.addDrawerItems(new NightMode(activity));
         this.addDrawerItems(new DividerDrawerItem());
         this.addDrawerItems(new Contact(activity));
         this.addDrawerItems(new Tutorial(activity));
