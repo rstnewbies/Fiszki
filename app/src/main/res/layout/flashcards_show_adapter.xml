@@ -7,14 +7,14 @@
     android:layout_margin="8dp"
     card_view:cardCornerRadius="2dp"
     card_view:cardElevation="8dp"
-    card_view:cardBackgroundColor="@color/White">
+    android:background="?android:attr/windowBackground">
 
     <!-- Used for the ripple effect on touch -->
     <RelativeLayout
         android:id="@+id/mainCard"
         android:layout_width="match_parent"
         android:layout_height="88dp"
-        android:background="?android:selectableItemBackground"
+        android:background="?android:attr/windowBackground"
         android:elevation="8dp"
         android:padding="12dp">
 

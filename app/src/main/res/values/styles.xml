@@ -1,8 +1,10 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/ColorPrimary</item>
         <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
+        <item name="colorAccent">@color/ColorPrimaryDark</item>
+        <item name="android:colorBackground">@color/bg_cards</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -16,6 +18,13 @@
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+    <style name="NightMode" parent="Theme.AppCompat.NoActionBar" >
+        <item name="colorPrimary">@color/ColorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/ColorPrimaryText</item>
+        <item name="colorAccent">@color/ColorPrimaryText</item>
+        <item name="android:windowBackground">?attr/colorButtonNormal</item>
     </style>
 
 </resources>

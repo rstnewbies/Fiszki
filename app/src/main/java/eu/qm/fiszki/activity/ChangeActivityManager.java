@@ -75,4 +75,9 @@ public class ChangeActivityManager {
         mActivity.finish();
         mActivity.overridePendingTransition(R.anim.right_out, R.anim.left_in);
     }
+
+    public void resetMain(){
+        mActivity.finish();
+        mActivity.startActivity(new Intent(mActivity, MainActivity.class));
+    }
 }

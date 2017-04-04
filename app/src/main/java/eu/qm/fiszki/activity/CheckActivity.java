@@ -15,6 +15,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.FirebaseManager;
+import eu.qm.fiszki.NightModeController;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.algorithm.Algorithm;
 import eu.qm.fiszki.algorithm.CatcherFlashcardToAlgorithm;
@@ -44,6 +45,7 @@ public class CheckActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new NightModeController(this).useTheme();
         setContentView(R.layout.activity_check);
         setToolbar();
         init();

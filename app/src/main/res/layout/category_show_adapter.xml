@@ -13,7 +13,7 @@
         android:id="@+id/mainCard"
         android:layout_width="match_parent"
         android:layout_height="88dp"
-        android:background="?android:selectableItemBackground"
+        android:background="?android:attr/windowBackground"
         android:elevation="8dp"
         android:padding="12dp">
 
@@ -32,26 +32,27 @@
             android:id="@+id/category_lang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/editBtn"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/editBtn"
             android:singleLine="true"
-            />
+            android:text=""
+            android:textColor="?android:attr/textColorSecondary"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/category_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:text=""
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_above="@+id/editBtn"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_above="@+id/editBtn" />
+            android:singleLine="true"
+            android:text=""
+            android:textColor="?android:attr/textColorPrimary"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </RelativeLayout>
 

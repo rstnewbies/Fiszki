@@ -16,6 +16,6 @@
         android:id="@+id/listview_category"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/likeWhite" />
+        android:background="?android:attr/colorBackground"/>
 
 </RelativeLayout>

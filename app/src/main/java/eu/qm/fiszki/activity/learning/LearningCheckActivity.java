@@ -16,6 +16,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.FirebaseManager;
+import eu.qm.fiszki.NightModeController;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.ChangeActivityManager;
 import eu.qm.fiszki.algorithm.Algorithm;
@@ -42,6 +43,7 @@ public class LearningCheckActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new NightModeController(this).useTheme();
         setContentView(R.layout.activity_learning_check);
         init();
         buildToolbar();

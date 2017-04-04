@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import eu.qm.fiszki.NightModeController;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.myWords.CategoryManagerSingleton;
 import eu.qm.fiszki.activity.myWords.category.CategoryActivity;
@@ -41,6 +42,7 @@ public class FlashcardsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new NightModeController(this).useTheme();
         setContentView(R.layout.flashcards_activity);
         init();
         buildToolbar();

@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import eu.qm.fiszki.FirebaseManager;
+import eu.qm.fiszki.NightModeController;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.ChangeActivityManager;
 import eu.qm.fiszki.dialogs.learning.ByCategoryLearningDialog;
@@ -20,6 +21,7 @@ public class LearningActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new NightModeController(this).useTheme();
         setContentView(R.layout.activity_learning);
 
         buildToolbar();

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import eu.qm.fiszki.FirebaseManager;
+import eu.qm.fiszki.NightModeController;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.dialogs.category.AddCategoryDialog;
 import eu.qm.fiszki.model.category.Category;
@@ -32,6 +33,7 @@ public class CategoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new NightModeController(this).useTheme();
         setContentView(R.layout.category_activity);
         init();
         buildToolbar();

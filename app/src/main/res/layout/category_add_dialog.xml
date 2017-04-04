@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="0.05"
-    android:background="@color/White"
     android:orientation="vertical"
     android:weightSum="1">
 
@@ -22,7 +21,8 @@
         app:met_floatingLabel="highlight"
         app:met_floatingLabelTextSize="20dp"
         app:met_primaryColor="@color/ColorPrimaryDark"
-        app:met_singleLineEllipsis="true" />
+        app:met_singleLineEllipsis="true"
+        app:met_textColor="?android:attr/textColorPrimary"/>
 
     <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
         android:id="@+id/add_category_dialog_lang_from"
@@ -38,7 +38,8 @@
         android:layout_alignLeft="@+id/add_category_dialog_et_name"
         android:layout_alignStart="@+id/add_category_dialog_et_name"
         android:layout_alignRight="@+id/add_category_dialog_et_name"
-        android:layout_alignEnd="@+id/add_category_dialog_et_name" />
+        android:layout_alignEnd="@+id/add_category_dialog_et_name"
+        app:met_textColor="?android:attr/textColorPrimary"/>
 
     <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
         android:id="@+id/add_category_dialog_lang_on"
@@ -54,7 +55,8 @@
         android:layout_alignRight="@+id/add_category_dialog_lang_from"
         android:layout_alignEnd="@+id/add_category_dialog_lang_from"
         android:layout_alignLeft="@+id/add_category_dialog_lang_from"
-        android:layout_alignStart="@+id/add_category_dialog_lang_from" />
+        android:layout_alignStart="@+id/add_category_dialog_lang_from"
+        app:met_textColor="?android:attr/textColorPrimary"/>
 </RelativeLayout>
 
 

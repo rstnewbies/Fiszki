@@ -22,6 +22,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import eu.qm.fiszki.Alert;
 import eu.qm.fiszki.FirebaseManager;
+import eu.qm.fiszki.NightModeController;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.dialogs.flashcard.QuicklyAddFlashcardDialog;
 import eu.qm.fiszki.activity.exam.ExamActivity;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new NightModeController(this).useTheme();
         setContentView(R.layout.activity_main);
 
         if(!FirebaseManager.Params.DEVELOP) {

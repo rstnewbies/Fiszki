@@ -19,7 +19,8 @@
         app:met_floatingLabel="highlight"
         app:met_floatingLabelTextSize="20dp"
         app:met_primaryColor="@color/ColorPrimaryDark"
-        app:met_singleLineEllipsis="true" />
+        app:met_singleLineEllipsis="true"
+        app:met_textColor="?android:attr/textColorPrimary"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/add_flashcard_et_translation"
@@ -35,6 +36,7 @@
         app:met_floatingLabel="highlight"
         app:met_floatingLabelTextSize="20dp"
         app:met_primaryColor="@color/ColorPrimaryDark"
-        app:met_singleLineEllipsis="true" />
+        app:met_singleLineEllipsis="true"
+        app:met_textColor="?android:attr/textColorPrimary"/>
 
 </RelativeLayout>

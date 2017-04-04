@@ -1,8 +1,12 @@
 package eu.qm.fiszki.listeners.flashcard;
 
 import android.app.Activity;
+import android.content.res.Resources;
+import android.support.annotation.ColorInt;
+import android.util.TypedValue;
 import android.view.View;
 
+import eu.qm.fiszki.NightModeController;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.myWords.flashcards.SelectedFlashcardsSingleton;
 import eu.qm.fiszki.model.flashcard.Flashcard;
@@ -29,7 +33,15 @@ public class FlashcardLongClick implements View.OnLongClickListener {
     public boolean onLongClick(View view) {
         if (SelectedFlashcardsSingleton.findFlashcard(mFlashcard)) {
             SelectedFlashcardsSingleton.removeFlashcard(mFlashcard);
-            view.setBackgroundColor(mActivity.getResources().getColor(R.color.White));
+            if(new NightModeController(mActivity).getStatus()==0) {
+                view.setBackgroundColor(mActivity.getResources().getColor(R.color.White));
+            }else{
+                TypedValue typedValue = new TypedValue();
+                Resources.Theme theme = mActivity.getTheme();
+                theme.resolveAttribute(android.R.attr.windowBackground, typedValue, true);
+                @ColorInt int color = typedValue.data;
+                view.setBackgroundColor(color);
+            }
         } else {
             SelectedFlashcardsSingleton.addFlashcards(mFlashcard);
             view.setBackgroundColor(mActivity.getResources().getColor(R.color.SelecteddColor));

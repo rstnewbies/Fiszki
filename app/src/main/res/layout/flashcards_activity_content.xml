@@ -5,8 +5,8 @@
     android:id="@+id/listview_flashcard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/likeWhite"
     android:divider="@android:color/transparent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activity.myWords.category.CategoryActivity"
-    tools:showIn="@layout/flashcards_activity" />
+    tools:showIn="@layout/flashcards_activity"
+    android:background="?android:attr/colorBackground"/>

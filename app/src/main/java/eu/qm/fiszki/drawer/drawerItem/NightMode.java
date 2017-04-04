@@ -10,17 +10,19 @@ import com.mikepenz.materialdrawer.model.SwitchDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import eu.qm.fiszki.LocalSharedPreferences;
+import eu.qm.fiszki.NightModeController;
 import eu.qm.fiszki.R;
+import eu.qm.fiszki.activity.ChangeActivityManager;
 
 /**
  * Created by Siusiacz on 09.07.2016.
  */
 public class NightMode extends SwitchDrawerItem {
 
-    private LocalSharedPreferences mLocalSharedPreferences;
+    private NightModeController nightModeController;
 
     public NightMode(final Activity activity) {
-        mLocalSharedPreferences = new LocalSharedPreferences(activity);
+        nightModeController = new NightModeController(activity);
 
         this.withName(R.string.drawer_nightmode);
         this.withIcon(R.drawable.ic_weather_night);
@@ -28,7 +30,7 @@ public class NightMode extends SwitchDrawerItem {
         this.withSelectable(false);
 
         //Sync switch position
-        if (mLocalSharedPreferences.getNightModeStatus() == 0) {
+        if (nightModeController.getStatus() == 0) {
             this.withChecked(false);
         } else {
             this.withChecked(true);
@@ -39,10 +41,12 @@ public class NightMode extends SwitchDrawerItem {
             public void onCheckedChanged(IDrawerItem drawerItem, CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     Toast.makeText(activity,activity.getString(R.string.drawer_nightmode_toast_on),Toast.LENGTH_SHORT).show();
-                    mLocalSharedPreferences.setNightModeStatus(1);
+                    nightModeController.on();
+                    new ChangeActivityManager(activity).resetMain();
                 }else{
                     Toast.makeText(activity,activity.getString(R.string.drawer_nightmode_toast_off),Toast.LENGTH_SHORT).show();
-                    mLocalSharedPreferences.setNightModeStatus(0);
+                    nightModeController.off();
+                    new ChangeActivityManager(activity).resetMain();
                 }
             }
         });

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import eu.qm.fiszki.NightModeController;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.dialogs.exam.SetRangeExamDialog;
 import eu.qm.fiszki.dialogs.exam.SetRepeatExamDialog;
@@ -16,6 +17,7 @@ public class ExamActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new NightModeController(this).useTheme();
         setContentView(R.layout.activity_exam);
 
         buildToolbar();
