@@ -8,7 +8,8 @@
     android:screenOrientation="portrait"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="eu.qm.fiszki.activity.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:background="?android:attr/colorBackground">
 
 
     <android.support.v4.widget.NestedScrollView

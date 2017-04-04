@@ -22,7 +22,6 @@ public class TutorialActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new NightModeController(this).useTheme();
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_tutorial);
 
         if (savedInstanceState == null) {
