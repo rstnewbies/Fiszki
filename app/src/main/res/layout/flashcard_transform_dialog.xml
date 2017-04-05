@@ -6,6 +6,7 @@
     <com.jaredrummler.materialspinner.MaterialSpinner
         android:id="@+id/transform_spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/md_black_1000"/>
 
 </LinearLayout>
