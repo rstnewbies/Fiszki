@@ -20,9 +20,13 @@
 
     <string name="drawer_freqenc_name">Częstotliwość notyfikacji</string>
 
-    <string name="drawer_nightmode">Tryb nocny</string>
+    <string name="drawer_nightmode_name">Tryb nocny</string>
     <string name="drawer_nightmode_toast_on">Tryb nocny włączony</string>
     <string name="drawer_nightmode_toast_off">Tryb nocny wyłączony</string>
+
+    <string name="drawer_login_name">Zaloguj</string>
+
+    <string name="drawer_logout_name">Wyloguj</string>
 
 
 </resources>

@@ -1,7 +1,6 @@
 package eu.qm.fiszki.drawer.drawerItem;
 
 import android.app.Activity;
-import android.provider.Settings;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
@@ -9,7 +8,6 @@ import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
 import com.mikepenz.materialdrawer.model.SwitchDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import eu.qm.fiszki.LocalSharedPreferences;
 import eu.qm.fiszki.NightModeController;
 import eu.qm.fiszki.R;
 import eu.qm.fiszki.activity.ChangeActivityManager;
@@ -24,7 +22,7 @@ public class NightMode extends SwitchDrawerItem {
     public NightMode(final Activity activity) {
         nightModeController = new NightModeController(activity);
 
-        this.withName(R.string.drawer_nightmode);
+        this.withName(R.string.drawer_nightmode_name);
         this.withIcon(R.drawable.ic_weather_night);
         this.withCheckable(false);
         this.withSelectable(false);

@@ -44,4 +44,6 @@
 
     <string name="alert_empty_selected_category">Selected categories are empty, so learning will be of the entire pool of your flashcards.</string>
 
+    <string name="alert_connection_fail">Connection fail. Check internet connection.</string>
+
 </resources>

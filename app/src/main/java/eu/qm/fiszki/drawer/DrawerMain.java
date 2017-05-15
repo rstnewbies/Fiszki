@@ -6,10 +6,13 @@ import android.support.v7.widget.Toolbar;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 
+import eu.qm.fiszki.AccountController;
 import eu.qm.fiszki.drawer.drawerItem.ClearDataBase;
 import eu.qm.fiszki.drawer.drawerItem.Contact;
 import eu.qm.fiszki.drawer.drawerItem.Exit;
 import eu.qm.fiszki.drawer.drawerItem.Frequenc;
+import eu.qm.fiszki.drawer.drawerItem.Login;
+import eu.qm.fiszki.drawer.drawerItem.Logout;
 import eu.qm.fiszki.drawer.drawerItem.NightMode;
 import eu.qm.fiszki.drawer.drawerItem.SelectCategory;
 import eu.qm.fiszki.drawer.drawerItem.SwitchNotyfication;
@@ -23,6 +26,12 @@ public class DrawerMain extends DrawerBuilder {
         this.withToolbar(toolbar);
         this.withAccountHeader(new DrawerHeader(activity).build());
         this.withSelectedItem(-1);
+        if(new AccountController(activity).getStatus()==null) {
+            this.addDrawerItems(new Login(activity));
+        }else{
+            this.addDrawerItems(new Logout(activity));
+        }
+        this.addDrawerItems(new DividerDrawerItem());
         this.addDrawerItems(new Frequenc(activity));
         this.addDrawerItems(new SelectCategory(activity));
         this.addDrawerItems(new ClearDataBase(activity));

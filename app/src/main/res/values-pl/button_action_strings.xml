@@ -8,4 +8,5 @@
     <string name="button_action_add_new_category">Dodaj</string>
     <string name="button_action_cancel">ANULUJ</string>
     <string name="button_action_info">Informacje</string>
+    <string name="button_action_login">Zaloguj</string>
 </resources>
