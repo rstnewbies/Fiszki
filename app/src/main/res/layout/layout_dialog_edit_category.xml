@@ -16,7 +16,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/editCategory"
             android:hint="@string/edit_category_name"
-            app:met_floatingLabel="highlight"
             app:met_singleLineEllipsis="true"
             app:met_primaryColor="@color/ColorPrimaryDark"
             app:met_floatingLabelTextSize="20dp"
